@@ -36,15 +36,15 @@ const NavigationHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
-  
+
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
   }, [isMobileMenuOpen]);
 
@@ -53,20 +53,20 @@ const NavigationHeader = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full h-20 bg-primary/90 backdrop-blur-[8px] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.04),0px_2px_4px_0px_rgba(0,0,0,0.08)]">
-      <div className="max-w-[1280px] mx-auto px-10 h-full flex items-center justify-between">
+    <header className="sticky top-6 z-50 flex w-full justify-center px-4">
+      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-[#0f3536] px-6 py-3 shadow-[0_10px_30px_rgba(1,28,42,0.25)] backdrop-blur-sm lg:px-10">
         <Link href="/" className="flex-shrink-0">
           <Image
             src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/uefZpqehpfg3Yk6PexORXxnOA-1.png"
             alt="Lambda Charity Logo"
-            width={120}
-            height={35}
+            width={135}
+            height={40}
             priority
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden items-center gap-8 lg:flex">
           {navItems.map((item) =>
             item.dropdown ? (
               <div
@@ -75,18 +75,24 @@ const NavigationHeader = () => {
                 onMouseEnter={() => setOpenDropdown(item.name)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <button className="flex items-center gap-1.5 text-nav-link text-white transition-opacity duration-300 hover:opacity-80">
+                <button
+                  className={`flex items-center gap-1.5 text-sm font-medium transition-colors duration-300 ${
+                    item.name === "Home"
+                      ? "text-[#bfffc7]"
+                      : "text-white/80 hover:text-[#bfffc7]"
+                  }`}
+                >
                   {item.name}
-                  <ChevronDown className="w-2.5 h-2.5 text-white transition-transform duration-300" />
+                  <ChevronDown className="h-3 w-3 text-current transition-transform duration-300" />
                 </button>
                 {openDropdown === item.name && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
-                    <div className="bg-primary/90 backdrop-blur-[8px] rounded-lg shadow-lg overflow-hidden whitespace-nowrap">
+                  <div className="absolute top-full left-1/2 w-max -translate-x-1/2 pt-4">
+                    <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0f3536]/95 backdrop-blur-sm shadow-lg">
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="block px-4 py-2 text-sm text-white hover:bg-white/10"
+                          className="block whitespace-nowrap px-4 py-2 text-sm text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-white"
                         >
                           {subItem.name}
                         </Link>
@@ -99,7 +105,11 @@ const NavigationHeader = () => {
               <Link
                 key={item.name}
                 href={item.href!}
-                className="text-nav-link text-white transition-opacity duration-300 hover:opacity-80"
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  item.name === "Home"
+                    ? "text-[#bfffc7]"
+                    : "text-white/80 hover:text-[#bfffc7]"
+                }`}
               >
                 {item.name}
               </Link>
@@ -110,7 +120,7 @@ const NavigationHeader = () => {
         <div className="hidden lg:block">
           <Link
             href="/contact-us"
-            className="text-button text-primary bg-secondary rounded-[24px] px-6 py-3 transition-all duration-300 ease-in-out hover:bg-accent hover:scale-[1.02] block"
+            className="inline-flex items-center rounded-full bg-[#c6ffbf] px-6 py-2.5 text-sm font-semibold text-[#0f3536] transition-transform duration-300 hover:scale-[1.05]"
           >
             Donate Now
           </Link>
@@ -121,11 +131,12 @@ const NavigationHeader = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
+            className="rounded-full bg-white/10 p-2 text-white transition-colors duration-200 hover:bg-white/20"
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-white" />
+              <X className="h-6 w-6" />
             ) : (
-              <MenuIcon className="w-6 h-6 text-white" />
+              <MenuIcon className="h-6 w-6" />
             )}
           </button>
         </div>
@@ -133,7 +144,7 @@ const NavigationHeader = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-0 w-full h-[calc(100vh-80px)] bg-primary px-10 py-5 overflow-y-auto">
+        <div className="absolute top-[92px] left-0 w-full bg-[#0f3536] px-6 py-6 shadow-[0_20px_40px_rgba(5,34,46,0.45)] lg:hidden">
           <nav className="flex flex-col">
             {navItems.map((item) => (
               <div key={item.name} className="border-b border-white/10">
@@ -141,23 +152,25 @@ const NavigationHeader = () => {
                   <>
                     <button
                       onClick={() => toggleSubmenu(item.name)}
-                      className="w-full flex justify-between items-center py-4 text-nav-link text-white"
+                      className={`flex w-full items-center justify-between py-4 text-sm font-medium text-white/80 ${
+                        activeSubmenu === item.name ? "text-[#bfffc7]" : ""
+                      }`}
                     >
                       <span>{item.name}</span>
                       <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-300 ${
+                        className={`h-4 w-4 transition-transform duration-300 ${
                           activeSubmenu === item.name ? "rotate-180" : ""
                         }`}
                       />
                     </button>
                     {activeSubmenu === item.name && (
-                      <div className="flex flex-col pl-4 pb-2">
+                      <div className="flex flex-col pb-2 pl-4 text-sm text-white/70">
                         {item.dropdown.map((subItem) => (
                           <Link
                             key={subItem.name}
                             href={subItem.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="py-2 text-sm text-white/80"
+                            className="py-2 transition-colors duration-200 hover:text-white"
                           >
                             {subItem.name}
                           </Link>
@@ -169,7 +182,11 @@ const NavigationHeader = () => {
                   <Link
                     href={item.href!}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-4 text-nav-link text-white"
+                    className={`block py-4 text-sm font-medium transition-colors duration-200 ${
+                      item.name === "Home"
+                        ? "text-[#bfffc7]"
+                        : "text-white/80 hover:text-white"
+                    }`}
                   >
                     {item.name}
                   </Link>
@@ -180,7 +197,7 @@ const NavigationHeader = () => {
           <Link
             href="/contact-us"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="mt-6 inline-block w-full text-center text-button text-primary bg-secondary rounded-[24px] px-6 py-3 transition-colors duration-300 hover:bg-accent"
+            className="mt-6 inline-flex w-full justify-center rounded-full bg-[#c6ffbf] px-6 py-3 text-sm font-semibold text-[#0f3536] transition-transform duration-300 hover:scale-[1.02]"
           >
             Donate Now
           </Link>
