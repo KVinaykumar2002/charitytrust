@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const ICON_URL = "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/4eAMsNzUjKOUV7HGua6I1vr4Q-10.svg";
+const ICON_URL = "/sscroll_icon.svg";
 
 const JoinBanner = () => {
     const keyframes = `
