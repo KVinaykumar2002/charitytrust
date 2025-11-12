@@ -14,34 +14,68 @@ import {
 
 const heroSlides = [
   {
-    title: "Transforming Lives with Compassion",
+    title: "Celebrating Lifesaving Achievements",
     description:
-      "Join Lambda in delivering vital aid, empowering communities, and inspiring hope where it’s needed most.",
-    ctaLabel: "Donate Now",
-    ctaHref: "/contact-us",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/btHP5zn1GplKZHcF5Fhw29qNoQ-2.jpg",
-    badge: "Hope in Action",
+      "Honouring the teams and supporters who make Chiranjeevi Charitable Trust a beacon of hope for thousands each year.",
+    ctaLabel: "Explore Our Work",
+    ctaHref: "/#impact",
+    image: "/hero/22dc_chiranjeevi.jpg",
+    badge: "Community Impact",
   },
   {
-    title: "Every Contribution Creates Change",
+    title: "Global Partnerships for Better Care",
     description:
-      "From emergency response to long-term education, your support fuels life-changing programs around the globe.",
-    ctaLabel: "Discover Programs",
-    ctaHref: "/#programs",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/ysXZlrm78bvozoT4e0KoJNJqvAA-6.jpg",
-    badge: "Together We Rise",
+      "Collaborating with international leaders to expand access to advanced eye and blood care across India.",
+    ctaLabel: "View Collaborations",
+    ctaHref: "/#partners",
+    image: "/hero/Star-Hospitals.jpg",
+    badge: "Worldwide Support",
   },
   {
-    title: "Stand With Communities Worldwide",
+    title: "Inspiring the Next Generation",
     description:
-      "Help us provide clean water, healthcare, and sustainable livelihoods for families facing hardship.",
-    ctaLabel: "Get Involved",
-    ctaHref: "/#volunteer",
+      "Mentoring young changemakers who carry forward our mission of compassion and service.",
+    ctaLabel: "Meet Our Champions",
+    ctaHref: "/#leaders",
+    image: "/hero/chiranjeevi-ram-charan-giving-mementos-fans.jpg",
+    badge: "Youth Leadership",
+  },
+  {
+    title: "Honouring Excellence in Service",
+    description:
+      "Recognising extraordinary dedication that transforms lives through innovation and heartfelt care.",
+    ctaLabel: "Read Their Stories",
+    ctaHref: "/#stories",
     image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/w3vLvJZwbQ1QQcuGTUAuI5UEU-7.jpg",
-    badge: "Compassion in Motion",
+      "/hero/chiranjeevi-few-days-ago-prior-blood-donation-drive-had-thanked-his-fans-initiative.jpg",
+    badge: "Excellence Awards",
+  },
+  {
+    title: "Standing Beside Every Donor",
+    description:
+      "Providing comfort, gratitude, and assurance to every donor whose generosity fuels our lifesaving work.",
+    ctaLabel: "Give Blood Today",
+    ctaHref: "/#donate-blood",
+    image: "/hero/GYIxcb2X0AABGwm.jpg",
+    badge: "Donor Care",
+  },
+  {
+    title: "Conversations that Drive Change",
+    description:
+      "Uniting medical experts and supporters to advance cancer and hematology care through collective action.",
+    ctaLabel: "Join the Dialogue",
+    ctaHref: "/#events",
+    image: "/hero/Star-caner-hospital.jpg",
+    badge: "Advocacy Forum",
+  },
+  {
+    title: "A Legacy of Record-Breaking Compassion",
+    description:
+      "Celebrating milestones that set world records and inspire millions to choose kindness.",
+    ctaLabel: "Celebrate With Us",
+    ctaHref: "/#milestones",
+    image: "/hero/FjDWNV8VUAEDIqg.jpg",
+    badge: "Historic Moments",
   },
 ];
 
@@ -51,9 +85,9 @@ const HeroBanner = () => {
 
   const autoplayPlugin = React.useRef(
     Autoplay({
-      delay: 1500,
+      delay: 3500,
       stopOnInteraction: false,
-      stopOnMouseEnter: true,
+      stopOnMouseEnter: false,
     })
   );
 
@@ -61,7 +95,6 @@ const HeroBanner = () => {
     if (!api) return;
 
     const handleSelect = () => setCurrent(api.selectedScrollSnap());
-
     handleSelect();
     api.on("select", handleSelect);
     api.on("reInit", handleSelect);
@@ -73,8 +106,7 @@ const HeroBanner = () => {
   }, [api]);
 
   return (
-    <section className="relative w-full min-h-screen -mt-4">
-
+    <section className="relative w-full min-h-screen mt-0 overflow-hidden">
       <Carousel
         className="w-full"
         opts={{ loop: true, align: "start" }}
@@ -89,23 +121,15 @@ const HeroBanner = () => {
                   src={slide.image}
                   alt={slide.title}
                   fill
-                  className="object-cover scale-105 brightness-[0.7] saturate-[0.85] blur-[1px]"
+                  className="object-cover scale-105"
                   priority={index === 0}
                   quality={100}
                 />
 
-                <div className="absolute inset-0 bg-white/25" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/70" />
+                {/* dark gradient overlay for text readability */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/70" />
 
-                <div className="absolute inset-0 opacity-20">
-        <Image
-          src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/CeCwfeyraF9GE1LyrrBYqLdgg-3.png"
-                    alt="Decorative pattern"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
+                {/* main hero content */}
                 <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col items-center gap-8 px-6 text-center md:px-12 lg:px-20">
                   <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white/80 md:text-sm md:tracking-[0.6em]">
                     {slide.badge}
@@ -113,34 +137,35 @@ const HeroBanner = () => {
 
                   <h1 className="max-w-4xl text-4xl font-bold leading-tight tracking-[-0.02em] text-white md:text-5xl lg:text-[56px] lg:leading-[64px]">
                     {slide.title}
-          </h1>
-          
+                  </h1>
+
                   <p className="max-w-2xl text-base text-white/80 md:text-lg md:leading-7">
                     {slide.description}
-            </p>
-            
-            <Link
+                  </p>
+
+                  <Link
                     href={slide.ctaHref}
                     className="inline-flex items-center rounded-[32px] bg-primary px-12 py-4 text-base font-medium text-primary-foreground transition-transform duration-300 hover:scale-105 hover:bg-[#244543]"
-            >
+                  >
                     {slide.ctaLabel}
-            </Link>
-          </div>
-        </div>
+                  </Link>
+                </div>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
 
+        {/* carousel indicators */}
         <div className="pointer-events-none absolute bottom-10 left-0 right-0 z-20 flex justify-center gap-2">
           {heroSlides.map((_, index) => (
             <span
               key={index}
               className={`h-1.5 w-10 rounded-full transition-all duration-500 ${
-                current === index ? "bg-white" : "bg-white/30"
+                current === index ? "bg-white" : "bg-white/50"
               }`}
             />
           ))}
-      </div>
+        </div>
       </Carousel>
     </section>
   );
