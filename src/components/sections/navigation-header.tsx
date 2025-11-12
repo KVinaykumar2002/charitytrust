@@ -53,7 +53,9 @@ const NavigationHeader = () => {
   };
 
   return (
-    <header className="sticky top-6 z-50 flex w-full justify-center px-4">
+    <header className="fixed top-4 z-50 flex w-full justify-center px-4">
+
+
       <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-[#0f3536] px-6 py-3 shadow-[0_10px_30px_rgba(1,28,42,0.25)] backdrop-blur-sm lg:px-10">
         <Link href="/" className="flex-shrink-0">
           <Image

@@ -51,7 +51,7 @@ const HeroBanner = () => {
 
   const autoplayPlugin = React.useRef(
     Autoplay({
-      delay: 1000,
+      delay: 1500,
       stopOnInteraction: false,
       stopOnMouseEnter: true,
     })
@@ -73,22 +73,23 @@ const HeroBanner = () => {
   }, [api]);
 
   return (
-    <section className="relative w-full">
+    <section className="relative w-full min-h-screen -mt-4">
+
       <Carousel
         className="w-full"
         opts={{ loop: true, align: "start" }}
         plugins={[autoplayPlugin.current]}
         setApi={setApi}
       >
-        <CarouselContent className="ml-0 h-[90vh]">
+        <CarouselContent className="ml-0 h-screen">
           {heroSlides.map((slide, index) => (
             <CarouselItem key={slide.title} className="pl-0">
-              <div className="relative flex h-[90vh] w-full items-center justify-center overflow-hidden">
+              <div className="relative flex h-screen w-full items-center justify-center overflow-hidden">
                 <Image
                   src={slide.image}
                   alt={slide.title}
                   fill
-                  className="object-cover"
+                  className="object-cover scale-105 brightness-[0.7] saturate-[0.85] blur-[1px]"
                   priority={index === 0}
                   quality={100}
                 />
