@@ -1,10 +1,73 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect, useRef, useState } from 'react';
+
 import Link from 'next/link';
 import Image from 'next/image';
 
 const ICON_URL = "/sscroll_icon.svg";
+const TARGET_COUNT = 139_364;
+const COUNT_DURATION = 1500;
 
 const JoinBanner = () => {
+    const sectionRef = useRef<HTMLDivElement | null>(null);
+    const animationFrameRef = useRef<number | null>(null);
+    const startTimestampRef = useRef<number | null>(null);
+    const [displayCount, setDisplayCount] = useState(0);
+
+    const animateCount = (timestamp: number) => {
+        if (startTimestampRef.current === null) {
+            startTimestampRef.current = timestamp;
+        }
+
+        const startTime = startTimestampRef.current ?? timestamp;
+        const progress = Math.min((timestamp - startTime) / COUNT_DURATION, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplayCount(Math.round(eased * TARGET_COUNT));
+
+        if (progress < 1) {
+            animationFrameRef.current = requestAnimationFrame(animateCount);
+        } else {
+            animationFrameRef.current = null;
+        }
+    };
+
+    const cancelCountAnimation = () => {
+        if (animationFrameRef.current !== null) {
+            cancelAnimationFrame(animationFrameRef.current);
+            animationFrameRef.current = null;
+        }
+    };
+
+    useEffect(() => {
+        const node = sectionRef.current;
+        if (!node) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        cancelCountAnimation();
+                        startTimestampRef.current = null;
+                        animationFrameRef.current = requestAnimationFrame(animateCount);
+                    } else {
+                        cancelCountAnimation();
+                        startTimestampRef.current = null;
+                        setDisplayCount(0);
+                    }
+                });
+            },
+            { threshold: 0.45 }
+        );
+
+        observer.observe(node);
+
+        return () => {
+            observer.disconnect();
+            cancelCountAnimation();
+        };
+    }, []);
+
     const keyframes = `
         @keyframes scroll {
             from { transform: translateX(0); }
@@ -32,7 +95,7 @@ const JoinBanner = () => {
     );
 
     return (
-        <section className="bg-background py-12 md:py-16 lg:py-24">
+        <section ref={sectionRef} className="bg-background py-12 md:py-16 lg:py-24">
             <style>{keyframes}</style>
             <div className="container mx-auto px-6 md:px-12 lg:px-20">
                 <div className="mx-auto max-w-3xl text-center">
@@ -43,7 +106,7 @@ const JoinBanner = () => {
                 <div className="mt-10 flex flex-col items-center justify-center gap-10 md:flex-row md:gap-16">
                     <div className="text-center">
                         <h2 className="text-[40px] font-bold leading-[48px] text-primary">
-                            139,364+
+                            {displayCount.toLocaleString()}+
                         </h2>
                         <p className="mt-1 text-lg leading-7 text-text-secondary">
                             people already joined
@@ -51,7 +114,7 @@ const JoinBanner = () => {
                     </div>
                     <Link
                         href="/contact-us"
-                        className="flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-base font-medium text-primary-foreground transition-all duration-300 hover:scale-[1.02] hover:bg-[#244543]"
+                        className="flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-base font-medium text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[#1e4d4e] hover:shadow-[0_18px_35px_rgba(6,34,34,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#93f0b6]"
                     >
                         Join Our Organization
                     </Link>
