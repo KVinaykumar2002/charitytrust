@@ -1,66 +1,114 @@
-import Image from "next/image";
+import {
+  Building2,
+  HeartHandshake,
+  PiggyBank,
+  UsersRound,
+} from "lucide-react";
 
 const helpData = [
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/l52CxeR8ZGfBIsLQJ1RsZt4xcF8-5.svg",
-    title: "Monetary Donations",
-    description: "Your financial support is a lifeline for our projects and initiatives.",
+    icon: PiggyBank,
+    badge: "High Impact",
+    title: "Fuel Lifesaving Campaigns",
+    description:
+      "Help us expand blood and eye donation drives, fund oxygen banks, and deliver urgent medical relief to families in crisis.",
   },
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/t16nSBaXD048l6Y4RvRx6hVSgc-6.svg",
-    title: "Become a Donor Today",
-    description: "Consider becoming a monthly donor to ensure ongoing support.",
+    icon: HeartHandshake,
+    badge: "Monthly",
+    title: "Pledge Monthly Support",
+    description:
+      "A recurring gift keeps ambulances running, subsidises diagnostics, and ensures patients never walk alone.",
   },
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/olxSZ6wPyqEIDOF3c9m6nZl1lx4-7.svg",
-    title: "Corporate cooperation",
-    description: "Lanbda welcomes partnerships with corporations that share.",
+    icon: Building2,
+    badge: "Partnerships",
+    title: "Partner With The Trust",
+    description:
+      "Corporate CSR programmes and institutional grants help us set up new relief centres and community health clinics.",
   },
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/o4mUJYg58RZz2euTW6FXFRWNVdA-8.svg",
-    title: "Volunteer Your Time",
-    description: "If you're passionate about creating positive change directly.",
+    icon: UsersRound,
+    badge: "On Ground",
+    title: "Volunteer On The Ground",
+    description:
+      "Join medical camps, awareness drives, and relief missions to deliver hope directly to communities that need it most.",
   },
 ];
 
 const HelpWays = () => {
   return (
-    <section className="bg-background py-[120px]">
+    <section
+      data-page-animation="slide-in-from-left"
+      className="bg-gradient-to-b from-white via-slate-50/60 to-white py-[120px]"
+    >
       <div className="container mx-auto">
-        <div className="mx-auto mb-16 flex max-w-[800px] flex-col items-center gap-4 text-center">
-          <h2 className="text-primary">
-            How could you help?
+        <div className="mx-auto mb-16 flex max-w-[780px] flex-col items-center gap-4 text-center">
+          <span className="inline-flex rounded-full border border-primary/20 px-4 py-1 text-sm font-medium uppercase tracking-[0.24em] text-primary/80">
+            Get Involved
+          </span>
+          <h2
+            data-text-animation="split-text"
+            className="text-4xl font-bold text-primary"
+          >
+            How You Can Strengthen CCT’s Mission
           </h2>
-          <p className="text-body-large text-text-secondary">
-            At Lambda, we believe that the collective power of compassion and
-            generosity can create meaningful change in the world. Your support is
-            crucial in enabling us to continue our mission of making a positive
-            impact on communities in need.
+          <p
+            data-animation="fade-in"
+            className="text-body-large text-text-secondary"
+          >
+            Every contribution helps the Chiranjeevi Charitable Trust reach more
+            patients, equip more clinics, and stand beside every family seeking
+            dignity, health, and hope.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div
+          data-stagger-parent
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
+        >
           {helpData.map((item, index) => (
             <div
               key={index}
-              className="group flex flex-col gap-4 rounded-[20px] border border-border bg-card p-10 min-h-[266px] transition-all duration-200 ease-in-out hover:scale-[1.02] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+              data-stagger-item
+              data-animation="slide-up"
+              className="group flex min-h-[300px] flex-col gap-6 rounded-[26px] border border-border/70 bg-card/80 p-10 backdrop-blur supports-[backdrop-filter]:bg-card/60 hover-lift-up"
             >
-              <div className="flex flex-col gap-6">
-                <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-accent">
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={32}
-                    height={32}
-                  />
+              <div className="flex flex-col gap-5">
+                <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-accent/30 text-primary">
+                  <item.icon className="h-10 w-10" />
                 </div>
-                <h5 className="text-primary">{item.title}</h5>
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                    {item.badge}
+                  </span>
+                  <h5
+                    data-text-animation="text-slide-up"
+                    className="text-lg font-semibold text-primary"
+                  >
+                    {item.title}
+                  </h5>
+                </div>
               </div>
-              <p className="text-body-regular text-text-light">
+              <p
+                data-animation="fade-in"
+                className="text-body-regular text-text-light"
+              >
                 {item.description}
               </p>
+              <div className="mt-auto text-sm font-medium text-primary/90 transition-colors group-hover:text-primary">
+                Discover impact →
+              </div>
             </div>
           ))}
+        </div>
+        <div className="mt-12 flex justify-center">
+          <a
+            href="/support-us"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition hover:shadow-xl hover:shadow-primary/25"
+          >
+            See All Ways To Support
+          </a>
         </div>
       </div>
     </section>

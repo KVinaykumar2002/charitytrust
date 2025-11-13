@@ -54,15 +54,15 @@ const NavigationHeader = () => {
 
   return (
     <header className="fixed top-4 z-50 flex w-full justify-center px-4">
-
-
-      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-[#0f3536] px-6 py-3 shadow-[0_10px_30px_rgba(1,28,42,0.25)] backdrop-blur-sm lg:px-10">
+      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-[#0f3536] px-6 py-3 shadow-[0_10px_30px_rgba(1,28,42,0.25)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10">
+        {/* Logo */}
         <Link href="/" className="flex-shrink-0">
           <Image
-            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/uefZpqehpfg3Yk6PexORXxnOA-1.png"
-            alt="Lambda Charity Logo"
-            width={135}
-            height={40}
+            src="/unnamed.png"
+            alt="Chiranjeevi Charitable Trust logo"
+            width={400}
+            height={80}
+            className="h-11 w-auto"
             priority
           />
         </Link>
@@ -78,7 +78,7 @@ const NavigationHeader = () => {
                 onMouseLeave={() => setOpenDropdown(null)}
               >
                 <button
-                  className={`flex items-center gap-1.5 text-sm font-medium transition-colors duration-300 ${
+                  className={`flex items-center gap-1.5 text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                     item.name === "Home"
                       ? "text-[#bfffc7]"
                       : "text-white/80 hover:text-[#bfffc7]"
@@ -107,7 +107,7 @@ const NavigationHeader = () => {
               <Link
                 key={item.name}
                 href={item.href!}
-                className={`text-sm font-medium transition-colors duration-300 ${
+                className={`text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                   item.name === "Home"
                     ? "text-[#bfffc7]"
                     : "text-white/80 hover:text-[#bfffc7]"
@@ -119,21 +119,22 @@ const NavigationHeader = () => {
           )}
         </nav>
 
+        {/* Donate Button (Desktop) */}
         <div className="hidden lg:block">
           <Link
             href="/contact-us"
-            className="inline-flex items-center rounded-full bg-[#c6ffbf] px-6 py-2.5 text-sm font-semibold text-[#0f3536] transition-transform duration-300 hover:scale-[1.05]"
+            className="inline-flex items-center rounded-full bg-[#c6ffbf] px-6 py-2.5 text-sm font-semibold text-[#0f3536] btn-hover-bounce btn-shine-effect"
           >
             Donate Now
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <div className="lg:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
-            className="rounded-full bg-white/10 p-2 text-white transition-colors duration-200 hover:bg-white/20"
+            className="rounded-full bg-white/10 p-2 text-white transition-colors duration-200 hover:bg-white/20 btn-press-down"
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />
@@ -154,7 +155,7 @@ const NavigationHeader = () => {
                   <>
                     <button
                       onClick={() => toggleSubmenu(item.name)}
-                      className={`flex w-full items-center justify-between py-4 text-sm font-medium text-white/80 ${
+                      className={`flex w-full items-center justify-between py-4 text-sm font-medium text-white/80 hover-underline-slide ${
                         activeSubmenu === item.name ? "text-[#bfffc7]" : ""
                       }`}
                     >
@@ -172,7 +173,7 @@ const NavigationHeader = () => {
                             key={subItem.name}
                             href={subItem.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="py-2 transition-colors duration-200 hover:text-white"
+                            className="py-2 transition-colors duration-200 hover:text-white hover-underline-slide"
                           >
                             {subItem.name}
                           </Link>
@@ -184,7 +185,7 @@ const NavigationHeader = () => {
                   <Link
                     href={item.href!}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block py-4 text-sm font-medium transition-colors duration-200 ${
+                    className={`block py-4 text-sm font-medium transition-colors duration-200 hover-underline-slide ${
                       item.name === "Home"
                         ? "text-[#bfffc7]"
                         : "text-white/80 hover:text-white"
@@ -199,7 +200,7 @@ const NavigationHeader = () => {
           <Link
             href="/contact-us"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="mt-6 inline-flex w-full justify-center rounded-full bg-[#c6ffbf] px-6 py-3 text-sm font-semibold text-[#0f3536] transition-transform duration-300 hover:scale-[1.02]"
+            className="mt-6 inline-flex w-full justify-center rounded-full bg-[#c6ffbf] px-6 py-3 text-sm font-semibold text-[#0f3536]"
           >
             Donate Now
           </Link>

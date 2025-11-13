@@ -1,54 +1,97 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 const missionItems = [
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/JXvHCoQFHnnmyx7gkAaOknPZVcg-1.svg",
-    title: "Education for All",
-    description: "Lambda is dedicated to ensuring that every child has access to inclusive, quality education.",
-    alt: "Education icon",
+    icon: "https://cdn-icons-png.flaticon.com/512/2947/2947997.png",
+    title: "Blood & Eye Donation",
+    description:
+      "CCT has pioneered large-scale blood and eye donation drives, saving countless lives and restoring vision across India.",
+    alt: "Blood and Eye Donation icon",
   },
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/E8JksqEJfvu7MeEvkhRocERfg-2.svg",
-    title: "Health and Wellness",
-    description: "Our strong commitment to health and wellness truly extends across global borders.",
-    alt: "Health and Wellness icon",
+    icon: "https://cdn-icons-png.flaticon.com/512/2966/2966484.png",
+    title: "Medical Assistance",
+    description:
+      "We provide critical medical support and financial aid to patients in need, ensuring access to essential healthcare for all.",
+    alt: "Medical Assistance icon",
   },
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/G3zsRuzFv8qj6pgURlSj2FU46s-3.svg",
-    title: "Disaster Relief",
-    description: "In times of crisis, Lambda responds swiftly to provide critical, urgent emergency relief.",
+    icon: "https://cdn-icons-png.flaticon.com/512/2966/2966488.png",
+    title: "Disaster & Emergency Relief",
+    description:
+      "In times of natural calamities and emergencies, CCT extends immediate relief, rehabilitation, and hope to affected communities.",
     alt: "Disaster Relief icon",
   },
   {
-    icon: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/svgs/6IDwdUb77x6Pw839CmQOvN3nQI-4.svg",
-    title: "Community Development",
-    description: "Lambda invests in innovative, sustainable community projects to create positive change.",
-    alt: "Community Development icon",
+    icon: "https://cdn-icons-png.flaticon.com/512/2966/2966493.png",
+    title: "Community Welfare",
+    description:
+      "Through education, awareness, and empowerment initiatives, we aim to build stronger, self-reliant, and compassionate communities.",
+    alt: "Community Welfare icon",
   },
 ];
 
 const MissionStatement = () => {
   return (
-    <section className="bg-primary text-primary-foreground">
+    <section
+      data-page-animation="scale-fade"
+      className="bg-primary text-primary-foreground"
+    >
       <div className="container mx-auto py-[140px]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-7">
-            <div className="max-w-xl">
-              <h2 className="text-[40px] leading-[48px] font-bold tracking-[-0.01em]">
-                The mission of our organization
+        <div
+          data-stagger-parent
+          className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12"
+        >
+          {/* LEFT TEXT SECTION */}
+          <div
+            data-stagger-item
+            data-animation="fade-right"
+            data-animation-duration="1s"
+            className="lg:col-span-7"
+          >
+            <div className="max-w-xl space-y-4">
+              <h2
+                data-text-animation="reveal-from-bottom"
+                className="text-[40px] leading-[48px] font-bold tracking-[-0.01em]"
+              >
+                The mission of Chiranjeevi Charitable Trust
               </h2>
-              <p className="mt-4 text-lg text-white/70 leading-[1.55]">
-                At Lambda, we prioritize transparency, integrity, and inclusivity. These values guide our actions as we work tirelessly to bridge the gap between those in need and those willing to help.
+              <p
+                data-animation="fade-in"
+                className="text-lg leading-[1.55] text-white/70"
+              >
+                Founded with the vision of serving humanity, CCT is dedicated to
+                saving lives and empowering communities through blood and eye
+                donation, medical aid, and social welfare initiatives. Our work
+                embodies compassion, integrity, and a relentless commitment to
+                the well-being of all.
               </p>
             </div>
-            
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+            {/* MISSION CARDS */}
+            <div
+              data-stagger-parent
+              className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2"
+            >
               {missionItems.map((item, index) => (
-                <div key={index} className="bg-ring p-10 rounded-2xl transition-transform duration-200 ease-in-out hover:-translate-y-2">
+                <div
+                  key={index}
+                  data-stagger-item
+                  data-animation="slide-up"
+                  data-animation-duration="0.85s"
+                  className="rounded-2xl bg-ring p-10 hover-lift-up"
+                >
                   <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6">
-                    <Image src={item.icon} alt={item.alt} width={24} height={24} />
+                    <Image
+                      src={item.icon}
+                      alt={item.alt}
+                      width={32}
+                      height={32}
+                    />
                   </div>
-                  <h5 className="text-lg font-semibold text-white mb-2">{item.title}</h5>
+                  <h5 className="text-lg font-semibold text-white mb-2">
+                    {item.title}
+                  </h5>
                   <p className="text-base text-white/70 leading-[1.6]">
                     {item.description}
                   </p>
@@ -56,14 +99,20 @@ const MissionStatement = () => {
               ))}
             </div>
           </div>
-          
-          <div className="lg:col-span-5 h-full flex items-center">
+
+          {/* RIGHT IMAGE */}
+          <div
+            data-stagger-item
+            data-animation="zoom-in"
+            data-animation-duration="1s"
+            className="flex h-full items-center lg:col-span-5"
+          >
             <Image
-              src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/pda2WLZ9YduQW4Sgq3X87nCig-5.jpeg"
-              alt="Collecting donations"
+              src="/mission_image.jpg"
+              alt="CCT founder welcoming with folded hands"
               width={528}
               height={704}
-              className="rounded-3xl w-full h-auto object-cover shadow-[0px_4px_15px_rgba(0,0,0,0.08)]"
+              className="h-auto w-full rounded-3xl object-cover shadow-[0px_4px_15px_rgba(0,0,0,0.08)] hover-image-zoom"
             />
           </div>
         </div>

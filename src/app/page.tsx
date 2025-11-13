@@ -7,6 +7,7 @@ import ProgramsCarousel from "@/components/sections/programs-carousel";
 import JoinBanner from "@/components/sections/join-banner";
 import ProjectsShowcase from "@/components/sections/projects-showcase";
 import EventsBanner from "@/components/sections/events-banner";
+import CharityTimeline from "@/components/sections/Charity-Timeline";
 import TestimonialsCarousel from "@/components/sections/testimonials-carousel";
 import Footer from "@/components/sections/footer";
 
@@ -22,7 +23,6 @@ export default function Home() {
         <ProgramsCarousel />
         <JoinBanner />
         <ProjectsShowcase />
-        <EventsBanner />
         <TestimonialsCarousel />
       </main>
       <Footer />

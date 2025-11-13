@@ -4,7 +4,7 @@ import Image from 'next/image';
 const events = [
   {
     title: 'Lambda Annual Charity Gala Event',
-    image: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/92f8a582-9c65-41fe-9b58-b9fc16e25576-lambda-template-framer-website/assets/images/upJDLBDbWyBMCOemJrh5RYgxa6M-17.jpg',
+    image: 'https://img1.wsimg.com/isteam/ip/3f9bf7ba-9991-425c-8ad7-3fa919af01f1/cct1.jpeg/:/cr=t:19.74%25,l:9.68%25,w:80.65%25,h:60.52%25/rs=w:600,h:300,cg:true,m',
   },
   {
     title: 'Lambda Walkathon for Clean Water',
