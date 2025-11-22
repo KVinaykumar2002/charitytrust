@@ -17,10 +17,12 @@ const router = express.Router();
 // Get all active programs (public - no auth required)
 router.get('/programs', async (req, res) => {
   try {
+    // Optimize query with lean() for faster performance
     const programs = await Program.find({ status: 'active' })
       .sort({ createdAt: -1 })
       .select('-__v')
-      .limit(20); // Limit to 20 programs for carousel
+      .limit(20) // Limit to 20 programs for carousel
+      .lean(); // Use lean() for faster queries
     
     res.json({
       success: true,
@@ -68,14 +70,15 @@ router.get('/programs/:id', async (req, res) => {
 // Get all projects (public) - shows projects from admin dashboard
 router.get('/projects', async (req, res) => {
   try {
+    // Optimize query with lean() for faster performance
     // Get all projects except those on hold
-    // This displays all projects that admins create in the admin dashboard
     const projects = await Project.find({
       status: { $ne: 'on_hold' } // Exclude projects on hold
     })
       .sort({ createdAt: -1 })
       .select('-__v')
-      .limit(20);
+      .limit(20)
+      .lean(); // Use lean() for faster queries (returns plain JS objects)
     
     res.json({
       success: true,
@@ -92,15 +95,18 @@ router.get('/projects', async (req, res) => {
 
 // ==================== PUBLIC EVENTS ====================
 
-// Get upcoming/ongoing events (public)
+// Get all events (public) - excludes cancelled events
 router.get('/events', async (req, res) => {
   try {
+    // Optimize query with lean() for faster performance
+    // Get all events except cancelled ones
     const events = await Event.find({
-      status: { $in: ['upcoming', 'ongoing'] }
+      status: { $ne: 'cancelled' }
     })
-      .sort({ date: 1 })
+      .sort({ date: -1 }) // Sort by date descending (newest first)
       .select('-__v')
-      .limit(20);
+      .limit(50)
+      .lean(); // Use lean() for faster queries
     
     res.json({
       success: true,

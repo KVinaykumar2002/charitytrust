@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Phone, MapPin, Facebook, Instagram, X, MessageSquare } from "lucide-react";
+import CircularText from "@/components/ui/circular-text";
 
 // Motion Variants
 const fadeUp = {
@@ -75,10 +76,20 @@ const Footer = () => {
       whileInView="visible"
       viewport={{ once: true }}
       variants={staggerContainer}
-      className="bg-primary text-primary-foreground overflow-hidden"
+      className="bg-primary text-primary-foreground overflow-visible relative"
     >
-      <div className="container py-20">
-        <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-5 lg:gap-x-[60px]">
+      <div className="container py-20 relative">
+        {/* Circular Text - Top Right */}
+        <div className="absolute top-8 right-0 hidden lg:block z-20 pointer-events-none">
+          <CircularText
+            text="Chiranjeevi Charitable Trust(CCT) * "
+            onHover="speedUp"
+            spinDuration={20}
+            className="custom-class"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-5 lg:gap-x-[60px] relative z-10">
           {/* Left Column */}
           <motion.div
             variants={fadeUp}
@@ -161,7 +172,7 @@ const Footer = () => {
           </motion.div>
 
           {/* Right Column */}
-          <motion.div variants={fadeUp} className="lg:col-span-2">
+          <motion.div variants={fadeUp} className="lg:col-span-2 lg:pr-[220px]">
             <div className="space-y-6">
               <h6 className="text-lg font-semibold text-white">Contact Us</h6>
               <ul className="space-y-4 text-[15px] text-white/80">

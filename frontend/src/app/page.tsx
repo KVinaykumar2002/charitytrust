@@ -9,6 +9,7 @@ import ProjectsShowcase from "@/components/sections/projects-showcase";
 import EventsBanner from "@/components/sections/events-banner";
 import CharityTimeline from "@/components/sections/Charity-Timeline";
 import TestimonialsCarousel from "@/components/sections/testimonials-carousel";
+import ReviewsSection from "@/components/sections/reviews-section";
 import Footer from "@/components/sections/footer";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
         <JoinBanner />
         <ProjectsShowcase />
         <EventsBanner />
+        <ReviewsSection />
         <TestimonialsCarousel />
       </main>
       <Footer />

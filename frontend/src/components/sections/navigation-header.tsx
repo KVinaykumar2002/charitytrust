@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ChevronDown, Menu as MenuIcon, X, User, LogOut, Settings, LayoutDashboard } from "lucide-react";
 import { getUserData, clearAuthData, isAdmin } from "@/lib/auth-storage";
 import {
@@ -26,13 +27,15 @@ const navItems: NavItem[] = [
   {
     name: "About Us",
     dropdown: [
-      { name: "Our Story", href: "/about" },
-      { name: "Our Team", href: "/team" },
+      { name: "About CCT", href: "/about#about-company" },
+      { name: "Our Journey", href: "/about#journey" },
+      { name: "Our Mission", href: "/about#mission" },
+      { name: "Our Vision", href: "/about#vision" },
     ],
   },
-  { name: "Causes", href: "/causes" },
   { name: "Events", href: "/events" },
   { name: "Projects", href: "/projects" },
+  { name: "Our Team", href: "/team" },
   {
     name: "All Pages",
     dropdown: [
@@ -43,10 +46,37 @@ const navItems: NavItem[] = [
 ];
 
 const NavigationHeader = () => {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
+
+  // Check if a nav item is active
+  const isActive = (item: NavItem) => {
+    if (item.name === "Home") {
+      return pathname === "/";
+    }
+    if (item.name === "About Us") {
+      return pathname?.startsWith("/about");
+    }
+    if (item.name === "Events") {
+      return pathname === "/events";
+    }
+    if (item.name === "Projects") {
+      return pathname === "/projects";
+    }
+    if (item.name === "Our Team") {
+      return pathname === "/team";
+    }
+    if (item.name === "All Pages") {
+      return pathname === "/gallery" || pathname === "/faq";
+    }
+    if (item.href) {
+      return pathname === item.href;
+    }
+    return false;
+  };
 
   useEffect(() => {
     const userData = getUserData();
@@ -69,6 +99,28 @@ const NavigationHeader = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Handle smooth scroll for hash links
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      }
+    };
+
+    // Handle initial load with hash
+    handleHashScroll();
+
+    // Handle hash changes
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => window.removeEventListener('hashchange', handleHashScroll);
+  }, []);
+
   const toggleSubmenu = (itemName: string) => {
     setActiveSubmenu(activeSubmenu === itemName ? null : itemName);
   };
@@ -83,7 +135,7 @@ const NavigationHeader = () => {
             alt="Chiranjeevi Charitable Trust logo"
             width={400}
             height={80}
-            className="h-11 w-auto"
+            className="h-16 w-auto"
             priority
           />
         </Link>
@@ -98,23 +150,39 @@ const NavigationHeader = () => {
                 onMouseEnter={() => setOpenDropdown(item.name)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <button
-                  className={`flex items-center gap-1.5 text-sm font-medium transition-colors duration-300 hover-underline-slide ${
-                    item.name === "Home"
-                      ? "text-[#bfffc7]"
-                      : "text-white/80 hover:text-[#bfffc7]"
-                  }`}
-                >
-                  {item.name}
+                <div className="flex items-center gap-1.5">
+                  <Link
+                    href={item.name === "About Us" ? "/about" : item.href || "#"}
+                    className={`text-sm font-medium transition-colors duration-300 hover-underline-slide ${
+                      isActive(item)
+                        ? "text-[#bfffc7]"
+                        : "text-white/80 hover:text-[#bfffc7]"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
                   <ChevronDown className="h-3 w-3 text-current transition-transform duration-300" />
-                </button>
+                </div>
                 {openDropdown === item.name && (
-                  <div className="absolute top-full left-1/2 w-max -translate-x-1/2 pt-4">
+                  <div className="absolute top-full left-1/2 w-max -translate-x-1/2 pt-4 z-50">
                     <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0f3536]/95 backdrop-blur-sm shadow-lg">
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem.name}
                           href={subItem.href}
+                          onClick={() => {
+                            setOpenDropdown(null);
+                            // Smooth scroll to anchor if hash is present
+                            if (subItem.href.includes('#')) {
+                              setTimeout(() => {
+                                const hash = subItem.href.split('#')[1];
+                                const element = document.getElementById(hash);
+                                if (element) {
+                                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                              }, 100);
+                            }
+                          }}
                           className="block whitespace-nowrap px-4 py-2 text-sm text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-white"
                         >
                           {subItem.name}
@@ -129,7 +197,7 @@ const NavigationHeader = () => {
                 key={item.name}
                 href={item.href!}
                 className={`text-sm font-medium transition-colors duration-300 hover-underline-slide ${
-                  item.name === "Home"
+                  isActive(item)
                     ? "text-[#bfffc7]"
                     : "text-white/80 hover:text-[#bfffc7]"
                 }`}
@@ -224,26 +292,55 @@ const NavigationHeader = () => {
               <div key={item.name} className="border-b border-white/10">
                 {item.dropdown ? (
                   <>
-                    <button
-                      onClick={() => toggleSubmenu(item.name)}
-                      className={`flex w-full items-center justify-between py-4 text-sm font-medium text-white/80 hover-underline-slide ${
-                        activeSubmenu === item.name ? "text-[#bfffc7]" : ""
-                      }`}
-                    >
-                      <span>{item.name}</span>
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-300 ${
-                          activeSubmenu === item.name ? "rotate-180" : ""
+                    <div className="flex items-center justify-between">
+                      <Link
+                        href={item.name === "About Us" ? "/about" : item.href || "#"}
+                        onClick={() => {
+                          if (item.name === "About Us") {
+                            setIsMobileMenuOpen(false);
+                          }
+                        }}
+                        className={`flex-1 py-4 text-sm font-medium hover-underline-slide ${
+                          isActive(item)
+                            ? "text-[#bfffc7]"
+                            : activeSubmenu === item.name
+                            ? "text-[#bfffc7]"
+                            : "text-white/80"
                         }`}
-                      />
-                    </button>
+                      >
+                        {item.name}
+                      </Link>
+                      <button
+                        onClick={() => toggleSubmenu(item.name)}
+                        className="p-4 -mr-4"
+                        aria-label="Toggle submenu"
+                      >
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-300 ${
+                            activeSubmenu === item.name ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
                     {activeSubmenu === item.name && (
                       <div className="flex flex-col pb-2 pl-4 text-sm text-white/70">
                         {item.dropdown.map((subItem) => (
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              // Smooth scroll to anchor if hash is present
+                              if (subItem.href.includes('#')) {
+                                setTimeout(() => {
+                                  const hash = subItem.href.split('#')[1];
+                                  const element = document.getElementById(hash);
+                                  if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                  }
+                                }, 100);
+                              }
+                            }}
                             className="py-2 transition-colors duration-200 hover:text-white hover-underline-slide"
                           >
                             {subItem.name}
@@ -257,7 +354,7 @@ const NavigationHeader = () => {
                     href={item.href!}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`block py-4 text-sm font-medium transition-colors duration-200 hover-underline-slide ${
-                      item.name === "Home"
+                      isActive(item)
                         ? "text-[#bfffc7]"
                         : "text-white/80 hover:text-white"
                     }`}

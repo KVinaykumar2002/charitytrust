@@ -469,12 +469,24 @@ const navItems = [
         name: "About Us",
         dropdown: [
             {
-                name: "Our Story",
-                href: "/about"
+                name: "About CCT",
+                href: "/about#about-company"
             },
             {
-                name: "Our Team",
-                href: "/team"
+                name: "Our Journey",
+                href: "/about#journey"
+            },
+            {
+                name: "Our Mission",
+                href: "/about#mission"
+            },
+            {
+                name: "Our Vision",
+                href: "/about#vision"
+            },
+            {
+                name: "Our Team & Partners",
+                href: "/about#team-partners"
             }
         ]
     },
@@ -553,16 +565,16 @@ const NavigationHeader = ()=>{
                             alt: "Chiranjeevi Charitable Trust logo",
                             width: 400,
                             height: 80,
-                            className: "h-11 w-auto",
+                            className: "h-16 w-auto",
                             priority: true
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                            lineNumber: 81,
+                            lineNumber: 84,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                        lineNumber: 80,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -580,13 +592,13 @@ const NavigationHeader = ()=>{
                                                 className: "h-3 w-3 text-current transition-transform duration-300"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 109,
+                                                lineNumber: 112,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                        lineNumber: 101,
+                                        lineNumber: 104,
                                         columnNumber: 17
                                     }, this),
                                     openDropdown === item.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -599,23 +611,23 @@ const NavigationHeader = ()=>{
                                                     children: subItem.name
                                                 }, subItem.name, false, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 118,
                                                     columnNumber: 25
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                            lineNumber: 113,
+                                            lineNumber: 116,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 115,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, item.name, true, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 95,
+                                lineNumber: 98,
                                 columnNumber: 15
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 href: item.href,
@@ -623,12 +635,12 @@ const NavigationHeader = ()=>{
                                 children: item.name
                             }, item.name, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 128,
+                                lineNumber: 131,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                        lineNumber: 92,
+                        lineNumber: 95,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -648,12 +660,12 @@ const NavigationHeader = ()=>{
                                                         children: user?.name?.charAt(0).toUpperCase() || "U"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                        lineNumber: 150,
+                                                        lineNumber: 153,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 149,
+                                                    lineNumber: 152,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -661,18 +673,18 @@ const NavigationHeader = ()=>{
                                                     children: user?.name || "User"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 154,
+                                                    lineNumber: 157,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                            lineNumber: 148,
+                                            lineNumber: 151,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 150,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuContent"], {
@@ -689,7 +701,7 @@ const NavigationHeader = ()=>{
                                                             children: user?.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                            lineNumber: 160,
+                                                            lineNumber: 163,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -697,23 +709,23 @@ const NavigationHeader = ()=>{
                                                             children: user?.email
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                            lineNumber: 161,
+                                                            lineNumber: 164,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 159,
+                                                    lineNumber: 162,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 158,
+                                                lineNumber: 161,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuSeparator"], {}, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 164,
+                                                lineNumber: 167,
                                                 columnNumber: 17
                                             }, this),
                                             user?.role === "user" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -726,19 +738,19 @@ const NavigationHeader = ()=>{
                                                             className: "mr-2 h-4 w-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                            lineNumber: 169,
+                                                            lineNumber: 172,
                                                             columnNumber: 23
                                                         }, this),
                                                         "My Dashboard"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 168,
+                                                    lineNumber: 171,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 167,
+                                                lineNumber: 170,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -751,24 +763,24 @@ const NavigationHeader = ()=>{
                                                             className: "mr-2 h-4 w-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                            lineNumber: 176,
+                                                            lineNumber: 179,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Profile"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 175,
+                                                    lineNumber: 178,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 174,
+                                                lineNumber: 177,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuSeparator"], {}, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 180,
+                                                lineNumber: 183,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -779,26 +791,26 @@ const NavigationHeader = ()=>{
                                                         className: "mr-2 h-4 w-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 185,
                                                         columnNumber: 19
                                                     }, this),
                                                     "Sign Out"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 181,
+                                                lineNumber: 184,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                        lineNumber: 157,
+                                        lineNumber: 160,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 146,
+                                lineNumber: 149,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 href: "/login",
@@ -806,7 +818,7 @@ const NavigationHeader = ()=>{
                                 children: "Sign In"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 188,
+                                lineNumber: 191,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -815,13 +827,13 @@ const NavigationHeader = ()=>{
                                 children: "Donate Now"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 195,
+                                lineNumber: 198,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                        lineNumber: 144,
+                        lineNumber: 147,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -834,29 +846,29 @@ const NavigationHeader = ()=>{
                                 className: "h-6 w-6"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 211,
+                                lineNumber: 214,
                                 columnNumber: 15
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                                 className: "h-6 w-6"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 213,
+                                lineNumber: 216,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                            lineNumber: 205,
+                            lineNumber: 208,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                        lineNumber: 204,
+                        lineNumber: 207,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                lineNumber: 78,
+                lineNumber: 81,
                 columnNumber: 7
             }, this),
             isMobileMenuOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -876,20 +888,20 @@ const NavigationHeader = ()=>{
                                                     children: item.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 233,
+                                                    lineNumber: 236,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                     className: `h-4 w-4 transition-transform duration-300 ${activeSubmenu === item.name ? "rotate-180" : ""}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 234,
+                                                    lineNumber: 237,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                            lineNumber: 227,
+                                            lineNumber: 230,
                                             columnNumber: 21
                                         }, this),
                                         activeSubmenu === item.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -901,12 +913,12 @@ const NavigationHeader = ()=>{
                                                     children: subItem.name
                                                 }, subItem.name, false, {
                                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                    lineNumber: 243,
+                                                    lineNumber: 246,
                                                     columnNumber: 27
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                            lineNumber: 241,
+                                            lineNumber: 244,
                                             columnNumber: 23
                                         }, this)
                                     ]
@@ -917,17 +929,17 @@ const NavigationHeader = ()=>{
                                     children: item.name
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                    lineNumber: 256,
+                                    lineNumber: 259,
                                     columnNumber: 19
                                 }, this)
                             }, item.name, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 224,
+                                lineNumber: 227,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                        lineNumber: 222,
+                        lineNumber: 225,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -944,14 +956,14 @@ const NavigationHeader = ()=>{
                                                 className: "h-4 w-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 281,
+                                                lineNumber: 284,
                                                 columnNumber: 21
                                             }, this),
                                             "My Dashboard"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                        lineNumber: 276,
+                                        lineNumber: 279,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -965,14 +977,14 @@ const NavigationHeader = ()=>{
                                                 className: "h-4 w-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                                lineNumber: 292,
+                                                lineNumber: 295,
                                                 columnNumber: 19
                                             }, this),
                                             "Sign Out"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                        lineNumber: 285,
+                                        lineNumber: 288,
                                         columnNumber: 17
                                     }, this)
                                 ]
@@ -983,7 +995,7 @@ const NavigationHeader = ()=>{
                                 children: "Sign In"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 297,
+                                lineNumber: 300,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -993,25 +1005,25 @@ const NavigationHeader = ()=>{
                                 children: "Donate Now"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                                lineNumber: 305,
+                                lineNumber: 308,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                        lineNumber: 271,
+                        lineNumber: 274,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-                lineNumber: 221,
+                lineNumber: 224,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/frontend/src/components/sections/navigation-header.tsx",
-        lineNumber: 77,
+        lineNumber: 80,
         columnNumber: 5
     }, this);
 };
@@ -4147,6 +4159,7 @@ __turbopack_esm__({
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/frontend/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/frontend/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/frontend/node_modules/next/link.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$circular$2d$text$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/frontend/src/components/ui/circular-text.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/frontend/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__ = __turbopack_import__("[project]/frontend/node_modules/lucide-react/dist/esm/icons/phone.js [app-client] (ecmascript) <export default as Phone>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_import__("[project]/frontend/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-client] (ecmascript) <export default as MapPin>");
@@ -4155,6 +4168,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$instagram$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Instagram$3e$__ = __turbopack_import__("[project]/frontend/node_modules/lucide-react/dist/esm/icons/instagram.js [app-client] (ecmascript) <export default as Instagram>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_import__("[project]/frontend/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
 "use client";
+;
 ;
 ;
 ;
@@ -4200,12 +4214,12 @@ const SocialIcon = ({ href, icon: Icon })=>/*#__PURE__*/ (0, __TURBOPACK__import
             className: "h-5 w-5"
         }, void 0, false, {
             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-            lineNumber: 48,
+            lineNumber: 49,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-        lineNumber: 40,
+        lineNumber: 41,
         columnNumber: 3
     }, this);
 _c = SocialIcon;
@@ -4221,18 +4235,18 @@ const NavLink = ({ href, children })=>/*#__PURE__*/ (0, __TURBOPACK__imported__m
                     className: "absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-white transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100"
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                    lineNumber: 66,
+                    lineNumber: 67,
                     columnNumber: 7
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-            lineNumber: 61,
+            lineNumber: 62,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-        lineNumber: 60,
+        lineNumber: 61,
         columnNumber: 3
     }, this);
 _c1 = NavLink;
@@ -4244,12 +4258,29 @@ const Footer = ()=>{
             once: true
         },
         variants: staggerContainer,
-        className: "bg-primary text-primary-foreground overflow-hidden",
+        className: "bg-primary text-primary-foreground overflow-visible relative",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "container py-20",
+            className: "container py-20 relative",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "grid grid-cols-1 gap-y-16 lg:grid-cols-5 lg:gap-x-[60px]",
+                    className: "absolute top-8 right-0 hidden lg:block z-20 pointer-events-none",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$ui$2f$circular$2d$text$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                        text: "Chiranjeevi Charitable Trust(CCT) * ",
+                        onHover: "speedUp",
+                        spinDuration: 20,
+                        className: "custom-class"
+                    }, void 0, false, {
+                        fileName: "[project]/frontend/src/components/sections/footer.tsx",
+                        lineNumber: 84,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/frontend/src/components/sections/footer.tsx",
+                    lineNumber: 83,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "grid grid-cols-1 gap-y-16 lg:grid-cols-5 lg:gap-x-[60px] relative z-10",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                             variants: fadeUp,
@@ -4272,12 +4303,12 @@ const Footer = ()=>{
                                                 className: "h-12 w-auto"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 93,
+                                                lineNumber: 104,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                            lineNumber: 88,
+                                            lineNumber: 99,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h6, {
@@ -4286,7 +4317,7 @@ const Footer = ()=>{
                                             children: "Our Mission"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                            lineNumber: 102,
+                                            lineNumber: 113,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -4295,13 +4326,13 @@ const Footer = ()=>{
                                             children: "Chiranjeevi Charitable Trust is dedicated to saving sight and lives through compassionate eye and blood care. Every initiative is inspired by the belief that timely support, expert treatment, and community participation can transform futures."
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                            lineNumber: 108,
+                                            lineNumber: 119,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                    lineNumber: 87,
+                                    lineNumber: 98,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -4314,7 +4345,7 @@ const Footer = ()=>{
                                             children: "Stay connected with CCT updates"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                            lineNumber: 121,
+                                            lineNumber: 132,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].form, {
@@ -4330,7 +4361,7 @@ const Footer = ()=>{
                                                     className: "h-14 w-full flex-grow rounded-lg border border-white/30 bg-transparent px-4 py-2 text-white outline-none ring-offset-primary transition-colors placeholder:text-white/50 focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 143,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4339,25 +4370,25 @@ const Footer = ()=>{
                                                     children: "Subscribe"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 137,
+                                                    lineNumber: 148,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 138,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                    lineNumber: 120,
+                                    lineNumber: 131,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                            lineNumber: 83,
+                            lineNumber: 94,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -4371,7 +4402,7 @@ const Footer = ()=>{
                                         children: "Explore CCT"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 161,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -4383,7 +4414,7 @@ const Footer = ()=>{
                                                     children: "Home"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 153,
+                                                    lineNumber: 164,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavLink, {
@@ -4391,7 +4422,7 @@ const Footer = ()=>{
                                                     children: "About the Trust"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 154,
+                                                    lineNumber: 165,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavLink, {
@@ -4399,7 +4430,7 @@ const Footer = ()=>{
                                                     children: "Programs & Initiatives"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 155,
+                                                    lineNumber: 166,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavLink, {
@@ -4407,7 +4438,7 @@ const Footer = ()=>{
                                                     children: "Donate Blood"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 156,
+                                                    lineNumber: 167,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavLink, {
@@ -4415,34 +4446,34 @@ const Footer = ()=>{
                                                     children: "Contact"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 168,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                            lineNumber: 152,
+                                            lineNumber: 163,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 162,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                lineNumber: 149,
+                                lineNumber: 160,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                            lineNumber: 148,
+                            lineNumber: 159,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                             variants: fadeUp,
-                            className: "lg:col-span-2",
+                            className: "lg:col-span-2 lg:pr-[220px]",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-6",
                                 children: [
@@ -4451,7 +4482,7 @@ const Footer = ()=>{
                                         children: "Contact Us"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                        lineNumber: 166,
+                                        lineNumber: 177,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -4465,7 +4496,7 @@ const Footer = ()=>{
                                                         className: "mt-1 h-5 w-5 flex-shrink-0 text-white/60"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                        lineNumber: 169,
+                                                        lineNumber: 180,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4473,26 +4504,26 @@ const Footer = ()=>{
                                                             "040 23554849",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                                lineNumber: 171,
+                                                                lineNumber: 182,
                                                                 columnNumber: 33
                                                             }, this),
                                                             "040 23555005",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                                lineNumber: 172,
+                                                                lineNumber: 183,
                                                                 columnNumber: 33
                                                             }, this),
                                                             "98497 56785"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                        lineNumber: 170,
+                                                        lineNumber: 181,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 168,
+                                                lineNumber: 179,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].li, {
@@ -4503,7 +4534,7 @@ const Footer = ()=>{
                                                         className: "mt-1 h-5 w-5 flex-shrink-0 text-white/60"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                        lineNumber: 177,
+                                                        lineNumber: 188,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4511,32 +4542,32 @@ const Footer = ()=>{
                                                             "Chiranjeevi Eye and Blood Bank",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                                lineNumber: 179,
+                                                                lineNumber: 190,
                                                                 columnNumber: 51
                                                             }, this),
                                                             "82/A, Road No. 1, Jawahar Colony, Jubilee Hills",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                                lineNumber: 180,
+                                                                lineNumber: 191,
                                                                 columnNumber: 68
                                                             }, this),
                                                             "Hyderabad, Telangana, India"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                        lineNumber: 178,
+                                                        lineNumber: 189,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 176,
+                                                lineNumber: 187,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                        lineNumber: 167,
+                                        lineNumber: 178,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -4556,19 +4587,19 @@ const Footer = ()=>{
                                                             className: "h-4 w-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                            lineNumber: 196,
+                                                            lineNumber: 207,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Donate Blood • Save Lives"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 192,
+                                                    lineNumber: 203,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 191,
+                                                lineNumber: 202,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -4586,25 +4617,25 @@ const Footer = ()=>{
                                                             className: "h-4 w-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                            lineNumber: 207,
+                                                            lineNumber: 218,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Message us on WhatsApp"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                    lineNumber: 201,
+                                                    lineNumber: 212,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 200,
+                                                lineNumber: 211,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                        lineNumber: 187,
+                                        lineNumber: 198,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -4613,7 +4644,7 @@ const Footer = ()=>{
                                         children: "Follow @ChiranjeeviCharitableTrust"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                        lineNumber: 214,
+                                        lineNumber: 225,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -4625,7 +4656,7 @@ const Footer = ()=>{
                                                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$facebook$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Facebook$3e$__["Facebook"]
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 224,
+                                                lineNumber: 235,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SocialIcon, {
@@ -4633,7 +4664,7 @@ const Footer = ()=>{
                                                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$instagram$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Instagram$3e$__["Instagram"]
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 228,
+                                                lineNumber: 239,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SocialIcon, {
@@ -4641,30 +4672,30 @@ const Footer = ()=>{
                                                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"]
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                                lineNumber: 232,
+                                                lineNumber: 243,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                        lineNumber: 220,
+                                        lineNumber: 231,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                lineNumber: 165,
+                                lineNumber: 176,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                            lineNumber: 164,
+                            lineNumber: 175,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                    lineNumber: 81,
+                    lineNumber: 92,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -4677,36 +4708,36 @@ const Footer = ()=>{
                                 children: "© Chiranjeevi Charitable Trust. All rights reserved."
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                lineNumber: 247,
+                                lineNumber: 258,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: "Serving with love, compassion, and community."
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                                lineNumber: 248,
+                                lineNumber: 259,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                        lineNumber: 246,
+                        lineNumber: 257,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/footer.tsx",
-                    lineNumber: 242,
+                    lineNumber: 253,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/footer.tsx",
-            lineNumber: 80,
+            lineNumber: 81,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/footer.tsx",
-        lineNumber: 73,
+        lineNumber: 74,
         columnNumber: 5
     }, this);
 };

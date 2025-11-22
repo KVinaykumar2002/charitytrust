@@ -590,16 +590,29 @@ export async function getPublicPrograms() {
       headers: {
         'Content-Type': 'application/json',
       },
+      // Use revalidation for better performance - cache for 60 seconds
+      next: { revalidate: 60 },
+      keepalive: true,
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch programs');
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
+      }
+      const errorMessage = errorData.message || `Failed to fetch programs: ${response.status} ${response.statusText}`;
+      throw new Error(errorMessage);
     }
 
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error: any) {
-    console.error('getPublicPrograms error:', error);
-    throw error;
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on http://localhost:5001');
+    }
+    throw new Error(error.message || 'Failed to fetch programs');
   }
 }
 
@@ -611,16 +624,29 @@ export async function getPublicProjects() {
       headers: {
         'Content-Type': 'application/json',
       },
+      // Use revalidation for better performance - cache for 60 seconds
+      next: { revalidate: 60 },
+      keepalive: true,
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch projects');
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
+      }
+      const errorMessage = errorData.message || `Failed to fetch projects: ${response.status} ${response.statusText}`;
+      throw new Error(errorMessage);
     }
 
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error: any) {
-    console.error('getPublicProjects error:', error);
-    throw error;
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on http://localhost:5001');
+    }
+    throw new Error(error.message || 'Failed to fetch projects');
   }
 }
 
@@ -632,16 +658,33 @@ export async function getPublicEvents() {
       headers: {
         'Content-Type': 'application/json',
       },
+      // Use revalidation for better performance - cache for 60 seconds
+      next: { revalidate: 60 },
+      // Add keepalive for better connection reuse
+      keepalive: true,
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch events');
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
+      }
+      const errorMessage = errorData.message || `Failed to fetch events: ${response.status} ${response.statusText}`;
+      throw new Error(errorMessage);
     }
 
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error: any) {
-    console.error('getPublicEvents error:', error);
-    throw error;
+    // Handle network errors (CORS, connection refused, etc.)
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on http://localhost:5001');
+    }
+    
+    // Handle other errors
+    throw new Error(error.message || 'Failed to fetch events');
   }
 }
 
