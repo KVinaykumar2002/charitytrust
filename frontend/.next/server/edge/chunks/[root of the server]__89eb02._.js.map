@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 23, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/frontend/src/middleware.ts"],"sourcesContent":["import { NextResponse } from 'next/server';\nimport type { NextRequest } from 'next/server';\n\nexport function middleware(request: NextRequest) {\n  // Note: Middleware runs on the server and cannot access localStorage\n  // The admin layout component handles authentication and role checking\n  // This middleware allows the request through - the layout will block non-admins\n  \n  const { pathname } = request.nextUrl;\n\n  // Allow the request - the admin layout will verify authentication and role\n  // If user is not admin, the layout will redirect to login\n  return NextResponse.next();\n}\n\nexport const config = {\n  matcher: [\n    '/admin/:path*',\n    '/dashboard/:path*',\n  ],\n};\n\n"],"names":[],"mappings":";;;;AAAA;AAAA;;AAGO,SAAS,WAAW,OAAoB;IAC7C,qEAAqE;IACrE,sEAAsE;IACtE,gFAAgF;IAEhF,MAAM,EAAE,QAAQ,EAAE,GAAG,QAAQ,OAAO;IAEpC,2EAA2E;IAC3E,0DAA0D;IAC1D,OAAO,iMAAA,CAAA,eAAY,CAAC,IAAI;AAC1B;AAEO,MAAM,SAAS;IACpB,SAAS;QACP;QACA;KACD;AACH"}},
-    {"offset": {"line": 45, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
