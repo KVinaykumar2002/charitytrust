@@ -1,6 +1,6 @@
 // API client for backend communication
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://charitytrust-eykm.onrender.com/api';
 
 export interface LoginResponse {
   success: boolean;
@@ -610,7 +610,7 @@ export async function getPublicPrograms() {
     return data;
   } catch (error: any) {
     if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      throw new Error('Cannot connect to backend server. Please ensure the backend is running on http://localhost:5001');
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on https://charitytrust-eykm.onrender.com');
     }
     throw new Error(error.message || 'Failed to fetch programs');
   }
@@ -644,7 +644,7 @@ export async function getPublicProjects() {
     return data;
   } catch (error: any) {
     if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      throw new Error('Cannot connect to backend server. Please ensure the backend is running on http://localhost:5001');
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on https://charitytrust-eykm.onrender.com');
     }
     throw new Error(error.message || 'Failed to fetch projects');
   }
@@ -680,7 +680,7 @@ export async function getPublicEvents() {
   } catch (error: any) {
     // Handle network errors (CORS, connection refused, etc.)
     if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      throw new Error('Cannot connect to backend server. Please ensure the backend is running on http://localhost:5001');
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on https://charitytrust-eykm.onrender.com');
     }
     
     // Handle other errors

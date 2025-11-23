@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -53,7 +52,7 @@ export default function NewProjectPage() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/admin/content/projects`, {
+      const response = await fetch("https://charitytrust-eykm.onrender.com/api/admin/projects", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

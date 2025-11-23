@@ -153,7 +153,7 @@ export default function ProjectsPage() {
                   Retry
                 </button>
                 <p className="text-sm text-muted-foreground mt-4">
-                  Please check your internet connection and try again.
+                  Make sure the backend server is running on https://charitytrust-eykm.onrender.com
                 </p>
               </div>
             ) : projects.length === 0 ? (

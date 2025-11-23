@@ -21,9 +21,9 @@ frontend/
 npm install
 ```
 
-2. Create `.env.local`:
+2. Create `.env.local` (optional, defaults to production API):
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_API_URL=https://charitytrust-eykm.onrender.com/api
 ```
 
 3. Run development server:
