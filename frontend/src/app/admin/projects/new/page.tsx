@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -52,7 +53,7 @@ export default function NewProjectPage() {
         return;
       }
 
-      const response = await fetch("http://localhost:5001/api/admin/projects", {
+      const response = await fetch(`${API_BASE_URL}/admin/content/projects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

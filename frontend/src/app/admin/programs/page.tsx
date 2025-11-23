@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -41,7 +42,7 @@ export default function ProgramsPage() {
 
   const fetchPrograms = async () => {
     try {
-      const response = await fetch("http://localhost:5001/api/admin/programs");
+      const response = await fetch(`${API_BASE_URL}/admin/content/programs`);
       if (response.ok) {
         const result = await response.json();
         // Handle both array and object with data property
@@ -83,7 +84,7 @@ export default function ProgramsPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/admin/programs/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/content/programs/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {

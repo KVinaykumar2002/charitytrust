@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Edit, Trash2 } from "lucide-react";
@@ -42,7 +43,7 @@ export default function ProjectsPage() {
   const fetchProjects = async () => {
     try {
       const token = getToken();
-      const response = await fetch("http://localhost:5001/api/admin/projects", {
+      const response = await fetch(`${API_BASE_URL}/admin/content/projects`, {
         headers: {
           "Authorization": `Bearer ${token}`,
         },
@@ -77,7 +78,7 @@ export default function ProjectsPage() {
   const handleDelete = async (id: string) => {
     try {
       const token = getToken();
-      const response = await fetch(`http://localhost:5001/api/admin/projects/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/content/projects/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,

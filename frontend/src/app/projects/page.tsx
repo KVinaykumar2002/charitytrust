@@ -153,7 +153,7 @@ export default function ProjectsPage() {
                   Retry
                 </button>
                 <p className="text-sm text-muted-foreground mt-4">
-                  Make sure the backend server is running on http://localhost:5001
+                  Please check your internet connection and try again.
                 </p>
               </div>
             ) : projects.length === 0 ? (

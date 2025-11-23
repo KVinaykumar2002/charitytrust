@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,7 +36,7 @@ export default function EditProgramPage() {
   const fetchProgram = async () => {
     try {
       const token = getToken();
-      const response = await fetch(`http://localhost:5001/api/admin/programs/${programId}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/content/programs/${programId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
         },
@@ -85,7 +86,7 @@ export default function EditProgramPage() {
         return;
       }
 
-      const response = await fetch(`http://localhost:5001/api/admin/programs/${programId}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/content/programs/${programId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

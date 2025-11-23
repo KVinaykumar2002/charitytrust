@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
+import { API_BASE_URL } from "@/lib/api";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -45,7 +46,7 @@ export default function ProgramsCarousel() {
   React.useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/admin/programs");
+        const response = await fetch(`${API_BASE_URL}/public/programs`);
 
         if (response.ok) {
           const result = await response.json();
