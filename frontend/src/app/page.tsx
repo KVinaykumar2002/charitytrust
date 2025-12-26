@@ -9,6 +9,7 @@ import ProjectsShowcase from "@/components/sections/projects-showcase";
 import EventsBanner from "@/components/sections/events-banner";
 import CharityTimeline from "@/components/sections/Charity-Timeline";
 import TestimonialsCarousel from "@/components/sections/testimonials-carousel";
+import CircularTestimonialsSection from "@/components/sections/circular-testimonials-section";
 import ReviewsSection from "@/components/sections/reviews-section";
 import Footer from "@/components/sections/footer";
 import Featured_05 from "@/components/ui/globe-feature-section";
@@ -29,6 +30,7 @@ export default function Home() {
         <EventsBanner />
         <ReviewsSection />
         <TestimonialsCarousel />
+        <CircularTestimonialsSection />
       </main>
       <Footer />
     </div>

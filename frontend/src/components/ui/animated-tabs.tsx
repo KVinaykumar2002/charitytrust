@@ -22,30 +22,35 @@ const defaultTabs: Tab[] = [
     id: "campaigns",
     label: "Blood & Eye Donation",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full h-full">
-        <img
-          src="https://www.cinejosh.com/newsimg/newsmainimg/chiranjeevi-on-world-blood-donation-day_b_1506220926.jpg"
-          alt="Chiranjeevi Charity Trust Blood Donation Campaign"
-          className="rounded-lg w-full h-80 md:h-96 object-cover mt-0 !m-0 shadow-[0_0_20px_rgba(0,0,0,0.2)] border-none"
-        />
-        <div className="flex flex-col gap-y-4 justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-0 text-white mt-0 !m-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-secondary/50 to-secondary/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+          <img
+            src="https://www.cinejosh.com/newsimg/newsmainimg/chiranjeevi-on-world-blood-donation-day_b_1506220926.jpg"
+            alt="Chiranjeevi Charity Trust Blood Donation Campaign"
+            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-secondary/30"
+          />
+        </div>
+        <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
             Blood & Eye Donation Drives
           </h2>
-          <p className="text-base md:text-lg text-gray-200 mt-0 leading-relaxed">
-            Chiranjeevi Charitable Trust has pioneered large-scale blood and eye donation drives across India. Over <strong className="text-white">10 lakh units</strong> of life-saving blood collected and <strong className="text-white">10,000+ corneal transplants</strong> performed, saving countless lives and restoring vision to thousands.
+          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+            Chiranjeevi Charitable Trust has pioneered large-scale blood and eye donation drives across India. Over <strong className="text-secondary font-semibold">10 lakh units</strong> of life-saving blood collected and <strong className="text-secondary font-semibold">10,000+ corneal transplants</strong> performed, saving countless lives and restoring vision to thousands.
           </p>
-          <div className="mt-4 space-y-2">
-            <p className="text-sm text-gray-300">
-              <strong className="text-white">Contact for Blood Donation:</strong><br />
-              📞 040 23554849 | 040 23555005 | 98497 56785
-            </p>
-            <p className="text-sm text-gray-300">
-              <strong className="text-white">Location:</strong><br />
-              Chiranjeevi Eye and Blood Bank<br />
-              82/A, Road No. 1, Jawahar Colony, Jubilee Hills<br />
-              Hyderabad, Telangana, India
-            </p>
+          <div className="mt-6 space-y-4 p-4 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
+            <div>
+              <p className="text-sm font-semibold text-secondary mb-2">Contact for Blood Donation</p>
+              <p className="text-sm text-white/80">📞 040 23554849 | 040 23555005 | 98497 56785</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-secondary mb-2">Location</p>
+              <p className="text-sm text-white/80 leading-relaxed">
+                Chiranjeevi Eye and Blood Bank<br />
+                82/A, Road No. 1, Jawahar Colony, Jubilee Hills<br />
+                Hyderabad, Telangana, India
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -55,26 +60,38 @@ const defaultTabs: Tab[] = [
     id: "monthly",
     label: "Monthly Support",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full h-full">
-        <img
-          src="https://assets.hmtvlive.com/h-upload/2023/07/09/357070-chiranjeevi-charitable-trust.webp"
-          alt="Chiranjeevi Charity Trust Monthly Support Programs"
-          className="rounded-lg w-full h-80 md:h-96 object-cover mt-0 !m-0 shadow-[0_0_20px_rgba(0,0,0,0.2)] border-none"
-        />
-        <div className="flex flex-col gap-y-4 justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-0 text-white mt-0 !m-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-secondary/50 to-secondary/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+          <img
+            src="https://assets.hmtvlive.com/h-upload/2023/07/09/357070-chiranjeevi-charitable-trust.webp"
+            alt="Chiranjeevi Charity Trust Monthly Support Programs"
+            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-secondary/30"
+          />
+        </div>
+        <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
             Pledge Monthly Support
           </h2>
-          <p className="text-base md:text-lg text-gray-200 mt-0 leading-relaxed">
-            Your recurring monthly contribution helps Chiranjeevi Charitable Trust maintain critical services including ambulance operations, subsidized diagnostics, and ongoing medical support. Monthly donors ensure we can provide <strong className="text-white">50% subsidy in diagnostics</strong> and support to <strong className="text-white">15,000+ daily wage workers</strong>.
+          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+            Your recurring monthly contribution helps Chiranjeevi Charitable Trust maintain critical services including ambulance operations, subsidized diagnostics, and ongoing medical support. Monthly donors ensure we can provide <strong className="text-secondary font-semibold">50% subsidy in diagnostics</strong> and support to <strong className="text-secondary font-semibold">15,000+ daily wage workers</strong>.
           </p>
-          <div className="mt-4 space-y-2">
-            <p className="text-sm text-gray-300">
-              <strong className="text-white">Benefits of Monthly Support:</strong><br />
-              • Sustained ambulance services<br />
-              • Subsidized medical diagnostics<br />
-              • Continuous patient support programs
-            </p>
+          <div className="mt-6 p-4 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
+            <p className="text-sm font-semibold text-secondary mb-3">Benefits of Monthly Support</p>
+            <ul className="space-y-2 text-sm text-white/80">
+              <li className="flex items-start gap-2">
+                <span className="text-secondary mt-1">•</span>
+                <span>Sustained ambulance services</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-secondary mt-1">•</span>
+                <span>Subsidized medical diagnostics</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-secondary mt-1">•</span>
+                <span>Continuous patient support programs</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -84,27 +101,42 @@ const defaultTabs: Tab[] = [
     id: "partnerships",
     label: "Partnerships",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full h-full">
-        <img
-          src="https://img.ap7am.com/froala-uploads/20240126fr65b342713b414.jpg"
-          alt="Chiranjeevi Charity Trust Corporate Partnerships"
-          className="rounded-lg w-full h-80 md:h-96 object-cover mt-0 !m-0 shadow-[0_0_20px_rgba(0,0,0,0.2)] border-none"
-        />
-        <div className="flex flex-col gap-y-4 justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-0 text-white mt-0 !m-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-secondary/50 to-secondary/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+          <img
+            src="https://img.ap7am.com/froala-uploads/20240126fr65b342713b414.jpg"
+            alt="Chiranjeevi Charity Trust Corporate Partnerships"
+            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-secondary/30"
+          />
+        </div>
+        <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
             Partner With CCT
           </h2>
-          <p className="text-base md:text-lg text-gray-200 mt-0 leading-relaxed">
-            Corporate CSR programmes and institutional grants enable Chiranjeevi Charitable Trust to establish new relief centres, community health clinics, and expand our reach. We've established <strong className="text-white">32 oxygen banks</strong> across Telugu states and continue to build infrastructure for community welfare.
+          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+            Corporate CSR programmes and institutional grants enable Chiranjeevi Charitable Trust to establish new relief centres, community health clinics, and expand our reach. We've established <strong className="text-secondary font-semibold">32 oxygen banks</strong> across Telugu states and continue to build infrastructure for community welfare.
           </p>
-          <div className="mt-4 space-y-2">
-            <p className="text-sm text-gray-300">
-              <strong className="text-white">Partnership Opportunities:</strong><br />
-              • Corporate CSR Programs<br />
-              • Institutional Grants<br />
-              • Healthcare Infrastructure Development<br />
-              • Community Health Initiatives
-            </p>
+          <div className="mt-6 p-4 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
+            <p className="text-sm font-semibold text-secondary mb-3">Partnership Opportunities</p>
+            <ul className="space-y-2 text-sm text-white/80">
+              <li className="flex items-start gap-2">
+                <span className="text-secondary mt-1">•</span>
+                <span>Corporate CSR Programs</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-secondary mt-1">•</span>
+                <span>Institutional Grants</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-secondary mt-1">•</span>
+                <span>Healthcare Infrastructure Development</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-secondary mt-1">•</span>
+                <span>Community Health Initiatives</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -114,32 +146,49 @@ const defaultTabs: Tab[] = [
     id: "volunteer",
     label: "Volunteer",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full h-full">
-        <img
-          src="https://img1.wsimg.com/isteam/ip/3f9bf7ba-9991-425c-8ad7-3fa919af01f1/cct1.jpeg/:/cr=t:19.74%25,l:9.68%25,w:80.65%25,h:60.52%25/rs=w:600,h:300,cg:true,m"
-          alt="Chiranjeevi Charity Trust Volunteer Programs"
-          className="rounded-lg w-full h-80 md:h-96 object-cover mt-0 !m-0 shadow-[0_0_20px_rgba(0,0,0,0.2)] border-none"
-        />
-        <div className="flex flex-col gap-y-4 justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-0 text-white mt-0 !m-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-secondary/50 to-secondary/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+          <img
+            src="https://img1.wsimg.com/isteam/ip/3f9bf7ba-9991-425c-8ad7-3fa919af01f1/cct1.jpeg/:/cr=t:19.74%25,l:9.68%25,w:80.65%25,h:60.52%25/rs=w:600,h:300,cg:true,m"
+            alt="Chiranjeevi Charity Trust Volunteer Programs"
+            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-secondary/30"
+          />
+        </div>
+        <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
             Volunteer With CCT
           </h2>
-          <p className="text-base md:text-lg text-gray-200 mt-0 leading-relaxed">
+          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
             Join Chiranjeevi Charitable Trust's medical camps, awareness drives, and relief missions. Volunteers are the backbone of our operations, helping us deliver hope directly to communities in need across India.
           </p>
-          <div className="mt-4 space-y-2">
-            <p className="text-sm text-gray-300">
-              <strong className="text-white">Volunteer Opportunities:</strong><br />
-              • Medical camps and health checkups<br />
-              • Blood and eye donation awareness drives<br />
-              • Disaster relief and emergency response<br />
-              • Community outreach programs
-            </p>
-            <p className="text-sm text-gray-300 mt-4">
-              <strong className="text-white">Contact for Volunteering:</strong><br />
-              📞 040 23554849 | 98497 56785<br />
-              📧 Reach out through our website or visit our office
-            </p>
+          <div className="mt-6 space-y-4">
+            <div className="p-4 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
+              <p className="text-sm font-semibold text-secondary mb-3">Volunteer Opportunities</p>
+              <ul className="space-y-2 text-sm text-white/80">
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">•</span>
+                  <span>Medical camps and health checkups</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">•</span>
+                  <span>Blood and eye donation awareness drives</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">•</span>
+                  <span>Disaster relief and emergency response</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">•</span>
+                  <span>Community outreach programs</span>
+                </li>
+              </ul>
+            </div>
+            <div className="p-4 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
+              <p className="text-sm font-semibold text-secondary mb-2">Contact for Volunteering</p>
+              <p className="text-sm text-white/80">📞 040 23554849 | 98497 56785</p>
+              <p className="text-sm text-white/80 mt-2">📧 Reach out through our website or visit our office</p>
+            </div>
           </div>
         </div>
       </div>
@@ -151,28 +200,26 @@ const AnimatedTabs = ({
   tabs = defaultTabs,
   defaultTab,
   className,
-  autoScrollInterval = 5000, // 5 seconds default
+  autoScrollInterval = 6000, // 6 seconds default for better readability
 }: AnimatedTabsProps) => {
   const [activeTab, setActiveTab] = useState<string>(defaultTab || tabs[0]?.id);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality - optimized for smooth operation
   useEffect(() => {
+    // Clear any existing interval first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    // Don't start if paused or no tabs
     if (isPaused || !tabs?.length) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
       return;
     }
 
-    // Clear any existing interval
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
-    // Set up new interval
+    // Set up new interval for auto-scrolling
     intervalRef.current = setInterval(() => {
       setActiveTab((currentTab) => {
         const currentIndex = tabs.findIndex((tab) => tab.id === currentTab);
@@ -181,6 +228,7 @@ const AnimatedTabs = ({
       });
     }, autoScrollInterval);
 
+    // Cleanup function
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -189,60 +237,57 @@ const AnimatedTabs = ({
     };
   }, [isPaused, tabs, autoScrollInterval]);
 
-  // Handle manual tab change - reset the interval
+  // Handle manual tab change - reset the interval smoothly
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
-    // Clear current interval
+    // Clear current interval to reset the timer
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-    // Restart auto-scroll after a brief pause (only if not paused)
-    if (!isPaused) {
-      setTimeout(() => {
-        if (!isPaused && intervalRef.current === null) {
-          intervalRef.current = setInterval(() => {
-            setActiveTab((currentTab) => {
-              const currentIndex = tabs.findIndex((tab) => tab.id === currentTab);
-              const nextIndex = (currentIndex + 1) % tabs.length;
-              return tabs[nextIndex].id;
-            });
-          }, autoScrollInterval);
-        }
-      }, 2000); // 2 second pause after manual change
-    }
+    // The useEffect will automatically restart the interval if not paused
+    // This ensures smooth auto-scroll continues after manual interaction
   };
 
   if (!tabs?.length) return null;
 
   return (
     <div
-      className={cn("w-full flex flex-col gap-y-3", className)}
+      className={cn("w-full flex flex-col gap-y-4", className)}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="flex gap-3 flex-wrap bg-[#11111198] bg-opacity-50 backdrop-blur-sm p-2 rounded-xl">
+      {/* Enhanced Tab Navigation */}
+      <div className="flex gap-2 flex-wrap bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 backdrop-blur-md p-2 rounded-2xl border border-primary/20 shadow-lg">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
             className={cn(
-              "relative px-5 py-2.5 text-base font-medium rounded-lg text-white outline-none transition-colors"
+              "relative px-6 py-3 text-sm md:text-base font-semibold rounded-xl text-primary outline-none transition-all duration-300",
+              "hover:bg-primary/10 hover:scale-105",
+              activeTab === tab.id ? "text-white" : "text-primary/70 hover:text-primary"
             )}
           >
             {activeTab === tab.id && (
               <motion.div
                 layoutId="active-tab"
-                className="absolute inset-0 bg-[#111111d1] bg-opacity-50 shadow-[0_0_20px_rgba(0,0,0,0.2)] backdrop-blur-sm !rounded-lg"
-                transition={{ type: "spring", duration: 0.6 }}
+                className="absolute inset-0 bg-gradient-to-r from-primary to-primary/90 shadow-lg shadow-primary/30 backdrop-blur-sm rounded-xl"
+                transition={{ type: "spring", duration: 0.6, bounce: 0.2 }}
               />
             )}
-            <span className="relative z-10">{tab.label}</span>
+            <span className="relative z-10 flex items-center gap-2">
+              {tab.label}
+            </span>
           </button>
         ))}
       </div>
 
-      <div className="p-6 md:p-8 bg-[#11111198] shadow-[0_0_20px_rgba(0,0,0,0.2)] text-white bg-opacity-50 backdrop-blur-sm rounded-xl border min-h-[400px] md:min-h-[500px] h-full">
+      {/* Enhanced Content Area */}
+      <div className="p-8 md:p-10 lg:p-12 bg-gradient-to-br from-primary via-primary/95 to-primary/90 shadow-2xl shadow-primary/20 text-white backdrop-blur-sm rounded-2xl border-2 border-secondary/20 min-h-[450px] md:min-h-[550px] lg:min-h-[600px] h-full relative overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
         {tabs.map(
           (tab) =>
             activeTab === tab.id && (
@@ -250,17 +295,19 @@ const AnimatedTabs = ({
                 key={tab.id}
                 initial={{
                   opacity: 0,
-                  scale: 0.95,
-                  x: -10,
-                  filter: "blur(10px)",
+                  scale: 0.96,
+                  y: 20,
+                  filter: "blur(8px)",
                 }}
-                animate={{ opacity: 1, scale: 1, x: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0.95, x: -10, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 0.96, y: -20, filter: "blur(8px)" }}
                 transition={{
-                  duration: 0.5,
-                  ease: "circInOut",
+                  duration: 0.6,
+                  ease: [0.4, 0, 0.2, 1],
                   type: "spring",
+                  stiffness: 100,
                 }}
+                className="relative z-10"
               >
                 {tab.content}
               </motion.div>
