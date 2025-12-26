@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import Footer from "@/components/sections/footer";
+import CircularImageGallerySection from "@/components/sections/circular-image-gallery-section";
 import { getPublicEvents, getPublicProjects, getPublicPrograms } from "@/lib/api";
 import Image from "next/image";
 
@@ -143,6 +144,9 @@ export default function GalleryPage() {
             </div>
           </div>
         </section>
+
+        {/* Circular Image Gallery Section */}
+        <CircularImageGallerySection />
 
         {/* Gallery Section */}
         <section className="py-20 md:py-32 bg-white">
