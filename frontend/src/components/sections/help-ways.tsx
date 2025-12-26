@@ -4,6 +4,7 @@ import {
   PiggyBank,
   UsersRound,
 } from "lucide-react";
+import { AnimatedTabs } from "@/components/ui/animated-tabs";
 
 const helpData = [
   {
@@ -109,6 +110,11 @@ const HelpWays = () => {
           >
             See All Ways To Support
           </a>
+        </div>
+
+        {/* Animated Tabs Section */}
+        <div className="mt-20 flex justify-center">
+          <AnimatedTabs className="max-w-6xl w-full" />
         </div>
       </div>
     </section>
