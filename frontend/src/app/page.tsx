@@ -11,6 +11,7 @@ import CharityTimeline from "@/components/sections/Charity-Timeline";
 import TestimonialsCarousel from "@/components/sections/testimonials-carousel";
 import ReviewsSection from "@/components/sections/reviews-section";
 import Footer from "@/components/sections/footer";
+import Featured_05 from "@/components/ui/globe-feature-section";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <HelpWays />
         <ProgramsCarousel />
         <JoinBanner />
+        <Featured_05 />
         <ProjectsShowcase />
         <EventsBanner />
         <ReviewsSection />
