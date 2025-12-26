@@ -10,8 +10,10 @@ import EventsBanner from "@/components/sections/events-banner";
 import CharityTimeline from "@/components/sections/Charity-Timeline";
 import TestimonialsCarousel from "@/components/sections/testimonials-carousel";
 import CircularTestimonialsSection from "@/components/sections/circular-testimonials-section";
+import TestimonialsColumnsSection from "@/components/sections/testimonials-columns-section";
 import ReviewsSection from "@/components/sections/reviews-section";
 import Footer from "@/components/sections/footer";
+import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import Featured_05 from "@/components/ui/globe-feature-section";
 
 export default function Home() {
@@ -31,8 +33,9 @@ export default function Home() {
         <ReviewsSection />
         <TestimonialsCarousel />
         <CircularTestimonialsSection />
+        <TestimonialsColumnsSection />
       </main>
-      <Footer />
+      <FlickeringFooter />
     </div>
   );
 }
