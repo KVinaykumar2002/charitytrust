@@ -1,6 +1,7 @@
 import NavigationHeader from "@/components/sections/navigation-header";
 import HeroBanner from "@/components/sections/hero-banner";
 import AboutUsIntro from "@/components/sections/about-us-intro";
+import HeroSection9Section from "@/components/sections/hero-section-9-section";
 import MissionStatement from "@/components/sections/mission-statement";
 import HelpWays from "@/components/sections/help-ways";
 import ProgramsCarousel from "@/components/sections/programs-carousel";
@@ -23,6 +24,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroBanner />
         <AboutUsIntro />
+        <HeroSection9Section />
         <MissionStatement />
         <HelpWays />
         <ProgramsCarousel />

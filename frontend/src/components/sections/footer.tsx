@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, MapPin, Facebook, Instagram, X, MessageSquare } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 import CircularText from "@/components/ui/circular-text";
+import { FloatingConsultButton } from "@/components/ui/floating-consult-button";
 
 // Motion Variants
 const fadeUp = {
@@ -30,25 +31,6 @@ const staggerContainer = {
   },
 };
 
-// Social Icon Component
-const SocialIcon = ({
-  href,
-  icon: Icon,
-}: {
-  href: string;
-  icon: React.ElementType;
-}) => (
-  <motion.a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    variants={fadeUp}
-    whileHover={{ scale: 1.15, backgroundColor: "rgba(255,255,255,0.1)" }}
-    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
-  >
-    <Icon className="h-5 w-5" />
-  </motion.a>
-);
 
 // Navigation Link
 const NavLink = ({
@@ -89,18 +71,19 @@ const Footer = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-5 lg:gap-x-[60px] relative z-10">
-          {/* Left Column */}
+        <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-[1.2fr_1fr] lg:gap-x-20 xl:gap-x-32 relative z-10">
+          {/* Left Column - About CCT */}
           <motion.div
             variants={fadeUp}
-            className="space-y-12 lg:col-span-2"
+            className="space-y-6"
           >
-            <div className="space-y-6">
-              <motion.div
-                variants={fadeUp}
-                className="inline-block"
-                whileHover={{ scale: 1.03 }}
-              >
+            {/* Logo */}
+            <motion.div
+              variants={fadeUp}
+              className="inline-block mb-6"
+              whileHover={{ scale: 1.03 }}
+            >
+              <Link href="/">
                 <Image
                   src="/navbar_logo.png"
                   alt="Chiranjeevi Charitable Trust logo"
@@ -108,145 +91,91 @@ const Footer = () => {
                   height={48}
                   className="h-12 w-auto"
                 />
-              </motion.div>
+              </Link>
+            </motion.div>
 
-              <motion.h6
-                variants={fadeUp}
-                className="text-lg font-semibold text-white"
-              >
-                Our Mission
-              </motion.h6>
-              <motion.p
-                variants={fadeUp}
-                className="text-[15px] leading-relaxed text-white/70"
-              >
-                Chiranjeevi Charitable Trust is dedicated to saving sight and
-                lives through compassionate eye and blood care. Every initiative
-                is inspired by the belief that timely support, expert treatment,
-                and community participation can transform futures.
-              </motion.p>
-            </div>
+            {/* Mission Statement */}
+            <motion.p
+              variants={fadeUp}
+              className="text-[15px] leading-relaxed text-white/90 mb-6"
+            >
+              Chiranjeevi Charitable Trust is dedicated to saving sight and
+              lives through compassionate eye and blood care. Every initiative
+              is inspired by the belief that timely support, expert treatment,
+              and community participation can transform futures.
+            </motion.p>
 
-            {/* Newsletter */}
-            <motion.div variants={staggerContainer} className="space-y-6">
-              <motion.h6
-                variants={fadeUp}
-                className="text-lg font-semibold text-white"
-              >
-                Stay connected with CCT updates
-              </motion.h6>
-              <motion.form
-                variants={fadeUp}
-                whileHover={{ scale: 1.02 }}
-                className="flex flex-col gap-4 sm:flex-row"
-              >
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="h-14 w-full flex-grow rounded-lg border border-white/30 bg-transparent px-4 py-2 text-white outline-none ring-offset-primary transition-colors placeholder:text-white/50 focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
-                />
-                <button
-                  type="submit"
-                  className="h-14 flex-shrink-0 rounded-lg bg-secondary px-6 text-base font-medium text-secondary-foreground transition-all hover:bg-mint-green-light hover:scale-105"
-                >
-                  Subscribe
-                </button>
-              </motion.form>
+            {/* AICPA SOC 2 Badge */}
+            <motion.div
+              variants={fadeUp}
+              className="flex items-center"
+            >
+              <div className="bg-white rounded-full border border-black/20 px-4 py-2.5 inline-flex flex-col items-center justify-center min-w-[60px]">
+                <span className="text-black text-xs font-semibold leading-tight">AICPA</span>
+                <span className="text-black text-xs font-semibold leading-tight">SOC 2</span>
+              </div>
             </motion.div>
           </motion.div>
 
-          {/* Middle Column */}
-          <motion.div variants={fadeUp} className="lg:col-span-1">
-            <div className="space-y-6">
-              <h6 className="text-lg font-semibold text-white">Explore CCT</h6>
+          {/* Right Columns - Navigation & Contact */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10 xl:gap-12">
+            {/* Column 1: Explore CCT */}
+            <motion.div variants={fadeUp}>
+              <h6 className="text-base font-semibold text-white mb-5">Explore CCT</h6>
               <nav>
                 <ul className="space-y-3">
                   <NavLink href="/">Home</NavLink>
                   <NavLink href="/about">About the Trust</NavLink>
                   <NavLink href="/#programs">Programs & Initiatives</NavLink>
                   <NavLink href="/#donate-blood">Donate Blood</NavLink>
+                </ul>
+              </nav>
+            </motion.div>
+
+            {/* Column 2: Get Involved */}
+            <motion.div variants={fadeUp}>
+              <h6 className="text-base font-semibold text-white mb-5">Get Involved</h6>
+              <nav>
+                <ul className="space-y-3">
+                  <NavLink href="/volunteer">Volunteer</NavLink>
+                  <NavLink href="/#monthly-support">Monthly Support</NavLink>
+                  <NavLink href="/partnerships">Partnerships</NavLink>
                   <NavLink href="/contact-us">Contact</NavLink>
                 </ul>
               </nav>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          {/* Right Column */}
-          <motion.div variants={fadeUp} className="lg:col-span-2 lg:pr-[220px]">
-            <div className="space-y-6">
-              <h6 className="text-lg font-semibold text-white">Contact Us</h6>
-              <ul className="space-y-4 text-[15px] text-white/80">
-                <motion.li variants={fadeUp} className="flex items-start gap-4">
-                  <Phone className="mt-1 h-5 w-5 flex-shrink-0 text-white/60" />
-                  <span>
-                    040 23554849<br />
-                    040 23555005<br />
-                    98497 56785
-                  </span>
+            {/* Column 3: Contact Us */}
+            <motion.div variants={fadeUp}>
+              <h6 className="text-base font-semibold text-white mb-5">Contact Us</h6>
+              <ul className="space-y-3 text-[15px] text-white/80">
+                <motion.li variants={fadeUp} className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-white/70" />
+                  <a href="tel:04023554849" className="hover:text-white transition-colors">
+                    040 23554849
+                  </a>
                 </motion.li>
-                <motion.li variants={fadeUp} className="flex items-start gap-4">
-                  <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-white/60" />
-                  <span>
-                    Chiranjeevi Eye and Blood Bank<br />
-                    82/A, Road No. 1, Jawahar Colony, Jubilee Hills<br />
-                    Hyderabad, Telangana, India
+                <motion.li variants={fadeUp} className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-white/70" />
+                  <a href="tel:04023555005" className="hover:text-white transition-colors">
+                    040 23555005
+                  </a>
+                </motion.li>
+                <motion.li variants={fadeUp} className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-white/70" />
+                  <a href="tel:9849756785" className="hover:text-white transition-colors">
+                    98497 56785
+                  </a>
+                </motion.li>
+                <motion.li variants={fadeUp} className="flex items-start gap-3 pt-1">
+                  <MapPin className="h-4 w-4 flex-shrink-0 text-white/70 mt-0.5" />
+                  <span className="leading-relaxed">
+                    Jubilee Hills, Hyderabad
                   </span>
                 </motion.li>
               </ul>
-
-              {/* Buttons */}
-              <motion.div
-                variants={staggerContainer}
-                className="flex flex-wrap items-center gap-3 pt-6"
-              >
-                <motion.div variants={fadeUp} whileHover={{ scale: 1.05 }}>
-                  <Link
-                    href="tel:9849756785"
-                    className="flex items-center gap-2 rounded-full border border-white/20 px-5 py-2 text-sm font-medium text-white transition-all hover:border-white hover:bg-white/10 hover:shadow-[0_0_10px_rgba(255,255,255,0.2)]"
-                  >
-                    <Phone className="h-4 w-4" />
-                    Donate Blood • Save Lives
-                  </Link>
-                </motion.div>
-                <motion.div variants={fadeUp} whileHover={{ scale: 1.05 }}>
-                  <Link
-                    href="https://wa.me/919849756785"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-full border border-white/20 px-5 py-2 text-sm font-medium text-white transition-all hover:border-white hover:bg-white/10 hover:shadow-[0_0_10px_rgba(255,255,255,0.2)]"
-                  >
-                    <MessageSquare className="h-4 w-4" />
-                    Message us on WhatsApp
-                  </Link>
-                </motion.div>
-              </motion.div>
-
-              {/* Social */}
-              <motion.p
-                variants={fadeUp}
-                className="text-sm uppercase tracking-[0.3em] text-white/60"
-              >
-                Follow @ChiranjeeviCharitableTrust
-              </motion.p>
-              <motion.div
-                variants={staggerContainer}
-                className="flex items-center gap-3 pt-4"
-              >
-                <SocialIcon
-                  href="https://www.facebook.com/chiranjeevicharitabletrust"
-                  icon={Facebook}
-                />
-                <SocialIcon
-                  href="https://www.instagram.com/chiranjeevi_charitable_trust"
-                  icon={Instagram}
-                />
-                <SocialIcon
-                  href="https://twitter.com/ChiruForCharity"
-                  icon={X}
-                />
-              </motion.div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
 
         {/* Bottom Bar */}
@@ -260,6 +189,21 @@ const Footer = () => {
           </div>
         </motion.div>
       </div>
+      
+      {/* Floating Consult Button */}
+      <FloatingConsultButton
+        buttonSize={160}
+        imageSize={96}
+        imageSrc="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=400&fit=crop"
+        revolvingText="GET HELP - CONTACT US - FREE CONSULT - "
+        revolvingSpeed={10}
+        popupHeading="Need Help?"
+        popupDescription="Reach out to Chiranjeevi Charitable Trust for support with eye care, blood donation, or any questions about our services. Our team is here to help you."
+        popupBadgeText="Free"
+        ctaButtonText="Contact Us"
+        ctaButtonAction={() => window.location.href = '/contact-us'}
+        position={{ bottom: "2rem", right: "2rem" }}
+      />
     </motion.footer>
   );
 };
