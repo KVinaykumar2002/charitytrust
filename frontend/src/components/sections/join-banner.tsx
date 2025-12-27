@@ -171,23 +171,23 @@ const JoinBanner = () => {
               data-stagger-item
               data-animation="fade-up"
               data-animation-delay={`${index * 0.08}s`}
-              className="group flex h-full flex-col gap-4 rounded-3xl border border-primary/15 bg-white/90 p-8 text-left shadow-[0_20px_40px_-24px_rgba(15,45,46,0.35)] backdrop-blur supports-[backdrop-filter]:bg-white/70 transition hover:-translate-y-2 hover:shadow-[0_28px_50px_-24px_rgba(15,45,46,0.45)]"
+              className="group flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-black p-8 text-left shadow-[0_20px_40px_-24px_rgba(0,0,0,0.5)] transition hover:-translate-y-2 hover:shadow-[0_28px_50px_-24px_rgba(253,126,20,0.3)]"
             >
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FD7E14]/20 text-[#FD7E14]">
                   <stat.icon className="h-8 w-8" />
                 </div>
                 <div>
-                  <p className="text-2xl font-extrabold text-primary">
+                  <p className="text-2xl font-extrabold text-[#FD7E14]">
                     {statCounts[index].toLocaleString()}
                     {stat.suffix}
                   </p>
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary/70">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#FD7E14]/70">
                     {stat.highlight}
                   </p>
                 </div>
               </div>
-              <p className="text-base leading-6 text-text-secondary">
+              <p className="text-base leading-6 text-white/70">
                 {stat.description}
               </p>
             </div>
