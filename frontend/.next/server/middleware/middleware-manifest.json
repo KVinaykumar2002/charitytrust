@@ -3,9 +3,9 @@
   "middleware": {
     "/": {
       "files": [
-        "server/edge/chunks/[project]_frontend_95fd1c._.js",
-        "server/edge/chunks/[root of the server]__89eb02._.js",
-        "server/edge/chunks/edge-wrapper_4af292.js"
+        "server/edge/chunks/[project]_frontend_72c866._.js",
+        "server/edge/chunks/src_middleware_ts_b1c1c0._.js",
+        "server/edge/chunks/edge-wrapper_6467f3.js"
       ],
       "name": "middleware",
       "page": "/",
@@ -22,28 +22,28 @@
       "wasm": [],
       "assets": [
         {
-          "name": "server/edge/chunks/[project]_frontend_95fd1c._.js.map",
-          "filePath": "server/edge/chunks/[project]_frontend_95fd1c._.js.map"
+          "name": "server/edge/chunks/[project]_frontend_72c866._.js.map",
+          "filePath": "server/edge/chunks/[project]_frontend_72c866._.js.map"
         },
         {
-          "name": "server/edge/chunks/[project]_frontend_95fd1c._.js",
-          "filePath": "server/edge/chunks/[project]_frontend_95fd1c._.js"
+          "name": "server/edge/chunks/[project]_frontend_72c866._.js",
+          "filePath": "server/edge/chunks/[project]_frontend_72c866._.js"
         },
         {
-          "name": "server/edge/chunks/[root of the server]__89eb02._.js.map",
-          "filePath": "server/edge/chunks/[root of the server]__89eb02._.js.map"
+          "name": "server/edge/chunks/src_middleware_ts_b1c1c0._.js.map",
+          "filePath": "server/edge/chunks/src_middleware_ts_b1c1c0._.js.map"
         },
         {
-          "name": "server/edge/chunks/[root of the server]__89eb02._.js",
-          "filePath": "server/edge/chunks/[root of the server]__89eb02._.js"
+          "name": "server/edge/chunks/src_middleware_ts_b1c1c0._.js",
+          "filePath": "server/edge/chunks/src_middleware_ts_b1c1c0._.js"
         },
         {
-          "name": "server/edge/chunks/edge-wrapper_4af292.js.map",
-          "filePath": "server/edge/chunks/edge-wrapper_4af292.js.map"
+          "name": "server/edge/chunks/edge-wrapper_6467f3.js.map",
+          "filePath": "server/edge/chunks/edge-wrapper_6467f3.js.map"
         },
         {
-          "name": "server/edge/chunks/edge-wrapper_4af292.js",
-          "filePath": "server/edge/chunks/edge-wrapper_4af292.js"
+          "name": "server/edge/chunks/edge-wrapper_6467f3.js",
+          "filePath": "server/edge/chunks/edge-wrapper_6467f3.js"
         }
       ],
       "env": {

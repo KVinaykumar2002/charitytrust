@@ -1,7 +1,7 @@
 (globalThis.TURBOPACK = globalThis.TURBOPACK || []).push([
     "static/chunks/[project]_frontend_a09f68._.js",
     {},
-    {"otherChunks":["static/chunks/node_modules_next_dist_compiled_react-dom_a667ac._.js","static/chunks/node_modules_next_dist_compiled_2f2fe9._.js","static/chunks/node_modules_next_dist_client_cd7369._.js","static/chunks/node_modules_next_dist_5a6253._.js","static/chunks/ed0b0_@swc_helpers_cjs_7323ec._.js","static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_7ed44e._.js"],"runtimeModuleIds":["[project]/frontend/node_modules/next/dist/compiled/@next/react-refresh-utils/dist/runtime.js [app-client] (ecmascript)","[project]/frontend/node_modules/next/dist/client/app-next-turbopack.js [app-client] (ecmascript)"]}
+    {"otherChunks":["static/chunks/node_modules_next_dist_compiled_react-dom_a667ac._.js","static/chunks/node_modules_next_dist_compiled_2f2fe9._.js","static/chunks/node_modules_next_dist_client_cd7369._.js","static/chunks/node_modules_next_dist_5a6253._.js","static/chunks/ed0b0_@swc_helpers_cjs_7323ec._.js","static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_7ed44e._.js"],"runtimeModuleIds":["[project]/frontend/node_modules/next/dist/client/app-next-turbopack.js [app-client] (ecmascript)"]}
 ]);
 (() => {
 if (!Array.isArray(globalThis.TURBOPACK)) {

@@ -1,4 +1,4 @@
-(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_7ed44e._.js", {
+(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_ca8901._.js", {
 
 "[turbopack]/browser/dev/hmr-client/hmr-client.ts [app-client] (ecmascript, async loader)": ((__turbopack_context__) => {
 
@@ -7,7 +7,7 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 __turbopack_export_value__((__turbopack_import__) => {
     return Promise.all([
   "static/chunks/[turbopack]_browser_dev_hmr-client_d6d8d4._.js",
-  "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_22b62a._.js"
+  "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_9a8424._.js"
 ].map((chunk) => __turbopack_load__(chunk))).then(() => {
         return __turbopack_import__("[turbopack]/browser/dev/hmr-client/hmr-client.ts [app-client] (ecmascript)");
     });

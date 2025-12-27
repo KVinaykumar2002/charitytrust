@@ -11,7 +11,7 @@
     "static/chunks/node_modules_@radix-ui_react-icons_dist_react-icons_esm_499fa6.js",
     "static/chunks/node_modules_framer-motion_dist_es_8639f4._.js",
     "static/chunks/node_modules_motion-dom_dist_es_d2f12e._.js",
-    "static/chunks/node_modules_005bd3._.js"
+    "static/chunks/node_modules_50aa70._.js"
   ],
   "source": "dynamic"
 });
