@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import NavigationHeader from "@/components/sections/navigation-header";
-import Footer from "@/components/sections/footer";
+import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { Calendar, MapPin, Clock } from "lucide-react";
 import { getPublicEvents } from "@/lib/api";
 
@@ -239,7 +239,7 @@ export default function EventsPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FlickeringFooter />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import NavigationHeader from "@/components/sections/navigation-header";
-import Footer from "@/components/sections/footer";
+import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { Calendar, MapPin, Target, CheckCircle2, Clock, PlayCircle } from "lucide-react";
 import { getPublicProjects } from "@/lib/api";
 
@@ -248,7 +248,7 @@ export default function ProjectsPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FlickeringFooter />
     </div>
   );
 }

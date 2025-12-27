@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import NavigationHeader from "@/components/sections/navigation-header";
-import Footer from "@/components/sections/footer";
+import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { ChevronDown, HelpCircle } from "lucide-react";
 
 interface FAQItem {
@@ -143,7 +143,7 @@ export default function FAQPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FlickeringFooter />
     </div>
   );
 }

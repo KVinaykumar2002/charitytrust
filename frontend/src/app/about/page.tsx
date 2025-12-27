@@ -1,5 +1,5 @@
 import NavigationHeader from "@/components/sections/navigation-header";
-import Footer from "@/components/sections/footer";
+import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import AboutCompanySection from "@/components/sections/about-company-section";
 import JourneyTimelineSection from "@/components/sections/journey-timeline-section";
 import MissionSection from "@/components/sections/mission-section";
@@ -15,7 +15,7 @@ export default function AboutPage() {
         <MissionSection />
         <VisionSection />
       </main>
-      <Footer />
+      <FlickeringFooter />
     </div>
   );
 }

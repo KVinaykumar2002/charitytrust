@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Phone, MapPin } from "lucide-react";
 import CircularText from "@/components/ui/circular-text";
-import { FloatingConsultButton } from "@/components/ui/floating-consult-button";
 
 // Motion Variants
 const fadeUp = {
@@ -189,21 +188,6 @@ const Footer = () => {
           </div>
         </motion.div>
       </div>
-      
-      {/* Floating Consult Button */}
-      <FloatingConsultButton
-        buttonSize={160}
-        imageSize={96}
-        imageSrc="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=400&fit=crop"
-        revolvingText="GET HELP - CONTACT US - FREE CONSULT - "
-        revolvingSpeed={10}
-        popupHeading="Need Help?"
-        popupDescription="Reach out to Chiranjeevi Charitable Trust for support with eye care, blood donation, or any questions about our services. Our team is here to help you."
-        popupBadgeText="Free"
-        ctaButtonText="Contact Us"
-        ctaButtonAction={() => window.location.href = '/contact-us'}
-        position={{ bottom: "2rem", right: "2rem" }}
-      />
     </motion.footer>
   );
 };

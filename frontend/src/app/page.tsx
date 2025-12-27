@@ -12,6 +12,7 @@ import CharityTimeline from "@/components/sections/Charity-Timeline";
 import TestimonialsCarousel from "@/components/sections/testimonials-carousel";
 import CircularTestimonialsSection from "@/components/sections/circular-testimonials-section";
 import TestimonialsColumnsSection from "@/components/sections/testimonials-columns-section";
+import TestimonialSliderSection from "@/components/sections/testimonial-slider-section";
 import ReviewsSection from "@/components/sections/reviews-section";
 import Footer from "@/components/sections/footer";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
@@ -35,6 +36,7 @@ export default function Home() {
         <ReviewsSection />
         <TestimonialsCarousel />
         <CircularTestimonialsSection />
+        <TestimonialSliderSection />
         <TestimonialsColumnsSection />
       </main>
       <FlickeringFooter />
