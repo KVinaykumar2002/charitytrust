@@ -41,12 +41,12 @@ const MissionSection = () => {
     <section
       id="mission"
       data-page-animation="scale-fade"
-      className="relative bg-primary text-primary-foreground py-24 md:py-32 overflow-hidden scroll-mt-24"
+      className="relative bg-black text-white py-24 md:py-32 overflow-hidden scroll-mt-24"
     >
       {/* Background Decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#FD7E14]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FD7E14]/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
@@ -97,7 +97,7 @@ const MissionSection = () => {
                 height={700}
                 className="w-full h-auto object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             </div>
             {/* Decorative Element */}
             <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-secondary/30 rounded-full blur-2xl"></div>
@@ -169,9 +169,9 @@ const MissionSection = () => {
                 data-stagger-item
                 data-animation="slide-up"
                 data-animation-delay={`${index * 0.1}s`}
-                className="bg-ring rounded-2xl p-8 hover-lift-up group"
+                className="bg-white/5 border border-white/10 rounded-2xl p-8 hover-lift-up group"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-[#FD7E14] rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                   {pillar.icon}
                 </div>
                 <h4 className="text-xl font-semibold mb-4 text-white">

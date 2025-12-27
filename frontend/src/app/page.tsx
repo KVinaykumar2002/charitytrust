@@ -4,18 +4,10 @@ import AboutUsIntro from "@/components/sections/about-us-intro";
 import HeroSection9Section from "@/components/sections/hero-section-9-section";
 import MissionStatement from "@/components/sections/mission-statement";
 import VolunteerHeroSection from "@/components/sections/volunteer-hero-section";
-import HelpWays from "@/components/sections/help-ways";
 import ProgramsCarousel from "@/components/sections/programs-carousel";
 import JoinBanner from "@/components/sections/join-banner";
 import ProjectsShowcase from "@/components/sections/projects-showcase";
 import EventsBanner from "@/components/sections/events-banner";
-import CharityTimeline from "@/components/sections/Charity-Timeline";
-import TestimonialsCarousel from "@/components/sections/testimonials-carousel";
-import CircularTestimonialsSection from "@/components/sections/circular-testimonials-section";
-import TestimonialsColumnsSection from "@/components/sections/testimonials-columns-section";
-import TestimonialSliderSection from "@/components/sections/testimonial-slider-section";
-import ReviewsSection from "@/components/sections/reviews-section";
-import Footer from "@/components/sections/footer";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import Featured_05 from "@/components/ui/globe-feature-section";
 
@@ -28,17 +20,11 @@ export default function Home() {
         <AboutUsIntro />
         <HeroSection9Section />
         <MissionStatement />
-        <HelpWays />
         <ProgramsCarousel />
         <JoinBanner />
         <Featured_05 />
         <ProjectsShowcase />
         <EventsBanner />
-        <ReviewsSection />
-        <TestimonialsCarousel />
-        <CircularTestimonialsSection />
-        <TestimonialSliderSection />
-        <TestimonialsColumnsSection />
         <VolunteerHeroSection />
       </main>
       <FlickeringFooter />

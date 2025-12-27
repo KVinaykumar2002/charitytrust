@@ -491,21 +491,18 @@ export const Component = () => {
   const tablet = useMediaQuery("(max-width: 1024px)");
 
   return (
-    <footer id="footer" className="w-full pb-0 bg-primary text-primary-foreground overflow-visible relative">
+    <footer id="footer" className="w-full pb-0 bg-black text-white overflow-visible relative">
       <div className="container py-16 relative">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between p-10">
           <div className="flex flex-col items-start justify-start gap-y-5 max-w-md mx-0">
             <Link href="/" className="flex items-center gap-3">
-              <Icons.logo className="size-10" />
+              <Icons.logo className="size-10 fill-[#FD7E14]" />
               <p className="text-2xl font-semibold text-white">CCT</p>
             </Link>
             <p className="tracking-tight text-white/70 font-medium text-base leading-relaxed">
               {siteConfig.hero.description}
             </p>
-            <div className="flex items-center gap-2 dark:hidden">
-              <Icons.soc2 className="size-14" />
-            </div>
-            <div className="dark:flex items-center gap-2 hidden">
+            <div className="flex items-center gap-2">
               <Icons.soc2Dark className="size-14" />
             </div>
           </div>
@@ -519,11 +516,11 @@ export const Component = () => {
                   {column.links.map((link) => (
                     <li
                       key={link.id}
-                      className="group inline-flex cursor-pointer items-center justify-start gap-1.5 text-base text-white/80 hover:text-white transition-colors"
+                      className="group inline-flex cursor-pointer items-center justify-start gap-1.5 text-base text-[#FD7E14] hover:text-[#FFB366] transition-colors"
                     >
                       <Link href={link.url}>{link.title}</Link>
-                      <div className="flex size-5 items-center justify-center border border-white/20 rounded translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100">
-                        <ChevronRightIcon className="h-4 w-4 text-white" />
+                      <div className="flex size-5 items-center justify-center border border-[#FD7E14]/30 rounded translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100">
+                        <ChevronRightIcon className="h-4 w-4 text-[#FD7E14]" />
                       </div>
                     </li>
                   ))}
@@ -534,7 +531,7 @@ export const Component = () => {
         </div>
       </div>
       <div className="w-full h-56 md:h-72 relative mt-12 z-0">
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-primary/50 to-primary z-10 from-40%" />
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/50 to-black z-10 from-40%" />
         <div className="absolute inset-0 mx-6">
           <FlickeringGrid
             text={tablet ? "CCT" : "Saving Lives & Sight"}
@@ -542,8 +539,8 @@ export const Component = () => {
             className="h-full w-full"
             squareSize={2}
             gridGap={tablet ? 2 : 3}
-            color="#ffffff"
-            maxOpacity={0.15}
+            color="#FD7E14"
+            maxOpacity={0.2}
             flickerChance={0.1}
           />
         </div>

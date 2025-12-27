@@ -22,13 +22,12 @@ const defaultTabs: Tab[] = [
     id: "campaigns",
     label: "Blood & Eye Donation",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#FD7E14]/50 to-[#FD7E14]/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full items-center">
+        <div className="flex items-center justify-center">
           <img
             src="https://www.cinejosh.com/newsimg/newsmainimg/chiranjeevi-on-world-blood-donation-day_b_1506220926.jpg"
             alt="Chiranjeevi Charity Trust Blood Donation Campaign"
-            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-[#FD7E14]/30"
+            className="rounded-2xl w-full max-w-md h-80 md:h-96 object-cover shadow-2xl"
           />
         </div>
         <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
@@ -60,13 +59,12 @@ const defaultTabs: Tab[] = [
     id: "monthly",
     label: "Monthly Support",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#FD7E14]/50 to-[#FD7E14]/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full items-center">
+        <div className="flex items-center justify-center">
           <img
             src="https://assets.hmtvlive.com/h-upload/2023/07/09/357070-chiranjeevi-charitable-trust.webp"
             alt="Chiranjeevi Charity Trust Monthly Support Programs"
-            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-[#FD7E14]/30"
+            className="rounded-2xl w-full max-w-md h-80 md:h-96 object-cover shadow-2xl"
           />
         </div>
         <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
@@ -101,13 +99,12 @@ const defaultTabs: Tab[] = [
     id: "partnerships",
     label: "Partnerships",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#FD7E14]/50 to-[#FD7E14]/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full items-center">
+        <div className="flex items-center justify-center">
           <img
             src="https://img.ap7am.com/froala-uploads/20240126fr65b342713b414.jpg"
             alt="Chiranjeevi Charity Trust Corporate Partnerships"
-            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-[#FD7E14]/30"
+            className="rounded-2xl w-full max-w-md h-80 md:h-96 object-cover shadow-2xl"
           />
         </div>
         <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
@@ -146,13 +143,12 @@ const defaultTabs: Tab[] = [
     id: "volunteer",
     label: "Volunteer",
     content: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full">
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#FD7E14]/50 to-[#FD7E14]/30 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full h-full items-center">
+        <div className="flex items-center justify-center">
           <img
             src="https://img1.wsimg.com/isteam/ip/3f9bf7ba-9991-425c-8ad7-3fa919af01f1/cct1.jpeg/:/cr=t:19.74%25,l:9.68%25,w:80.65%25,h:60.52%25/rs=w:600,h:300,cg:true,m"
             alt="Chiranjeevi Charity Trust Volunteer Programs"
-            className="relative rounded-2xl w-full h-80 md:h-96 object-cover shadow-2xl border-2 border-[#FD7E14]/30"
+            className="rounded-2xl w-full max-w-md h-80 md:h-96 object-cover shadow-2xl"
           />
         </div>
         <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
