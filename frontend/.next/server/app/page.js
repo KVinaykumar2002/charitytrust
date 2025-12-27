@@ -1,13 +1,14 @@
-const CHUNK_PUBLIC_PATH = "server/app/page.js";
-const runtime = require("../chunks/ssr/[turbopack]_runtime.js");
-runtime.loadChunk("server/chunks/ssr/node_modules_next_dist_486411._.js");
-runtime.loadChunk("server/chunks/ssr/[root of the server]__533962._.js");
-runtime.loadChunk("server/chunks/ssr/src_app_1d11f7._.js");
-runtime.loadChunk("server/chunks/ssr/[project]_frontend_13473b._.js");
-runtime.loadChunk("server/chunks/ssr/src_app_globals_a40141.css");
-runtime.loadChunk("server/chunks/ssr/node_modules_next_46461c._.js");
-runtime.loadChunk("server/chunks/ssr/src_app_global-error_tsx_ecf32e._.js");
-runtime.loadChunk("server/chunks/ssr/node_modules_b190aa._.js");
-runtime.loadChunk("server/chunks/ssr/[project]_frontend_87741d._.js");
-runtime.getOrInstantiateRuntimeModule("[project]/frontend/.next-internal/server/app/page/actions.js [app-rsc] (ecmascript)", CHUNK_PUBLIC_PATH);
-module.exports = runtime.getOrInstantiateRuntimeModule("[project]/frontend/node_modules/next/dist/esm/build/templates/app-page.js?page=/page { GLOBAL_ERROR_MODULE => \"[project]/frontend/src/app/global-error.tsx [app-rsc] (ecmascript, Next.js server component)\", METADATA_0 => \"[project]/frontend/src/app/favicon.ico.mjs { IMAGE => \\\"[project]/frontend/src/app/favicon.ico [app-rsc] (static)\\\" } [app-rsc] (structured image object, ecmascript, Next.js server component)\", MODULE_1 => \"[project]/frontend/src/app/layout.tsx [app-rsc] (ecmascript, Next.js server component)\", MODULE_2 => \"[project]/frontend/node_modules/next/dist/client/components/not-found-error.js [app-rsc] (ecmascript, Next.js server component)\", MODULE_3 => \"[project]/frontend/src/app/global-error.tsx [app-rsc] (ecmascript, Next.js server component)\", MODULE_4 => \"[project]/frontend/src/app/page.tsx [app-rsc] (ecmascript, Next.js server component)\" } [app-rsc] (ecmascript)", CHUNK_PUBLIC_PATH).exports;
+var R=require("../chunks/ssr/[turbopack]_runtime.js")("server/app/page.js")
+R.c("server/chunks/ssr/9e883_next_7fe619b6._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__e8a2741f._.js")
+R.c("server/chunks/ssr/frontend_src_app_8a61bd4d._.js")
+R.c("server/chunks/ssr/frontend_0a8bf4f7._.js")
+R.c("server/chunks/ssr/9e883_next_dist_client_components_34a976ba._.js")
+R.c("server/chunks/ssr/9e883_next_dist_client_components_builtin_forbidden_520cb951.js")
+R.c("server/chunks/ssr/9e883_next_dist_client_components_builtin_unauthorized_62f331ea.js")
+R.c("server/chunks/ssr/frontend_src_app_global-error_tsx_2413696a._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__c768fb1d._.js")
+R.c("server/chunks/ssr/9e883_2166cd53._.js")
+R.m("[project]/frontend/.next-internal/server/app/page/actions.js [app-rsc] (server actions loader, ecmascript)")
+R.m("[project]/frontend/node_modules/next/dist/esm/build/templates/app-page.js?page=/page { GLOBAL_ERROR_MODULE => \"[project]/frontend/src/app/global-error.tsx [app-rsc] (ecmascript, Next.js Server Component)\", METADATA_0 => \"[project]/frontend/src/app/favicon.ico.mjs { IMAGE => \\\"[project]/frontend/src/app/favicon.ico (static in ecmascript)\\\" } [app-rsc] (structured image object, ecmascript, Next.js Server Component)\", MODULE_1 => \"[project]/frontend/src/app/layout.tsx [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_2 => \"[project]/frontend/node_modules/next/dist/client/components/builtin/not-found.js [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_3 => \"[project]/frontend/node_modules/next/dist/client/components/builtin/forbidden.js [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_4 => \"[project]/frontend/node_modules/next/dist/client/components/builtin/unauthorized.js [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_5 => \"[project]/frontend/src/app/global-error.tsx [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_6 => \"[project]/frontend/src/app/page.tsx [app-rsc] (ecmascript, Next.js Server Component)\" } [app-rsc] (ecmascript)")
+module.exports=R.m("[project]/frontend/node_modules/next/dist/esm/build/templates/app-page.js?page=/page { GLOBAL_ERROR_MODULE => \"[project]/frontend/src/app/global-error.tsx [app-rsc] (ecmascript, Next.js Server Component)\", METADATA_0 => \"[project]/frontend/src/app/favicon.ico.mjs { IMAGE => \\\"[project]/frontend/src/app/favicon.ico (static in ecmascript)\\\" } [app-rsc] (structured image object, ecmascript, Next.js Server Component)\", MODULE_1 => \"[project]/frontend/src/app/layout.tsx [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_2 => \"[project]/frontend/node_modules/next/dist/client/components/builtin/not-found.js [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_3 => \"[project]/frontend/node_modules/next/dist/client/components/builtin/forbidden.js [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_4 => \"[project]/frontend/node_modules/next/dist/client/components/builtin/unauthorized.js [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_5 => \"[project]/frontend/src/app/global-error.tsx [app-rsc] (ecmascript, Next.js Server Component)\", MODULE_6 => \"[project]/frontend/src/app/page.tsx [app-rsc] (ecmascript, Next.js Server Component)\" } [app-rsc] (ecmascript)").exports

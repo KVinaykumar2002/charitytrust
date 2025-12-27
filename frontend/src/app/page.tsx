@@ -3,6 +3,7 @@ import HeroBanner from "@/components/sections/hero-banner";
 import AboutUsIntro from "@/components/sections/about-us-intro";
 import HeroSection9Section from "@/components/sections/hero-section-9-section";
 import MissionStatement from "@/components/sections/mission-statement";
+import VolunteerHeroSection from "@/components/sections/volunteer-hero-section";
 import HelpWays from "@/components/sections/help-ways";
 import ProgramsCarousel from "@/components/sections/programs-carousel";
 import JoinBanner from "@/components/sections/join-banner";
@@ -38,6 +39,7 @@ export default function Home() {
         <CircularTestimonialsSection />
         <TestimonialSliderSection />
         <TestimonialsColumnsSection />
+        <VolunteerHeroSection />
       </main>
       <FlickeringFooter />
     </div>

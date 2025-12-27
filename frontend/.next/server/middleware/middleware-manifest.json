@@ -3,9 +3,9 @@
   "middleware": {
     "/": {
       "files": [
-        "server/edge/chunks/[project]_frontend_72c866._.js",
-        "server/edge/chunks/src_middleware_ts_b1c1c0._.js",
-        "server/edge/chunks/edge-wrapper_6467f3.js"
+        "server/edge/chunks/frontend_89236d57._.js",
+        "server/edge/chunks/[root-of-the-server]__938da2fc._.js",
+        "server/edge/chunks/turbopack-frontend_edge-wrapper_ef628a9a.js"
       ],
       "name": "middleware",
       "page": "/",
@@ -20,38 +20,13 @@
         }
       ],
       "wasm": [],
-      "assets": [
-        {
-          "name": "server/edge/chunks/[project]_frontend_72c866._.js.map",
-          "filePath": "server/edge/chunks/[project]_frontend_72c866._.js.map"
-        },
-        {
-          "name": "server/edge/chunks/[project]_frontend_72c866._.js",
-          "filePath": "server/edge/chunks/[project]_frontend_72c866._.js"
-        },
-        {
-          "name": "server/edge/chunks/src_middleware_ts_b1c1c0._.js.map",
-          "filePath": "server/edge/chunks/src_middleware_ts_b1c1c0._.js.map"
-        },
-        {
-          "name": "server/edge/chunks/src_middleware_ts_b1c1c0._.js",
-          "filePath": "server/edge/chunks/src_middleware_ts_b1c1c0._.js"
-        },
-        {
-          "name": "server/edge/chunks/edge-wrapper_6467f3.js.map",
-          "filePath": "server/edge/chunks/edge-wrapper_6467f3.js.map"
-        },
-        {
-          "name": "server/edge/chunks/edge-wrapper_6467f3.js",
-          "filePath": "server/edge/chunks/edge-wrapper_6467f3.js"
-        }
-      ],
+      "assets": [],
       "env": {
         "__NEXT_BUILD_ID": "development",
-        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "rU44SycihwRvx0aL0JceYtK1Rvb3aEwvq9itJ4e7fHw=",
-        "__NEXT_PREVIEW_MODE_ID": "0e33db19b3294bde1fea2f2f653592cd",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "63f109a2aee5ee2f3d4178fbf961eaf2b3abdb940f5eaa6112aa6734ee0f4866",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "769fce88cf83dc57ae575ba11ee97289ffe32d2bc7650f7e347565de9340313a"
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "QQlThCF9r4E2ijJVQU4wVErqIUEdPftw2wdjH/vyeVw=",
+        "__NEXT_PREVIEW_MODE_ID": "dc4a6c6c374f0d00f4cecea25ff7adb2",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "69083b68938cca007a0676ceb2721146d18d3efa24e2a7ab7fc7b7dc1c389904",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "6dba5243f32bb258af736766240585badb57ce6983eabfbcc6db9055e068f6b2"
       }
     }
   },
