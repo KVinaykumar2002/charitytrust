@@ -500,9 +500,9 @@ export const Component = () => {
               <Image
                 src="/navbar_logo.png"
                 alt="Chiranjeevi Charitable Trust logo"
-                width={280}
-                height={48}
-                className="h-12 w-auto"
+                width={700}
+                height={150}
+                className="h-20 md:h-24 w-auto"
               />
             </Link>
             <p className="tracking-tight text-white/70 font-medium text-base leading-relaxed">

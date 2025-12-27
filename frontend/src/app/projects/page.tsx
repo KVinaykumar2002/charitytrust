@@ -111,20 +111,49 @@ export default function ProjectsPage() {
       <NavigationHeader />
       <main className="flex-1 pt-24">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-b from-primary to-primary/90 py-20 md:py-32 text-white overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
+        <section className="relative py-20 md:py-32 text-white overflow-hidden">
+          {/* Background Images */}
+          <div className="absolute inset-0">
+            <img 
+              src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=2074&auto=format&fit=crop"
+              alt="Projects background"
+              className="w-full h-full object-cover"
+            />
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
+          
+          {/* Decorative elements */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FD7E14] rounded-full blur-3xl"></div>
+          </div>
+          
+          {/* Floating decorative images */}
+          <div className="absolute top-10 right-10 w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden opacity-30 rotate-6 hidden lg:block">
+            <img 
+              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+              alt="Community project"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute bottom-10 left-10 w-24 h-24 md:w-40 md:h-40 rounded-2xl overflow-hidden opacity-30 -rotate-6 hidden lg:block">
+            <img 
+              src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2070&auto=format&fit=crop"
+              alt="Charity work"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
           <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1
                 data-text-animation="reveal-from-bottom"
-                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-lg"
               >
                 Our Projects
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 leading-relaxed">
+              <p className="text-xl md:text-2xl text-white/90 leading-relaxed drop-shadow-md">
                 Discover the impactful projects we're working on to create positive change in communities.
               </p>
             </div>
@@ -196,7 +225,6 @@ export default function ProjectsPage() {
                               e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y4ZjlmOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM0YTQhNGEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
                             }}
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
                           <div className="absolute top-4 right-4">
                             <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${statusInfo.color}`}>
                               <StatusIcon className="w-3 h-3" />

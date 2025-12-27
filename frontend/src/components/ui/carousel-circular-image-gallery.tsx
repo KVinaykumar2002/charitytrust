@@ -123,10 +123,10 @@ export function ImageGallery() {
   }, [opened, gsapReady, next])
 
   return (
-    <div className="flex items-center justify-center bg-primary rounded-3xl py-12 md:py-16 font-sans relative overflow-hidden">
+    <div className="flex items-center justify-center bg-black rounded-3xl py-12 md:py-16 font-sans relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#FD7E14]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FD7E14]/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
       <div className="relative z-10 h-[70vmin] w-[70vmin] max-h-[550px] max-w-[550px] overflow-hidden rounded-[20px] shadow-[0_2.8px_2.2px_rgba(0,0,0,0.02),0_6.7px_5.3px_rgba(0,0,0,0.028),0_12.5px_10px_rgba(0,0,0,0.035),0_22.3px_17.9px_rgba(0,0,0,0.042),0_41.8px_33.4px_rgba(0,0,0,0.05),0_100px_80px_rgba(0,0,0,0.07)]">
         {gsapReady &&
           images.map((image, i) => (

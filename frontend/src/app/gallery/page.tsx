@@ -125,20 +125,49 @@ export default function GalleryPage() {
       <NavigationHeader />
       <main className="flex-1 pt-24">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-b from-primary to-primary/90 py-20 md:py-32 text-white overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
+        <section className="relative py-20 md:py-32 text-white overflow-hidden">
+          {/* Background Images */}
+          <div className="absolute inset-0">
+            <img 
+              src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop"
+              alt="Gallery background"
+              className="w-full h-full object-cover"
+            />
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
+          
+          {/* Decorative elements */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FD7E14] rounded-full blur-3xl"></div>
+          </div>
+          
+          {/* Floating decorative images */}
+          <div className="absolute top-10 right-10 w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden opacity-30 rotate-6 hidden lg:block">
+            <img 
+              src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=2070&auto=format&fit=crop"
+              alt="Gallery preview"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute bottom-10 left-10 w-24 h-24 md:w-40 md:h-40 rounded-2xl overflow-hidden opacity-30 -rotate-6 hidden lg:block">
+            <img 
+              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+              alt="Gallery preview"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
           <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1
                 data-text-animation="reveal-from-bottom"
-                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-lg"
               >
                 Gallery
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 leading-relaxed">
+              <p className="text-xl md:text-2xl text-white/90 leading-relaxed drop-shadow-md">
                 Explore our events, projects, and programs through our photo gallery. Browse images from our latest events, ongoing projects, and active programs.
               </p>
             </div>
