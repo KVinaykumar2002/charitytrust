@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { Gift } from "lucide-react";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 const MarqueeItem = () => (
   <div className="flex items-center shrink-0 gap-6 px-6">
@@ -83,12 +84,11 @@ const JoinCtaBanner = () => {
                                 people already joined
                             </p>
                         </div>
-                        <a
-                            href="#"
-                            className="mt-6 inline-block bg-secondary text-primary font-medium text-base py-5 px-[60px] rounded-[32px] transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                        >
-                            Join Our Organization
-                        </a>
+                        <div className="mt-6">
+                            <AnimatedButton href="/contact-us" variant="outline">
+                                Join Our Organization
+                            </AnimatedButton>
+                        </div>
                     </div>
                 </div>
             </div>

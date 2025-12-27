@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Autoplay from "embla-carousel-autoplay";
 import { getPublicHeroImages } from "@/lib/api";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 import {
   Carousel,
@@ -179,15 +179,15 @@ const HeroBanner = () => {
 
                   {/* CTA Button - only show if label exists */}
                   {slide.ctaLabel && slide.ctaLabel.trim() && (
-                    <Link
+                    <div
                       data-stagger-item
                       data-animation="scale-in"
                       data-animation-duration="0.9s"
-                      href={slide.ctaHref || "/"}
-                      className="inline-flex items-center rounded-[32px] bg-primary px-12 py-4 text-base font-medium text-primary-foreground btn-hover-bounce btn-shine-effect"
                     >
-                      {slide.ctaLabel}
-                    </Link>
+                      <AnimatedButton href={slide.ctaHref || "/"} variant="filled">
+                        {slide.ctaLabel}
+                      </AnimatedButton>
+                    </div>
                   )}
                   </div>
                 </div>

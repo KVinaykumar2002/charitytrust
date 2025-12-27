@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { getPublicEvents } from '@/lib/api';
+import { AnimatedButton } from '@/components/ui/animated-button';
 
 interface Event {
   _id?: string;
@@ -122,14 +121,10 @@ const EventsBanner = () => {
 
       {/* More Events Button */}
       {events.length > 0 && (
-        <div className="container mx-auto text-center mt-12 px-6 md:px-12 lg:px-20">
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-white hover:bg-primary/90 btn-hover-bounce btn-shine-effect"
-          >
+        <div className="container mx-auto flex justify-center mt-12 px-6 md:px-12 lg:px-20">
+          <AnimatedButton href="/events" variant="outline">
             View All Events
-            <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+          </AnimatedButton>
         </div>
       )}
     </section>

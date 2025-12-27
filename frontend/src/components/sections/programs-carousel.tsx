@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
+import { ArrowRight } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -182,9 +183,12 @@ export default function ProgramsCarousel() {
 
                             <a
                               href={program.link}
-                              className="rounded-lg bg-primary px-6 py-3 text-base font-medium text-white hover:bg-primary/80 hover:scale-105 transition-all duration-300"
+                              className="btn-animated-fill-outline !py-2 !pl-4 !gap-2"
                             >
-                              Donate Now
+                              <span className="btn-text !text-sm">Donate Now</span>
+                              <span className="btn-icon-circle !w-8 !h-8">
+                                <ArrowRight className="!w-4 !h-4" />
+                              </span>
                             </a>
                           </div>
                         </div>

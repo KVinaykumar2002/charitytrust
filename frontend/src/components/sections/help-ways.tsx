@@ -5,6 +5,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { AnimatedTabs } from "@/components/ui/animated-tabs";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 const helpData = [
   {
@@ -104,12 +105,9 @@ const HelpWays = () => {
           ))}
         </div>
         <div className="mt-12 flex justify-center">
-          <a
-            href="/support-us"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition hover:shadow-xl hover:shadow-primary/25"
-          >
+          <AnimatedButton href="/support-us" variant="outline">
             See All Ways To Support
-          </a>
+          </AnimatedButton>
         </div>
 
         {/* Animated Tabs Section */}

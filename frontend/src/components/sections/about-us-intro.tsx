@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 const AboutUsIntro = () => {
   return (
@@ -50,13 +49,9 @@ const AboutUsIntro = () => {
               The Chiranjeevi Charitable Trust (CCT) is a visionary organization dedicated to serving humanity and transforming lives through impactful initiatives. For over two decades, CCT has been at the forefront of blood and eye donation, medical assistance, and community welfare programs, touching millions of lives across India. Guided by the belief that every act of kindness can create lasting change, the Trust continues to work tirelessly to bring help and hope to those who need it most.
             </p>
             <div className="mt-8">
-              <Link
-                href="/about-us"
-                className="group inline-flex items-center justify-center gap-2 rounded-lg border-2 border-primary bg-background py-[14px] px-[30px] text-base font-medium leading-6 text-primary btn-hover-bounce btn-icon-slide"
-              >
+              <AnimatedButton href="/about-us" variant="outline">
                 About Us
-                <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
+              </AnimatedButton>
             </div>
           </div>
         </div>

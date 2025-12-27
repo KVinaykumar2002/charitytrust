@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Droplet, Eye, Wind } from "lucide-react";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 const ICON_URL = "/sscroll_icon.svg";
 const TARGET_COUNT = 139_364;
@@ -154,14 +154,14 @@ const JoinBanner = () => {
                             people already joined
                         </p>
                     </div>
-                    <Link
-                        href="/contact-us"
+                    <div
                         data-stagger-item
                         data-animation="fade-up"
-                        className="flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-base font-medium text-primary-foreground btn-hover-bounce btn-rotate-on-hover btn-ripple-effect focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD7E14] focus-visible:ring-offset-2"
                     >
-                        Join Our Organization
-                    </Link>
+                        <AnimatedButton href="/contact-us" variant="outline">
+                            Join Our Organization
+                        </AnimatedButton>
+                    </div>
                 </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
