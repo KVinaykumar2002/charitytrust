@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
-import { Calendar, MapPin, Clock } from "lucide-react";
+import FloatingCardGallery from "@/components/ui/floating-card-gallery";
+// Icons available if needed for future enhancements
+// import { Calendar, MapPin, Clock } from "lucide-react";
 import { getPublicEvents } from "@/lib/api";
 
 interface Event {
@@ -167,104 +169,72 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* Events Grid */}
-        <section className="py-20 md:py-32 bg-white">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20">
-            {loading ? (
-              <div className="text-center py-20">
-                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-muted-foreground">Loading events...</p>
+        {/* Floating Card Gallery Section */}
+        <section className="relative">
+          {loading ? (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-slate-300">Loading events...</p>
               </div>
-            ) : error ? (
-              <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-red-600 mb-4">Error Loading Events</h3>
-                <p className="text-muted-foreground mb-4">{error}</p>
+            </div>
+          ) : error ? (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+              <div className="text-center px-6">
+                <h3 className="text-2xl font-semibold text-red-400 mb-4">Error Loading Events</h3>
+                <p className="text-slate-300 mb-4">{error}</p>
                 <button
                   onClick={() => {
                     setError(null);
                     fetchEvents();
                   }}
-                  className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg hover:from-violet-700 hover:to-fuchsia-700 transition-all"
                 >
                   Retry
                 </button>
-                <p className="text-sm text-muted-foreground mt-4">
+                <p className="text-sm text-slate-400 mt-4">
                   Make sure the backend server is running on https://charitytrust-eykm.onrender.com
                 </p>
               </div>
-            ) : events.length === 0 ? (
-              <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-foreground mb-4">No Events Available</h3>
-                <p className="text-muted-foreground">
+            </div>
+          ) : events.length === 0 ? (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+              <div className="text-center">
+                <h3 className="text-2xl font-semibold text-white mb-4">No Events Available</h3>
+                <p className="text-slate-300 mb-4">
                   Check back soon for upcoming events and initiatives.
                 </p>
                 <button
                   onClick={fetchEvents}
-                  className="mt-4 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg hover:from-violet-700 hover:to-fuchsia-700 transition-all"
                 >
                   Refresh
                 </button>
               </div>
-            ) : (
-              <>
-                <div className="mb-8 text-center">
-                  <p className="text-muted-foreground">
-                    Showing <span className="font-semibold text-primary">{events.length}</span> {events.length === 1 ? 'event' : 'events'}
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {events.map((event) => (
-                    <div
-                      key={event.id || event._id}
-                      data-animation="fade-up"
-                      className="bg-white rounded-2xl border border-border shadow-lg overflow-hidden hover-lift-up group"
-                    >
-                      <div className="relative w-full h-64 overflow-hidden">
-                        <img
-                          src={event.image || ""}
-                          alt={event.title}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                          onError={(e) => {
-                            e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y4ZjlmOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM0YTQhNGEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-                          }}
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-2xl font-bold text-foreground mb-4 line-clamp-2">
-                          {event.title}
-                        </h3>
-                        {event.description && (
-                          <p className="text-muted-foreground mb-4 line-clamp-3">
-                            {event.description}
-                          </p>
-                        )}
-                        <div className="space-y-2 mb-6">
-                          {event.date && (
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <Calendar className="w-4 h-4" />
-                              <span>{formatDate(event.date)}</span>
-                            </div>
-                          )}
-                          {event.time && (
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <Clock className="w-4 h-4" />
-                              <span>{event.time}</span>
-                            </div>
-                          )}
-                            {event.location && (
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <MapPin className="w-4 h-4" />
-                              <span>{event.location}</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+            </div>
+          ) : (
+            <FloatingCardGallery
+              cards={events.map((event) => ({
+                title: event.title,
+                description: event.description || "",
+                fullDescription: event.description 
+                  ? `${event.description}${event.location ? `\n\n📍 Location: ${event.location}` : ""}${event.date ? `\n📅 Date: ${formatDate(event.date)}` : ""}${event.time ? `\n🕐 Time: ${event.time}` : ""}`
+                  : "",
+                image: event.image || "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=2070&auto=format&fit=crop",
+                avatar: "https://images.unsplash.com/photo-1594708767771-a7502209ff51?q=80&w=200&auto=format&fit=crop",
+                author: "CCT Foundation",
+                category: event.status === "upcoming" ? "Upcoming" : event.status === "past" ? "Past" : "Event",
+                tags: [
+                  event.location ? `📍 ${event.location}` : null,
+                  event.date ? `📅 ${formatDate(event.date)}` : null,
+                  event.time ? `🕐 ${event.time}` : null,
+                ].filter(Boolean) as string[],
+              }))}
+              backgroundColor="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
+              accentColor="rgba(253, 126, 20, 0.5)"
+              maxCards={9}
+            />
+          )}
         </section>
       </main>
       <FlickeringFooter />

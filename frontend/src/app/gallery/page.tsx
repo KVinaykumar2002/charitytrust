@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import CircularImageGallerySection from "@/components/sections/circular-image-gallery-section";
+import FloatingCardGallery from "@/components/ui/floating-card-gallery";
 import { getPublicEvents, getPublicProjects, getPublicPrograms } from "@/lib/api";
-import Image from "next/image";
 
 interface GalleryImage {
   id: string;
@@ -177,102 +177,93 @@ export default function GalleryPage() {
         {/* Circular Image Gallery Section */}
         <CircularImageGallerySection />
 
-        {/* Gallery Section */}
-        <section className="py-20 md:py-32 bg-white">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20">
-            {loading ? (
-              <div className="text-center py-20">
-                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-muted-foreground">Loading gallery...</p>
+        {/* Floating Card Gallery Section */}
+        <section className="relative">
+          {loading ? (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-slate-300">Loading gallery...</p>
               </div>
-            ) : error ? (
-              <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-red-600 mb-4">Error Loading Gallery</h3>
-                <p className="text-muted-foreground mb-4">{error}</p>
+            </div>
+          ) : error ? (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+              <div className="text-center px-6">
+                <h3 className="text-2xl font-semibold text-red-400 mb-4">Error Loading Gallery</h3>
+                <p className="text-slate-300 mb-4">{error}</p>
                 <button
                   onClick={() => {
                     setError(null);
                     fetchGalleryImages();
                   }}
-                  className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg hover:from-violet-700 hover:to-fuchsia-700 transition-all"
                 >
                   Retry
                 </button>
               </div>
-            ) : images.length === 0 ? (
-              <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-foreground mb-4">No Images Available</h3>
-                <p className="text-muted-foreground">
+            </div>
+          ) : images.length === 0 ? (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+              <div className="text-center">
+                <h3 className="text-2xl font-semibold text-white mb-4">No Images Available</h3>
+                <p className="text-slate-300 mb-4">
                   Check back soon for gallery images.
                 </p>
                 <button
                   onClick={fetchGalleryImages}
-                  className="mt-4 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg hover:from-violet-700 hover:to-fuchsia-700 transition-all"
                 >
                   Refresh
                 </button>
               </div>
-            ) : (
-              <>
-                {/* Category Filter */}
-                <div className="mb-8 flex flex-wrap justify-center gap-4">
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => setSelectedCategory(category)}
-                      className={`px-6 py-2 rounded-full font-semibold transition-colors ${
-                        selectedCategory === category
-                          ? "bg-primary text-white"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                    >
-                      {category} {category !== "All" && `(${images.filter(img => img.category === category).length})`}
-                    </button>
-                  ))}
-                </div>
+            </div>
+          ) : (
+            <div className="relative">
+              {/* Category Filter - Floating on top of gallery */}
+              <div className="absolute top-8 left-0 right-0 z-20 flex flex-wrap justify-center gap-3 px-4">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-5 py-2 rounded-full font-semibold text-sm transition-all backdrop-blur-md ${
+                      selectedCategory === category
+                        ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-purple-500/30"
+                        : "bg-slate-800/70 text-slate-300 hover:bg-slate-700/80 border border-slate-600/50"
+                    }`}
+                  >
+                    {category} {category !== "All" && `(${images.filter(img => img.category === category).length})`}
+                  </button>
+                ))}
+              </div>
 
-                {/* Gallery Grid */}
-                <div className="mb-8 text-center">
-                  <p className="text-muted-foreground">
-                    Showing <span className="font-semibold text-primary">{filteredImages.length}</span> {filteredImages.length === 1 ? 'image' : 'images'}
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {filteredImages.map((image) => (
-                    <div
-                      key={image.id}
-                      className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100 hover-lift-up cursor-pointer"
-                    >
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        onError={(e) => {
-                          e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y4ZjlmOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM0YTQhNGEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                          <h3 className="font-semibold text-sm mb-1 line-clamp-1">{image.title}</h3>
-                          <p className="text-xs opacity-90 mb-1">{image.category}</p>
-                          {image.date && (
-                            <p className="text-xs opacity-75">
-                              {new Date(image.date).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                              })}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+              <FloatingCardGallery
+                cards={filteredImages.map((image) => ({
+                  title: image.title,
+                  description: `${image.category}${image.date ? ` • ${new Date(image.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}` : ""}`,
+                  fullDescription: `This ${image.category.toLowerCase().slice(0, -1)} showcases our community initiatives and impact.${image.date ? `\n\n📅 Date: ${new Date(image.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}` : ""}`,
+                  image: image.src,
+                  avatar: "https://images.unsplash.com/photo-1594708767771-a7502209ff51?q=80&w=200&auto=format&fit=crop",
+                  author: "CCT Foundation",
+                  category: image.category,
+                  tags: [
+                    image.category,
+                    image.date ? `📅 ${new Date(image.date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}` : null,
+                  ].filter(Boolean) as string[],
+                }))}
+                backgroundColor="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
+                accentColor="rgba(253, 126, 20, 0.5)"
+                maxCards={12}
+              />
+            </div>
+          )}
         </section>
       </main>
       <FlickeringFooter />
