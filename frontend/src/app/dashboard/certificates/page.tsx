@@ -61,11 +61,11 @@ export default function CertificatesPage() {
   const getCertificateIcon = (type: string) => {
     switch (type) {
       case "donation":
-        return <Award className="h-8 w-8 text-[#1a3a3a]" />;
+        return <Award className="h-8 w-8 text-[#FD7E14]" />;
       case "volunteer":
-        return <FileText className="h-8 w-8 text-[#244543]" />;
+        return <FileText className="h-8 w-8 text-[#E56B00]" />;
       case "achievement":
-        return <Award className="h-8 w-8 text-[#1a3a3a]" />;
+        return <Award className="h-8 w-8 text-[#FD7E14]" />;
       default:
         return <FileText className="h-8 w-8" />;
     }
@@ -74,7 +74,7 @@ export default function CertificatesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">My Certificates</h1>
+        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">My Certificates</h1>
         <p className="text-[#4a4a4a]">Download your certificates and achievements</p>
       </div>
 
@@ -96,7 +96,7 @@ export default function CertificatesPage() {
             <Card key={certificate.id} className="border-[#e5e5e5] hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-center mb-4">
-                  <div className="p-4 rounded-full bg-[#d4f9e6]">
+                  <div className="p-4 rounded-full bg-[#FFF3E8]">
                     {getCertificateIcon(certificate.type)}
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export default function CertificatesPage() {
                   {certificate.programName}
                 </p>
                 {certificate.amount && (
-                  <p className="text-sm font-semibold text-[#1a3a3a] text-center mb-2">
+                  <p className="text-sm font-semibold text-[#FD7E14] text-center mb-2">
                     ₹{certificate.amount.toLocaleString()}
                   </p>
                 )}
@@ -115,7 +115,7 @@ export default function CertificatesPage() {
                   {format(new Date(certificate.date), "MMM dd, yyyy")}
                 </p>
                 <Button
-                  className="w-full bg-[#1a3a3a] hover:bg-[#244543] text-white"
+                  className="w-full bg-[#FD7E14] hover:bg-[#E56B00] text-white"
                   onClick={() => {
                     // Handle download
                     console.log("Download certificate:", certificate.id);

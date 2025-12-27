@@ -38,7 +38,7 @@ const AboutUsIntro = () => {
           >
             <h2
               data-text-animation="reveal-from-bottom"
-              className="text-[40px] font-bold leading-[48px] -tracking-[0.01em] text-primary"
+              className="text-[40px] font-bold leading-[48px] -tracking-[0.01em] text-foreground"
             >
               At Chiranjeevi Charitable Trust, we uphold the values of transparency, compassion, and inclusivity.
             </h2>

@@ -82,12 +82,12 @@ export default function MyDonationsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">My Donations</h1>
+        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">My Donations</h1>
         <p className="text-[#4a4a4a]">View and manage all your donations</p>
       </div>
 
       {/* Summary Card */}
-      <Card className="border-[#e5e5e5] bg-gradient-to-r from-[#1a3a3a] to-[#244543] text-white">
+      <Card className="border-[#e5e5e5] bg-gradient-to-r from-[#FD7E14] to-[#E56B00] text-white">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -98,7 +98,7 @@ export default function MyDonationsPage() {
               </p>
             </div>
             <Link href="/donate">
-              <Button className="bg-white text-[#1a3a3a] hover:bg-white/90">
+              <Button className="bg-white text-[#FD7E14] hover:bg-white/90">
                 Make a Donation
               </Button>
             </Link>
@@ -109,7 +109,7 @@ export default function MyDonationsPage() {
       {/* Donations Table */}
       <Card className="border-[#e5e5e5]">
         <CardHeader>
-          <CardTitle className="text-[#1a3a3a]">Donation History</CardTitle>
+          <CardTitle className="text-[#1a1a1a]">Donation History</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -118,7 +118,7 @@ export default function MyDonationsPage() {
             <div className="text-center py-12">
               <p className="text-[#4a4a4a] mb-4">No donations yet</p>
               <Link href="/donate">
-                <Button className="bg-[#1a3a3a] hover:bg-[#244543] text-white">
+                <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white">
                   Make Your First Donation
                 </Button>
               </Link>
@@ -140,7 +140,7 @@ export default function MyDonationsPage() {
                     <TableCell className="font-medium text-[#1a1a1a]">
                       {donation.programName}
                     </TableCell>
-                    <TableCell className="text-[#1a3a3a] font-semibold">
+                    <TableCell className="text-[#FD7E14] font-semibold">
                       ₹{donation.amount.toLocaleString()}
                     </TableCell>
                     <TableCell className="text-[#4a4a4a]">
@@ -154,7 +154,7 @@ export default function MyDonationsPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="text-[#1a3a3a] hover:bg-[#d4f9e6]"
+                              className="text-[#FD7E14] hover:bg-[#FFF3E8]"
                             >
                               <Receipt className="h-4 w-4 mr-1" />
                               Receipt
@@ -162,7 +162,7 @@ export default function MyDonationsPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="text-[#1a3a3a] hover:bg-[#d4f9e6]"
+                              className="text-[#FD7E14] hover:bg-[#FFF3E8]"
                             >
                               <Download className="h-4 w-4" />
                             </Button>

@@ -55,7 +55,7 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8f9f8]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#1a3a3a] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-12 h-12 border-4 border-[#FD7E14] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-[#4a4a4a]">Loading...</p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-[#f8f9f8]">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-8">Profile Settings</h1>
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-8">Profile Settings</h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Profile Card */}
@@ -74,7 +74,7 @@ export default function ProfilePage() {
               <CardContent className="p-6">
                 <div className="flex flex-col items-center text-center">
                   <Avatar className="h-24 w-24 mb-4">
-                    <AvatarFallback className="bg-[#1a3a3a] text-white text-2xl">
+                    <AvatarFallback className="bg-[#FD7E14] text-white text-2xl">
                       {session.user?.name?.charAt(0).toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -83,7 +83,7 @@ export default function ProfilePage() {
                   </h2>
                   <p className="text-sm text-[#4a4a4a] mb-4">{session.user?.email}</p>
                   {session.user?.role === "admin" && (
-                    <span className="text-xs font-semibold text-[#1a3a3a] bg-[#d4f9e6] px-3 py-1 rounded-full">
+                    <span className="text-xs font-semibold text-[#FD7E14] bg-[#FFF3E8] px-3 py-1 rounded-full">
                       Admin
                     </span>
                   )}
@@ -94,7 +94,7 @@ export default function ProfilePage() {
             {/* Edit Form */}
             <Card className="lg:col-span-2 border-[#e5e5e5]">
               <CardHeader>
-                <CardTitle className="text-[#1a3a3a]">Personal Information</CardTitle>
+                <CardTitle className="text-[#1a1a1a]">Personal Information</CardTitle>
                 <CardDescription>Update your profile information</CardDescription>
               </CardHeader>
               <CardContent>
@@ -108,7 +108,7 @@ export default function ProfilePage() {
                       id="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="border-[#d0d0d0] focus:border-[#244543]"
+                      className="border-[#d0d0d0] focus:border-[#E56B00]"
                     />
                   </div>
 
@@ -137,7 +137,7 @@ export default function ProfilePage() {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="border-[#d0d0d0] focus:border-[#244543]"
+                      className="border-[#d0d0d0] focus:border-[#E56B00]"
                     />
                   </div>
 
@@ -150,14 +150,14 @@ export default function ProfilePage() {
                       id="address"
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                      className="border-[#d0d0d0] focus:border-[#244543]"
+                      className="border-[#d0d0d0] focus:border-[#E56B00]"
                     />
                   </div>
 
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#1a3a3a] hover:bg-[#244543] text-white"
+                    className="w-full bg-[#FD7E14] hover:bg-[#E56B00] text-white"
                   >
                     <Save className="mr-2 h-4 w-4" />
                     {loading ? "Saving..." : "Save Changes"}

@@ -102,11 +102,11 @@ export default function ProgramsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Programs</h1>
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Programs</h1>
           <p className="text-[#4a4a4a]">Manage your charity programs and initiatives</p>
         </div>
         <Link href="/admin/programs/new">
-          <Button className="bg-[#1a3a3a] hover:bg-[#244543] text-white">
+          <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white">
             <Plus className="mr-2 h-4 w-4" />
             Add Program
           </Button>
@@ -115,7 +115,7 @@ export default function ProgramsPage() {
 
       <Card className="border-[#e5e5e5]">
         <CardHeader>
-          <CardTitle className="text-[#1a3a3a]">All Programs</CardTitle>
+          <CardTitle className="text-[#1a1a1a]">All Programs</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -141,11 +141,11 @@ export default function ProgramsPage() {
                   </div>
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-[#1a3a3a] bg-[#b8f4d3] px-2 py-1 rounded">
+                      <span className="text-xs font-semibold text-[#FD7E14] bg-[#FFE0C2] px-2 py-1 rounded">
                         {program.category}
                       </span>
                       {program.featured && (
-                        <span className="text-xs font-semibold text-[#1a3a3a] bg-[#d4f9e6] px-2 py-1 rounded">
+                        <span className="text-xs font-semibold text-[#FD7E14] bg-[#FFF3E8] px-2 py-1 rounded">
                           Featured
                         </span>
                       )}
@@ -154,7 +154,7 @@ export default function ProgramsPage() {
                     <p className="text-sm text-[#4a4a4a] line-clamp-2 mb-4">{program.description}</p>
                     <div className="flex gap-2">
                       <Link href={`/admin/programs/${program.id}`} className="flex-1">
-                        <Button variant="outline" size="sm" className="w-full border-[#1a3a3a] text-[#1a3a3a] hover:bg-[#d4f9e6]">
+                        <Button variant="outline" size="sm" className="w-full border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]">
                           <Edit className="mr-2 h-3 w-3" />
                           Edit
                         </Button>

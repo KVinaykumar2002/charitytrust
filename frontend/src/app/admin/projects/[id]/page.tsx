@@ -143,7 +143,7 @@ export default function EditProjectPage() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#1a3a3a] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-12 h-12 border-4 border-[#FD7E14] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-[#4a4a4a]">Loading project...</p>
         </div>
       </div>
@@ -154,12 +154,12 @@ export default function EditProjectPage() {
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Link href="/admin/projects">
-          <Button variant="ghost" size="icon" className="text-[#1a3a3a] hover:bg-[#d4f9e6]">
+          <Button variant="ghost" size="icon" className="text-[#FD7E14] hover:bg-[#FFF3E8]">
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
         <div>
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Edit Project</h1>
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Edit Project</h1>
           <p className="text-[#4a4a4a]">Update project details</p>
         </div>
       </div>
@@ -169,7 +169,7 @@ export default function EditProjectPage() {
           <div className="lg:col-span-2 space-y-6">
             <Card className="border-[#e5e5e5]">
               <CardHeader>
-                <CardTitle className="text-[#1a3a3a]">Project Details</CardTitle>
+                <CardTitle className="text-[#1a1a1a]">Project Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
@@ -179,7 +179,7 @@ export default function EditProjectPage() {
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     required
-                    className="border-[#d0d0d0] focus:border-[#244543]"
+                    className="border-[#d0d0d0] focus:border-[#E56B00]"
                   />
                 </div>
 
@@ -191,7 +191,7 @@ export default function EditProjectPage() {
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     required
                     rows={6}
-                    className="border-[#d0d0d0] focus:border-[#244543]"
+                    className="border-[#d0d0d0] focus:border-[#E56B00]"
                   />
                 </div>
 
@@ -201,7 +201,7 @@ export default function EditProjectPage() {
                     value={formData.category}
                     onValueChange={(value) => setFormData({ ...formData, category: value })}
                   >
-                    <SelectTrigger className="border-[#d0d0d0] focus:border-[#244543]">
+                    <SelectTrigger className="border-[#d0d0d0] focus:border-[#E56B00]">
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -221,7 +221,7 @@ export default function EditProjectPage() {
                     id="location"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="border-[#d0d0d0] focus:border-[#244543]"
+                    className="border-[#d0d0d0] focus:border-[#E56B00]"
                     placeholder="e.g., Hyderabad, Telangana"
                   />
                 </div>
@@ -242,7 +242,7 @@ export default function EditProjectPage() {
                       type="date"
                       value={formData.startDate}
                       onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                      className="border-[#d0d0d0] focus:border-[#244543]"
+                      className="border-[#d0d0d0] focus:border-[#E56B00]"
                     />
                   </div>
 
@@ -253,7 +253,7 @@ export default function EditProjectPage() {
                       type="date"
                       value={formData.endDate}
                       onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                      className="border-[#d0d0d0] focus:border-[#244543]"
+                      className="border-[#d0d0d0] focus:border-[#E56B00]"
                     />
                   </div>
                 </div>
@@ -264,7 +264,7 @@ export default function EditProjectPage() {
           <div className="space-y-6">
             <Card className="border-[#e5e5e5]">
               <CardHeader>
-                <CardTitle className="text-[#1a3a3a]">Settings</CardTitle>
+                <CardTitle className="text-[#1a1a1a]">Settings</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
@@ -273,7 +273,7 @@ export default function EditProjectPage() {
                     value={formData.status}
                     onValueChange={(value) => setFormData({ ...formData, status: value })}
                   >
-                    <SelectTrigger className="border-[#d0d0d0] focus:border-[#244543]">
+                    <SelectTrigger className="border-[#d0d0d0] focus:border-[#E56B00]">
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -291,7 +291,7 @@ export default function EditProjectPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-[#1a3a3a] hover:bg-[#244543] text-white"
+                className="flex-1 bg-[#FD7E14] hover:bg-[#E56B00] text-white"
               >
                 <Save className="mr-2 h-4 w-4" />
                 {loading ? "Updating..." : "Update Project"}

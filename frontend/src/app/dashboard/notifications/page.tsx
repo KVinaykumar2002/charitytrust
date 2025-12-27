@@ -91,13 +91,13 @@ export default function NotificationsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Notifications</h1>
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Notifications</h1>
           <p className="text-[#4a4a4a]">Stay updated with your activities</p>
         </div>
         {unreadCount > 0 && (
           <button
             onClick={markAllAsRead}
-            className="text-sm text-[#1a3a3a] hover:text-[#244543]"
+            className="text-sm text-[#FD7E14] hover:text-[#E56B00]"
           >
             Mark all as read
           </button>
@@ -105,11 +105,11 @@ export default function NotificationsPage() {
       </div>
 
       {unreadCount > 0 && (
-        <Card className="border-[#e5e5e5] bg-[#d4f9e6]">
+        <Card className="border-[#e5e5e5] bg-[#FFF3E8]">
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
-              <Bell className="h-5 w-5 text-[#1a3a3a]" />
-              <span className="text-[#1a3a3a] font-medium">
+              <Bell className="h-5 w-5 text-[#FD7E14]" />
+              <span className="text-[#FD7E14] font-medium">
                 You have {unreadCount} unread notification{unreadCount > 1 ? "s" : ""}
               </span>
             </div>
@@ -132,7 +132,7 @@ export default function NotificationsPage() {
             <Card
               key={notification.id}
               className={`border-[#e5e5e5] transition-colors ${
-                !notification.read ? "bg-[#f8f9f8] border-l-4 border-l-[#1a3a3a]" : ""
+                !notification.read ? "bg-[#f8f9f8] border-l-4 border-l-[#FD7E14]" : ""
               }`}
             >
               <CardContent className="p-6">
@@ -144,7 +144,7 @@ export default function NotificationsPage() {
                         {notification.type}
                       </Badge>
                       {!notification.read && (
-                        <div className="w-2 h-2 rounded-full bg-[#1a3a3a]"></div>
+                        <div className="w-2 h-2 rounded-full bg-[#FD7E14]"></div>
                       )}
                     </div>
                     <p className="text-sm text-[#4a4a4a] mb-2">{notification.message}</p>
@@ -155,10 +155,10 @@ export default function NotificationsPage() {
                   {!notification.read && (
                     <button
                       onClick={() => markAsRead(notification.id)}
-                      className="p-2 rounded-lg hover:bg-[#d4f9e6] transition-colors"
+                      className="p-2 rounded-lg hover:bg-[#FFF3E8] transition-colors"
                       title="Mark as read"
                     >
-                      <Check className="h-4 w-4 text-[#1a3a3a]" />
+                      <Check className="h-4 w-4 text-[#FD7E14]" />
                     </button>
                   )}
                 </div>

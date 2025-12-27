@@ -79,14 +79,14 @@ const ProjectCard = ({ project }: { project: Project }) => {
         />
       </div>
       <div className="p-8 flex flex-col items-start flex-grow">
-        <span className="text-tag bg-tag-green text-text-inverted rounded-[6px] px-3 py-1.5 mb-4">
+        <span className="text-tag bg-primary text-text-inverted rounded-[6px] px-3 py-1.5 mb-4">
           {project.category}
         </span>
         <h3 className="h3 mb-2 text-card-foreground">{project.title}</h3>
         <p className="text-body-regular text-text-secondary mb-6 flex-grow">
           {project.description}
         </p>
-        <div className="flex items-center text-button font-medium text-primary-dark-teal mt-auto">
+        <div className="flex items-center text-button font-medium text-primary mt-auto">
           Read more <ArrowRight className="ml-2 h-4 w-4" />
         </div>
       </div>

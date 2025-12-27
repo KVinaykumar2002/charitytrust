@@ -139,7 +139,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
             style={{ transitionDelay: '0.5s' }}
           />
           <motion.div
-            className="absolute bottom-1/4 left-4 h-6 w-6 rounded-full bg-green-200/50 dark:bg-green-800/30"
+            className="absolute bottom-1/4 left-4 h-6 w-6 rounded-full bg-orange-200/50 dark:bg-orange-800/30"
             variants={floatingVariants}
             animate="animate"
             style={{ transitionDelay: '1s' }}

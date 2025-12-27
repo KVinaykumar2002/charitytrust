@@ -111,16 +111,14 @@ const JoinBanner = () => {
         <div className="flex shrink-0 items-center gap-x-10 px-5">
             {Array.from({ length: 12 }).map((_, i) => (
                 <React.Fragment key={i}>
-                    <h6 className="whitespace-nowrap text-base font-bold text-primary md:text-xl">
+                    <h6 className="whitespace-nowrap text-base font-bold text-white md:text-xl">
                         Let's help each other
                     </h6>
-                    <Image
-                        src={ICON_URL}
-                        alt="Gift box icon"
-                        width={28}
-                        height={28}
-                        className="shrink-0"
-                    />
+                    <div className="shrink-0 w-7 h-7 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FD7E14" className="w-7 h-7">
+                        <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/>
+                      </svg>
+                    </div>
                 </React.Fragment>
             ))}
         </div>
@@ -137,12 +135,7 @@ const JoinBanner = () => {
         <div className="mx-auto max-w-3xl text-center">
                     <h3
                         data-animation="fade-in"
-                        data-text-animation="gradient-shift"
-                        className="text-[28px] font-semibold leading-[36px] text-primary"
-                        style={{
-                            backgroundImage:
-                                "linear-gradient(120deg, #1a3a3a, #4db69f, #1a3a3a)",
-                        }}
+                        className="text-[28px] font-semibold leading-[36px] text-foreground"
                     >
                         Join us in the journey to empower communities and transform lives.
                     </h3>
@@ -165,7 +158,7 @@ const JoinBanner = () => {
                         href="/contact-us"
                         data-stagger-item
                         data-animation="fade-up"
-                        className="flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-base font-medium text-primary-foreground btn-hover-bounce btn-rotate-on-hover btn-ripple-effect focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#93f0b6] focus-visible:ring-offset-2"
+                        className="flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-base font-medium text-primary-foreground btn-hover-bounce btn-rotate-on-hover btn-ripple-effect focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD7E14] focus-visible:ring-offset-2"
                     >
                         Join Our Organization
                     </Link>
@@ -204,12 +197,11 @@ const JoinBanner = () => {
 
             <div
                 data-animation="background-pan"
-                className="relative mt-16 h-20 w-full overflow-hidden bg-[#B8F4D3] md:mt-24"
-                style={{ backgroundImage: "linear-gradient(90deg, #b8f4d3, #a0f0c6)" }}
+                className="relative mt-16 h-20 w-full overflow-hidden bg-black md:mt-24"
             >
                 <div
                     className="absolute inset-0 z-[2]"
-                    style={{ background: 'linear-gradient(to right, #B8F4D3, transparent 20%, transparent 80%, #B8F4D3)' }}
+                    style={{ background: 'linear-gradient(to right, black, transparent 20%, transparent 80%, black)' }}
                 />
                 <div className="absolute left-0 top-0 flex h-full animate-[scroll_40s_linear_infinite] will-change-transform">
                     <MarqueeContent />

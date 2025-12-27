@@ -115,7 +115,7 @@ export default function UserDashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8f9f8]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#1a3a3a] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-12 h-12 border-4 border-[#FD7E14] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-[#4a4a4a]">Loading...</p>
         </div>
       </div>
@@ -126,29 +126,29 @@ export default function UserDashboard() {
       title: "Total Donated",
       value: `₹${stats.totalDonated.toLocaleString()}`,
       icon: DollarSign,
-      color: "text-[#1a3a3a]",
-      bgColor: "bg-[#d4f9e6]",
+      color: "text-[#FD7E14]",
+      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Donations",
       value: stats.donationsCount.toString(),
       icon: Heart,
-      color: "text-[#244543]",
-      bgColor: "bg-[#b8f4d3]",
+      color: "text-[#E56B00]",
+      bgColor: "bg-[#FFE0C2]",
     },
     {
       title: "Events Attended",
       value: stats.eventsAttended.toString(),
       icon: Calendar,
-      color: "text-[#1a3a3a]",
-      bgColor: "bg-[#d4f9e6]",
+      color: "text-[#FD7E14]",
+      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Impact Points",
       value: Math.floor(stats.impactPoints).toString(),
       icon: Award,
-      color: "text-[#244543]",
-      bgColor: "bg-[#b8f4d3]",
+      color: "text-[#E56B00]",
+      bgColor: "bg-[#FFE0C2]",
     },
   ];
 
@@ -156,7 +156,7 @@ export default function UserDashboard() {
     <div className="space-y-8">
         {/* Header */}
         <div>
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">
             Welcome back, {user?.name || "User"}!
           </h1>
           <p className="text-[#4a4a4a]">Here's your contribution summary</p>
@@ -172,7 +172,7 @@ export default function UserDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-[#4a4a4a] mb-1">{stat.title}</p>
-                      <p className="text-2xl font-bold text-[#1a3a3a]">{stat.value}</p>
+                      <p className="text-2xl font-bold text-[#FD7E14]">{stat.value}</p>
                     </div>
                     <div className={`p-3 rounded-lg ${stat.bgColor}`}>
                       <Icon className={`h-6 w-6 ${stat.color}`} />
@@ -188,9 +188,9 @@ export default function UserDashboard() {
           {/* Recent Donations */}
           <Card className="border-[#e5e5e5]">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-[#1a3a3a]">Recent Donations</CardTitle>
+              <CardTitle className="text-[#1a1a1a]">Recent Donations</CardTitle>
               <Link href="/donations">
-                <Button variant="ghost" size="sm" className="text-[#1a3a3a] hover:bg-[#d4f9e6]">
+                <Button variant="ghost" size="sm" className="text-[#FD7E14] hover:bg-[#FFF3E8]">
                   View All
                 </Button>
               </Link>
@@ -201,7 +201,7 @@ export default function UserDashboard() {
                   <Heart className="h-12 w-12 mx-auto mb-4 text-[#d0d0d0]" />
                   <p>No donations yet</p>
                   <Link href="/donate">
-                    <Button className="mt-4 bg-[#1a3a3a] hover:bg-[#244543] text-white">
+                    <Button className="mt-4 bg-[#FD7E14] hover:bg-[#E56B00] text-white">
                       Make Your First Donation
                     </Button>
                   </Link>
@@ -211,7 +211,7 @@ export default function UserDashboard() {
                   {donations.map((donation) => (
                     <div
                       key={donation.id}
-                      className="flex items-center justify-between p-4 rounded-lg bg-[#f8f9f8] hover:bg-[#d4f9e6] transition-colors"
+                      className="flex items-center justify-between p-4 rounded-lg bg-[#f8f9f8] hover:bg-[#FFF3E8] transition-colors"
                     >
                       <div>
                         <p className="font-semibold text-[#1a1a1a]">{donation.programName}</p>
@@ -221,7 +221,7 @@ export default function UserDashboard() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-[#1a3a3a]">₹{donation.amount.toLocaleString()}</p>
+                        <p className="font-bold text-[#FD7E14]">₹{donation.amount.toLocaleString()}</p>
                         <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">
                           {donation.status}
                         </span>
@@ -236,9 +236,9 @@ export default function UserDashboard() {
           {/* Upcoming Events */}
           <Card className="border-[#e5e5e5]">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-[#1a3a3a]">Upcoming Events</CardTitle>
+              <CardTitle className="text-[#1a1a1a]">Upcoming Events</CardTitle>
               <Link href="/events">
-                <Button variant="ghost" size="sm" className="text-[#1a3a3a] hover:bg-[#d4f9e6]">
+                <Button variant="ghost" size="sm" className="text-[#FD7E14] hover:bg-[#FFF3E8]">
                   View All
                 </Button>
               </Link>
@@ -257,7 +257,7 @@ export default function UserDashboard() {
                       href={`/events/${event.id}`}
                       className="block group"
                     >
-                      <div className="flex gap-4 p-4 rounded-lg bg-[#f8f9f8] hover:bg-[#d4f9e6] transition-colors">
+                      <div className="flex gap-4 p-4 rounded-lg bg-[#f8f9f8] hover:bg-[#FFF3E8] transition-colors">
                         <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                           {event.imageUrl && event.imageUrl.startsWith('data:') ? (
                             <img
@@ -299,24 +299,24 @@ export default function UserDashboard() {
         {/* Quick Actions */}
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a]">Quick Actions</CardTitle>
+            <CardTitle className="text-[#1a1a1a]">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link href="/donate">
-                <Button className="w-full bg-[#1a3a3a] hover:bg-[#244543] text-white">
+                <Button className="w-full bg-[#FD7E14] hover:bg-[#E56B00] text-white">
                   <Heart className="mr-2 h-4 w-4" />
                   Make a Donation
                 </Button>
               </Link>
               <Link href="/events">
-                <Button variant="outline" className="w-full border-[#1a3a3a] text-[#1a3a3a] hover:bg-[#d4f9e6]">
+                <Button variant="outline" className="w-full border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]">
                   <Calendar className="mr-2 h-4 w-4" />
                   Browse Events
                 </Button>
               </Link>
               <Link href="/profile">
-                <Button variant="outline" className="w-full border-[#1a3a3a] text-[#1a3a3a] hover:bg-[#d4f9e6]">
+                <Button variant="outline" className="w-full border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]">
                   <User className="mr-2 h-4 w-4" />
                   Edit Profile
                 </Button>

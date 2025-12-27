@@ -165,7 +165,7 @@ export default function EventsPage() {
               </div>
             ) : events.length === 0 ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-primary mb-4">No Events Available</h3>
+                <h3 className="text-2xl font-semibold text-foreground mb-4">No Events Available</h3>
                 <p className="text-muted-foreground">
                   Check back soon for upcoming events and initiatives.
                 </p>
@@ -202,7 +202,7 @@ export default function EventsPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
                       </div>
                       <div className="p-6">
-                        <h3 className="text-2xl font-bold text-primary mb-4 line-clamp-2">
+                        <h3 className="text-2xl font-bold text-foreground mb-4 line-clamp-2">
                           {event.title}
                         </h3>
                         {event.description && (

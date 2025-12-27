@@ -76,7 +76,7 @@ const JoinCtaBanner = () => {
                 >
                     <div className="flex flex-col items-center">
                         <div className="flex flex-col items-center gap-4">
-                            <h1 className="text-[56px] leading-[64px] font-bold text-primary tracking-[-0.02em]">
+                            <h1 className="text-[56px] leading-[64px] font-bold text-foreground tracking-[-0.02em]">
                                 139,364+
                             </h1>
                             <p className="text-base leading-[26px] text-muted-foreground">

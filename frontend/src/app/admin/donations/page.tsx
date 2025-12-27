@@ -94,36 +94,36 @@ export default function DonationsPage() {
       title: "Total Donations",
       value: `₹${stats.totalAmount.toLocaleString()}`,
       icon: DollarSign,
-      color: "text-[#1a3a3a]",
-      bgColor: "bg-[#d4f9e6]",
+      color: "text-[#FD7E14]",
+      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Monthly Donations",
       value: `₹${stats.monthlyAmount.toLocaleString()}`,
       icon: TrendingUp,
-      color: "text-[#244543]",
-      bgColor: "bg-[#b8f4d3]",
+      color: "text-[#E56B00]",
+      bgColor: "bg-[#FFE0C2]",
     },
     {
       title: "Total Donors",
       value: stats.totalDonors.toString(),
       icon: Users,
-      color: "text-[#1a3a3a]",
-      bgColor: "bg-[#d4f9e6]",
+      color: "text-[#FD7E14]",
+      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Pending",
       value: stats.pendingDonations.toString(),
       icon: Calendar,
-      color: "text-[#244543]",
-      bgColor: "bg-[#b8f4d3]",
+      color: "text-[#E56B00]",
+      bgColor: "bg-[#FFE0C2]",
     },
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Donations</h1>
+        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Donations</h1>
         <p className="text-[#4a4a4a]">Track and manage all donations</p>
       </div>
 
@@ -137,7 +137,7 @@ export default function DonationsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-[#4a4a4a] mb-1">{stat.title}</p>
-                    <p className="text-2xl font-bold text-[#1a3a3a]">{stat.value}</p>
+                    <p className="text-2xl font-bold text-[#FD7E14]">{stat.value}</p>
                   </div>
                   <div className={`p-3 rounded-lg ${stat.bgColor}`}>
                     <Icon className={`h-6 w-6 ${stat.color}`} />
@@ -152,7 +152,7 @@ export default function DonationsPage() {
       {/* Donations Table */}
       <Card className="border-[#e5e5e5]">
         <CardHeader>
-          <CardTitle className="text-[#1a3a3a]">Recent Donations</CardTitle>
+          <CardTitle className="text-[#1a1a1a]">Recent Donations</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -181,7 +181,7 @@ export default function DonationsPage() {
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="text-[#1a3a3a] font-semibold">
+                    <TableCell className="text-[#FD7E14] font-semibold">
                       ₹{donation.amount.toLocaleString()}
                     </TableCell>
                     <TableCell className="text-[#4a4a4a]">{donation.paymentMethod}</TableCell>

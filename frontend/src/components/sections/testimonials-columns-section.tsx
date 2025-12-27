@@ -86,7 +86,7 @@ export default function TestimonialsColumnsSection() {
             </div>
           </div>
 
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5 text-primary">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5 text-foreground">
             What People Say About CCT
           </h2>
           <p className="text-center mt-5 opacity-75 text-text-secondary">

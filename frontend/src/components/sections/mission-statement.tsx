@@ -35,7 +35,7 @@ const MissionStatement = () => {
   return (
     <section
       data-page-animation="scale-fade"
-      className="bg-primary text-primary-foreground"
+      className="bg-black text-white"
     >
       <div className="container mx-auto py-[140px]">
         <div
@@ -79,9 +79,9 @@ const MissionStatement = () => {
                   data-stagger-item
                   data-animation="slide-up"
                   data-animation-duration="0.85s"
-                  className="rounded-2xl bg-ring p-10 hover-lift-up"
+                  className="rounded-2xl bg-[#2a2a2a] p-10 hover-lift-up"
                 >
-                  <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6">
+                  <div className="w-14 h-14 bg-[#3a3a3a] rounded-full flex items-center justify-center mb-6">
                     <Image
                       src={item.icon}
                       alt={item.alt}

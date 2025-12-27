@@ -61,13 +61,13 @@ export default function LoginPageContent() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a3a3a] via-[#244543] to-[#1a3a3a] p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FD7E14] via-[#E56B00] to-[#FD7E14] p-4">
       <div className="absolute inset-0 bg-[url('/hero/heart.svg')] opacity-5 bg-repeat"></div>
 
       <Card className="w-full max-w-md shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
         <CardHeader className="space-y-4 text-center pb-6">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full bg-[#1a3a3a] flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-[#FD7E14] flex items-center justify-center">
               <Image
                 src="/navbar_logo.png"
                 alt="Logo"
@@ -77,7 +77,7 @@ export default function LoginPageContent() {
               />
             </div>
           </div>
-          <CardTitle className="text-3xl font-bold text-[#1a3a3a]">
+          <CardTitle className="text-3xl font-bold text-[#1a1a1a]">
             Sign In
           </CardTitle>
           <CardDescription className="text-base text-[#4a4a4a]">
@@ -94,7 +94,7 @@ export default function LoginPageContent() {
             )}
 
             {success && (
-              <Alert className="bg-[#d4f9e6] border-[#1a3a3a] text-[#1a3a3a]">
+              <Alert className="bg-[#FFF3E8] border-[#FD7E14] text-[#FD7E14]">
                 <AlertDescription>{success}</AlertDescription>
               </Alert>
             )}
@@ -110,7 +110,7 @@ export default function LoginPageContent() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border-[#d0d0d0] focus:border-[#244543] focus:ring-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00] focus:ring-[#E56B00]"
               />
             </div>
 
@@ -125,14 +125,14 @@ export default function LoginPageContent() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="border-[#d0d0d0] focus:border-[#244543] focus:ring-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00] focus:ring-[#E56B00]"
               />
             </div>
 
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#1a3a3a] hover:bg-[#244543] text-white font-medium py-6 text-base transition-all duration-300 hover:scale-[1.02]"
+              className="w-full bg-[#FD7E14] hover:bg-[#E56B00] text-white font-medium py-6 text-base transition-all duration-300 hover:scale-[1.02]"
             >
               {loading ? "Signing in..." : "Sign In"}
             </Button>
@@ -140,7 +140,7 @@ export default function LoginPageContent() {
             <div className="text-center">
               <Link
                 href="/signup"
-                className="text-sm text-[#1a3a3a] hover:text-[#244543]"
+                className="text-sm text-[#FD7E14] hover:text-[#E56B00]"
               >
                 Don't have an account? Sign up
               </Link>

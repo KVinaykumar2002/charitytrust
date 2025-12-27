@@ -75,12 +75,12 @@ export default function NewProgramPage() {
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Link href="/admin/programs">
-          <Button variant="ghost" size="icon" className="text-[#1a3a3a] hover:bg-[#d4f9e6]">
+          <Button variant="ghost" size="icon" className="text-[#FD7E14] hover:bg-[#FFF3E8]">
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
         <div>
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">New Program</h1>
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">New Program</h1>
           <p className="text-[#4a4a4a]">Create a new charity program</p>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function NewProgramPage() {
           <div className="lg:col-span-2 space-y-6">
             <Card className="border-[#e5e5e5]">
               <CardHeader>
-                <CardTitle className="text-[#1a3a3a]">Program Details</CardTitle>
+                <CardTitle className="text-[#1a1a1a]">Program Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
@@ -100,7 +100,7 @@ export default function NewProgramPage() {
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     required
-                    className="border-[#d0d0d0] focus:border-[#244543]"
+                    className="border-[#d0d0d0] focus:border-[#E56B00]"
                   />
                 </div>
 
@@ -112,7 +112,7 @@ export default function NewProgramPage() {
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     required
                     rows={6}
-                    className="border-[#d0d0d0] focus:border-[#244543]"
+                    className="border-[#d0d0d0] focus:border-[#E56B00]"
                   />
                 </div>
 
@@ -123,7 +123,7 @@ export default function NewProgramPage() {
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     required
-                    className="border-[#d0d0d0] focus:border-[#244543]"
+                    className="border-[#d0d0d0] focus:border-[#E56B00]"
                   />
                 </div>
 
@@ -145,7 +145,7 @@ export default function NewProgramPage() {
                     type="url"
                     value={formData.link}
                     onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                    className="border-[#d0d0d0] focus:border-[#244543]"
+                    className="border-[#d0d0d0] focus:border-[#E56B00]"
                   />
                 </div>
               </CardContent>
@@ -155,7 +155,7 @@ export default function NewProgramPage() {
           <div className="space-y-6">
             <Card className="border-[#e5e5e5]">
               <CardHeader>
-                <CardTitle className="text-[#1a3a3a]">Settings</CardTitle>
+                <CardTitle className="text-[#1a1a1a]">Settings</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -173,7 +173,7 @@ export default function NewProgramPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-[#1a3a3a] hover:bg-[#244543] text-white"
+                className="flex-1 bg-[#FD7E14] hover:bg-[#E56B00] text-white"
               >
                 <Save className="mr-2 h-4 w-4" />
                 {loading ? "Saving..." : "Save Program"}

@@ -42,10 +42,10 @@ const NavLink = ({
   <motion.li variants={fadeUp}>
     <Link
       href={href}
-      className="group relative inline-block py-1 text-[15px] text-white/80 transition-colors hover:text-white"
+      className="group relative inline-block py-1 text-[15px] text-[#FD7E14] transition-colors hover:text-[#FFB366]"
     >
       {children}
-      <span className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-white transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
+      <span className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-[#FD7E14] transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
     </Link>
   </motion.li>
 );
@@ -57,7 +57,7 @@ const Footer = () => {
       whileInView="visible"
       viewport={{ once: true }}
       variants={staggerContainer}
-      className="bg-primary text-primary-foreground overflow-visible relative"
+      className="bg-black text-white overflow-visible relative"
     >
       <div className="container py-20 relative">
         {/* Circular Text - Top Right */}
@@ -147,27 +147,27 @@ const Footer = () => {
             {/* Column 3: Contact Us */}
             <motion.div variants={fadeUp}>
               <h6 className="text-base font-semibold text-white mb-5">Contact Us</h6>
-              <ul className="space-y-3 text-[15px] text-white/80">
+              <ul className="space-y-3 text-[15px] text-[#FD7E14]">
                 <motion.li variants={fadeUp} className="flex items-center gap-3">
-                  <Phone className="h-4 w-4 flex-shrink-0 text-white/70" />
-                  <a href="tel:04023554849" className="hover:text-white transition-colors">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-[#FD7E14]" />
+                  <a href="tel:04023554849" className="hover:text-[#FFB366] transition-colors">
                     040 23554849
                   </a>
                 </motion.li>
                 <motion.li variants={fadeUp} className="flex items-center gap-3">
-                  <Phone className="h-4 w-4 flex-shrink-0 text-white/70" />
-                  <a href="tel:04023555005" className="hover:text-white transition-colors">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-[#FD7E14]" />
+                  <a href="tel:04023555005" className="hover:text-[#FFB366] transition-colors">
                     040 23555005
                   </a>
                 </motion.li>
                 <motion.li variants={fadeUp} className="flex items-center gap-3">
-                  <Phone className="h-4 w-4 flex-shrink-0 text-white/70" />
-                  <a href="tel:9849756785" className="hover:text-white transition-colors">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-[#FD7E14]" />
+                  <a href="tel:9849756785" className="hover:text-[#FFB366] transition-colors">
                     98497 56785
                   </a>
                 </motion.li>
                 <motion.li variants={fadeUp} className="flex items-start gap-3 pt-1">
-                  <MapPin className="h-4 w-4 flex-shrink-0 text-white/70 mt-0.5" />
+                  <MapPin className="h-4 w-4 flex-shrink-0 text-[#FD7E14] mt-0.5" />
                   <span className="leading-relaxed">
                     Jubilee Hills, Hyderabad
                   </span>

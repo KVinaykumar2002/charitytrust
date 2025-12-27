@@ -12,7 +12,7 @@ export default function CircularImageGallerySection() {
           </span>
           <h2
             data-text-animation="split-text"
-            className="text-4xl md:text-5xl font-bold text-primary"
+            className="text-4xl md:text-5xl font-bold text-foreground"
           >
             CCT in Action
           </h2>

@@ -172,7 +172,7 @@ export default function GalleryPage() {
               </div>
             ) : images.length === 0 ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-primary mb-4">No Images Available</h3>
+                <h3 className="text-2xl font-semibold text-foreground mb-4">No Images Available</h3>
                 <p className="text-muted-foreground">
                   Check back soon for gallery images.
                 </p>

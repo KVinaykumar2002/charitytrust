@@ -102,7 +102,7 @@ export default function ProgramsCarousel() {
         >
           {/* Header */}
           <div className="mb-10 flex items-center justify-between">
-            <h2 className="text-[40px] font-bold leading-[48px] tracking-[-0.01em] text-primary">
+            <h2 className="text-[40px] font-bold leading-[48px] tracking-[-0.01em] text-foreground">
               Our Key Programs & Initiatives
             </h2>
             <div className="hidden lg:flex items-center gap-4">
@@ -175,7 +175,7 @@ export default function ProgramsCarousel() {
                                 width={16}
                                 height={16}
                               />
-                              <span className="text-sm uppercase text-green-700 font-medium">
+                              <span className="text-sm uppercase text-primary font-medium">
                                 {program.category}
                               </span>
                             </div>

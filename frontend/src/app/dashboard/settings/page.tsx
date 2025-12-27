@@ -25,14 +25,14 @@ export default function DashboardSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Settings</h1>
+        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Settings</h1>
         <p className="text-[#4a4a4a]">Manage your account preferences</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a] flex items-center gap-2">
+            <CardTitle className="text-[#1a1a1a] flex items-center gap-2">
               <Bell className="h-5 w-5" />
               Notifications
             </CardTitle>
@@ -119,7 +119,7 @@ export default function DashboardSettingsPage() {
 
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a] flex items-center gap-2">
+            <CardTitle className="text-[#1a1a1a] flex items-center gap-2">
               <Shield className="h-5 w-5" />
               Privacy & Security
             </CardTitle>
@@ -133,7 +133,7 @@ export default function DashboardSettingsPage() {
             </div>
             <Button
               variant="outline"
-              className="w-full border-[#1a3a3a] text-[#1a3a3a] hover:bg-[#d4f9e6]"
+              className="w-full border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]"
             >
               Change Password
             </Button>
@@ -150,7 +150,7 @@ export default function DashboardSettingsPage() {
       <div className="flex justify-end">
         <Button
           onClick={handleSave}
-          className="bg-[#1a3a3a] hover:bg-[#244543] text-white"
+          className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
         >
           <Save className="mr-2 h-4 w-4" />
           Save Settings

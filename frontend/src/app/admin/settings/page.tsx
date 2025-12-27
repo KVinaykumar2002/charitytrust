@@ -11,14 +11,14 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Settings</h1>
+        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Settings</h1>
         <p className="text-[#4a4a4a]">Manage your account and website settings</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a]">General Settings</CardTitle>
+            <CardTitle className="text-[#1a1a1a]">General Settings</CardTitle>
             <CardDescription>Update your website settings</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -27,7 +27,7 @@ export default function SettingsPage() {
               <Input
                 id="siteName"
                 defaultValue="Chiranjeevi Charity Trust"
-                className="border-[#d0d0d0] focus:border-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00]"
               />
             </div>
             <div className="space-y-2">
@@ -36,7 +36,7 @@ export default function SettingsPage() {
                 id="siteEmail"
                 type="email"
                 defaultValue="contact@charitytrust.org"
-                className="border-[#d0d0d0] focus:border-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00]"
               />
             </div>
             <div className="space-y-2">
@@ -45,10 +45,10 @@ export default function SettingsPage() {
                 id="sitePhone"
                 type="tel"
                 defaultValue="+91 1234567890"
-                className="border-[#d0d0d0] focus:border-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00]"
               />
             </div>
-            <Button className="bg-[#1a3a3a] hover:bg-[#244543] text-white">
+            <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white">
               <Save className="mr-2 h-4 w-4" />
               Save Changes
             </Button>
@@ -57,7 +57,7 @@ export default function SettingsPage() {
 
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a]">Notification Settings</CardTitle>
+            <CardTitle className="text-[#1a1a1a]">Notification Settings</CardTitle>
             <CardDescription>Manage your notification preferences</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

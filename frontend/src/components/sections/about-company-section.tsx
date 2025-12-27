@@ -75,7 +75,7 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-6 leading-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
           >
             About Chiranjeevi Charity Trust
           </h1>
@@ -130,7 +130,7 @@ const AboutCompanySection = () => {
           >
             <h2
               data-text-animation="reveal-from-bottom"
-              className="text-4xl md:text-5xl font-bold text-primary mb-6"
+              className="text-4xl md:text-5xl font-bold text-foreground mb-6"
             >
               Who We Are
             </h2>
@@ -178,7 +178,7 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl font-bold text-primary text-center mb-8"
+            className="text-4xl md:text-5xl font-bold text-foreground text-center mb-8"
           >
             Why We Were Founded
           </h2>
@@ -208,7 +208,7 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl font-bold text-primary text-center mb-12"
+            className="text-4xl md:text-5xl font-bold text-foreground text-center mb-12"
           >
             Our Core Values
           </h2>

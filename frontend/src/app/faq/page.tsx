@@ -102,7 +102,7 @@ export default function FAQPage() {
                       onClick={() => toggleFAQ(index)}
                       className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
                     >
-                      <h3 className="text-lg font-semibold text-primary pr-8">
+                      <h3 className="text-lg font-semibold text-foreground pr-8">
                         {faq.question}
                       </h3>
                       <ChevronDown
@@ -126,7 +126,7 @@ export default function FAQPage() {
 
               {/* Contact Section */}
               <div className="mt-16 text-center bg-primary/5 rounded-2xl p-8 md:p-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                   Still have questions?
                 </h2>
                 <p className="text-muted-foreground mb-6">

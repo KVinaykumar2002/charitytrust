@@ -158,7 +158,7 @@ export default function ProjectsPage() {
               </div>
             ) : projects.length === 0 ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-primary mb-4">No Projects Available</h3>
+                <h3 className="text-2xl font-semibold text-foreground mb-4">No Projects Available</h3>
                 <p className="text-muted-foreground">
                   Check back soon for upcoming projects and initiatives.
                 </p>
@@ -210,7 +210,7 @@ export default function ProjectsPage() {
                               {project.category}
                             </span>
                           )}
-                          <h3 className="text-2xl font-bold text-primary mb-4 line-clamp-2">
+                          <h3 className="text-2xl font-bold text-foreground mb-4 line-clamp-2">
                             {project.title}
                           </h3>
                           {project.description && (

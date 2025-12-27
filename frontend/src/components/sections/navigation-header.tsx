@@ -127,7 +127,7 @@ const NavigationHeader = () => {
 
   return (
     <header className="fixed top-4 z-50 flex w-full justify-center px-4">
-      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-[#0f3536] px-6 py-3 shadow-[0_10px_30px_rgba(1,28,42,0.25)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10">
+      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-black px-6 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
           <Image
@@ -155,8 +155,8 @@ const NavigationHeader = () => {
                     href={item.name === "About Us" ? "/about" : item.href || "#"}
                     className={`text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                       isActive(item)
-                        ? "text-[#bfffc7]"
-                        : "text-white/80 hover:text-[#bfffc7]"
+                        ? "text-[#FD7E14]"
+                        : "text-white/80 hover:text-[#FD7E14]"
                     }`}
                   >
                     {item.name}
@@ -165,7 +165,7 @@ const NavigationHeader = () => {
                 </div>
                 {openDropdown === item.name && (
                   <div className="absolute top-full left-1/2 w-max -translate-x-1/2 pt-4 z-50">
-                    <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0f3536]/95 backdrop-blur-sm shadow-lg">
+                    <div className="overflow-hidden rounded-xl border border-[#333] bg-[#1a1a1a] shadow-lg">
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem.name}
@@ -183,7 +183,7 @@ const NavigationHeader = () => {
                               }, 100);
                             }
                           }}
-                          className="block whitespace-nowrap px-4 py-2 text-sm text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+                          className="block whitespace-nowrap px-4 py-2.5 text-sm text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-[#FD7E14]"
                         >
                           {subItem.name}
                         </Link>
@@ -198,8 +198,8 @@ const NavigationHeader = () => {
                 href={item.href!}
                 className={`text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                   isActive(item)
-                    ? "text-[#bfffc7]"
-                    : "text-white/80 hover:text-[#bfffc7]"
+                    ? "text-[#FD7E14]"
+                    : "text-white/80 hover:text-[#FD7E14]"
                 }`}
               >
                 {item.name}
@@ -215,7 +215,7 @@ const NavigationHeader = () => {
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 transition-colors">
                   <Avatar className="h-7 w-7">
-                    <AvatarFallback className="bg-[#1a3a3a] text-white text-xs">
+                    <AvatarFallback className="bg-[#FD7E14] text-white text-xs">
                       {user?.name?.charAt(0).toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -255,14 +255,14 @@ const NavigationHeader = () => {
           ) : (
             <Link
               href="/login"
-              className="inline-flex items-center rounded-full bg-[#c6ffbf] px-6 py-2.5 text-sm font-semibold text-[#0f3536] btn-hover-bounce btn-shine-effect"
+              className="inline-flex items-center rounded-full bg-[#FD7E14] px-6 py-2.5 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
             >
               Sign In
             </Link>
           )}
           <Link
             href="/contact-us"
-            className="inline-flex items-center rounded-full bg-[#c6ffbf] px-6 py-2.5 text-sm font-semibold text-[#0f3536] btn-hover-bounce btn-shine-effect"
+            className="inline-flex items-center rounded-full bg-[#FD7E14] px-6 py-2.5 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
           >
             Donate Now
           </Link>
@@ -286,7 +286,7 @@ const NavigationHeader = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-[92px] left-0 w-full bg-[#0f3536] px-6 py-6 shadow-[0_20px_40px_rgba(5,34,46,0.45)] lg:hidden">
+        <div className="absolute top-[92px] left-0 w-full bg-[#1a1a1a] px-6 py-6 shadow-[0_20px_40px_rgba(0,0,0,0.45)] lg:hidden">
           <nav className="flex flex-col">
             {navItems.map((item) => (
               <div key={item.name} className="border-b border-white/10">
@@ -302,9 +302,9 @@ const NavigationHeader = () => {
                         }}
                         className={`flex-1 py-4 text-sm font-medium hover-underline-slide ${
                           isActive(item)
-                            ? "text-[#bfffc7]"
+                            ? "text-[#FD7E14]"
                             : activeSubmenu === item.name
-                            ? "text-[#bfffc7]"
+                            ? "text-[#FD7E14]"
                             : "text-white/80"
                         }`}
                       >
@@ -355,7 +355,7 @@ const NavigationHeader = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`block py-4 text-sm font-medium transition-colors duration-200 hover-underline-slide ${
                       isActive(item)
-                        ? "text-[#bfffc7]"
+                        ? "text-[#FD7E14]"
                         : "text-white/80 hover:text-white"
                     }`}
                   >
@@ -394,7 +394,7 @@ const NavigationHeader = () => {
               <Link
                 href="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex w-full items-center justify-center rounded-full bg-[#c6ffbf] px-6 py-3 text-sm font-semibold text-[#0f3536]"
+                className="flex w-full items-center justify-center rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
               >
                 Sign In
               </Link>
@@ -402,7 +402,7 @@ const NavigationHeader = () => {
             <Link
               href="/contact-us"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-[#c6ffbf] px-6 py-3 text-sm font-semibold text-[#0f3536]"
+              className="flex w-full items-center justify-center rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
             >
               Donate Now
             </Link>

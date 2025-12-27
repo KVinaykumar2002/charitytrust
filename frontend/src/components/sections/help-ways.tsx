@@ -50,7 +50,7 @@ const HelpWays = () => {
           </span>
           <h2
             data-text-animation="split-text"
-            className="text-4xl font-bold text-primary"
+            className="text-4xl font-bold text-foreground"
           >
             How You Can Strengthen CCT’s Mission
           </h2>
@@ -85,7 +85,7 @@ const HelpWays = () => {
                   </span>
                   <h5
                     data-text-animation="text-slide-up"
-                    className="text-lg font-semibold text-primary"
+                    className="text-lg font-semibold text-foreground"
                   >
                     {item.title}
                   </h5>

@@ -75,11 +75,11 @@ export default function TestimonialsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Testimonials</h1>
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Testimonials</h1>
           <p className="text-[#4a4a4a]">Manage testimonials and reviews</p>
         </div>
         <Link href="/admin/testimonials/new">
-          <Button className="bg-[#1a3a3a] hover:bg-[#244543] text-white">
+          <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white">
             <Plus className="mr-2 h-4 w-4" />
             Add Testimonial
           </Button>
@@ -88,7 +88,7 @@ export default function TestimonialsPage() {
 
       <Card className="border-[#e5e5e5]">
         <CardHeader>
-          <CardTitle className="text-[#1a3a3a]">All Testimonials</CardTitle>
+          <CardTitle className="text-[#1a1a1a]">All Testimonials</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -110,7 +110,7 @@ export default function TestimonialsPage() {
                           className="rounded-full"
                         />
                       ) : (
-                        <div className="w-12 h-12 rounded-full bg-[#1a3a3a] flex items-center justify-center text-white font-semibold">
+                        <div className="w-12 h-12 rounded-full bg-[#FD7E14] flex items-center justify-center text-white font-semibold">
                           {testimonial.name.charAt(0)}
                         </div>
                       )}
@@ -126,7 +126,7 @@ export default function TestimonialsPage() {
                                 key={i}
                                 className={`h-3 w-3 ${
                                   i < testimonial.rating!
-                                    ? "fill-[#1a3a3a] text-[#1a3a3a]"
+                                    ? "fill-[#FD7E14] text-[#FD7E14]"
                                     : "text-[#d0d0d0]"
                                 }`}
                               />
@@ -137,13 +137,13 @@ export default function TestimonialsPage() {
                     </div>
                     <p className="text-sm text-[#4a4a4a] mb-4 line-clamp-3">{testimonial.content}</p>
                     {testimonial.featured && (
-                      <span className="text-xs font-semibold text-[#1a3a3a] bg-[#d4f9e6] px-2 py-1 rounded mb-4 inline-block">
+                      <span className="text-xs font-semibold text-[#FD7E14] bg-[#FFF3E8] px-2 py-1 rounded mb-4 inline-block">
                         Featured
                       </span>
                     )}
                     <div className="flex gap-2">
                       <Link href={`/admin/testimonials/${testimonial.id}`} className="flex-1">
-                        <Button variant="outline" size="sm" className="w-full border-[#1a3a3a] text-[#1a3a3a] hover:bg-[#d4f9e6]">
+                        <Button variant="outline" size="sm" className="w-full border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]">
                           <Edit className="mr-2 h-3 w-3" />
                           Edit
                         </Button>

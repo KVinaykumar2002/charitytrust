@@ -127,7 +127,7 @@ const HeroBanner = () => {
                       quality={100}
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[#1a3a3a] to-[#244543]"></div>
+                    <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a]"></div>
                   )}
                 </div>
 

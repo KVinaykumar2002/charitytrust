@@ -72,7 +72,7 @@ const ReviewsSection = () => {
         <div className="text-center mb-12 md:mb-16">
           <h2
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl font-bold text-primary mb-4"
+            className="text-4xl md:text-5xl font-bold text-foreground mb-4"
           >
             What People Say
           </h2>

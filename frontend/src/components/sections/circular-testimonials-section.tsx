@@ -51,7 +51,7 @@ export default function CircularTestimonialsSection() {
           </span>
           <h2
             data-text-animation="split-text"
-            className="text-4xl font-bold text-primary"
+            className="text-4xl font-bold text-foreground"
           >
             What Leaders Say About CCT
           </h2>
@@ -73,12 +73,12 @@ export default function CircularTestimonialsSection() {
               testimonials={cctTestimonials}
               autoplay={true}
               colors={{
-                name: "#1a3a3a",
+                name: "#FD7E14",
                 designation: "#6b7280",
                 testimony: "#4b5563",
-                arrowBackground: "#1a3a3a",
+                arrowBackground: "#FD7E14",
                 arrowForeground: "#ffffff",
-                arrowHoverBackground: "#b8f4d3",
+                arrowHoverBackground: "#FFE0C2",
               }}
               fontSizes={{
                 name: "28px",

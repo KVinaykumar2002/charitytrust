@@ -59,7 +59,7 @@ const VisionSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6"
           >
             Our Vision
           </h2>
@@ -91,7 +91,7 @@ const VisionSection = () => {
           >
             <h3
               data-text-animation="reveal-from-bottom"
-              className="text-3xl md:text-4xl font-bold text-primary mb-6"
+              className="text-3xl md:text-4xl font-bold text-foreground mb-6"
             >
               Looking Forward
             </h3>
@@ -159,7 +159,7 @@ const VisionSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-primary text-center mb-12"
+            className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12"
           >
             Our Long-Term Goals
           </h3>
@@ -175,7 +175,7 @@ const VisionSection = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                   {goal.icon}
                 </div>
-                <h4 className="text-xl font-semibold text-primary mb-4">
+                <h4 className="text-xl font-semibold text-foreground mb-4">
                   {goal.title}
                 </h4>
                 <p className="text-base leading-relaxed text-muted-foreground">

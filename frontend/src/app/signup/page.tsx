@@ -58,13 +58,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a3a3a] via-[#244543] to-[#1a3a3a] p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FD7E14] via-[#E56B00] to-[#FD7E14] p-4">
       <div className="absolute inset-0 bg-[url('/hero/heart.svg')] opacity-5 bg-repeat"></div>
       
       <Card className="w-full max-w-md shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
         <CardHeader className="space-y-4 text-center pb-6">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full bg-[#1a3a3a] flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-[#FD7E14] flex items-center justify-center">
               <Image
                 src="/navbar_logo.png"
                 alt="Logo"
@@ -74,7 +74,7 @@ export default function SignupPage() {
               />
             </div>
           </div>
-          <CardTitle className="text-3xl font-bold text-[#1a3a3a]">
+          <CardTitle className="text-3xl font-bold text-[#1a1a1a]">
             Sign Up
           </CardTitle>
           <CardDescription className="text-base text-[#4a4a4a]">
@@ -100,7 +100,7 @@ export default function SignupPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="border-[#d0d0d0] focus:border-[#244543] focus:ring-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00] focus:ring-[#E56B00]"
               />
             </div>
 
@@ -115,7 +115,7 @@ export default function SignupPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border-[#d0d0d0] focus:border-[#244543] focus:ring-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00] focus:ring-[#E56B00]"
               />
             </div>
 
@@ -131,7 +131,7 @@ export default function SignupPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="border-[#d0d0d0] focus:border-[#244543] focus:ring-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00] focus:ring-[#E56B00]"
               />
             </div>
 
@@ -146,14 +146,14 @@ export default function SignupPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="border-[#d0d0d0] focus:border-[#244543] focus:ring-[#244543]"
+                className="border-[#d0d0d0] focus:border-[#E56B00] focus:ring-[#E56B00]"
               />
             </div>
 
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#1a3a3a] hover:bg-[#244543] text-white font-medium py-6 text-base transition-all duration-300 hover:scale-[1.02]"
+              className="w-full bg-[#FD7E14] hover:bg-[#E56B00] text-white font-medium py-6 text-base transition-all duration-300 hover:scale-[1.02]"
             >
               {loading ? "Creating Account..." : "Create Account"}
             </Button>
@@ -161,7 +161,7 @@ export default function SignupPage() {
             <div className="text-center">
               <Link
                 href="/login"
-                className="text-sm text-[#1a3a3a] hover:text-[#244543] flex items-center justify-center gap-2"
+                className="text-sm text-[#FD7E14] hover:text-[#E56B00] flex items-center justify-center gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Already have an account? Sign in

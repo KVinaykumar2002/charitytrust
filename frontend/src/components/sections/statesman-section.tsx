@@ -227,7 +227,7 @@ const StatesmanSection = () => {
           variants={fadeInUp}
           className="max-w-4xl mx-auto text-center mb-20"
         >
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
             Statesman
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8"></div>

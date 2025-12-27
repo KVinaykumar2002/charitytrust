@@ -81,8 +81,8 @@ export default function ImageUpload({ value, onChange, className }: ImageUploadP
         className={cn(
           "relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all",
           isDragging
-            ? "border-[#1a3a3a] bg-[#d4f9e6]"
-            : "border-[#d0d0d0] hover:border-[#1a3a3a] hover:bg-[#f8f9f8]",
+            ? "border-[#FD7E14] bg-[#FFF3E8]"
+            : "border-[#d0d0d0] hover:border-[#FD7E14] hover:bg-[#f8f9f8]",
           preview && "p-2"
         )}
       >
@@ -116,8 +116,8 @@ export default function ImageUpload({ value, onChange, className }: ImageUploadP
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center space-y-4">
-            <div className="p-4 rounded-full bg-[#d4f9e6]">
-              <Upload className="h-8 w-8 text-[#1a3a3a]" />
+            <div className="p-4 rounded-full bg-[#FFF3E8]">
+              <Upload className="h-8 w-8 text-[#FD7E14]" />
             </div>
             <div>
               <p className="text-sm font-medium text-[#1a1a1a]">
@@ -130,7 +130,7 @@ export default function ImageUpload({ value, onChange, className }: ImageUploadP
             <Button
               type="button"
               variant="outline"
-              className="border-[#1a3a3a] text-[#1a3a3a] hover:bg-[#d4f9e6]"
+              className="border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]"
               onClick={(e) => {
                 e.stopPropagation();
                 fileInputRef.current?.click();

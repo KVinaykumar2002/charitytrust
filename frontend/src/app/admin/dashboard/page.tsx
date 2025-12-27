@@ -116,7 +116,7 @@ export default function AdminDashboard() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#1a3a3a] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-12 h-12 border-4 border-[#FD7E14] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-[#4a4a4a]">Loading dashboard...</p>
         </div>
       </div>
@@ -129,48 +129,48 @@ export default function AdminDashboard() {
       value: `₹${stats.totalDonations.toLocaleString()}`,
       icon: DollarSign,
       change: "+12.5%",
-      color: "text-[#1a3a3a]",
-      bgColor: "bg-[#d4f9e6]",
+      color: "text-[#FD7E14]",
+      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Active Programs",
       value: stats.totalPrograms.toString(),
       icon: FolderKanban,
       change: "+2",
-      color: "text-[#244543]",
-      bgColor: "bg-[#b8f4d3]",
+      color: "text-[#E56B00]",
+      bgColor: "bg-[#FFE0C2]",
     },
     {
       title: "Upcoming Events",
       value: stats.totalEvents.toString(),
       icon: Calendar,
       change: "+3",
-      color: "text-[#1a3a3a]",
-      bgColor: "bg-[#d4f9e6]",
+      color: "text-[#FD7E14]",
+      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Testimonials",
       value: stats.totalTestimonials.toString(),
       icon: MessageSquare,
       change: "+5",
-      color: "text-[#244543]",
-      bgColor: "bg-[#b8f4d3]",
+      color: "text-[#E56B00]",
+      bgColor: "bg-[#FFE0C2]",
     },
     {
       title: "Monthly Donations",
       value: `₹${stats.monthlyDonations.toLocaleString()}`,
       icon: TrendingUp,
       change: "+8.2%",
-      color: "text-[#1a3a3a]",
-      bgColor: "bg-[#d4f9e6]",
+      color: "text-[#FD7E14]",
+      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Active Volunteers",
       value: stats.activeVolunteers.toString(),
       icon: Users,
       change: "+15",
-      color: "text-[#244543]",
-      bgColor: "bg-[#b8f4d3]",
+      color: "text-[#E56B00]",
+      bgColor: "bg-[#FFE0C2]",
     },
   ];
 
@@ -178,7 +178,7 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">Dashboard Overview</h1>
+        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Dashboard Overview</h1>
         <p className="text-[#4a4a4a]">Welcome back! Here's what's happening with your charity.</p>
       </div>
 
@@ -197,7 +197,7 @@ export default function AdminDashboard() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-[#1a3a3a] mb-1">
+                <div className="text-3xl font-bold text-[#1a1a1a] mb-1">
                   {stat.value}
                 </div>
                 <p className="text-xs text-[#4a4a4a] flex items-center gap-1">
@@ -216,7 +216,7 @@ export default function AdminDashboard() {
         {/* Donations Chart */}
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a]">Monthly Donations</CardTitle>
+            <CardTitle className="text-[#1a1a1a]">Monthly Donations</CardTitle>
             <CardDescription>Donation trends over the last 6 months</CardDescription>
           </CardHeader>
           <CardContent>
@@ -227,7 +227,7 @@ export default function AdminDashboard() {
                 <XAxis dataKey="month" stroke="#4a4a4a" />
                 <YAxis stroke="#4a4a4a" />
                 <Tooltip />
-                  <Bar dataKey="amount" fill="#1a3a3a" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="amount" fill="#FD7E14" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
@@ -241,7 +241,7 @@ export default function AdminDashboard() {
         {/* Programs Distribution */}
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a]">Programs Distribution</CardTitle>
+            <CardTitle className="text-[#1a1a1a]">Programs Distribution</CardTitle>
             <CardDescription>Donations by program category</CardDescription>
           </CardHeader>
           <CardContent>
@@ -251,7 +251,7 @@ export default function AdminDashboard() {
                   <Pie
                     data={programDistributionData.map((item, idx) => ({
                       ...item,
-                      color: ["#1a3a3a", "#244543", "#b8f4d3", "#d4f9e6", "#2b5f5b", "#c6ffbf"][idx % 6]
+                      color: ["#FD7E14", "#E56B00", "#FFB366", "#CC6600", "#000000", "#333333"][idx % 6]
                     }))}
                     cx="50%"
                     cy="50%"
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
                   >
                     {programDistributionData.map((item, idx) => ({
                       ...item,
-                      color: ["#1a3a3a", "#244543", "#b8f4d3", "#d4f9e6", "#2b5f5b", "#c6ffbf"][idx % 6]
+                      color: ["#FD7E14", "#E56B00", "#FFB366", "#CC6600", "#000000", "#333333"][idx % 6]
                     })).map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
@@ -284,14 +284,14 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a]">Recent Activity</CardTitle>
+            <CardTitle className="text-[#1a1a1a]">Recent Activity</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {recentActivity.length > 0 ? recentActivity.map((activity, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-3 rounded-lg bg-[#f8f9f8] hover:bg-[#d4f9e6] transition-colors"
+                  className="flex items-center justify-between p-3 rounded-lg bg-[#f8f9f8] hover:bg-[#FFF3E8] transition-colors"
                 >
                   <div>
                     <p className="text-sm font-medium text-[#1a1a1a]">{activity.action}</p>
@@ -303,7 +303,7 @@ export default function AdminDashboard() {
                     </p>
                   </div>
                   {activity.amount && (
-                    <span className="text-sm font-semibold text-[#1a3a3a]">{activity.amount}</span>
+                    <span className="text-sm font-semibold text-[#FD7E14]">{activity.amount}</span>
                   )}
                 </div>
               )) : (
@@ -315,7 +315,7 @@ export default function AdminDashboard() {
 
         <Card className="border-[#e5e5e5]">
           <CardHeader>
-            <CardTitle className="text-[#1a3a3a]">Quick Actions</CardTitle>
+            <CardTitle className="text-[#1a1a1a]">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
@@ -330,9 +330,9 @@ export default function AdminDashboard() {
                   <a
                     key={index}
                     href={action.href}
-                    className="flex flex-col items-center justify-center p-6 rounded-lg border border-[#e5e5e5] hover:bg-[#d4f9e6] hover:border-[#1a3a3a] transition-all group"
+                    className="flex flex-col items-center justify-center p-6 rounded-lg border border-[#e5e5e5] hover:bg-[#FFF3E8] hover:border-[#FD7E14] transition-all group"
                   >
-                    <div className="p-3 rounded-lg bg-[#1a3a3a] group-hover:bg-[#244543] mb-3 transition-colors">
+                    <div className="p-3 rounded-lg bg-[#FD7E14] group-hover:bg-[#E56B00] mb-3 transition-colors">
                       <Icon className="h-6 w-6 text-white" />
                     </div>
                     <span className="text-sm font-medium text-[#1a1a1a] text-center">

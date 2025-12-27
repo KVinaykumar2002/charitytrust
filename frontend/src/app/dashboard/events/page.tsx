@@ -98,11 +98,11 @@ export default function MyEventsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-[#1a3a3a] mb-2">My Events</h1>
+          <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">My Events</h1>
           <p className="text-[#4a4a4a]">Events you've registered for or attended</p>
         </div>
         <Link href="/events">
-          <Button className="bg-[#1a3a3a] hover:bg-[#244543] text-white">
+          <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white">
             Browse All Events
           </Button>
         </Link>
@@ -121,8 +121,8 @@ export default function MyEventsPage() {
             onClick={() => setFilter(tab.key as any)}
             className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
               filter === tab.key
-                ? "border-[#1a3a3a] text-[#1a3a3a]"
-                : "border-transparent text-[#4a4a4a] hover:text-[#1a3a3a]"
+                ? "border-[#FD7E14] text-[#FD7E14]"
+                : "border-transparent text-[#4a4a4a] hover:text-[#FD7E14]"
             }`}
           >
             {tab.label}
@@ -139,7 +139,7 @@ export default function MyEventsPage() {
             <Calendar className="h-12 w-12 mx-auto mb-4 text-[#d0d0d0]" />
             <p className="text-[#4a4a4a] mb-4">No events found</p>
             <Link href="/events">
-              <Button className="bg-[#1a3a3a] hover:bg-[#244543] text-white">
+              <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white">
                 Browse Events
               </Button>
             </Link>
@@ -185,7 +185,7 @@ export default function MyEventsPage() {
                 </div>
                 {event.registrationLink && event.status !== "past" && (
                   <Link href={event.registrationLink}>
-                    <Button className="w-full bg-[#1a3a3a] hover:bg-[#244543] text-white">
+                    <Button className="w-full bg-[#FD7E14] hover:bg-[#E56B00] text-white">
                       {event.status === "registered" ? "View Details" : "Register Now"}
                       <ExternalLink className="ml-2 h-4 w-4" />
                     </Button>

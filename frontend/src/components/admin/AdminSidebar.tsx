@@ -50,7 +50,7 @@ export default function AdminSidebar() {
     <>
       {/* Mobile menu button */}
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#1a3a3a] text-white"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#FD7E14] text-white"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
       >
         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -67,7 +67,7 @@ export default function AdminSidebar() {
           {/* Logo */}
           <div className="p-6 border-b border-[#e5e5e5]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#1a3a3a] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-[#FD7E14] flex items-center justify-center">
                 <Image
                   src="/navbar_logo.png"
                   alt="Logo"
@@ -77,7 +77,7 @@ export default function AdminSidebar() {
                 />
               </div>
               <div>
-                <h1 className="font-bold text-lg text-[#1a3a3a]">Admin Panel</h1>
+                <h1 className="font-bold text-lg text-[#1a1a1a]">Admin Panel</h1>
                 <p className="text-xs text-[#4a4a4a]">Charity Trust</p>
               </div>
             </div>
@@ -97,8 +97,8 @@ export default function AdminSidebar() {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
                     isActive
-                      ? "bg-[#1a3a3a] text-white shadow-md"
-                      : "text-[#4a4a4a] hover:bg-[#d4f9e6] hover:text-[#1a3a3a]"
+                      ? "bg-[#FD7E14] text-white shadow-md"
+                      : "text-[#4a4a4a] hover:bg-[#FFF3E8] hover:text-[#FD7E14]"
                   )}
                 >
                   <Icon size={20} />
@@ -121,7 +121,7 @@ export default function AdminSidebar() {
             <Button
               onClick={handleSignOut}
               variant="ghost"
-              className="w-full justify-start gap-3 text-[#4a4a4a] hover:bg-[#d4f9e6] hover:text-[#1a3a3a]"
+              className="w-full justify-start gap-3 text-[#4a4a4a] hover:bg-[#FFF3E8] hover:text-[#FD7E14]"
             >
               <LogOut size={20} />
               <span>Sign Out</span>

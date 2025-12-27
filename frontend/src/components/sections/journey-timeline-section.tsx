@@ -152,7 +152,7 @@ const JourneyTimelineSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6"
           >
             Our Journey
           </h2>
@@ -174,7 +174,7 @@ const JourneyTimelineSection = () => {
             ref={lineRef}
             className="absolute left-1/2 w-1 hidden md:block z-0"
             style={{ 
-              background: 'linear-gradient(to bottom, #1a3a3a 0%, #b8f4d3 50%, #1a3a3a 100%)',
+              background: 'linear-gradient(to bottom, #FD7E14 0%, #FFB366 50%, #FD7E14 100%)',
               top: 0,
               transform: 'translateX(-50%)',
               borderRadius: '2px',
@@ -230,7 +230,7 @@ const JourneyTimelineSection = () => {
                             <Calendar className="w-4 h-4 text-muted-foreground" />
                             <span className="text-sm font-semibold text-primary">{event.year}</span>
                           </div>
-                          <h3 className="text-2xl font-bold text-primary">{event.title}</h3>
+                          <h3 className="text-2xl font-bold text-foreground">{event.title}</h3>
                         </div>
                       </div>
                       <p className="text-muted-foreground leading-relaxed">
