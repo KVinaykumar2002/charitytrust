@@ -5,6 +5,7 @@ import { ClassValue, clsx } from "clsx";
 import * as Color from "color-bits";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { cn } from "@/lib/utils";
@@ -495,16 +496,18 @@ export const Component = () => {
       <div className="container py-16 relative">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between p-10">
           <div className="flex flex-col items-start justify-start gap-y-5 max-w-md mx-0">
-            <Link href="/" className="flex items-center gap-3">
-              <Icons.logo className="size-10 fill-[#FD7E14]" />
-              <p className="text-2xl font-semibold text-white">CCT</p>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/navbar_logo.png"
+                alt="Chiranjeevi Charitable Trust logo"
+                width={280}
+                height={48}
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="tracking-tight text-white/70 font-medium text-base leading-relaxed">
               {siteConfig.hero.description}
             </p>
-            <div className="flex items-center gap-2">
-              <Icons.soc2Dark className="size-14" />
-            </div>
           </div>
           <div className="pt-5 md:w-1/2">
             <div className="flex flex-col items-start justify-start md:flex-row md:items-center md:justify-between gap-y-5 lg:pl-12">

@@ -17,28 +17,30 @@ const HeroSection9Section = () => {
         text: 'Donate Now',
         onClick: () => window.location.href = '/donate',
         variant: 'default' as const,
+        href: '/donate',
       },
       {
         text: 'Learn More',
         onClick: () => window.location.href = '/about',
         variant: 'outline' as const,
+        href: '/about',
       },
     ],
     stats: [
       {
         value: '10 Lakh+',
         label: 'Units of blood',
-        icon: <Heart className="h-5 w-5 text-muted-foreground" />,
+        icon: <Heart className="h-5 w-5" />,
       },
       {
         value: '10K+',
         label: 'Corneal transplants',
-        icon: <Eye className="h-5 w-5 text-muted-foreground" />,
+        icon: <Eye className="h-5 w-5" />,
       },
       {
         value: '50K+',
         label: 'Active volunteers',
-        icon: <Users className="h-5 w-5 text-muted-foreground" />,
+        icon: <Users className="h-5 w-5" />,
       },
     ],
     images: [
