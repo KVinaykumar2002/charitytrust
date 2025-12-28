@@ -11,6 +11,7 @@ import Project from '../models/Project.js';
 import Event from '../models/Event.js';
 import Testimonial from '../models/Testimonial.js';
 import HeroImage from '../models/HeroImage.js';
+import Timeline from '../models/Timeline.js';
 
 const router = express.Router();
 
@@ -664,6 +665,172 @@ router.delete('/hero-images/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error deleting hero image',
+      error: error.message
+    });
+  }
+});
+
+// ==================== TIMELINE CRUD ====================
+
+// Get all timeline entries
+router.get('/timeline', async (req, res) => {
+  try {
+    const timeline = await Timeline.find().sort({ order: 1, createdAt: 1 });
+    res.json({
+      success: true,
+      data: timeline
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching timeline entries',
+      error: error.message
+    });
+  }
+});
+
+// Get single timeline entry
+router.get('/timeline/:id', async (req, res) => {
+  try {
+    const entry = await Timeline.findById(req.params.id);
+    if (!entry) {
+      return res.status(404).json({
+        success: false,
+        message: 'Timeline entry not found'
+      });
+    }
+    res.json({
+      success: true,
+      data: entry
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching timeline entry',
+      error: error.message
+    });
+  }
+});
+
+// Create timeline entry
+router.post('/timeline', async (req, res) => {
+  try {
+    const timelineData = { ...req.body };
+    
+    // Process images array - keep base64 data
+    if (timelineData.images && Array.isArray(timelineData.images)) {
+      timelineData.images = timelineData.images.map(img => ({
+        base64: img.base64 || img.url,
+        alt: img.alt || 'Timeline image'
+      }));
+    }
+    
+    const entry = new Timeline(timelineData);
+    await entry.save();
+    
+    res.status(201).json({
+      success: true,
+      message: 'Timeline entry created successfully',
+      data: entry
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error creating timeline entry',
+      error: error.message
+    });
+  }
+});
+
+// Update timeline entry
+router.put('/timeline/:id', async (req, res) => {
+  try {
+    const updateData = { ...req.body, updatedAt: new Date() };
+    
+    // Process images array - keep base64 data
+    if (updateData.images && Array.isArray(updateData.images)) {
+      updateData.images = updateData.images.map(img => ({
+        base64: img.base64 || img.url,
+        alt: img.alt || 'Timeline image'
+      }));
+    }
+    
+    const entry = await Timeline.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true, runValidators: true }
+    );
+    if (!entry) {
+      return res.status(404).json({
+        success: false,
+        message: 'Timeline entry not found'
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Timeline entry updated successfully',
+      data: entry
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating timeline entry',
+      error: error.message
+    });
+  }
+});
+
+// Delete timeline entry
+router.delete('/timeline/:id', async (req, res) => {
+  try {
+    const entry = await Timeline.findByIdAndDelete(req.params.id);
+    if (!entry) {
+      return res.status(404).json({
+        success: false,
+        message: 'Timeline entry not found'
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Timeline entry deleted successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting timeline entry',
+      error: error.message
+    });
+  }
+});
+
+// Reorder timeline entries
+router.patch('/timeline/reorder', async (req, res) => {
+  try {
+    const { orderedIds } = req.body;
+    
+    if (!Array.isArray(orderedIds)) {
+      return res.status(400).json({
+        success: false,
+        message: 'orderedIds must be an array'
+      });
+    }
+    
+    // Update order for each entry
+    const updatePromises = orderedIds.map((id, index) => 
+      Timeline.findByIdAndUpdate(id, { order: index, updatedAt: new Date() })
+    );
+    
+    await Promise.all(updatePromises);
+    
+    res.json({
+      success: true,
+      message: 'Timeline reordered successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error reordering timeline',
       error: error.message
     });
   }

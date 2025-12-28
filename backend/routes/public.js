@@ -9,6 +9,7 @@ import Project from '../models/Project.js';
 import Event from '../models/Event.js';
 import Testimonial from '../models/Testimonial.js';
 import HeroImage from '../models/HeroImage.js';
+import Timeline from '../models/Timeline.js';
 
 const router = express.Router();
 
@@ -162,6 +163,29 @@ router.get('/hero-images', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching hero images',
+      error: error.message
+    });
+  }
+});
+
+// ==================== PUBLIC TIMELINE ====================
+
+// Get active timeline entries (public - no auth required)
+router.get('/timeline', async (req, res) => {
+  try {
+    const timeline = await Timeline.find({ active: true })
+      .sort({ order: 1, createdAt: 1 })
+      .select('-__v')
+      .lean();
+    
+    res.json({
+      success: true,
+      data: timeline
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching timeline',
       error: error.message
     });
   }
