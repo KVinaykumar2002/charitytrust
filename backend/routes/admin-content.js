@@ -419,7 +419,15 @@ router.get('/testimonials/:id', async (req, res) => {
 // Create testimonial
 router.post('/testimonials', async (req, res) => {
   try {
-    const testimonial = new Testimonial(req.body);
+    const testimonialData = { ...req.body };
+    
+    // Store only imageBase64, remove other image fields
+    if (testimonialData.imageBase64 || testimonialData.image) {
+      testimonialData.imageBase64 = testimonialData.imageBase64 || testimonialData.image;
+      delete testimonialData.image;
+    }
+    
+    const testimonial = new Testimonial(testimonialData);
     await testimonial.save();
     res.status(201).json({
       success: true,
@@ -438,9 +446,17 @@ router.post('/testimonials', async (req, res) => {
 // Update testimonial
 router.put('/testimonials/:id', async (req, res) => {
   try {
+    const updateData = { ...req.body, updatedAt: new Date() };
+    
+    // Store only imageBase64, remove other image fields
+    if (updateData.imageBase64 || updateData.image) {
+      updateData.imageBase64 = updateData.imageBase64 || updateData.image;
+      delete updateData.image;
+    }
+    
     const testimonial = await Testimonial.findByIdAndUpdate(
       req.params.id,
-      { ...req.body, updatedAt: new Date() },
+      updateData,
       { new: true, runValidators: true }
     );
     if (!testimonial) {

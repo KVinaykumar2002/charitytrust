@@ -530,6 +530,18 @@ export async function getAdminTestimonials(token: string) {
   return response.json();
 }
 
+export async function getAdminTestimonial(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/testimonials/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch testimonial');
+  return response.json();
+}
+
 export async function createTestimonial(token: string, data: any) {
   const response = await fetch(`${API_BASE_URL}/admin/content/testimonials`, {
     method: 'POST',
@@ -685,6 +697,39 @@ export async function getPublicEvents() {
     
     // Handle other errors
     throw new Error(error.message || 'Failed to fetch events');
+  }
+}
+
+// Get all testimonials (public - no auth required)
+export async function getPublicTestimonials() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/testimonials`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 60 },
+      keepalive: true,
+    });
+
+    if (!response.ok) {
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
+      }
+      const errorMessage = errorData.message || `Failed to fetch testimonials: ${response.status} ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on https://charitytrust-eykm.onrender.com');
+    }
+    throw new Error(error.message || 'Failed to fetch testimonials');
   }
 }
 

@@ -11,6 +11,16 @@ const testimonialSchema = new mongoose.Schema({
     trim: true,
     lowercase: true
   },
+  role: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  organization: {
+    type: String,
+    trim: true,
+    default: ''
+  },
   message: {
     type: String,
     required: [true, 'Testimonial message is required']
@@ -25,10 +35,26 @@ const testimonialSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  imageBase64: {
+    type: String,
+    trim: true
+  },
+  thumbnailBase64: {
+    type: String,
+    trim: true
+  },
+  featured: {
+    type: Boolean,
+    default: false
+  },
   status: {
     type: String,
     enum: ['pending', 'approved', 'rejected'],
     default: 'approved'
+  },
+  order: {
+    type: Number,
+    default: 0
   },
   createdAt: {
     type: Date,

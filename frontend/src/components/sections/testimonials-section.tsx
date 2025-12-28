@@ -1,10 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { TestimonialSlider } from "@/components/ui/testimonial-slider-1";
+import { getPublicTestimonials } from "@/lib/api";
+import { Loader2 } from "lucide-react";
 
-// Testimonials from beneficiaries, volunteers, and supporters with charity-related images
-const testimonials = [
+// Fallback testimonials in case API fails or returns empty
+const fallbackTestimonials = [
   {
     id: 1,
     name: "Ramesh Kumar",
@@ -73,7 +76,83 @@ const testimonials = [
   },
 ];
 
+// Default placeholder images for testimonials without images
+const placeholderImages = [
+  "https://images.unsplash.com/photo-1615461066841-6116e61058f4?w=400&h=600&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=600&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=400&h=600&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=600&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=600&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=600&fit=crop&q=80",
+];
+
+interface APITestimonial {
+  _id: string;
+  name: string;
+  email?: string;
+  role?: string;
+  organization?: string;
+  message: string;
+  rating?: number;
+  imageBase64?: string;
+  imageUrl?: string;
+  thumbnailBase64?: string;
+  featured?: boolean;
+  status: string;
+  order?: number;
+}
+
 export default function TestimonialsSection() {
+  const [testimonials, setTestimonials] = useState(fallbackTestimonials);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const result = await getPublicTestimonials();
+        if (result.success && result.data && result.data.length > 0) {
+          // Transform API data to match the slider component format
+          const transformedData = result.data.map((t: APITestimonial, index: number) => {
+            // Determine the image source
+            const imageSrc = t.imageBase64 || t.imageUrl || placeholderImages[index % placeholderImages.length];
+            const thumbnailSrc = t.thumbnailBase64 || imageSrc;
+            
+            // Build affiliation string from role and organization
+            let affiliation = "";
+            if (t.role && t.organization) {
+              affiliation = `${t.role}, ${t.organization}`;
+            } else if (t.role) {
+              affiliation = t.role;
+            } else if (t.organization) {
+              affiliation = t.organization;
+            } else {
+              affiliation = "CCT Supporter";
+            }
+
+            return {
+              id: t._id,
+              name: t.name,
+              affiliation,
+              quote: t.message,
+              imageSrc,
+              thumbnailSrc,
+            };
+          });
+          setTestimonials(transformedData);
+        }
+      } catch (err: any) {
+        console.error("Error fetching testimonials:", err);
+        setError(err.message);
+        // Keep fallback testimonials on error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
   return (
     <section className="relative bg-gradient-to-b from-white to-gray-50 py-16 md:py-24 overflow-hidden">
       {/* Background Decoration */}
@@ -98,14 +177,19 @@ export default function TestimonialsSection() {
 
       {/* Testimonial Slider */}
       <div className="max-w-7xl mx-auto">
-        <TestimonialSlider 
-          reviews={testimonials}
-          autoScrollInterval={6000}
-          pauseOnHover={true}
-          className="bg-transparent"
-        />
+        {loading ? (
+          <div className="flex items-center justify-center min-h-[400px]">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : (
+          <TestimonialSlider 
+            reviews={testimonials}
+            autoScrollInterval={6000}
+            pauseOnHover={true}
+            className="bg-transparent"
+          />
+        )}
       </div>
     </section>
   );
 }
-

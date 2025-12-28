@@ -127,9 +127,10 @@ router.get('/events', async (req, res) => {
 router.get('/testimonials', async (req, res) => {
   try {
     const testimonials = await Testimonial.find({ status: 'approved' })
-      .sort({ createdAt: -1 })
-      .select('-__v')
-      .limit(20);
+      .sort({ featured: -1, order: 1, createdAt: -1 })
+      .select('-__v -email')
+      .limit(20)
+      .lean();
     
     res.json({
       success: true,
