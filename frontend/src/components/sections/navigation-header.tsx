@@ -135,7 +135,7 @@ const NavigationHeader = () => {
             alt="Chiranjeevi Charitable Trust logo"
             width={400}
             height={80}
-            className="h-16 w-auto"
+            className="h-36 w-auto -my-10"
             priority
           />
         </Link>
