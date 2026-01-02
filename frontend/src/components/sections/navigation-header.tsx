@@ -37,6 +37,13 @@ const navItems: NavItem[] = [
   { name: "Projects", href: "/projects" },
   { name: "Our Team", href: "/team" },
   {
+    name: "Donations",
+    dropdown: [
+      { name: "Eye Donation Pledge", href: "/eye-donation" },
+      { name: "Blood Donation", href: "/blood-donation" },
+    ],
+  },
+  {
     name: "All Pages",
     dropdown: [
       { name: "Gallery", href: "/gallery" },
@@ -68,6 +75,9 @@ const NavigationHeader = () => {
     }
     if (item.name === "Our Team") {
       return pathname === "/team";
+    }
+    if (item.name === "Donations") {
+      return pathname === "/eye-donation" || pathname === "/blood-donation";
     }
     if (item.name === "All Pages") {
       return pathname === "/gallery" || pathname === "/faq";
@@ -261,7 +271,7 @@ const NavigationHeader = () => {
             </Link>
           )}
           <Link
-            href="/contact-us"
+            href="/donate"
             className="inline-flex items-center rounded-full bg-[#FD7E14] px-6 py-2.5 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
           >
             Donate Now
@@ -400,7 +410,7 @@ const NavigationHeader = () => {
               </Link>
             )}
             <Link
-              href="/contact-us"
+              href="/donate"
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex w-full items-center justify-center rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
             >

@@ -10,6 +10,8 @@ import Event from '../models/Event.js';
 import Testimonial from '../models/Testimonial.js';
 import HeroImage from '../models/HeroImage.js';
 import Timeline from '../models/Timeline.js';
+import EyeDonationPledge from '../models/EyeDonationPledge.js';
+import BloodDonation from '../models/BloodDonation.js';
 
 const router = express.Router();
 
@@ -186,6 +188,352 @@ router.get('/timeline', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching timeline',
+      error: error.message
+    });
+  }
+});
+
+// ==================== EYE DONATION PLEDGE ====================
+
+// Submit eye donation pledge (public - no auth required)
+router.post('/eye-donation-pledge', async (req, res) => {
+  try {
+    const {
+      fullName,
+      dateOfBirth,
+      gender,
+      bloodGroup,
+      email,
+      phone,
+      alternatePhone,
+      address,
+      nextOfKin,
+      wearingSpectacles,
+      hadEyeSurgery,
+      eyeSurgeryDetails,
+      hasEyeDisease,
+      eyeDiseaseDetails,
+      hasConsented,
+      familyAware,
+      howDidYouHear,
+      additionalNotes
+    } = req.body;
+
+    // Validate required fields
+    if (!fullName || !dateOfBirth || !gender || !email || !phone || !address || !nextOfKin || !hasConsented) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please fill in all required fields'
+      });
+    }
+
+    // Check if email already registered
+    const existingPledge = await EyeDonationPledge.findOne({ 
+      email: email.toLowerCase(),
+      status: { $nin: ['cancelled'] }
+    });
+    
+    if (existingPledge) {
+      return res.status(400).json({
+        success: false,
+        message: 'An eye donation pledge with this email already exists'
+      });
+    }
+
+    const pledge = new EyeDonationPledge({
+      fullName,
+      dateOfBirth,
+      gender,
+      bloodGroup: bloodGroup || 'unknown',
+      email,
+      phone,
+      alternatePhone,
+      address,
+      nextOfKin,
+      wearingSpectacles,
+      hadEyeSurgery,
+      eyeSurgeryDetails: hadEyeSurgery ? eyeSurgeryDetails : undefined,
+      hasEyeDisease,
+      eyeDiseaseDetails: hasEyeDisease ? eyeDiseaseDetails : undefined,
+      hasConsented,
+      familyAware,
+      howDidYouHear,
+      additionalNotes,
+      status: 'pending'
+    });
+
+    await pledge.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Thank you for pledging to donate your eyes. Your pledge has been registered successfully.',
+      data: {
+        pledgeNumber: pledge.pledgeNumber,
+        fullName: pledge.fullName,
+        email: pledge.email
+      }
+    });
+  } catch (error) {
+    console.error('Eye donation pledge error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error submitting eye donation pledge',
+      error: error.message
+    });
+  }
+});
+
+// ==================== BLOOD DONATION ====================
+
+// Submit blood donor registration (public - no auth required)
+router.post('/blood-donation/donor', async (req, res) => {
+  try {
+    const {
+      fullName,
+      dateOfBirth,
+      gender,
+      bloodGroup,
+      email,
+      phone,
+      alternatePhone,
+      address,
+      weight,
+      lastDonationDate,
+      hasTattoo,
+      tattooDate,
+      hasRecentIllness,
+      illnessDetails,
+      takingMedication,
+      medicationDetails,
+      hasChronicDisease,
+      chronicDiseaseDetails,
+      availableForEmergency,
+      preferredDonationCenter,
+      howDidYouHear,
+      additionalNotes,
+      hasConsented
+    } = req.body;
+
+    // Validate required fields
+    if (!fullName || !dateOfBirth || !gender || !bloodGroup || !email || !phone || !address || !hasConsented) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please fill in all required fields'
+      });
+    }
+
+    // Validate age (must be 18-65)
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    
+    if (age < 18 || age > 65) {
+      return res.status(400).json({
+        success: false,
+        message: 'Blood donors must be between 18 and 65 years old'
+      });
+    }
+
+    // Validate weight (must be > 45kg)
+    if (weight && weight < 45) {
+      return res.status(400).json({
+        success: false,
+        message: 'Blood donors must weigh at least 45 kg'
+      });
+    }
+
+    // Check if donor already registered with same email/phone
+    const existingDonor = await BloodDonation.findOne({ 
+      type: 'donor',
+      $or: [{ email: email.toLowerCase() }, { phone }],
+      status: { $nin: ['cancelled'] }
+    });
+    
+    if (existingDonor) {
+      return res.status(400).json({
+        success: false,
+        message: 'A blood donor registration with this email or phone already exists'
+      });
+    }
+
+    const donor = new BloodDonation({
+      type: 'donor',
+      fullName,
+      dateOfBirth,
+      age,
+      gender,
+      bloodGroup,
+      email,
+      phone,
+      alternatePhone,
+      address,
+      weight,
+      lastDonationDate,
+      hasTattoo,
+      tattooDate: hasTattoo ? tattooDate : undefined,
+      hasRecentIllness,
+      illnessDetails: hasRecentIllness ? illnessDetails : undefined,
+      takingMedication,
+      medicationDetails: takingMedication ? medicationDetails : undefined,
+      hasChronicDisease,
+      chronicDiseaseDetails: hasChronicDisease ? chronicDiseaseDetails : undefined,
+      availableForEmergency,
+      preferredDonationCenter,
+      howDidYouHear,
+      additionalNotes,
+      hasConsented,
+      status: 'pending'
+    });
+
+    await donor.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Thank you for registering as a blood donor. Your registration has been submitted successfully.',
+      data: {
+        requestNumber: donor.requestNumber,
+        fullName: donor.fullName,
+        bloodGroup: donor.bloodGroup,
+        email: donor.email
+      }
+    });
+  } catch (error) {
+    console.error('Blood donor registration error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error submitting blood donor registration',
+      error: error.message
+    });
+  }
+});
+
+// Submit blood request for patient (public - no auth required)
+router.post('/blood-donation/patient', async (req, res) => {
+  try {
+    const {
+      fullName,
+      dateOfBirth,
+      gender,
+      bloodGroup,
+      email,
+      phone,
+      alternatePhone,
+      address,
+      hospitalName,
+      hospitalAddress,
+      doctorName,
+      doctorPhone,
+      patientCondition,
+      surgeryDate,
+      unitsRequired,
+      urgency,
+      attendant,
+      howDidYouHear,
+      additionalNotes,
+      hasConsented
+    } = req.body;
+
+    // Validate required fields
+    if (!fullName || !dateOfBirth || !gender || !bloodGroup || !email || !phone || !address || !hasConsented) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please fill in all required fields'
+      });
+    }
+
+    if (!hospitalName || !unitsRequired) {
+      return res.status(400).json({
+        success: false,
+        message: 'Hospital name and units required are mandatory'
+      });
+    }
+
+    const patientRequest = new BloodDonation({
+      type: 'patient',
+      fullName,
+      dateOfBirth,
+      gender,
+      bloodGroup,
+      email,
+      phone,
+      alternatePhone,
+      address,
+      hospitalName,
+      hospitalAddress,
+      doctorName,
+      doctorPhone,
+      patientCondition,
+      surgeryDate,
+      unitsRequired,
+      urgency: urgency || 'within_week',
+      attendant,
+      howDidYouHear,
+      additionalNotes,
+      hasConsented,
+      status: 'pending'
+    });
+
+    await patientRequest.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Your blood request has been submitted successfully. We will contact you shortly.',
+      data: {
+        requestNumber: patientRequest.requestNumber,
+        fullName: patientRequest.fullName,
+        bloodGroup: patientRequest.bloodGroup,
+        unitsRequired: patientRequest.unitsRequired,
+        urgency: patientRequest.urgency
+      }
+    });
+  } catch (error) {
+    console.error('Blood request submission error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error submitting blood request',
+      error: error.message
+    });
+  }
+});
+
+// Get available blood donors by blood group (public - for matching)
+router.get('/blood-donation/donors', async (req, res) => {
+  try {
+    const { bloodGroup, city } = req.query;
+    
+    const query = {
+      type: 'donor',
+      status: 'active',
+      availableForEmergency: true
+    };
+    
+    if (bloodGroup) {
+      query.bloodGroup = bloodGroup;
+    }
+    
+    if (city) {
+      query['address.city'] = new RegExp(city, 'i');
+    }
+
+    // Only return count and general availability, not personal details
+    const donorCount = await BloodDonation.countDocuments(query);
+    
+    res.json({
+      success: true,
+      data: {
+        availableDonors: donorCount,
+        bloodGroup: bloodGroup || 'all',
+        city: city || 'all'
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching donor availability',
       error: error.message
     });
   }

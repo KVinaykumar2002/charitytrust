@@ -1,22 +1,8 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/about/page": "app/about/page.js",
-  "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/admin/donations/page": "app/admin/donations/page.js",
-  "/admin/events/page": "app/admin/events/page.js",
-  "/admin/hero-images/page": "app/admin/hero-images/page.js",
-  "/admin/programs/page": "app/admin/programs/page.js",
-  "/admin/projects/page": "app/admin/projects/page.js",
-  "/admin/settings/page": "app/admin/settings/page.js",
-  "/admin/testimonials/[id]/page": "app/admin/testimonials/[id]/page.js",
-  "/admin/testimonials/new/page": "app/admin/testimonials/new/page.js",
-  "/admin/testimonials/page": "app/admin/testimonials/page.js",
-  "/events/page": "app/events/page.js",
-  "/faq/page": "app/faq/page.js",
+  "/donate/page": "app/donate/page.js",
+  "/eye-donation/page": "app/eye-donation/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/gallery/page": "app/gallery/page.js",
-  "/login/page": "app/login/page.js",
-  "/page": "app/page.js",
-  "/projects/page": "app/projects/page.js",
-  "/signup/page": "app/signup/page.js",
-  "/team/page": "app/team/page.js"
+  "/page": "app/page.js"
 }

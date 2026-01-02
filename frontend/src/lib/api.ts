@@ -926,3 +926,388 @@ export async function getPublicTimeline() {
   }
 }
 
+// ==================== EYE DONATION PLEDGE APIs ====================
+
+export interface EyeDonationPledgeData {
+  fullName: string;
+  dateOfBirth: string;
+  gender: 'male' | 'female' | 'other';
+  bloodGroup?: string;
+  email: string;
+  phone: string;
+  alternatePhone?: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+  nextOfKin: {
+    name: string;
+    relationship: string;
+    phone: string;
+  };
+  wearingSpectacles?: boolean;
+  hadEyeSurgery?: boolean;
+  eyeSurgeryDetails?: string;
+  hasEyeDisease?: boolean;
+  eyeDiseaseDetails?: string;
+  hasConsented: boolean;
+  familyAware: boolean;
+  howDidYouHear?: string;
+  additionalNotes?: string;
+}
+
+// Submit eye donation pledge (public - no auth required)
+export async function submitEyeDonationPledge(data: EyeDonationPledgeData) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/eye-donation-pledge`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(result.message || 'Failed to submit eye donation pledge');
+    }
+
+    return result;
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please try again later.');
+    }
+    throw new Error(error.message || 'Failed to submit eye donation pledge');
+  }
+}
+
+// ==================== BLOOD DONATION APIs ====================
+
+export interface BloodDonorData {
+  fullName: string;
+  dateOfBirth: string;
+  gender: 'male' | 'female' | 'other';
+  bloodGroup: string;
+  email: string;
+  phone: string;
+  alternatePhone?: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+  weight?: number;
+  lastDonationDate?: string;
+  hasTattoo?: boolean;
+  tattooDate?: string;
+  hasRecentIllness?: boolean;
+  illnessDetails?: string;
+  takingMedication?: boolean;
+  medicationDetails?: string;
+  hasChronicDisease?: boolean;
+  chronicDiseaseDetails?: string;
+  availableForEmergency?: boolean;
+  preferredDonationCenter?: string;
+  howDidYouHear?: string;
+  additionalNotes?: string;
+  hasConsented: boolean;
+}
+
+export interface BloodPatientData {
+  fullName: string;
+  dateOfBirth: string;
+  gender: 'male' | 'female' | 'other';
+  bloodGroup: string;
+  email: string;
+  phone: string;
+  alternatePhone?: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+  hospitalName: string;
+  hospitalAddress?: string;
+  doctorName?: string;
+  doctorPhone?: string;
+  patientCondition?: string;
+  surgeryDate?: string;
+  unitsRequired: number;
+  urgency?: 'immediate' | 'within_24_hours' | 'within_week' | 'scheduled';
+  attendant?: {
+    name: string;
+    relationship: string;
+    phone: string;
+  };
+  howDidYouHear?: string;
+  additionalNotes?: string;
+  hasConsented: boolean;
+}
+
+// Submit blood donor registration (public - no auth required)
+export async function submitBloodDonorRegistration(data: BloodDonorData) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/blood-donation/donor`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(result.message || 'Failed to submit blood donor registration');
+    }
+
+    return result;
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please try again later.');
+    }
+    throw new Error(error.message || 'Failed to submit blood donor registration');
+  }
+}
+
+// Submit blood request for patient (public - no auth required)
+export async function submitBloodPatientRequest(data: BloodPatientData) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/blood-donation/patient`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(result.message || 'Failed to submit blood request');
+    }
+
+    return result;
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please try again later.');
+    }
+    throw new Error(error.message || 'Failed to submit blood request');
+  }
+}
+
+// Get available blood donors count (public)
+export async function getAvailableBloodDonors(bloodGroup?: string, city?: string) {
+  try {
+    const params = new URLSearchParams();
+    if (bloodGroup) params.append('bloodGroup', bloodGroup);
+    if (city) params.append('city', city);
+    
+    const response = await fetch(`${API_BASE_URL}/public/blood-donation/donors?${params.toString()}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(result.message || 'Failed to fetch donor availability');
+    }
+
+    return result;
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please try again later.');
+    }
+    throw new Error(error.message || 'Failed to fetch donor availability');
+  }
+}
+
+// ==================== ADMIN - EYE DONATION PLEDGES ====================
+
+// Get all eye donation pledges (admin)
+export async function getAdminEyeDonationPledges(
+  token: string, 
+  params?: { status?: string; search?: string; page?: number; limit?: number }
+) {
+  const queryParams = new URLSearchParams();
+  if (params?.status) queryParams.append('status', params.status);
+  if (params?.search) queryParams.append('search', params.search);
+  if (params?.page) queryParams.append('page', params.page.toString());
+  if (params?.limit) queryParams.append('limit', params.limit.toString());
+  
+  const response = await fetch(`${API_BASE_URL}/admin/content/eye-donation-pledges?${queryParams.toString()}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch eye donation pledges');
+  return response.json();
+}
+
+// Get single eye donation pledge (admin)
+export async function getAdminEyeDonationPledge(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/eye-donation-pledges/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch eye donation pledge');
+  return response.json();
+}
+
+// Update eye donation pledge status (admin)
+export async function updateEyeDonationPledgeStatus(token: string, id: string, status: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/eye-donation-pledges/${id}/status`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status }),
+  });
+  if (!response.ok) throw new Error('Failed to update pledge status');
+  return response.json();
+}
+
+// Issue card for eye donation pledge (admin)
+export async function issueEyeDonationCard(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/eye-donation-pledges/${id}/issue-card`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to issue card');
+  return response.json();
+}
+
+// Delete eye donation pledge (admin)
+export async function deleteEyeDonationPledge(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/eye-donation-pledges/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) throw new Error('Failed to delete eye donation pledge');
+  return response.json();
+}
+
+// Get eye donation stats (admin)
+export async function getEyeDonationStats(token: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/eye-donation-pledges/stats/overview`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch eye donation stats');
+  return response.json();
+}
+
+// ==================== ADMIN - BLOOD DONATIONS ====================
+
+// Get all blood donation entries (admin)
+export async function getAdminBloodDonations(
+  token: string,
+  params?: { type?: string; status?: string; bloodGroup?: string; search?: string; page?: number; limit?: number }
+) {
+  const queryParams = new URLSearchParams();
+  if (params?.type) queryParams.append('type', params.type);
+  if (params?.status) queryParams.append('status', params.status);
+  if (params?.bloodGroup) queryParams.append('bloodGroup', params.bloodGroup);
+  if (params?.search) queryParams.append('search', params.search);
+  if (params?.page) queryParams.append('page', params.page.toString());
+  if (params?.limit) queryParams.append('limit', params.limit.toString());
+  
+  const response = await fetch(`${API_BASE_URL}/admin/content/blood-donations?${queryParams.toString()}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch blood donations');
+  return response.json();
+}
+
+// Get single blood donation entry (admin)
+export async function getAdminBloodDonation(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/blood-donations/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch blood donation entry');
+  return response.json();
+}
+
+// Update blood donation status (admin)
+export async function updateBloodDonationStatus(token: string, id: string, status: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/blood-donations/${id}/status`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status }),
+  });
+  if (!response.ok) throw new Error('Failed to update blood donation status');
+  return response.json();
+}
+
+// Fulfill patient blood request (admin)
+export async function fulfillBloodRequest(token: string, id: string, units: number, donorId?: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/blood-donations/${id}/fulfill`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ units, donorId }),
+  });
+  if (!response.ok) throw new Error('Failed to fulfill blood request');
+  return response.json();
+}
+
+// Delete blood donation entry (admin)
+export async function deleteBloodDonation(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/blood-donations/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) throw new Error('Failed to delete blood donation entry');
+  return response.json();
+}
+
+// Get blood donation stats (admin)
+export async function getBloodDonationStats(token: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/blood-donations/stats/overview`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch blood donation stats');
+  return response.json();
+}
+

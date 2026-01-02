@@ -12,6 +12,8 @@ import Event from '../models/Event.js';
 import Testimonial from '../models/Testimonial.js';
 import HeroImage from '../models/HeroImage.js';
 import Timeline from '../models/Timeline.js';
+import EyeDonationPledge from '../models/EyeDonationPledge.js';
+import BloodDonation from '../models/BloodDonation.js';
 
 const router = express.Router();
 
@@ -831,6 +833,435 @@ router.patch('/timeline/reorder', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error reordering timeline',
+      error: error.message
+    });
+  }
+});
+
+// ==================== EYE DONATION PLEDGES ====================
+
+// Get all eye donation pledges
+router.get('/eye-donation-pledges', async (req, res) => {
+  try {
+    const { status, search, page = 1, limit = 20 } = req.query;
+    
+    const query = {};
+    if (status) query.status = status;
+    if (search) {
+      query.$or = [
+        { fullName: new RegExp(search, 'i') },
+        { email: new RegExp(search, 'i') },
+        { phone: new RegExp(search, 'i') },
+        { pledgeNumber: new RegExp(search, 'i') }
+      ];
+    }
+    
+    const pledges = await EyeDonationPledge.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit))
+      .select('-__v');
+    
+    const total = await EyeDonationPledge.countDocuments(query);
+    
+    res.json({
+      success: true,
+      data: pledges,
+      pagination: {
+        total,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        pages: Math.ceil(total / limit)
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching eye donation pledges',
+      error: error.message
+    });
+  }
+});
+
+// Get single eye donation pledge
+router.get('/eye-donation-pledges/:id', async (req, res) => {
+  try {
+    const pledge = await EyeDonationPledge.findById(req.params.id);
+    if (!pledge) {
+      return res.status(404).json({
+        success: false,
+        message: 'Eye donation pledge not found'
+      });
+    }
+    res.json({
+      success: true,
+      data: pledge
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching eye donation pledge',
+      error: error.message
+    });
+  }
+});
+
+// Update eye donation pledge status
+router.patch('/eye-donation-pledges/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!['pending', 'verified', 'active', 'cancelled'].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid status'
+      });
+    }
+    
+    const updateData = { 
+      status, 
+      updatedAt: new Date() 
+    };
+    
+    if (status === 'verified' || status === 'active') {
+      updateData.verifiedBy = req.user.id;
+      updateData.verifiedAt = new Date();
+    }
+    
+    const pledge = await EyeDonationPledge.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+    
+    if (!pledge) {
+      return res.status(404).json({
+        success: false,
+        message: 'Eye donation pledge not found'
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: `Pledge ${status} successfully`,
+      data: pledge
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error updating pledge status',
+      error: error.message
+    });
+  }
+});
+
+// Issue card for eye donation pledge
+router.patch('/eye-donation-pledges/:id/issue-card', async (req, res) => {
+  try {
+    const pledge = await EyeDonationPledge.findByIdAndUpdate(
+      req.params.id,
+      { 
+        cardIssued: true, 
+        cardIssuedDate: new Date(),
+        status: 'active',
+        updatedAt: new Date() 
+      },
+      { new: true }
+    );
+    
+    if (!pledge) {
+      return res.status(404).json({
+        success: false,
+        message: 'Eye donation pledge not found'
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Card issued successfully',
+      data: pledge
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error issuing card',
+      error: error.message
+    });
+  }
+});
+
+// Delete eye donation pledge
+router.delete('/eye-donation-pledges/:id', async (req, res) => {
+  try {
+    const pledge = await EyeDonationPledge.findByIdAndDelete(req.params.id);
+    if (!pledge) {
+      return res.status(404).json({
+        success: false,
+        message: 'Eye donation pledge not found'
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Eye donation pledge deleted successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting eye donation pledge',
+      error: error.message
+    });
+  }
+});
+
+// Get eye donation stats
+router.get('/eye-donation-pledges/stats/overview', async (req, res) => {
+  try {
+    const total = await EyeDonationPledge.countDocuments();
+    const pending = await EyeDonationPledge.countDocuments({ status: 'pending' });
+    const verified = await EyeDonationPledge.countDocuments({ status: 'verified' });
+    const active = await EyeDonationPledge.countDocuments({ status: 'active' });
+    const cancelled = await EyeDonationPledge.countDocuments({ status: 'cancelled' });
+    const cardsIssued = await EyeDonationPledge.countDocuments({ cardIssued: true });
+    
+    res.json({
+      success: true,
+      data: {
+        total,
+        pending,
+        verified,
+        active,
+        cancelled,
+        cardsIssued
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching stats',
+      error: error.message
+    });
+  }
+});
+
+// ==================== BLOOD DONATION ====================
+
+// Get all blood donation entries (donors and patients)
+router.get('/blood-donations', async (req, res) => {
+  try {
+    const { type, status, bloodGroup, search, page = 1, limit = 20 } = req.query;
+    
+    const query = {};
+    if (type) query.type = type;
+    if (status) query.status = status;
+    if (bloodGroup) query.bloodGroup = bloodGroup;
+    if (search) {
+      query.$or = [
+        { fullName: new RegExp(search, 'i') },
+        { email: new RegExp(search, 'i') },
+        { phone: new RegExp(search, 'i') },
+        { requestNumber: new RegExp(search, 'i') }
+      ];
+    }
+    
+    const entries = await BloodDonation.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit))
+      .select('-__v');
+    
+    const total = await BloodDonation.countDocuments(query);
+    
+    res.json({
+      success: true,
+      data: entries,
+      pagination: {
+        total,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        pages: Math.ceil(total / limit)
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching blood donation entries',
+      error: error.message
+    });
+  }
+});
+
+// Get single blood donation entry
+router.get('/blood-donations/:id', async (req, res) => {
+  try {
+    const entry = await BloodDonation.findById(req.params.id);
+    if (!entry) {
+      return res.status(404).json({
+        success: false,
+        message: 'Blood donation entry not found'
+      });
+    }
+    res.json({
+      success: true,
+      data: entry
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching blood donation entry',
+      error: error.message
+    });
+  }
+});
+
+// Update blood donation status
+router.patch('/blood-donations/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!['pending', 'verified', 'active', 'fulfilled', 'cancelled', 'expired'].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid status'
+      });
+    }
+    
+    const updateData = { 
+      status, 
+      updatedAt: new Date() 
+    };
+    
+    if (status === 'verified' || status === 'active') {
+      updateData.verifiedBy = req.user.id;
+      updateData.verifiedAt = new Date();
+    }
+    
+    const entry = await BloodDonation.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+    
+    if (!entry) {
+      return res.status(404).json({
+        success: false,
+        message: 'Blood donation entry not found'
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: `Entry ${status} successfully`,
+      data: entry
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error updating entry status',
+      error: error.message
+    });
+  }
+});
+
+// Update patient request fulfillment
+router.patch('/blood-donations/:id/fulfill', async (req, res) => {
+  try {
+    const { units, donorId } = req.body;
+    
+    const entry = await BloodDonation.findById(req.params.id);
+    if (!entry || entry.type !== 'patient') {
+      return res.status(404).json({
+        success: false,
+        message: 'Patient request not found'
+      });
+    }
+    
+    const fulfillment = {
+      units: parseInt(units),
+      date: new Date()
+    };
+    if (donorId) fulfillment.donorId = donorId;
+    
+    entry.fulfilledBy.push(fulfillment);
+    entry.unitsFulfilled += parseInt(units);
+    
+    if (entry.unitsFulfilled >= entry.unitsRequired) {
+      entry.status = 'fulfilled';
+    }
+    
+    await entry.save();
+    
+    res.json({
+      success: true,
+      message: 'Request updated successfully',
+      data: entry
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error updating request',
+      error: error.message
+    });
+  }
+});
+
+// Delete blood donation entry
+router.delete('/blood-donations/:id', async (req, res) => {
+  try {
+    const entry = await BloodDonation.findByIdAndDelete(req.params.id);
+    if (!entry) {
+      return res.status(404).json({
+        success: false,
+        message: 'Blood donation entry not found'
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Blood donation entry deleted successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting blood donation entry',
+      error: error.message
+    });
+  }
+});
+
+// Get blood donation stats
+router.get('/blood-donations/stats/overview', async (req, res) => {
+  try {
+    const totalDonors = await BloodDonation.countDocuments({ type: 'donor' });
+    const activeDonors = await BloodDonation.countDocuments({ type: 'donor', status: 'active' });
+    const totalRequests = await BloodDonation.countDocuments({ type: 'patient' });
+    const pendingRequests = await BloodDonation.countDocuments({ type: 'patient', status: 'pending' });
+    const fulfilledRequests = await BloodDonation.countDocuments({ type: 'patient', status: 'fulfilled' });
+    const urgentRequests = await BloodDonation.countDocuments({ 
+      type: 'patient', 
+      status: { $in: ['pending', 'verified'] },
+      urgency: { $in: ['immediate', 'within_24_hours'] }
+    });
+    
+    // Blood group distribution for donors
+    const bloodGroupDistribution = await BloodDonation.aggregate([
+      { $match: { type: 'donor', status: 'active' } },
+      { $group: { _id: '$bloodGroup', count: { $sum: 1 } } },
+      { $sort: { _id: 1 } }
+    ]);
+    
+    res.json({
+      success: true,
+      data: {
+        totalDonors,
+        activeDonors,
+        totalRequests,
+        pendingRequests,
+        fulfilledRequests,
+        urgentRequests,
+        bloodGroupDistribution
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching stats',
       error: error.message
     });
   }

@@ -15,6 +15,8 @@ import {
   X,
   Image as ImageIcon,
   History,
+  Eye,
+  Droplet,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -30,6 +32,8 @@ const menuItems = [
   { href: "/admin/events", label: "Events", icon: Calendar },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/admin/donations", label: "Donations", icon: Heart },
+  { href: "/admin/eye-donations", label: "Eye Donations", icon: Eye },
+  { href: "/admin/blood-donations", label: "Blood Donations", icon: Droplet },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
