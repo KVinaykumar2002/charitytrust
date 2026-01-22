@@ -77,4 +77,5 @@ local.db
 # Cache
 .cache/
 .parcel-cache/
+.next/
 

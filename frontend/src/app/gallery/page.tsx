@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
-import CircularImageGallerySection from "@/components/sections/circular-image-gallery-section";
-import FloatingCardGallery from "@/components/ui/floating-card-gallery";
 import { getPublicEvents, getPublicProjects, getPublicPrograms } from "@/lib/api";
 
 interface GalleryImage {
@@ -21,6 +22,8 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     fetchGalleryImages();
@@ -31,7 +34,6 @@ export default function GalleryPage() {
       setLoading(true);
       setError(null);
       
-      // Parallelize all API calls for faster loading
       const [eventsResult, projectsResult, programsResult] = await Promise.allSettled([
         getPublicEvents(),
         getPublicProjects(),
@@ -40,12 +42,11 @@ export default function GalleryPage() {
       
       const galleryImages: GalleryImage[] = [];
       
-      // Process events - ensure all events with images are included
-      if (eventsResult.status === 'fulfilled') {
+      // Process events
+      if (eventsResult.status === "fulfilled") {
         const eventsData = eventsResult.value?.data || eventsResult.value || [];
-        if (Array.isArray(eventsData) && eventsData.length > 0) {
+        if (Array.isArray(eventsData)) {
           eventsData.forEach((event: any) => {
-            // Check for image in multiple possible fields
             const imageSrc = event.imageBase64 || event.image || event.imageUrl;
             if (imageSrc) {
               galleryImages.push({
@@ -59,12 +60,10 @@ export default function GalleryPage() {
             }
           });
         }
-      } else if (eventsResult.status === 'rejected') {
-        console.warn("Failed to fetch events for gallery:", eventsResult.reason);
       }
       
       // Process projects
-      if (projectsResult.status === 'fulfilled') {
+      if (projectsResult.status === "fulfilled") {
         const projectsData = projectsResult.value?.data || projectsResult.value || [];
         if (Array.isArray(projectsData)) {
           projectsData.forEach((project: any) => {
@@ -84,7 +83,7 @@ export default function GalleryPage() {
       }
       
       // Process programs
-      if (programsResult.status === 'fulfilled') {
+      if (programsResult.status === "fulfilled") {
         const programsData = programsResult.value?.data || programsResult.value || [];
         if (Array.isArray(programsData)) {
           programsData.forEach((program: any) => {
@@ -104,170 +103,310 @@ export default function GalleryPage() {
       }
       
       setImages(galleryImages);
-      setError(null);
     } catch (error: any) {
       console.error("Error fetching gallery images:", error);
-      setImages([]);
-      const errorMessage = error instanceof Error ? error.message : (error?.message || "Failed to load gallery images.");
-      setError(errorMessage);
+      setError(error?.message || "Failed to load gallery images.");
     } finally {
       setLoading(false);
     }
   };
 
   const categories = ["All", "Events", "Projects", "Programs"];
-  const filteredImages = selectedCategory === "All" 
+  const filteredImages =
+    selectedCategory === "All"
     ? images 
-    : images.filter(img => img.category === selectedCategory);
+      : images.filter((img) => img.category === selectedCategory);
+
+  const openLightbox = (index: number) => {
+    setCurrentImageIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % filteredImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + filteredImages.length) % filteredImages.length);
+  };
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!lightboxOpen) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxOpen, filteredImages.length]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
       <NavigationHeader />
-      <main className="flex-1 pt-24">
+
+      <main className="flex-1 pt-32 pb-20">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-32 text-white overflow-hidden">
-          {/* Background Images */}
-          <div className="absolute inset-0">
-            <img 
-              src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop"
-              alt="Gallery background"
-              className="w-full h-full object-cover"
-            />
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/70"></div>
-          </div>
-          
-          {/* Decorative elements */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FD7E14] rounded-full blur-3xl"></div>
-          </div>
-          
-          {/* Floating decorative images */}
-          <div className="absolute top-10 right-10 w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden opacity-30 rotate-6 hidden lg:block">
-            <img 
-              src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=2070&auto=format&fit=crop"
-              alt="Gallery preview"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute bottom-10 left-10 w-24 h-24 md:w-40 md:h-40 rounded-2xl overflow-hidden opacity-30 -rotate-6 hidden lg:block">
-            <img 
-              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
-              alt="Gallery preview"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          
-          <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1
-                data-text-animation="reveal-from-bottom"
-                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-lg"
+        <section className="relative px-6 md:px-12 lg:px-20 mb-16">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="text-center"
+            >
+              <motion.span
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="inline-block px-4 py-1.5 mb-6 text-xs font-medium tracking-[0.2em] uppercase text-[#FD7E14] border border-[#FD7E14]/30 rounded-full"
               >
+                Our Moments
+              </motion.span>
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
                 Gallery
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 leading-relaxed drop-shadow-md">
-                Explore our events, projects, and programs through our photo gallery. Browse images from our latest events, ongoing projects, and active programs.
+              <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+                Capturing the spirit of service through moments of impact, compassion, and community.
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* Circular Image Gallery Section */}
-        <CircularImageGallerySection />
-
-        {/* Floating Card Gallery Section */}
-        <section className="relative">
-          {loading ? (
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-slate-300">Loading gallery...</p>
-              </div>
-            </div>
-          ) : error ? (
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-              <div className="text-center px-6">
-                <h3 className="text-2xl font-semibold text-red-400 mb-4">Error Loading Gallery</h3>
-                <p className="text-slate-300 mb-4">{error}</p>
-                <button
-                  onClick={() => {
-                    setError(null);
-                    fetchGalleryImages();
-                  }}
-                  className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg hover:from-violet-700 hover:to-fuchsia-700 transition-all"
-                >
-                  Retry
-                </button>
-              </div>
-            </div>
-          ) : images.length === 0 ? (
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-              <div className="text-center">
-                <h3 className="text-2xl font-semibold text-white mb-4">No Images Available</h3>
-                <p className="text-slate-300 mb-4">
-                  Check back soon for gallery images.
-                </p>
-                <button
-                  onClick={fetchGalleryImages}
-                  className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg hover:from-violet-700 hover:to-fuchsia-700 transition-all"
-                >
-                  Refresh
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="relative">
-              {/* Category Filter - Floating on top of gallery */}
-              <div className="absolute top-8 left-0 right-0 z-20 flex flex-wrap justify-center gap-3 px-4">
-                {categories.map((category) => (
-                  <button
+        {/* Filter Section */}
+        <section className="px-6 md:px-12 lg:px-20 mb-12">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="flex flex-wrap items-center justify-center gap-3"
+            >
+              {categories.map((category, index) => {
+                const count = category === "All" 
+                  ? images.length 
+                  : images.filter((img) => img.category === category).length;
+                return (
+                  <motion.button
                     key={category}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-5 py-2 rounded-full font-semibold text-sm transition-all backdrop-blur-md ${
+                    className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                       selectedCategory === category
-                        ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-purple-500/30"
-                        : "bg-slate-800/70 text-slate-300 hover:bg-slate-700/80 border border-slate-600/50"
+                        ? "text-black bg-[#FD7E14]"
+                        : "text-white/70 bg-white/5 hover:bg-white/10 hover:text-white"
                     }`}
                   >
-                    {category} {category !== "All" && `(${images.filter(img => img.category === category).length})`}
-                  </button>
-                ))}
-              </div>
+                    {category}
+                    {count > 0 && (
+                      <span className={`ml-2 text-xs ${
+                        selectedCategory === category ? "text-black/70" : "text-white/40"
+                      }`}>
+                        {count}
+                      </span>
+                    )}
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+          </div>
+        </section>
 
-              <FloatingCardGallery
-                cards={filteredImages.map((image) => ({
-                  title: image.title,
-                  description: `${image.category}${image.date ? ` • ${new Date(image.date).toLocaleDateString("en-US", {
-                    year: "numeric",
+        {/* Gallery Grid */}
+        <section className="px-6 md:px-12 lg:px-20">
+          <div className="max-w-7xl mx-auto">
+            {loading ? (
+              <div className="flex items-center justify-center py-32">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-10 h-10 border-2 border-[#FD7E14] border-t-transparent rounded-full animate-spin" />
+                  <p className="text-white/50 text-sm">Loading gallery...</p>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="flex items-center justify-center py-32">
+                <div className="text-center">
+                  <p className="text-red-400 mb-4">{error}</p>
+                  <button
+                    onClick={fetchGalleryImages}
+                    className="px-6 py-2.5 text-sm font-medium text-white bg-[#FD7E14] rounded-full hover:bg-[#FD7E14]/90 transition-colors"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              </div>
+            ) : filteredImages.length === 0 ? (
+              <div className="flex items-center justify-center py-32">
+                <div className="text-center">
+                  <p className="text-white/50 mb-2">No images found</p>
+                  <p className="text-white/30 text-sm">Check back soon for updates</p>
+                </div>
+              </div>
+            ) : (
+              <motion.div
+                layout
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+              >
+                <AnimatePresence mode="popLayout">
+                  {filteredImages.map((image, index) => (
+                    <motion.div
+                      key={image.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: index * 0.05,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      onClick={() => openLightbox(index)}
+                      className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer bg-white/5"
+                    >
+                      {/* Image */}
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      />
+
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      {/* Content */}
+                      <div className="absolute inset-0 p-5 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+                        <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase mb-1">
+                          {image.category}
+                        </span>
+                        <h3 className="text-white font-semibold text-lg line-clamp-2">
+                          {image.title}
+                        </h3>
+                        {image.date && (
+                          <p className="text-white/50 text-sm mt-1">
+                            {new Date(image.date).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
-                  })}` : ""}`,
-                  fullDescription: `This ${image.category.toLowerCase().slice(0, -1)} showcases our community initiatives and impact.${image.date ? `\n\n📅 Date: ${new Date(image.date).toLocaleDateString("en-US", {
                     year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}` : ""}`,
-                  image: image.src,
-                  avatar: "https://images.unsplash.com/photo-1594708767771-a7502209ff51?q=80&w=200&auto=format&fit=crop",
-                  author: "CCT Foundation",
-                  category: image.category,
-                  tags: [
-                    image.category,
-                    image.date ? `📅 ${new Date(image.date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}` : null,
-                  ].filter(Boolean) as string[],
-                }))}
-                backgroundColor="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
-                accentColor="rgba(253, 126, 20, 0.5)"
-                maxCards={12}
-              />
+                            })}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Corner accent */}
+                      <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                          />
+                        </svg>
             </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
           )}
+          </div>
         </section>
       </main>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxOpen && filteredImages[currentImageIndex] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Navigation buttons */}
+            {filteredImages.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="absolute left-4 md:left-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="absolute right-4 md:right-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </button>
+              </>
+            )}
+
+            {/* Image container */}
+            <motion.div
+              key={currentImageIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-5xl max-h-[80vh] mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={filteredImages[currentImageIndex].src}
+                alt={filteredImages[currentImageIndex].alt}
+                className="max-w-full max-h-[80vh] object-contain rounded-lg"
+              />
+
+              {/* Image info */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+                className="absolute -bottom-20 left-0 right-0 text-center"
+              >
+                <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase">
+                  {filteredImages[currentImageIndex].category}
+                </span>
+                <h3 className="text-white font-semibold text-xl mt-1">
+                  {filteredImages[currentImageIndex].title}
+                </h3>
+                <p className="text-white/40 text-sm mt-2">
+                  {currentImageIndex + 1} / {filteredImages.length}
+                </p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <FlickeringFooter />
     </div>
   );
 }
-
