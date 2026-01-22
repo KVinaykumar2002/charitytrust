@@ -2,6 +2,7 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/donate/monetary/page": "app/donate/monetary/page.js",
   "/donate/page": "app/donate/page.js",
+  "/events/page": "app/events/page.js",
   "/eye-donation/page": "app/eye-donation/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/gallery/page": "app/gallery/page.js",
