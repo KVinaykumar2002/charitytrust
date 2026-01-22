@@ -12,7 +12,7 @@ const donationOptions = [
     title: "Monetary Donation",
     description: "Your financial contribution helps us provide medical care, education, and support to those in need. Every rupee makes a difference.",
     icon: Heart,
-    href: "/contact-us",
+    href: "/donate/monetary",
     gradient: "from-[#FD7E14] to-[#E56B00]",
     bgGradient: "from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20",
     borderColor: "border-orange-200 dark:border-orange-800",
@@ -225,7 +225,7 @@ export default function DonatePage() {
                 Join thousands of compassionate individuals who are transforming lives through their generosity.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact-us">
+                <Link href="/donate/monetary">
                   <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white px-8 py-6 rounded-full text-lg font-semibold">
                     <Heart className="w-5 h-5 mr-2" />
                     Donate Now
