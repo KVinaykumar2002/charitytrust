@@ -526,7 +526,7 @@ router.post('/projects', async (req, res) => {
     const projectData = {
       title: title.trim(),
       description: description.trim(),
-      category: category || 'Other',
+      category: category || 'Floods services',
       location: location || '',
       imageBase64: imageBase64 || image || '',
       image: imageBase64 || image || '',

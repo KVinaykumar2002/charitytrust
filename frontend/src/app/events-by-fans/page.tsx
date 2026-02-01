@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, MapPin, Clock, ArrowRight, Users, Search, X } from "lucide-react";
+import { Calendar, MapPin, Clock, ArrowRight, Users, Heart, Search, X } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { getPublicEvents } from "@/lib/api";
@@ -24,7 +24,7 @@ interface Event {
   dateTimestamp?: number;
 }
 
-export default function EventsPage() {
+export default function EventsByFansPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -262,13 +262,13 @@ export default function EventsPage() {
                 transition={{ delay: 0.2, duration: 0.5 }}
                 className="inline-block px-4 py-1.5 mb-6 text-xs font-medium tracking-[0.2em] uppercase text-[#FD7E14] border border-[#FD7E14]/30 rounded-full"
               >
-                Community Initiatives
+                Fan Community
               </motion.span>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-                Our Events
+                Events by Fans
               </h1>
               <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
-                Join us in making a difference. Discover upcoming events, fundraisers, and community initiatives.
+                Celebrating the passion and dedication of our community. Discover events organized by fans and supporters who share our mission.
               </p>
             </motion.div>
           </div>
@@ -473,12 +473,12 @@ export default function EventsPage() {
             ) : filteredEvents.length === 0 ? (
               <div className="flex items-center justify-center py-32">
                 <div className="text-center">
-                  <Calendar className="w-12 h-12 text-white/20 mx-auto mb-4" />
-                  <p className="text-white/50 mb-2">No events found</p>
+                  <Heart className="w-12 h-12 text-white/20 mx-auto mb-4" />
+                  <p className="text-white/50 mb-2">No fan events found</p>
                   <p className="text-white/30 text-sm">
                     {filter !== "all"
                       ? "Try selecting a different filter"
-                      : "Check back soon for updates"}
+                      : "Check back soon for fan-organized events"}
                   </p>
                 </div>
               </div>
@@ -516,7 +516,7 @@ export default function EventsPage() {
                             />
                           ) : (
                             <div className="w-full h-full bg-gradient-to-br from-[#FD7E14]/20 to-[#FD7E14]/5 flex items-center justify-center">
-                              <Calendar className="w-12 h-12 text-[#FD7E14]/30" />
+                              <Heart className="w-12 h-12 text-[#FD7E14]/30" />
                             </div>
                           )}
 
@@ -531,15 +531,9 @@ export default function EventsPage() {
                             </div>
                           )}
 
-                          {/* Status Badge */}
-                          <div
-                            className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium ${
-                              isUpcoming
-                                ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                                : "bg-white/10 text-white/60 border border-white/10"
-                            }`}
-                          >
-                            {isUpcoming ? "Upcoming" : "Completed"}
+                          {/* Fan Badge */}
+                          <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                            Fan Event
                           </div>
                         </div>
 
@@ -601,20 +595,19 @@ export default function EventsPage() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#FD7E14]/20 rounded-full blur-3xl" />
 
                 <div className="relative z-10 text-center">
-                  <Users className="w-12 h-12 text-[#FD7E14] mx-auto mb-4" />
+                  <Heart className="w-12 h-12 text-[#FD7E14] mx-auto mb-4" />
                   <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                    Want to Participate?
+                    Want to Organize an Event?
                   </h2>
                   <p className="text-white/60 mb-6 max-w-xl mx-auto">
-                    Join our community initiatives and make a real difference. Volunteer,
-                    donate, or simply spread the word about our events.
+                    Are you a fan who wants to organize an event? Join our community and make a real difference by hosting your own event.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
-                      href="/donate"
+                      href="/events"
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FD7E14] hover:bg-[#E56B00] text-white font-semibold rounded-full transition-colors"
                     >
-                      Donate Now
+                      View All Events
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link

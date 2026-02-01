@@ -28,7 +28,7 @@ export default function EditProjectPage() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    category: "Other",
+    category: "Floods services",
     location: "",
     status: "planning",
     image: "",
@@ -64,7 +64,7 @@ export default function EditProjectPage() {
         setFormData({
           title: project.title || "",
           description: project.description || "",
-          category: project.category || "Other",
+          category: project.category || "Floods services",
           location: project.location || "",
           status: project.status || "planning",
           image: project.imageBase64 || project.image || project.imageUrl || "",
@@ -205,12 +205,12 @@ export default function EditProjectPage() {
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Health">Health</SelectItem>
-                      <SelectItem value="Vision">Vision</SelectItem>
+                      <SelectItem value="Blood Donation">Blood Donation</SelectItem>
+                      <SelectItem value="Eye donation Camps">Eye donation Camps</SelectItem>
                       <SelectItem value="Relief">Relief</SelectItem>
                       <SelectItem value="Awareness">Awareness</SelectItem>
                       <SelectItem value="Education">Education</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <SelectItem value="Floods services">Floods services</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

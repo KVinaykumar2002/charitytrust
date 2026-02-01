@@ -33,7 +33,13 @@ const navItems: NavItem[] = [
       { name: "Our Vision", href: "/about#vision" },
     ],
   },
-  { name: "Events", href: "/events" },
+  {
+    name: "Events",
+    dropdown: [
+      { name: "All Events", href: "/events" },
+      { name: "Events by Fans", href: "/events-by-fans" },
+    ],
+  },
   { name: "Projects", href: "/projects" },
   { name: "Our Team", href: "/team" },
   {
@@ -68,7 +74,7 @@ const NavigationHeader = () => {
       return pathname?.startsWith("/about");
     }
     if (item.name === "Events") {
-      return pathname === "/events";
+      return pathname === "/events" || pathname === "/events-by-fans";
     }
     if (item.name === "Projects") {
       return pathname === "/projects";

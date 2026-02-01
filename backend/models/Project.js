@@ -45,7 +45,7 @@ const projectSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    default: 'Other',
+    default: 'Floods services',
     trim: true
   },
   createdAt: {

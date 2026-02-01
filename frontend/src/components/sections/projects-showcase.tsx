@@ -57,6 +57,17 @@ const galleryImages = [
   },
 ];
 
+// Map old category names to new ones for display
+const mapCategoryName = (category: string | undefined): string => {
+  if (!category) return "Floods services";
+  const categoryMap: { [key: string]: string } = {
+    "Health": "Blood Donation",
+    "Vision": "Eye donation Camps",
+    "Other": "Floods services",
+  };
+  return categoryMap[category] || category;
+};
+
 const ProjectCard = ({ project }: { project: Project }) => {
   // Handle base64 images
   const imageSrc = project.imageBase64?.startsWith('data:image')
@@ -80,7 +91,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       </div>
       <div className="p-8 flex flex-col items-start flex-grow">
         <span className="text-tag bg-primary text-text-inverted rounded-[6px] px-3 py-1.5 mb-4">
-          {project.category}
+          {mapCategoryName(project.category)}
         </span>
         <h3 className="h3 mb-2 text-card-foreground">{project.title}</h3>
         <p className="text-body-regular text-text-secondary mb-6 flex-grow">
@@ -110,7 +121,7 @@ const ProjectsShowcase = () => {
       // Map projects data to include image handling
       const mappedProjects = projectsData.map((p: any) => ({
         id: p._id || p.id,
-        category: p.category || "Other",
+        category: p.category || "Floods services",
         title: p.title || "",
         description: p.description || "",
         imageUrl: p.imageBase64 || p.image || p.imageUrl || "",

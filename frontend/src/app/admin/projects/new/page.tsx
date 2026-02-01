@@ -25,7 +25,7 @@ export default function NewProjectPage() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    category: "Other",
+    category: "Floods services",
     location: "",
     status: "planning",
     image: "",
@@ -142,12 +142,12 @@ export default function NewProjectPage() {
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Health">Health</SelectItem>
-                      <SelectItem value="Vision">Vision</SelectItem>
+                      <SelectItem value="Blood Donation">Blood Donation</SelectItem>
+                      <SelectItem value="Eye donation Camps">Eye donation Camps</SelectItem>
                       <SelectItem value="Relief">Relief</SelectItem>
                       <SelectItem value="Awareness">Awareness</SelectItem>
                       <SelectItem value="Education">Education</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <SelectItem value="Floods services">Floods services</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

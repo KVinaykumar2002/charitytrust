@@ -53,7 +53,7 @@ export default function ProjectsPage() {
         const projectsData = result.data || [];
         setProjects(projectsData.map((p: any) => ({
           id: p._id || p.id,
-          category: p.category || "Other",
+          category: p.category || "Floods services",
           title: p.title || "",
           description: p.description || "",
           imageUrl: p.imageBase64 || p.image || p.imageUrl || "",

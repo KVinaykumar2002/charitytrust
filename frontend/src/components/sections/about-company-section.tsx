@@ -77,7 +77,7 @@ const AboutCompanySection = () => {
             data-text-animation="reveal-from-bottom"
             className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
           >
-            About Chiranjeevi Charity Trust
+            About Chiranjeevi Charitable Trust
           </h1>
           <div
             data-stagger-item
