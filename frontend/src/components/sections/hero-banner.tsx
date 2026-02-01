@@ -10,6 +10,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
   type CarouselApi,
 } from "@/components/ui/carousel";
 
@@ -44,10 +46,10 @@ const HeroBanner = () => {
     try {
       const result = await getPublicHeroImages();
       if (result.success && result.data) {
-        // Filter only active images and sort by order
+        // Filter active images and sort by admin-defined order (ascending: 0, 1, 2...)
         const activeImages = result.data
           .filter((img: any) => img.active !== false)
-          .sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+          .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
         
         const slides: HeroSlide[] = activeImages.map((img: any) => ({
           title: img.title || "",
@@ -131,64 +133,66 @@ const HeroBanner = () => {
                   )}
                 </div>
 
-                {/* Dark gradient overlay for text readability - Middle Layer */}
-                <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/25 via-black/40 to-black/70" />
+                {/* Dark gradient overlay - stronger at bottom to create text safe zone, avoid overlapping faces */}
+                <div
+                  className="absolute inset-0 z-10"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.9) 100%)",
+                  }}
+                />
 
-                {/* Main hero content - Top Layer */}
+                {/* Text content - bottom-aligned to avoid overlapping faces in center of photos */}
                 <div
                   data-stagger-parent
-                  className="absolute inset-0 z-20 flex items-center justify-center"
+                  className="absolute inset-x-0 bottom-0 z-20 flex justify-center pb-16 pt-32 md:pb-24 md:pt-40"
                 >
-                  <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-8 px-6 text-center md:px-12 lg:px-20">
-                  {/* Badge - only show if exists */}
-                  {slide.badge && slide.badge.trim() && (
-                    <span
-                      data-stagger-item
-                      data-animation="fade-down"
-                      data-animation-duration="1s"
-                      className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white/80 md:text-sm md:tracking-[0.6em]"
-                    >
-                      {slide.badge}
-                    </span>
-                  )}
+                  <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-6 px-6 text-center md:px-12 lg:px-20">
+                    {slide.badge && slide.badge.trim() && (
+                      <span
+                        data-stagger-item
+                        data-animation="fade-down"
+                        data-animation-duration="1s"
+                        className="inline-flex items-center rounded-full border border-white/30 bg-black/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-white/90 backdrop-blur-sm"
+                      >
+                        {slide.badge}
+                      </span>
+                    )}
 
-                  {/* Title - always show */}
-                  {slide.title && slide.title.trim() && (
-                    <h1
-                      data-stagger-item
-                      data-animation="fade-up"
-                      data-animation-duration="1.1s"
-                      data-text-animation="letter-spacing-expand"
-                      className="max-w-4xl text-4xl font-bold leading-tight tracking-[-0.02em] text-white md:text-5xl lg:text-[56px] lg:leading-[64px]"
-                    >
-                      {slide.title}
-                    </h1>
-                  )}
+                    {slide.title && slide.title.trim() && (
+                      <h1
+                        data-stagger-item
+                        data-animation="fade-up"
+                        data-animation-duration="1.1s"
+                        className="max-w-4xl text-3xl font-bold leading-tight tracking-tight text-white drop-shadow-lg md:text-4xl lg:text-5xl lg:leading-[1.2]"
+                      >
+                        {slide.title}
+                      </h1>
+                    )}
 
-                  {/* Description - always show */}
-                  {slide.description && slide.description.trim() && (
-                    <p
-                      data-stagger-item
-                      data-animation="fade-in"
-                      data-animation-duration="1s"
-                      className="max-w-2xl text-base text-white/80 md:text-lg md:leading-7"
-                    >
-                      {slide.description}
-                    </p>
-                  )}
+                    {slide.description && slide.description.trim() && (
+                      <p
+                        data-stagger-item
+                        data-animation="fade-in"
+                        data-animation-duration="1s"
+                        className="max-w-2xl text-sm text-white/90 drop-shadow-md md:text-base lg:text-lg"
+                      >
+                        {slide.description}
+                      </p>
+                    )}
 
-                  {/* CTA Button - only show if label exists */}
-                  {slide.ctaLabel && slide.ctaLabel.trim() && (
-                    <div
-                      data-stagger-item
-                      data-animation="scale-in"
-                      data-animation-duration="0.9s"
-                    >
-                      <AnimatedButton href={slide.ctaHref || "/"} variant="filled">
-                        {slide.ctaLabel}
-                      </AnimatedButton>
-                    </div>
-                  )}
+                    {slide.ctaLabel && slide.ctaLabel.trim() && (
+                      <div
+                        data-stagger-item
+                        data-animation="scale-in"
+                        data-animation-duration="0.9s"
+                        className="relative z-30"
+                      >
+                        <AnimatedButton href={slide.ctaHref || "/"} variant="filled">
+                          {slide.ctaLabel}
+                        </AnimatedButton>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -196,14 +200,26 @@ const HeroBanner = () => {
           ))}
         </CarouselContent>
 
-        {/* carousel indicators */}
-        <div className="pointer-events-none absolute bottom-10 left-0 right-0 z-20 flex justify-center gap-2">
+        {/* Scroll buttons - positioned for visibility */}
+        <CarouselPrevious
+          className="left-4 top-1/2 -translate-y-1/2 z-30 size-12 rounded-full border-2 border-white/30 bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 hover:border-white/50 hover:text-white disabled:opacity-40 md:left-6 md:size-14"
+          aria-label="Previous slide"
+        />
+        <CarouselNext
+          className="right-4 top-1/2 -translate-y-1/2 z-30 size-12 rounded-full border-2 border-white/30 bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 hover:border-white/50 hover:text-white disabled:opacity-40 md:right-6 md:size-14"
+          aria-label="Next slide"
+        />
+
+        {/* Carousel indicators */}
+        <div className="pointer-events-none absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-2 md:bottom-10">
           {heroSlides.map((_, index) => (
-            <span
+            <button
               key={index}
-              className={`h-1.5 w-10 rounded-full transition-all duration-500 ${
-                current === index ? "bg-white" : "bg-white/50"
+              onClick={() => api?.scrollTo(index)}
+              className={`pointer-events-auto h-1.5 w-8 rounded-full transition-all duration-300 ${
+                current === index ? "bg-white scale-110" : "bg-white/50 hover:bg-white/70"
               }`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
