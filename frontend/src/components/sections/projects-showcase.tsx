@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getPublicProjects } from "@/lib/api";
+import TrustLoader from "@/components/TrustLoader";
 
 interface Project {
   _id?: string;
@@ -161,10 +162,7 @@ const ProjectsShowcase = () => {
         {/* Project Cards */}
         {loading ? (
           <div className="flex items-center justify-center py-20 mb-24">
-            <div className="text-center">
-              <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-text-secondary">Loading projects...</p>
-            </div>
+            <TrustLoader variant="both" size="lg" label="Loading projects..." />
           </div>
         ) : projects.length === 0 ? (
           <div className="flex items-center justify-center py-20 mb-24">

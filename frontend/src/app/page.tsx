@@ -9,6 +9,7 @@ import JoinBanner from "@/components/sections/join-banner";
 import ProjectsShowcase from "@/components/sections/projects-showcase";
 import EventsBanner from "@/components/sections/events-banner";
 import TestimonialsSection from "@/components/sections/testimonials-section";
+import ContactSection from "@/components/sections/contact-section";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import Featured_05 from "@/components/ui/globe-feature-section";
 
@@ -27,6 +28,7 @@ export default function Home() {
         <ProjectsShowcase />
         <TestimonialsSection />
         <EventsBanner />
+        <ContactSection />
         <VolunteerHeroSection />
       </main>
       <FlickeringFooter />

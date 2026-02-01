@@ -1,0 +1,93 @@
+"use client";
+
+import { Droplet, Eye } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export type TrustLoaderVariant = "blood" | "eye" | "both";
+
+interface TrustLoaderProps {
+  variant?: TrustLoaderVariant;
+  size?: "sm" | "md" | "lg";
+  label?: string;
+  className?: string;
+}
+
+const sizeClasses = {
+  sm: "size-8",
+  md: "size-12",
+  lg: "size-16",
+};
+
+export function TrustLoader({
+  variant = "blood",
+  size = "md",
+  label = "Loading...",
+  className,
+}: TrustLoaderProps) {
+  const iconSize = size === "sm" ? 20 : size === "md" ? 28 : 36;
+
+  return (
+    <div
+      role="status"
+      aria-label={label}
+      className={cn(
+        "flex flex-col items-center justify-center gap-3",
+        className
+      )}
+    >
+      <div className={cn("relative flex items-center justify-center", sizeClasses[size])}>
+        {variant === "blood" && (
+          <div className="trust-loader-blood relative" aria-hidden>
+            <Droplet
+              className="size-full text-[#c41e3a] drop-shadow-[0_0_8px_rgba(196,30,58,0.5)]"
+              strokeWidth={1.5}
+            />
+            <div
+              className="trust-loader-blood-fill absolute inset-0 overflow-hidden rounded-full"
+              aria-hidden
+            >
+              <Droplet
+                className="size-full text-[#e63946]"
+                strokeWidth={0}
+                fill="currentColor"
+                style={{ filter: "drop-shadow(0 0 6px rgba(230,57,70,0.6))" }}
+              />
+            </div>
+          </div>
+        )}
+        {variant === "eye" && (
+          <div className="trust-loader-eye" aria-hidden>
+            <Eye
+              className={cn("size-full text-[#0d9488]")}
+              strokeWidth={1.5}
+              style={{ filter: "drop-shadow(0 0 6px rgba(13,148,136,0.4))" }}
+            />
+          </div>
+        )}
+        {variant === "both" && (
+          <div className="flex items-center gap-1.5" aria-hidden>
+            <div className="trust-loader-blood relative" style={{ width: iconSize, height: iconSize }}>
+              <Droplet
+                className="size-full text-[#c41e3a]"
+                strokeWidth={1.5}
+              />
+              <div className="trust-loader-blood-fill absolute inset-0 overflow-hidden rounded-full">
+                <Droplet className="size-full text-[#e63946]" strokeWidth={0} fill="currentColor" />
+              </div>
+            </div>
+            <div className="trust-loader-eye" style={{ width: iconSize, height: iconSize }}>
+              <Eye className="size-full text-[#0d9488]" strokeWidth={1.5} />
+            </div>
+          </div>
+        )}
+      </div>
+      {label && (
+        <p className="text-sm text-muted-foreground dark:text-white/60 animate-pulse">
+          {label}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export default TrustLoader;

@@ -7,6 +7,7 @@ import { Calendar, ArrowRight, Users, Heart, Search, X } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { getPublicFanEvents } from "@/lib/api";
+import TrustLoader from "@/components/TrustLoader";
 
 interface FanEvent {
   _id?: string;
@@ -428,10 +429,7 @@ export default function EventsByFansPage() {
           <div className="max-w-7xl mx-auto">
             {loading ? (
               <div className="flex items-center justify-center py-32">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-10 h-10 border-2 border-[#FD7E14] border-t-transparent rounded-full animate-spin" />
-                  <p className="text-white/50 text-sm">Loading events...</p>
-                </div>
+                <TrustLoader variant="both" size="lg" label="Loading events..." />
               </div>
             ) : error ? (
               <div className="flex items-center justify-center py-32">

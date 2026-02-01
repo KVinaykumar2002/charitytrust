@@ -19,6 +19,7 @@ import {
   Eye,
   Calendar,
 } from "lucide-react";
+import TrustLoader from "@/components/TrustLoader";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -217,7 +218,7 @@ export default function AdminFanEventsPage() {
         <CardContent className="p-0">
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <div className="animate-spin h-8 w-8 border-2 border-[#FD7E14] border-t-transparent rounded-full" />
+              <TrustLoader variant="both" size="md" label="Loading events..." />
             </div>
           ) : events.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-[#4a4a4a]">

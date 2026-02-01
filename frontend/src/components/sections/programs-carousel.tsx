@@ -6,6 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { ArrowRight } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
+import TrustLoader from "@/components/TrustLoader";
 import {
   Carousel,
   CarouselContent,
@@ -118,10 +119,7 @@ export default function ProgramsCarousel() {
             {loading ? (
               <CarouselItem className="basis-full pl-6">
                 <div className="flex items-center justify-center py-20">
-                  <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-text-secondary">Loading programs...</p>
-                  </div>
+                  <TrustLoader variant="both" size="lg" label="Loading programs..." />
                 </div>
               </CarouselItem>
             ) : programs.length === 0 ? (

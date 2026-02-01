@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, MapPin, Instagram, Facebook, Twitter, Youtube, Linkedin } from "lucide-react";
+import { Phone, MapPin, Mail, Instagram, Facebook, Twitter, Youtube, Linkedin, Droplet, Eye } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import CircularText from "@/components/ui/circular-text";
 
 // Motion Variants
@@ -126,7 +127,13 @@ const Footer = () => {
                   <NavLink href="/">Home</NavLink>
                   <NavLink href="/about">About the Trust</NavLink>
                   <NavLink href="/#programs">Programs & Initiatives</NavLink>
-                  <NavLink href="/#donate-blood">Donate Blood</NavLink>
+                  <motion.li variants={fadeUp} className="flex items-center gap-2">
+                    <Droplet className="h-4 w-4 shrink-0 text-[#FD7E14]" />
+                    <Link href="/#donate-blood" className="group relative inline-block py-1 text-[15px] text-[#FD7E14] transition-colors hover:text-[#FFB366]">
+                      Donate Blood
+                      <span className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-[#FD7E14] transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
+                    </Link>
+                  </motion.li>
                 </ul>
               </nav>
             </motion.div>
@@ -137,7 +144,20 @@ const Footer = () => {
               <nav>
                 <ul className="space-y-3">
                   <NavLink href="/volunteer">Volunteer</NavLink>
-                  <NavLink href="/blood-donation">Blood Donation Camps</NavLink>
+                  <motion.li variants={fadeUp} className="flex items-center gap-2">
+                    <Droplet className="h-4 w-4 shrink-0 text-[#FD7E14]" />
+                    <Link href="/blood-donation" className="group relative inline-block py-1 text-[15px] text-[#FD7E14] transition-colors hover:text-[#FFB366]">
+                      Blood Donation Camps
+                      <span className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-[#FD7E14] transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
+                    </Link>
+                  </motion.li>
+                  <motion.li variants={fadeUp} className="flex items-center gap-2">
+                    <Eye className="h-4 w-4 shrink-0 text-[#FD7E14]" />
+                    <Link href="/eye-donation" className="group relative inline-block py-1 text-[15px] text-[#FD7E14] transition-colors hover:text-[#FFB366]">
+                      Eye Donation Pledge
+                      <span className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-[#FD7E14] transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
+                    </Link>
+                  </motion.li>
                   <NavLink href="/partnerships">Collaborations</NavLink>
                 </ul>
               </nav>
@@ -165,11 +185,28 @@ const Footer = () => {
                     98497 56785
                   </a>
                 </motion.li>
+                <motion.li variants={fadeUp} className="flex items-center gap-3">
+                  <Mail className="h-4 w-4 flex-shrink-0 text-[#FD7E14]" />
+                  <a href="mailto:info@chiranjeevicharitabletrust.com" className="hover:text-[#FFB366] transition-colors break-all">
+                    info@chiranjeevicharitabletrust.com
+                  </a>
+                </motion.li>
+                <motion.li variants={fadeUp} className="flex items-center gap-3">
+                  <FaWhatsapp className="h-4 w-4 flex-shrink-0 text-[#25D366]" />
+                  <a href="https://wa.me/919063270884" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFB366] transition-colors">
+                    Message us on WhatsApp
+                  </a>
+                </motion.li>
                 <motion.li variants={fadeUp} className="flex items-start gap-3 pt-1">
                   <MapPin className="h-4 w-4 flex-shrink-0 text-[#FD7E14] mt-0.5" />
-                  <span className="leading-relaxed">
-                    Jubilee Hills, Hyderabad
-                  </span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Chiranjeevi+Eye+and+Blood+Bank+82+A+Road+No+1+Jawahar+Colony+Jubilee+Hills+Hyderabad"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="leading-relaxed hover:text-[#FFB366] transition-colors"
+                  >
+                    Jubilee Hills, Hyderabad — Get directions
+                  </a>
                 </motion.li>
               </ul>
               {/* Social Media Icons */}

@@ -1188,6 +1188,51 @@
       opacity: 1;
     }
   }
+
+  /* Trust loader: blood fill + eye blink */
+  @keyframes bloodFill {
+    0%,
+    100% {
+      transform: scaleY(0.15);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes eyeBlink {
+    0%,
+    40%,
+    100% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+    50%,
+    55% {
+      transform: scaleY(0.12);
+      opacity: 0.85;
+    }
+  }
+
+  .trust-loader-blood {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .trust-loader-blood-fill {
+    transform-origin: center bottom;
+    animation: bloodFill 1.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .trust-loader-eye {
+    animation: eyeBlink 1.8s ease-in-out infinite;
+    transform-origin: center center;
+  }
 }
 
 /* Hide Next.js error overlay portal */

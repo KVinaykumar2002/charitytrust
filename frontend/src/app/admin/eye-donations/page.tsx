@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getToken } from "@/lib/auth-storage";
 import { getAdminEyeDonationPledges, updateEyeDonationPledgeStatus, issueEyeDonationCard, deleteEyeDonationPledge, getEyeDonationStats } from "@/lib/api";
 import { Eye, Search, Filter, CheckCircle, XCircle, Clock, CreditCard, Trash2, Loader2, Users, Award, FileCheck, Ban } from "lucide-react";
+import TrustLoader from "@/components/TrustLoader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -290,7 +291,7 @@ export default function AdminEyeDonationsPage() {
       <div className="bg-white rounded-xl border border-[#e5e5e5] overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
+            <TrustLoader variant="eye" size="lg" label="Loading pledges..." />
           </div>
         ) : pledges.length === 0 ? (
           <div className="text-center py-20">

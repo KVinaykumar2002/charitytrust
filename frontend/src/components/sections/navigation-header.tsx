@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu as MenuIcon, X, User, LogOut, Settings, LayoutDashboard } from "lucide-react";
+import { ChevronDown, Menu as MenuIcon, X, User, LogOut, Settings, LayoutDashboard, Droplet, Eye } from "lucide-react";
 import { getUserData, clearAuthData, isAdmin } from "@/lib/auth-storage";
 import {
   DropdownMenu,
@@ -57,6 +57,7 @@ const navItems: NavItem[] = [
     dropdown: [
       { name: "Gallery", href: "/gallery" },
       { name: "FAQ", href: "/faq" },
+      { name: "Contact", href: "/#contact" },
     ],
   },
 ];
@@ -185,7 +186,11 @@ const NavigationHeader = () => {
                 {openDropdown === item.name && (
                   <div className="absolute top-full left-1/2 w-max -translate-x-1/2 pt-4 z-50">
                     <div className="overflow-hidden rounded-xl border border-[#333] bg-[#1a1a1a] shadow-lg">
-                      {item.dropdown.map((subItem) => (
+                      {item.dropdown.map((subItem) => {
+                      const isEye = subItem.href === "/eye-donation";
+                      const isBlood = subItem.href === "/blood-donation";
+                      const Icon = isEye ? Eye : isBlood ? Droplet : null;
+                      return (
                         <Link
                           key={subItem.name}
                           href={subItem.href}
@@ -202,11 +207,13 @@ const NavigationHeader = () => {
                               }, 100);
                             }
                           }}
-                          className="block whitespace-nowrap px-4 py-2.5 text-sm text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-[#FD7E14]"
+                          className="flex items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-[#FD7E14]"
                         >
+                          {Icon && <Icon className="h-4 w-4 shrink-0 text-[#FD7E14]" />}
                           {subItem.name}
                         </Link>
-                      ))}
+                      );
+                    })}
                     </div>
                   </div>
                 )}
@@ -277,8 +284,9 @@ const NavigationHeader = () => {
           ) : null}
           <Link
             href="/donate"
-            className="inline-flex items-center rounded-full bg-[#FD7E14] px-5 py-2 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
+            className="inline-flex items-center gap-2 rounded-full bg-[#FD7E14] px-5 py-2 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
           >
+            <Droplet className="h-4 w-4 shrink-0" />
             Donate Blood
           </Link>
         </div>
@@ -342,28 +350,34 @@ const NavigationHeader = () => {
                     </div>
                     {activeSubmenu === item.name && (
                       <div className="flex flex-col pb-2 pl-4 text-sm text-white/70">
-                        {item.dropdown.map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            onClick={() => {
-                              setIsMobileMenuOpen(false);
-                              // Smooth scroll to anchor if hash is present
-                              if (subItem.href.includes('#')) {
-                                setTimeout(() => {
-                                  const hash = subItem.href.split('#')[1];
-                                  const element = document.getElementById(hash);
-                                  if (element) {
-                                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                  }
-                                }, 100);
-                              }
-                            }}
-                            className="py-2 transition-colors duration-200 hover:text-white hover-underline-slide"
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
+                        {item.dropdown.map((subItem) => {
+                          const isEye = subItem.href === "/eye-donation";
+                          const isBlood = subItem.href === "/blood-donation";
+                          const Icon = isEye ? Eye : isBlood ? Droplet : null;
+                          return (
+                            <Link
+                              key={subItem.name}
+                              href={subItem.href}
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                // Smooth scroll to anchor if hash is present
+                                if (subItem.href.includes('#')) {
+                                  setTimeout(() => {
+                                    const hash = subItem.href.split('#')[1];
+                                    const element = document.getElementById(hash);
+                                    if (element) {
+                                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }
+                                  }, 100);
+                                }
+                              }}
+                              className="flex items-center gap-2 py-2 transition-colors duration-200 hover:text-white hover-underline-slide"
+                            >
+                              {Icon && <Icon className="h-4 w-4 shrink-0 text-[#FD7E14]" />}
+                              {subItem.name}
+                            </Link>
+                          );
+                        })}
                       </div>
                     )}
                   </>
@@ -412,8 +426,9 @@ const NavigationHeader = () => {
             <Link
               href="/donate"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
             >
+              <Droplet className="h-4 w-4 shrink-0" />
               Donate Blood
             </Link>
           </div>

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { TestimonialSlider } from "@/components/ui/testimonial-slider-1";
 import { getPublicTestimonials } from "@/lib/api";
-import { Loader2 } from "lucide-react";
+import TrustLoader from "@/components/TrustLoader";
 
 // Fallback testimonials in case API fails or returns empty
 const fallbackTestimonials = [
@@ -179,7 +179,7 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto">
         {loading ? (
           <div className="flex items-center justify-center min-h-[400px]">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <TrustLoader variant="eye" size="lg" label="Loading testimonials..." />
           </div>
         ) : (
           <TestimonialSlider 

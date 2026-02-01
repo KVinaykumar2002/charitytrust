@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { getPublicEvents } from '@/lib/api';
 import { AnimatedButton } from '@/components/ui/animated-button';
+import TrustLoader from '@/components/TrustLoader';
 
 interface Event {
   _id?: string;
@@ -88,9 +89,8 @@ const EventsBanner = () => {
   if (loading) {
     return (
       <section className="bg-background-white py-[100px] overflow-hidden">
-        <div className="container mx-auto text-center mb-16 px-6 md:px-12 lg:px-20">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-text-secondary">Loading events...</p>
+        <div className="container mx-auto flex justify-center mb-16 px-6 md:px-12 lg:px-20">
+          <TrustLoader variant="both" size="lg" label="Loading events..." />
         </div>
       </section>
     );

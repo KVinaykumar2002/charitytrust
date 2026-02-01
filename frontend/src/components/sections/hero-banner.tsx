@@ -14,6 +14,7 @@ import {
   CarouselNext,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import TrustLoader from "@/components/TrustLoader";
 
 interface HeroSlide {
   title: string;
@@ -85,8 +86,8 @@ const HeroBanner = () => {
 
   if (loading) {
     return (
-      <section className="relative w-full min-h-screen mt-0 overflow-hidden flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      <section className="relative w-full min-h-screen mt-0 overflow-hidden flex items-center justify-center bg-[#1a1a1a]">
+        <TrustLoader variant="blood" size="lg" label="Loading..." />
       </section>
     );
   }

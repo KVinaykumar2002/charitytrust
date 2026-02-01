@@ -1,8 +1,23 @@
-import { Loader2Icon } from "lucide-react"
+import { Loader2Icon, Droplet } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
+interface SpinnerProps extends React.ComponentProps<"svg"> {
+  variant?: "default" | "blood"
+}
+
+function Spinner({ className, variant = "default", ...props }: SpinnerProps) {
+  if (variant === "blood") {
+    return (
+      <Droplet
+        role="status"
+        aria-label="Loading"
+        className={cn("size-4 text-[#c41e3a] animate-pulse", className)}
+        strokeWidth={1.5}
+        {...props}
+      />
+    )
+  }
   return (
     <Loader2Icon
       role="status"
