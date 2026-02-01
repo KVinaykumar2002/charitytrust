@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, MapPin, Mail, Instagram, Facebook, Twitter, Youtube, Linkedin, Droplet, Eye } from "lucide-react";
+import { Phone, MapPin, Mail, Instagram, Facebook, Twitter, Youtube, Linkedin, Droplet, Eye, Award } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import CircularText from "@/components/ui/circular-text";
 
@@ -105,14 +105,24 @@ const Footer = () => {
               and community participation can transform futures.
             </motion.p>
 
-            {/* AICPA SOC 2 Badge */}
+            {/* Certifications: AICPA SOC 2 + ISO 9002 */}
             <motion.div
               variants={fadeUp}
-              className="flex items-center"
+              className="flex items-center gap-3 flex-wrap"
             >
               <div className="bg-white rounded-full border border-black/20 px-4 py-2.5 inline-flex flex-col items-center justify-center min-w-[60px]">
                 <span className="text-black text-xs font-semibold leading-tight">AICPA</span>
                 <span className="text-black text-xs font-semibold leading-tight">SOC 2</span>
+              </div>
+              <div
+                className="bg-white rounded-lg border border-black/20 px-3 py-2.5 inline-flex items-center gap-2 min-w-[72px]"
+                title="ISO 9002 Certified"
+              >
+                <Award className="h-5 w-5 shrink-0 text-[#FD7E14]" aria-hidden />
+                <div className="flex flex-col items-center">
+                  <span className="text-black text-xs font-semibold leading-tight">ISO</span>
+                  <span className="text-black text-xs font-semibold leading-tight">9002</span>
+                </div>
               </div>
             </motion.div>
           </motion.div>
