@@ -53,7 +53,7 @@ const HelpWays = () => {
             data-text-animation="split-text"
             className="text-4xl font-bold text-foreground"
           >
-            How You Can Strengthen CCT’s Mission
+            How You Can Strengthen Chiranjeevi Charitable Trust’s Mission
           </h2>
           <p
             data-animation="fade-in"

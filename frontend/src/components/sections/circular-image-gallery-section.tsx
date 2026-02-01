@@ -14,7 +14,7 @@ export default function CircularImageGallerySection() {
             data-text-animation="split-text"
             className="text-4xl md:text-5xl font-bold text-foreground"
           >
-            CCT in Action
+            Chiranjeevi Charitable Trust in Action
           </h2>
           <p
             data-animation="fade-in"

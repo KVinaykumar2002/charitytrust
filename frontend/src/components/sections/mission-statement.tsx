@@ -5,7 +5,7 @@ const missionItems = [
     icon: "https://cdn-icons-png.flaticon.com/512/2947/2947997.png",
     title: "Blood & Eye Donation",
     description:
-      "CCT has pioneered large-scale blood and eye donation drives, saving countless lives and restoring vision across India.",
+      "Chiranjeevi Charitable Trust has pioneered large-scale blood and eye donation drives, saving countless lives and restoring vision across India.",
     alt: "Blood and Eye Donation icon",
   },
   {
@@ -19,7 +19,7 @@ const missionItems = [
     icon: "https://cdn-icons-png.flaticon.com/512/2966/2966488.png",
     title: "Disaster & Emergency Relief",
     description:
-      "In times of natural calamities and emergencies, CCT extends immediate relief, rehabilitation, and hope to affected communities.",
+      "In times of natural calamities and emergencies, Chiranjeevi Charitable Trust extends immediate relief, rehabilitation, and hope to affected communities.",
     alt: "Disaster Relief icon",
   },
   {
@@ -60,7 +60,7 @@ const MissionStatement = () => {
                 data-animation="fade-in"
                 className="text-lg leading-[1.55] text-white/70"
               >
-                Founded with the vision of serving humanity, CCT is dedicated to
+                Founded with the vision of serving humanity, Chiranjeevi Charitable Trust is dedicated to
                 saving lives and empowering communities through blood and eye
                 donation, medical aid, and social welfare initiatives. Our work
                 embodies compassion, integrity, and a relentless commitment to
@@ -109,7 +109,7 @@ const MissionStatement = () => {
           >
             <Image
               src="/mission_image.jpg"
-              alt="CCT founder welcoming with folded hands"
+              alt="Chiranjeevi Charitable Trust founder welcoming with folded hands"
               width={528}
               height={704}
               className="h-auto w-full rounded-3xl object-cover shadow-[0px_4px_15px_rgba(0,0,0,0.08)] hover-image-zoom"

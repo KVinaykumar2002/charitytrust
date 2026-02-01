@@ -46,7 +46,7 @@ const AboutUsIntro = () => {
               data-animation-duration="0.9s"
               className="mt-4 text-lg text-muted-foreground"
             >
-              The Chiranjeevi Charitable Trust (CCT) is a visionary organization dedicated to serving humanity and transforming lives through impactful initiatives. For over two decades, CCT has been at the forefront of blood and eye donation, medical assistance, and community welfare programs, touching millions of lives across India. Guided by the belief that every act of kindness can create lasting change, the Trust continues to work tirelessly to bring help and hope to those who need it most.
+              The Chiranjeevi Charitable Trust is a visionary organization dedicated to serving humanity and transforming lives through impactful initiatives. For over two decades, Chiranjeevi Charitable Trust has been at the forefront of blood and eye donation, medical assistance, and community welfare programs, touching millions of lives across India. Guided by the belief that every act of kindness can create lasting change, the Trust continues to work tirelessly to bring help and hope to those who need it most.
             </p>
             <div className="mt-8">
               <AnimatedButton href="/about-us" variant="outline">

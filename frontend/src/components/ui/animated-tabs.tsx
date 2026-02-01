@@ -109,7 +109,7 @@ const defaultTabs: Tab[] = [
         </div>
         <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-            Partner With CCT
+            Partner With Chiranjeevi Charitable Trust
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
             Corporate CSR programmes and institutional grants enable Chiranjeevi Charitable Trust to establish new relief centres, community health clinics, and expand our reach. We've established <strong className="text-[#FD7E14] font-semibold">32 oxygen banks</strong> across Telugu states and continue to build infrastructure for community welfare.
@@ -153,7 +153,7 @@ const defaultTabs: Tab[] = [
         </div>
         <div className="flex flex-col gap-y-5 md:gap-y-6 justify-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-            Volunteer With CCT
+            Volunteer With Chiranjeevi Charitable Trust
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
             Join Chiranjeevi Charitable Trust's medical camps, awareness drives, and relief missions. Volunteers are the backbone of our operations, helping us deliver hope directly to communities in need across India.

@@ -13,7 +13,7 @@ const fallbackTestimonials = [
     name: "Ramesh Kumar",
     affiliation: "Blood Donation Beneficiary",
     quote:
-      "When my father needed an emergency blood transfusion, CCT provided it within hours. They saved his life. I am forever grateful to this organization and their dedicated volunteers.",
+      "When my father needed an emergency blood transfusion, Chiranjeevi Charitable Trust provided it within hours. They saved his life. I am forever grateful to this organization and their dedicated volunteers.",
     imageSrc:
       "https://images.unsplash.com/photo-1615461066841-6116e61058f4?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -24,7 +24,7 @@ const fallbackTestimonials = [
     name: "Lakshmi Devi",
     affiliation: "Eye Surgery Recipient",
     quote:
-      "After losing my vision, I had given up hope. CCT's Eye Bank program gave me a second chance at life. Today, I can see my grandchildren's faces. This is nothing short of a miracle.",
+      "After losing my vision, I had given up hope. Chiranjeevi Charitable Trust's Eye Bank program gave me a second chance at life. Today, I can see my grandchildren's faces. This is nothing short of a miracle.",
     imageSrc:
       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -35,7 +35,7 @@ const fallbackTestimonials = [
     name: "Srinivas Reddy",
     affiliation: "Film Industry Worker",
     quote:
-      "During COVID, when oxygen was scarce everywhere, CCT's oxygen banks saved my colleague's life. Their support for film workers with insurance and medical subsidies has been life-changing.",
+      "During COVID, when oxygen was scarce everywhere, Chiranjeevi Charitable Trust's oxygen banks saved my colleague's life. Their support for film workers with insurance and medical subsidies has been life-changing.",
     imageSrc:
       "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -46,7 +46,7 @@ const fallbackTestimonials = [
     name: "Padma Venkatesh",
     affiliation: "Community Volunteer",
     quote:
-      "Volunteering with CCT for the past 5 years has been the most fulfilling experience. Seeing the direct impact of our work on people's lives motivates me every single day.",
+      "Volunteering with Chiranjeevi Charitable Trust for the past 5 years has been the most fulfilling experience. Seeing the direct impact of our work on people's lives motivates me every single day.",
     imageSrc:
       "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -57,7 +57,7 @@ const fallbackTestimonials = [
     name: "Dr. Anil Sharma",
     affiliation: "Partner Hospital",
     quote:
-      "CCT's blood bank has been our reliable partner for over a decade. Their efficient system and dedicated team have helped us save thousands of lives in critical situations.",
+      "Chiranjeevi Charitable Trust's blood bank has been our reliable partner for over a decade. Their efficient system and dedicated team have helped us save thousands of lives in critical situations.",
     imageSrc:
       "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -68,7 +68,7 @@ const fallbackTestimonials = [
     name: "Kavitha Rao",
     affiliation: "Education Program Beneficiary",
     quote:
-      "CCT's scholarship helped me complete my engineering degree. Today, I work as a software engineer and support my entire family. They didn't just fund my education—they changed my destiny.",
+      "Chiranjeevi Charitable Trust's scholarship helped me complete my engineering degree. Today, I work as a software engineer and support my entire family. They didn't just fund my education—they changed my destiny.",
     imageSrc:
       "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -127,7 +127,7 @@ export default function TestimonialsSection() {
             } else if (t.organization) {
               affiliation = t.organization;
             } else {
-              affiliation = "CCT Supporter";
+              affiliation = "Chiranjeevi Charitable Trust Supporter";
             }
 
             return {

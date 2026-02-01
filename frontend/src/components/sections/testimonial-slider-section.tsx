@@ -10,7 +10,7 @@ const charityReviews = [
     name: "Priya Sharma",
     affiliation: "Blood Donor",
     quote:
-      "CCT's blood bank saved my brother's life. Their professionalism and compassion during our time of need was incredible. Forever grateful for their service.",
+      "Chiranjeevi Charitable Trust's blood bank saved my brother's life. Their professionalism and compassion during our time of need was incredible. Forever grateful for their service.",
     imageSrc:
       "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -32,7 +32,7 @@ const charityReviews = [
     name: "Anita Reddy",
     affiliation: "Volunteer",
     quote:
-      "Volunteering with CCT has been life-changing. The impact they create in communities is remarkable. Every initiative is driven by genuine care and compassion.",
+      "Volunteering with Chiranjeevi Charitable Trust has been life-changing. The impact they create in communities is remarkable. Every initiative is driven by genuine care and compassion.",
     imageSrc:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -43,7 +43,7 @@ const charityReviews = [
     name: "Dr. Venkatesh Iyer",
     affiliation: "Medical Advisor",
     quote:
-      "Working with CCT has shown me what true dedication to healthcare means. Their transparency and commitment to saving lives sets them apart. Highly trustworthy organization.",
+      "Working with Chiranjeevi Charitable Trust has shown me what true dedication to healthcare means. Their transparency and commitment to saving lives sets them apart. Highly trustworthy organization.",
     imageSrc:
       "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -54,7 +54,7 @@ const charityReviews = [
     name: "Meera Patel",
     affiliation: "COVID-19 Beneficiary",
     quote:
-      "During the pandemic, CCT's oxygen banks were a lifeline for my family. Their quick response and free services saved countless lives. Truly grateful for their humanitarian work.",
+      "During the pandemic, Chiranjeevi Charitable Trust's oxygen banks were a lifeline for my family. Their quick response and free services saved countless lives. Truly grateful for their humanitarian work.",
     imageSrc:
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:
@@ -65,7 +65,7 @@ const charityReviews = [
     name: "Arjun Singh",
     affiliation: "Regular Donor",
     quote:
-      "I've been donating blood through CCT for years. Their transparency and impact reports show exactly how contributions make a difference. This is how charity should work.",
+      "I've been donating blood through Chiranjeevi Charitable Trust for years. Their transparency and impact reports show exactly how contributions make a difference. This is how charity should work.",
     imageSrc:
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop&q=80",
     thumbnailSrc:

@@ -3,7 +3,7 @@
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 import { motion } from "framer-motion";
 
-// CCT-specific testimonials from beneficiaries, donors, and volunteers
+// Chiranjeevi Charitable Trust-specific testimonials from beneficiaries, donors, and volunteers
 const testimonials = [
   {
     text: "Chiranjeevi Charitable Trust saved my father's life by providing blood during an emergency. Their quick response and compassionate service is truly remarkable.",
@@ -18,43 +18,43 @@ const testimonials = [
     role: "Monthly Donor",
   },
   {
-    text: "Volunteering with CCT has been life-changing. The medical camps we organize reach remote villages and provide healthcare to those who need it most.",
+    text: "Volunteering with Chiranjeevi Charitable Trust has been life-changing. The medical camps we organize reach remote villages and provide healthcare to those who need it most.",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&auto=format&fit=crop",
     name: "Amit Patel",
     role: "Volunteer",
   },
   {
-    text: "After my corneal transplant through CCT's Eye Bank, I can see again. This trust has given me a new lease on life. I'm forever grateful.",
+    text: "After my corneal transplant through Chiranjeevi Charitable Trust's Eye Bank, I can see again. This trust has given me a new lease on life. I'm forever grateful.",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&h=400&auto=format&fit=crop",
     name: "Lakshmi Devi",
     role: "Eye Transplant Recipient",
   },
   {
-    text: "Our company partners with CCT for CSR initiatives. Their transparency, impact, and dedication to serving communities make them an ideal partner.",
+    text: "Our company partners with Chiranjeevi Charitable Trust for CSR initiatives. Their transparency, impact, and dedication to serving communities make them an ideal partner.",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&auto=format&fit=crop",
     name: "Vikram Reddy",
     role: "Corporate Partner",
   },
   {
-    text: "The 50% subsidy in diagnostics helped my family afford critical tests. CCT's support during difficult times shows their true commitment to helping people.",
+    text: "The 50% subsidy in diagnostics helped my family afford critical tests. Chiranjeevi Charitable Trust's support during difficult times shows their true commitment to helping people.",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&h=400&auto=format&fit=crop",
     name: "Sunita Rao",
     role: "Beneficiary",
   },
   {
-    text: "I've participated in multiple blood donation drives organized by CCT. The organization and care they show to donors is exceptional.",
+    text: "I've participated in multiple blood donation drives organized by Chiranjeevi Charitable Trust. The organization and care they show to donors is exceptional.",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&auto=format&fit=crop",
     name: "Kiran Malhotra",
     role: "Blood Donor",
   },
   {
-    text: "CCT's oxygen banks saved countless lives during COVID-19. Their rapid response and community service during the pandemic was truly heroic.",
+    text: "Chiranjeevi Charitable Trust's oxygen banks saved countless lives during COVID-19. Their rapid response and community service during the pandemic was truly heroic.",
     image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=400&h=400&auto=format&fit=crop",
     name: "Dr. Anjali Mehta",
     role: "Medical Professional",
   },
   {
-    text: "As a volunteer coordinator, I've seen firsthand how CCT transforms lives. Their programs reach the most vulnerable and make a real difference.",
+    text: "As a volunteer coordinator, I've seen firsthand how Chiranjeevi Charitable Trust transforms lives. Their programs reach the most vulnerable and make a real difference.",
     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&auto=format&fit=crop",
     name: "Meera Joshi",
     role: "Volunteer Coordinator",
@@ -87,7 +87,7 @@ export default function TestimonialsColumnsSection() {
           </div>
 
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5 text-foreground">
-            What People Say About CCT
+            What People Say About Chiranjeevi Charitable Trust
           </h2>
           <p className="text-center mt-5 opacity-75 text-text-secondary">
             Real stories from beneficiaries, donors, volunteers, and partners who have experienced the impact of Chiranjeevi Charitable Trust.

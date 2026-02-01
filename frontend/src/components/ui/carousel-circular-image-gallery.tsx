@@ -7,7 +7,7 @@ interface ImageData {
   url: string
 }
 
-// CCT-specific images for the gallery
+// Chiranjeevi Charitable Trust-specific images for the gallery
 const images: ImageData[] = [
   {
     title: "Blood Donation Drive",

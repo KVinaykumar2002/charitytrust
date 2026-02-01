@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Instagram, Facebook, Twitter, Youtube, Linkedin, Phone, MapPin } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { cn } from "@/lib/utils";
 
@@ -457,7 +458,7 @@ export const siteConfig = {
   },
   footerLinks: [
     {
-      title: "Explore CCT",
+      title: "Explore Chiranjeevi Charitable Trust",
       links: [
         { id: 1, title: "Home", url: "/" },
         { id: 2, title: "About the Trust", url: "/about" },
@@ -469,9 +470,8 @@ export const siteConfig = {
       title: "Get Involved",
       links: [
         { id: 5, title: "Volunteer", url: "/#volunteer" },
-        { id: 6, title: "Monthly Support", url: "/#monthly-support" },
-        { id: 7, title: "Partnerships", url: "/#partnerships" },
-        { id: 8, title: "Contact", url: "/contact-us" },
+        { id: 6, title: "Blood Donation Camps", url: "/blood-donation" },
+        { id: 7, title: "Collaborations", url: "/#partnerships" },
       ],
     },
     {
@@ -498,7 +498,7 @@ export const Component = () => {
           <div className="flex flex-col items-start justify-start gap-y-5 max-w-md mx-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/navbar_logo.png"
+                src="/LogoFinal.png"
                 alt="Chiranjeevi Charitable Trust logo"
                 width={700}
                 height={150}
@@ -516,19 +516,75 @@ export const Component = () => {
                   <li className="mb-3 text-base font-semibold text-white">
                     {column.title}
                   </li>
-                  {column.links.map((link) => (
-                    <li
-                      key={link.id}
-                      className="group inline-flex cursor-pointer items-center justify-start gap-1.5 text-base text-[#FD7E14] hover:text-[#FFB366] transition-colors"
-                    >
-                      <Link href={link.url}>{link.title}</Link>
-                      <div className="flex size-5 items-center justify-center border border-[#FD7E14]/30 rounded translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100">
-                        <ChevronRightIcon className="h-4 w-4 text-[#FD7E14]" />
-                      </div>
-                    </li>
-                  ))}
+                  {column.links.map((link) => {
+                    const isPhone = link.url.startsWith("tel:");
+                    const isAddress = link.id === 12;
+                    return (
+                      <li
+                        key={link.id}
+                        className="group inline-flex cursor-pointer items-center justify-start gap-1.5 text-base text-[#FD7E14] hover:text-[#FFB366] transition-colors"
+                      >
+                        {isPhone && <Phone className="h-4 w-4 flex-shrink-0 text-[#FD7E14]" />}
+                        {isAddress && <MapPin className="h-4 w-4 flex-shrink-0 text-[#FD7E14]" />}
+                        <Link href={link.url}>{link.title}</Link>
+                        {!isPhone && !isAddress && (
+                          <div className="flex size-5 items-center justify-center border border-[#FD7E14]/30 rounded translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100">
+                            <ChevronRightIcon className="h-4 w-4 text-[#FD7E14]" />
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               ))}
+            </div>
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-4 pt-5 md:pt-0 md:justify-end">
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                aria-label="Twitter"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                aria-label="YouTube"
+              >
+                <Youtube className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
             </div>
           </div>
         </div>
@@ -537,7 +593,7 @@ export const Component = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/50 to-black z-10 from-40%" />
         <div className="absolute inset-0 mx-6">
           <FlickeringGrid
-            text={tablet ? "CCT" : "Saving Lives & Sight"}
+            text={tablet ? "Chiranjeevi Charitable Trust" : "Saving Lives & Sight"}
             fontSize={tablet ? 80 : 120}
             className="h-full w-full"
             squareSize={2}

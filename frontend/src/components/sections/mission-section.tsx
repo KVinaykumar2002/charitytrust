@@ -92,7 +92,7 @@ const MissionSection = () => {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl hover-image-zoom">
               <Image
                 src="/mission_image.jpg"
-                alt="CCT Mission - Serving Communities"
+                alt="Chiranjeevi Charitable Trust Mission - Serving Communities"
                 width={600}
                 height={700}
                 className="w-full h-auto object-cover"

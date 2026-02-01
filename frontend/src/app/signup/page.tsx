@@ -66,7 +66,7 @@ export default function SignupPage() {
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 rounded-full bg-[#FD7E14] flex items-center justify-center">
               <Image
-                src="/navbar_logo.png"
+                src="/LogoFinal.png"
                 alt="Logo"
                 width={40}
                 height={40}

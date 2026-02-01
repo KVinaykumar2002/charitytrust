@@ -138,7 +138,7 @@ const AboutCompanySection = () => {
               data-animation="fade-in"
               className="text-lg text-muted-foreground leading-relaxed"
             >
-              Chiranjeevi Charity Trust (CCT) is a beacon of hope and transformation, 
+              Chiranjeevi Charitable Trust is a beacon of hope and transformation, 
               founded with a vision to serve humanity and create lasting positive change 
               in communities across India. For over two decades, we have been at the 
               forefront of humanitarian service, touching millions of lives through our 
@@ -151,7 +151,7 @@ const AboutCompanySection = () => {
             >
               Our journey began with a simple yet powerful belief: that every act of 
               kindness, no matter how small, can create a ripple effect of positive change. 
-              Today, CCT stands as one of India's most trusted and impactful charitable 
+              Today, Chiranjeevi Charitable Trust stands as one of India's most trusted and impactful charitable 
               organizations, recognized for our unwavering commitment to transparency, 
               compassion, and service excellence.
             </p>
@@ -189,7 +189,7 @@ const AboutCompanySection = () => {
             className="bg-gradient-to-br from-primary/5 to-secondary/10 rounded-3xl p-8 md:p-12 border border-primary/10"
           >
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-center">
-              CCT was founded to bridge the gap between those who need help and those 
+              Chiranjeevi Charitable Trust was founded to bridge the gap between those who need help and those 
               who can provide it. We recognized that many communities across India lacked 
               access to essential healthcare services, educational opportunities, and 
               support systems. Our founders envisioned an organization that would not 
@@ -241,7 +241,7 @@ const AboutCompanySection = () => {
               data-animation-delay="0.2s"
               className="text-lg md:text-xl leading-relaxed text-white/90"
             >
-              CCT aims to create transformative impact in communities by providing 
+              Chiranjeevi Charitable Trust aims to create transformative impact in communities by providing 
               access to life-saving healthcare services, educational opportunities, 
               and support systems that enable individuals and families to break the 
               cycle of poverty and build brighter futures. We measure our success not 

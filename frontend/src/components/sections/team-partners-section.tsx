@@ -1,17 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { Users, Award, Handshake, Heart, Star, Target } from "lucide-react";
-
-const founders = [
-  {
-    name: "Chiranjeevi",
-    role: "Founder & Visionary",
-    description: "A legendary actor and philanthropist, Chiranjeevi's vision and dedication have been the driving force behind CCT's mission to serve humanity.",
-    image: "https://m.media-amazon.com/images/I/517EDEYjsHL._AC_UF894,1000_QL80_.jpg",
-  },
-];
 
 const leadershipTeam = [
   {
@@ -198,54 +188,6 @@ const TeamPartnersSection = () => {
           </p>
         </div>
 
-        {/* Founders Section */}
-        <div
-          data-stagger-parent
-          className="mb-20"
-        >
-          <h3
-            data-stagger-item
-            data-animation="fade-up"
-            data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12"
-          >
-            Our Founders
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-2xl mx-auto">
-            {founders.map((founder, index) => (
-              <div
-                key={index}
-                data-stagger-item
-                data-animation="scale-fade"
-                className="bg-white rounded-3xl p-8 shadow-xl border border-border hover-lift-up"
-              >
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-lg flex-shrink-0">
-                    <Image
-                      src={founder.image}
-                      alt={founder.name}
-                      width={200}
-                      height={200}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <h4 className="text-2xl font-bold text-foreground mb-2">
-                      {founder.name}
-                    </h4>
-                    <p className="text-lg text-muted-foreground mb-4">
-                      {founder.role}
-                    </p>
-                    <p className="text-base leading-relaxed text-muted-foreground">
-                      {founder.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Leadership Team */}
         <div
           data-stagger-parent
@@ -310,7 +252,7 @@ const TeamPartnersSection = () => {
                 data-animation-delay="0.2s"
                 className="text-lg md:text-xl text-center text-white/90 max-w-3xl mx-auto mb-12"
               >
-                Our volunteers are the heart and soul of CCT. Their dedication, 
+                Our volunteers are the heart and soul of Chiranjeevi Charitable Trust. Their dedication, 
                 compassion, and service mindset drive our mission forward every day. 
                 From organizing blood donation drives to supporting community programs, 
                 our volunteers make a real difference in countless lives.

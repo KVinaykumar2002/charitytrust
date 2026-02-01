@@ -53,7 +53,7 @@ export default function CircularTestimonialsSection() {
             data-text-animation="split-text"
             className="text-4xl font-bold text-foreground"
           >
-            What Leaders Say About CCT
+            What Leaders Say About Chiranjeevi Charitable Trust
           </h2>
           <p
             data-animation="fade-in"

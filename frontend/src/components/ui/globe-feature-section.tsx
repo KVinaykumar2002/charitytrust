@@ -47,7 +47,7 @@ const GLOBE_CONFIG: COBEOptions = {
   markerColor: [26 / 255, 58 / 255, 58 / 255], // Primary color matching charity theme
   glowColor: [77 / 255, 182 / 255, 159 / 255], // Secondary/accent color
   markers: [
-    // Major cities in India where CCT operates
+    // Major cities in India where Chiranjeevi Charitable Trust operates
     { location: [17.3850, 78.4867], size: 0.12 }, // Hyderabad, Telangana (Headquarters)
     { location: [19.0760, 72.8777], size: 0.1 }, // Mumbai, Maharashtra
     { location: [28.6139, 77.2090], size: 0.1 }, // New Delhi

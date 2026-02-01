@@ -27,7 +27,7 @@ const navItems: NavItem[] = [
   {
     name: "About Us",
     dropdown: [
-      { name: "About CCT", href: "/about#about-company" },
+      { name: "About Chiranjeevi Charitable Trust", href: "/about#about-company" },
       { name: "Our Journey", href: "/about#journey" },
       { name: "Our Mission", href: "/about#mission" },
       { name: "Our Vision", href: "/about#vision" },
@@ -143,15 +143,15 @@ const NavigationHeader = () => {
 
   return (
     <header className="fixed top-4 z-50 flex w-full justify-center px-4">
-      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-black px-6 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10">
+      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-black px-6 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
           <Image
-            src="/unnamed.png"
+            src="/LogoFinal.png"
             alt="Chiranjeevi Charitable Trust logo"
-            width={400}
-            height={80}
-            className="h-36 w-auto -my-10"
+            width={500}
+            height={150}
+            className="h-32 w-auto object-contain"
             priority
           />
         </Link>

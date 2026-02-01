@@ -5,12 +5,12 @@ import Image from "next/image";
 
 const reviews = [
   {
-    text: "Amazing organization! Their work creates real impact in communities. CCT's dedication to serving humanity is truly inspiring.",
+    text: "Amazing organization! Their work creates real impact in communities. Chiranjeevi Charitable Trust's dedication to serving humanity is truly inspiring.",
     user: "@john_doe",
     img: "https://i.pravatar.cc/100?img=1",
   },
   {
-    text: "CCT brings hope and support to those who need it most. Beautiful initiative that transforms lives every day.",
+    text: "Chiranjeevi Charitable Trust brings hope and support to those who need it most. Beautiful initiative that transforms lives every day.",
     user: "@lisa_m",
     img: "https://i.pravatar.cc/100?img=2",
   },
@@ -20,12 +20,12 @@ const reviews = [
     img: "https://i.pravatar.cc/100?img=3",
   },
   {
-    text: "Their education programs are life-changing for underprivileged children. Thank you CCT for making a difference!",
+    text: "Their education programs are life-changing for underprivileged children. Thank you Chiranjeevi Charitable Trust for making a difference!",
     user: "@support_edu",
     img: "https://i.pravatar.cc/100?img=4",
   },
   {
-    text: "CCT is doing incredible humanitarian work. Highly recommend supporting their mission!",
+    text: "Chiranjeevi Charitable Trust is doing incredible humanitarian work. Highly recommend supporting their mission!",
     user: "@kindheart",
     img: "https://i.pravatar.cc/100?img=5",
   },
@@ -35,12 +35,12 @@ const reviews = [
     img: "https://i.pravatar.cc/100?img=6",
   },
   {
-    text: "During COVID-19, CCT's oxygen banks were a lifeline. Their quick response saved countless lives.",
+    text: "During COVID-19, Chiranjeevi Charitable Trust's oxygen banks were a lifeline. Their quick response saved countless lives.",
     user: "@covid_warrior",
     img: "https://i.pravatar.cc/100?img=7",
   },
   {
-    text: "Transparent, compassionate, and effective. CCT sets the standard for charitable organizations.",
+    text: "Transparent, compassionate, and effective. Chiranjeevi Charitable Trust sets the standard for charitable organizations.",
     user: "@trust_builder",
     img: "https://i.pravatar.cc/100?img=8",
   },

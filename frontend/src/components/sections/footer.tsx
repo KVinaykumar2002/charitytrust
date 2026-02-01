@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, Instagram, Facebook, Twitter, Youtube, Linkedin } from "lucide-react";
 import CircularText from "@/components/ui/circular-text";
 
 // Motion Variants
@@ -63,7 +63,7 @@ const Footer = () => {
         {/* Circular Text - Top Right */}
         <div className="absolute top-8 right-0 hidden lg:block z-20 pointer-events-none">
           <CircularText
-            text="Chiranjeevi Charitable Trust(CCT) * "
+            text="Chiranjeevi Charitable Trust * "
             onHover="speedUp"
             spinDuration={20}
             className="custom-class"
@@ -71,7 +71,7 @@ const Footer = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-[1.2fr_1fr] lg:gap-x-20 xl:gap-x-32 relative z-10">
-          {/* Left Column - About CCT */}
+          {/* Left Column - About Chiranjeevi Charitable Trust */}
           <motion.div
             variants={fadeUp}
             className="space-y-6"
@@ -84,7 +84,7 @@ const Footer = () => {
             >
               <Link href="/">
                 <Image
-                  src="/navbar_logo.png"
+                  src="/LogoFinal.png"
                   alt="Chiranjeevi Charitable Trust logo"
                   width={500}
                   height={48}
@@ -118,9 +118,9 @@ const Footer = () => {
 
           {/* Right Columns - Navigation & Contact */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10 xl:gap-12">
-            {/* Column 1: Explore CCT */}
+            {/* Column 1: Explore Chiranjeevi Charitable Trust */}
             <motion.div variants={fadeUp}>
-              <h6 className="text-base font-semibold text-white mb-5">Explore CCT</h6>
+              <h6 className="text-base font-semibold text-white mb-5">Explore Chiranjeevi Charitable Trust</h6>
               <nav>
                 <ul className="space-y-3">
                   <NavLink href="/">Home</NavLink>
@@ -137,9 +137,8 @@ const Footer = () => {
               <nav>
                 <ul className="space-y-3">
                   <NavLink href="/volunteer">Volunteer</NavLink>
-                  <NavLink href="/#monthly-support">Monthly Support</NavLink>
-                  <NavLink href="/partnerships">Partnerships</NavLink>
-                  <NavLink href="/contact-us">Contact</NavLink>
+                  <NavLink href="/blood-donation">Blood Donation Camps</NavLink>
+                  <NavLink href="/partnerships">Collaborations</NavLink>
                 </ul>
               </nav>
             </motion.div>
@@ -173,6 +172,57 @@ const Footer = () => {
                   </span>
                 </motion.li>
               </ul>
+              {/* Social Media Icons */}
+              <motion.div
+                variants={fadeUp}
+                className="flex items-center gap-4 pt-6 mt-6 border-t border-white/10"
+              >
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </motion.div>
             </motion.div>
           </div>
         </div>

@@ -138,7 +138,7 @@ const VisionSection = () => {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl hover-image-zoom">
               <Image
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
-                alt="CCT Vision - Building the Future"
+                alt="Chiranjeevi Charitable Trust Vision - Building the Future"
                 width={600}
                 height={700}
                 className="w-full h-auto object-cover"

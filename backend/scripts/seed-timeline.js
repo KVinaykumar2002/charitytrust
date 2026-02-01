@@ -20,7 +20,7 @@ const timelineData = [
     icon: "heart",
     iconColor: "red",
     images: [
-      { url: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=600&auto=format&fit=crop", alt: "CCT Foundation beginning" },
+      { url: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=600&auto=format&fit=crop", alt: "Chiranjeevi Charitable Trust Foundation beginning" },
       { url: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=600&auto=format&fit=crop", alt: "Volunteers helping" },
     ],
     active: true,

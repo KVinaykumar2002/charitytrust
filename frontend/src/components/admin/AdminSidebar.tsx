@@ -75,7 +75,7 @@ export default function AdminSidebar() {
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-[#FD7E14] flex items-center justify-center">
                 <Image
-                  src="/navbar_logo.png"
+                  src="/LogoFinal.png"
                   alt="Logo"
                   width={24}
                   height={24}

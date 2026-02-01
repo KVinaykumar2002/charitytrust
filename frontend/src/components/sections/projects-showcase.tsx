@@ -151,7 +151,7 @@ const ProjectsShowcase = () => {
             data-animation="fade-in"
             className="text-body-regular text-text-secondary max-w-[720px]"
           >
-            These projects showcase CCT's commitment to addressing a diverse
+            These projects showcase Chiranjeevi Charitable Trust's commitment to addressing a diverse
             range of issues — including education, healthcare, economic
             empowerment, community development, emergency relief, and
             environmental sustainability.

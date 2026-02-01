@@ -63,7 +63,7 @@ export default function ProgramsPage() {
           {
             id: "1",
             title: "Mega Blood Donation Drives",
-            description: "CCT has been a pioneer in organizing massive blood donation camps...",
+            description: "Chiranjeevi Charitable Trust has been a pioneer in organizing massive blood donation camps...",
             category: "Health",
             image: "/hero/chiranjeevi-few-days-ago-prior-blood-donation-drive-had-thanked-his-fans-initiative.jpg",
             featured: true,
