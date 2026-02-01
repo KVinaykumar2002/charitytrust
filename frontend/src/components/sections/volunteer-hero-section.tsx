@@ -93,7 +93,7 @@ const VolunteerHeroSection = () => {
               onClick={handleDonateClick}
               className="bg-[#FD7E14] hover:bg-[#E56B00] text-white px-8 py-6 text-lg font-semibold rounded-lg mt-4 shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              💝 Donate Now
+              💝 Donate Blood
             </Button>
           </div>
         </div>

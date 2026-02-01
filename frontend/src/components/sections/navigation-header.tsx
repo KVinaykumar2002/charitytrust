@@ -268,19 +268,12 @@ const NavigationHeader = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <Link
-              href="/login"
-              className="inline-flex items-center rounded-full bg-[#FD7E14] px-5 py-2 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
-            >
-              Sign In
-            </Link>
-          )}
+          ) : null}
           <Link
             href="/donate"
             className="inline-flex items-center rounded-full bg-[#FD7E14] px-5 py-2 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
           >
-            Donate Now
+            Donate Blood
           </Link>
         </div>
 
@@ -406,21 +399,13 @@ const NavigationHeader = () => {
                   Sign Out
                 </button>
               </>
-            ) : (
-              <Link
-                href="/login"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex w-full items-center justify-center rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
-              >
-                Sign In
-              </Link>
-            )}
+            ) : null}
             <Link
               href="/donate"
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex w-full items-center justify-center rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
             >
-              Donate Now
+              Donate Blood
             </Link>
           </div>
         </div>

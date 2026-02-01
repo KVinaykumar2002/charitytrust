@@ -14,7 +14,7 @@ const HeroSection9Section = () => {
     subtitle: 'Chiranjeevi Charitable Trust is dedicated to saving sight and lives through compassionate eye and blood care. Every initiative is inspired by the belief that timely support, expert treatment, and community participation can transform futures.',
     actions: [
       {
-        text: 'Donate Now',
+        text: 'Donate Blood',
         onClick: () => window.location.href = '/donate',
         variant: 'default' as const,
         href: '/donate',

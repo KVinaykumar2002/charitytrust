@@ -228,7 +228,7 @@ export default function DonatePage() {
                 <Link href="/donate/monetary">
                   <Button className="bg-[#FD7E14] hover:bg-[#E56B00] text-white px-8 py-6 rounded-full text-lg font-semibold">
                     <Heart className="w-5 h-5 mr-2" />
-                    Donate Now
+                    Donate Blood
                   </Button>
                 </Link>
                 <Link href="/about">

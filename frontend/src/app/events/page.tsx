@@ -614,7 +614,7 @@ export default function EventsPage() {
                       href="/donate"
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FD7E14] hover:bg-[#E56B00] text-white font-semibold rounded-full transition-colors"
                     >
-                      Donate Now
+                      Donate Blood
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link

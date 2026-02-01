@@ -360,7 +360,7 @@ const TeamPartnersSection = () => {
                 href="/#donate"
                 className="inline-flex items-center justify-center rounded-full border-2 border-primary px-8 py-4 text-base font-semibold text-primary hover:bg-primary hover:text-white transition-colors btn-hover-bounce"
               >
-                Donate Now
+                Donate Blood
               </a>
             </div>
           </div>

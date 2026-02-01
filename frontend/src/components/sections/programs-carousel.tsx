@@ -185,7 +185,7 @@ export default function ProgramsCarousel() {
                               href={program.link}
                               className="btn-animated-fill-outline !py-2 !pl-4 !gap-2"
                             >
-                              <span className="btn-text !text-sm">Donate Now</span>
+                              <span className="btn-text !text-sm">Donate Blood</span>
                               <span className="btn-icon-circle !w-8 !h-8">
                                 <ArrowRight className="!w-4 !h-4" />
                               </span>
