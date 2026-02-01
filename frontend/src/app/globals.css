@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  /* Light theme colors */
   --color-background: #ffffff;
   --color-foreground: #1a1a1a;
 
@@ -17,8 +18,8 @@
   --color-primary: #FD7E14;
   --color-primary-foreground: #ffffff;
 
-  --color-secondary: #1a1a1a;
-  --color-secondary-foreground: #ffffff;
+  --color-secondary: #f7f7f7;
+  --color-secondary-foreground: #1a1a1a;
 
   --color-muted: #f7f7f7;
   --color-muted-foreground: #666666;
@@ -152,6 +153,29 @@
     --sidebar-ring: var(--color-sidebar-ring);
   }
 
+  .dark {
+    --color-background: #0a0a0a;
+    --color-foreground: #ffffff;
+    --color-card: #1a1a1a;
+    --color-card-foreground: #ffffff;
+    --color-popover: #1a1a1a;
+    --color-popover-foreground: #ffffff;
+    --color-secondary: #2a2a2a;
+    --color-secondary-foreground: #ffffff;
+    --color-muted: #2a2a2a;
+    --color-muted-foreground: #a0a0a0;
+    --color-accent: #2a2a2a;
+    --color-accent-foreground: #ffffff;
+    --color-border: #333333;
+    --color-input: #333333;
+    --color-background-white: #0a0a0a;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #a0a0a0;
+    --color-text-light: #666666;
+    --color-border-light: #333333;
+    --color-border-medium: #404040;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -161,6 +185,7 @@
     color: var(--color-text-primary);
     background-color: var(--color-background-white);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1 {

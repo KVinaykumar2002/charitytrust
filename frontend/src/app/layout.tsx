@@ -4,6 +4,7 @@ import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ScrollAnimationProvider from "@/components/animation/ScrollAnimationProvider";
 import ErrorReporter from "@/components/ErrorReporter";
 import FansEventPopup from "@/components/FansEventPopup";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -17,23 +18,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className="antialiased">
-        <ErrorReporter />
-        <ScrollAnimationProvider />
-        <Script
-          src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
-          strategy="afterInteractive"
-          data-target-origin="*"
-          data-message-type="ROUTE_CHANGE"
-          data-include-search-params="true"
-          data-only-in-iframe="true"
-          data-debug="true"
-          data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
-        />
-        {children}
-        <FansEventPopup />
-        <VisualEditsMessenger />
+        <ThemeProvider>
+          <ErrorReporter />
+          <ScrollAnimationProvider />
+          <Script
+            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
+            strategy="afterInteractive"
+            data-target-origin="*"
+            data-message-type="ROUTE_CHANGE"
+            data-include-search-params="true"
+            data-only-in-iframe="true"
+            data-debug="true"
+            data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
+          />
+          {children}
+          <FansEventPopup />
+          <VisualEditsMessenger />
+        </ThemeProvider>
       </body>
     </html>
   );

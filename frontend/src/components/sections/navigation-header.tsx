@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface NavItem {
   name: string;
@@ -226,6 +227,7 @@ const NavigationHeader = () => {
 
         {/* Auth Buttons (Desktop) */}
         <div className="hidden lg:flex items-center gap-3">
+          <ThemeToggle />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -238,11 +240,11 @@ const NavigationHeader = () => {
                   <span className="max-w-[100px] truncate">{user?.name || "User"}</span>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-white border-[#e5e5e5]">
-                <DropdownMenuLabel className="text-[#1a1a1a]">
+              <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-[#1a1a1a] border-[#e5e5e5] dark:border-[#333]">
+                <DropdownMenuLabel className="text-[#1a1a1a] dark:text-white">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium">{user?.name}</p>
-                    <p className="text-xs text-[#4a4a4a]">{user?.email}</p>
+                    <p className="text-xs text-[#4a4a4a] dark:text-[#a0a0a0]">{user?.email}</p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -278,7 +280,8 @@ const NavigationHeader = () => {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className="lg:hidden">
+        <div className="lg:hidden flex items-center gap-2">
+          <ThemeToggle />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
