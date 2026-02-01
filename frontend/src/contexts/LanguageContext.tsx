@@ -47,7 +47,14 @@ interface LanguageContextType {
   isTranslating: boolean;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const defaultContextValue: LanguageContextType = {
+  currentLanguage: languages[0],
+  changeLanguage: () => {},
+  translateText: async (text: string) => text,
+  isTranslating: false,
+};
+
+const LanguageContext = createContext<LanguageContextType>(defaultContextValue);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [currentLanguage, setCurrentLanguage] = useState<Language>(languages[0]); // Default to English
@@ -170,29 +177,21 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Prevent flash of unstyled content
-  if (!mounted) {
-    return <>{children}</>;
-  }
+  // Always wrap in Provider so useLanguage() works on first render (before mount)
+  const value: LanguageContextType = {
+    currentLanguage,
+    changeLanguage,
+    translateText,
+    isTranslating,
+  };
 
   return (
-    <LanguageContext.Provider
-      value={{
-        currentLanguage,
-        changeLanguage,
-        translateText,
-        isTranslating,
-      }}
-    >
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error("useLanguage must be used within a LanguageProvider");
-  }
-  return context;
+  return useContext(LanguageContext);
 }

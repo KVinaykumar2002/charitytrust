@@ -7,7 +7,7 @@ const AboutUsIntro = () => {
   return (
     <section
       data-page-animation="staggered-fade"
-      className="bg-white py-[120px]" // removed bg-muted
+      className="bg-white py-[120px] dark:bg-[#1a1a1a]"
     >
       <div className="mx-auto max-w-[1280px] px-6 md:px-12 lg:px-20">
         <div
@@ -37,14 +37,14 @@ const AboutUsIntro = () => {
           >
             <h2
               data-text-animation="reveal-from-bottom"
-              className="text-[40px] font-bold leading-[48px] -tracking-[0.01em] text-foreground"
+              className="text-[40px] font-bold leading-[48px] -tracking-[0.01em] text-gray-900 dark:text-white"
             >
               At Chiranjeevi Charitable Trust, we uphold the values of transparency, compassion, and inclusivity.
             </h2>
             <p
               data-animation="fade-in"
               data-animation-duration="0.9s"
-              className="mt-4 text-lg text-muted-foreground"
+              className="mt-4 text-lg text-gray-600 dark:text-gray-300"
             >
               The Chiranjeevi Charitable Trust is a visionary organization dedicated to serving humanity and transforming lives through impactful initiatives. For over two decades, Chiranjeevi Charitable Trust has been at the forefront of blood and eye donation, medical assistance, and community welfare programs, touching millions of lives across India. Guided by the belief that every act of kindness can create lasting change, the Trust continues to work tirelessly to bring help and hope to those who need it most.
             </p>

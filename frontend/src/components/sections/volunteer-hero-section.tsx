@@ -132,10 +132,11 @@ const VolunteerHeroSection = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
+              suppressHydrationWarning
               className="w-full h-12 px-4 bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-lg focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] transition-all duration-300 hover:border-[#FD7E14]/50"
             />
 
-            {/* Email Input with Icon */}
+            {/* Email Input with Icon - suppressHydrationWarning: extensions (e.g. Temp Mail) can inject attributes before React hydrates */}
             <div className="relative">
               <Input
                 type="email"
@@ -144,6 +145,7 @@ const VolunteerHeroSection = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
+                suppressHydrationWarning
                 className="w-full h-12 px-4 pr-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-lg focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] transition-all duration-300 hover:border-[#FD7E14]/50"
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -159,6 +161,7 @@ const VolunteerHeroSection = () => {
               value={formData.phone}
               onChange={handleInputChange}
               required
+              suppressHydrationWarning
               className="w-full h-12 px-4 bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-lg focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] transition-all duration-300 hover:border-[#FD7E14]/50"
             />
 
@@ -170,6 +173,7 @@ const VolunteerHeroSection = () => {
               value={formData.address}
               onChange={handleInputChange}
               required
+              suppressHydrationWarning
               className="w-full h-12 px-4 bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-lg focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] transition-all duration-300 hover:border-[#FD7E14]/50"
             />
 
@@ -181,6 +185,7 @@ const VolunteerHeroSection = () => {
               onChange={handleInputChange}
               required
               rows={4}
+              suppressHydrationWarning
               className="w-full px-4 py-3 bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-lg resize-y focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] transition-all duration-300 hover:border-[#FD7E14]/50"
             />
 
