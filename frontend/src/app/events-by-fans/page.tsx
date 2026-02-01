@@ -3,29 +3,28 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, MapPin, Clock, ArrowRight, Users, Heart, Search, X } from "lucide-react";
+import { Calendar, ArrowRight, Users, Heart, Search, X } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
-import { getPublicEvents } from "@/lib/api";
+import { getPublicFanEvents } from "@/lib/api";
 
-interface Event {
+interface FanEvent {
   _id?: string;
   id?: string;
   title: string;
-  description?: string;
-  image?: string;
-  imageBase64?: string;
-  imageUrl?: string;
-  date?: string;
   eventDate?: string;
-  location?: string;
-  time?: string;
+  date?: string;
+  eventBy?: string;
+  photos?: string[];
+  image?: string;
+  videoBase64?: string;
+  videoUrl?: string;
   status?: string;
   dateTimestamp?: number;
 }
 
 export default function EventsByFansPage() {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<FanEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "upcoming" | "past">("all");
@@ -43,7 +42,7 @@ export default function EventsByFansPage() {
       setLoading(true);
       setError(null);
 
-      const result = await getPublicEvents();
+      const result = await getPublicFanEvents();
       const eventsData = Array.isArray(result?.data)
         ? result.data
         : Array.isArray(result)
@@ -51,62 +50,35 @@ export default function EventsByFansPage() {
         : [];
 
       const mappedEvents = eventsData.map((e: any) => {
-        const imageSrc = e.imageBase64 || e.image || e.imageUrl;
-        let timeString = e.time || "";
-        if (!timeString && e.date) {
-          try {
-            const dateObj = new Date(e.date);
-            if (!isNaN(dateObj.getTime())) {
-              timeString = dateObj.toLocaleTimeString("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true,
-              });
-            }
-          } catch {
-            // Silent fail
-          }
-        }
-
-        // Determine if event is upcoming or past
-        const eventDate = new Date(e.date || e.eventDate);
+        const eventDate = new Date(e.eventDate || e.date);
         const now = new Date();
         const status = eventDate >= now ? "upcoming" : "past";
+        const imageSrc = e.photos?.[0] || e.imageBase64 || e.image || e.imageUrl;
 
         return {
           id: e._id || e.id,
-          title: e.title || e.name || "Untitled Event",
-          description: e.description || "",
+          title: e.title || "Untitled Event",
+          eventDate: e.eventDate || e.date,
+          date: e.eventDate || e.date,
+          eventBy: e.eventBy || "",
+          photos: e.photos || [],
+          videoBase64: e.videoBase64,
+          videoUrl: e.videoUrl,
           image: imageSrc,
-          date: e.date || e.eventDate,
-          location: e.location || "",
-          time: timeString,
           status: e.status || status,
           dateTimestamp: eventDate.getTime(),
         };
       });
 
-      // Sort events: upcoming first (ascending by date), then past events (descending by date)
       const sortedEvents = mappedEvents.sort((a, b) => {
         const dateA = a.dateTimestamp || 0;
         const dateB = b.dateTimestamp || 0;
         const now = Date.now();
-
         const aIsUpcoming = dateA >= now;
         const bIsUpcoming = dateB >= now;
-
-        // If both are upcoming or both are past
         if (aIsUpcoming === bIsUpcoming) {
-          if (aIsUpcoming) {
-            // Upcoming: sort ascending (earliest first)
-            return dateA - dateB;
-          } else {
-            // Past: sort descending (most recent first)
-            return dateB - dateA;
-          }
+          return aIsUpcoming ? dateA - dateB : dateB - dateA;
         }
-
-        // Upcoming events come before past events
         return aIsUpcoming ? -1 : 1;
       });
 
@@ -151,8 +123,9 @@ export default function EventsByFansPage() {
   const getAvailableYears = () => {
     const years = new Set<number>();
     events.forEach((event) => {
-      if (event.date) {
-        const date = new Date(event.date);
+      const d = event.date || event.eventDate;
+      if (d) {
+        const date = new Date(d);
         if (!isNaN(date.getTime())) {
           years.add(date.getFullYear());
         }
@@ -164,8 +137,9 @@ export default function EventsByFansPage() {
   const getAvailableMonths = () => {
     const months = new Set<number>();
     events.forEach((event) => {
-      if (event.date) {
-        const date = new Date(event.date);
+      const d = event.date || event.eventDate;
+      if (d) {
+        const date = new Date(d);
         if (!isNaN(date.getTime()) && (!selectedYear || date.getFullYear() === parseInt(selectedYear))) {
           months.add(date.getMonth() + 1); // 1-12
         }
@@ -177,8 +151,9 @@ export default function EventsByFansPage() {
   const getAvailableDays = () => {
     const days = new Set<number>();
     events.forEach((event) => {
-      if (event.date) {
-        const date = new Date(event.date);
+      const d = event.date || event.eventDate;
+      if (d) {
+        const date = new Date(d);
         if (!isNaN(date.getTime()) && 
             (!selectedYear || date.getFullYear() === parseInt(selectedYear)) &&
             (!selectedMonth || date.getMonth() + 1 === parseInt(selectedMonth))) {
@@ -204,16 +179,16 @@ export default function EventsByFansPage() {
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       const matchesTitle = event.title?.toLowerCase().includes(query);
-      const matchesDescription = event.description?.toLowerCase().includes(query);
-      const matchesLocation = event.location?.toLowerCase().includes(query);
-      if (!matchesTitle && !matchesDescription && !matchesLocation) {
+      const matchesEventBy = event.eventBy?.toLowerCase().includes(query);
+      if (!matchesTitle && !matchesEventBy) {
         return false;
       }
     }
 
     // Filter by date
-    if (event.date) {
-      const eventDate = new Date(event.date);
+    const eventDateForFilter = event.date || event.eventDate;
+    if (eventDateForFilter) {
+      const eventDate = new Date(eventDateForFilter);
       if (!isNaN(eventDate.getTime())) {
         if (selectedYear && eventDate.getFullYear() !== parseInt(selectedYear)) {
           return false;
@@ -312,7 +287,7 @@ export default function EventsByFansPage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
               <input
                 type="text"
-                placeholder="Search events by title, description, or location..."
+                placeholder="Search events by title or organizer..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#FD7E14] focus:bg-white/10 transition-all"
@@ -489,7 +464,7 @@ export default function EventsByFansPage() {
               >
                 <AnimatePresence mode="popLayout">
                   {filteredEvents.map((event, index) => {
-                    const dateInfo = formatDateFull(event.date);
+                    const dateInfo = formatDateFull(event.date || event.eventDate);
                     const isUpcoming = event.status === "upcoming";
 
                     return (
@@ -543,24 +518,19 @@ export default function EventsByFansPage() {
                             {event.title}
                           </h3>
 
-                          {event.description && (
-                            <p className="text-white/50 text-sm mb-4 line-clamp-2">
-                              {event.description}
+                          {event.eventBy && (
+                            <p className="text-white/50 text-sm mb-4 line-clamp-2 flex items-center gap-2">
+                              <Users className="w-4 h-4 flex-shrink-0 text-[#FD7E14]" />
+                              <span>{event.eventBy}</span>
                             </p>
                           )}
 
                           {/* Event Details */}
                           <div className="space-y-2 mb-4">
-                            {event.location && (
+                            {(event.date || event.eventDate) && (
                               <div className="flex items-center gap-2 text-sm text-white/40">
-                                <MapPin className="w-4 h-4 flex-shrink-0" />
-                                <span className="truncate">{event.location}</span>
-                              </div>
-                            )}
-                            {event.time && (
-                              <div className="flex items-center gap-2 text-sm text-white/40">
-                                <Clock className="w-4 h-4 flex-shrink-0" />
-                                <span>{event.time}</span>
+                                <Calendar className="w-4 h-4 flex-shrink-0" />
+                                <span>{formatDate(event.date || event.eventDate)}</span>
                               </div>
                             )}
                           </div>
@@ -604,17 +574,17 @@ export default function EventsByFansPage() {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
-                      href="/events"
+                      href="/events-by-fans/submit"
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FD7E14] hover:bg-[#E56B00] text-white font-semibold rounded-full transition-colors"
                     >
-                      View All Events
+                      Submit Your Fan Event
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link
-                      href="/about"
+                      href="/events"
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-full transition-colors"
                     >
-                      Learn About Us
+                      View All Events
                     </Link>
                   </div>
                 </div>

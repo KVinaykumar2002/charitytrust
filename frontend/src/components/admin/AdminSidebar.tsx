@@ -17,6 +17,7 @@ import {
   History,
   Eye,
   Droplet,
+  Users,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -30,6 +31,7 @@ const menuItems = [
   { href: "/admin/programs", label: "Programs", icon: FolderKanban },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/events", label: "Events", icon: Calendar },
+  { href: "/admin/fan-events", label: "Fan Events", icon: Users },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/admin/donations", label: "Donations", icon: Heart },
   { href: "/admin/eye-donations", label: "Eye Donations", icon: Eye },

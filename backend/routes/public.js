@@ -7,6 +7,7 @@ import express from 'express';
 import Program from '../models/Program.js';
 import Project from '../models/Project.js';
 import Event from '../models/Event.js';
+import FanEvent from '../models/FanEvent.js';
 import Testimonial from '../models/Testimonial.js';
 import HeroImage from '../models/HeroImage.js';
 import Timeline from '../models/Timeline.js';
@@ -119,6 +120,68 @@ router.get('/events', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching events',
+      error: error.message
+    });
+  }
+});
+
+// ==================== PUBLIC FAN EVENTS ====================
+
+// Submit fan event (public - no auth required)
+router.post('/fan-events', async (req, res) => {
+  try {
+    const { title, eventDate, eventBy, photos, videoBase64, videoUrl } = req.body;
+
+    if (!title || !eventDate || !eventBy) {
+      return res.status(400).json({
+        success: false,
+        message: 'Event title, date, and organizer (Event By) are required'
+      });
+    }
+
+    const fanEvent = new FanEvent({
+      title,
+      eventDate: new Date(eventDate),
+      eventBy,
+      photos: Array.isArray(photos) ? photos.slice(0, 5) : [],
+      videoBase64: videoBase64 || undefined,
+      videoUrl: videoUrl || undefined,
+      status: 'pending'
+    });
+
+    await fanEvent.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Your fan event has been submitted for review. It will appear on the website once approved by our team.',
+      data: { id: fanEvent._id }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error submitting fan event',
+      error: error.message
+    });
+  }
+});
+
+// Get approved fan events (public - no auth required)
+router.get('/fan-events', async (req, res) => {
+  try {
+    const fanEvents = await FanEvent.find({ status: 'approved' })
+      .sort({ eventDate: -1 })
+      .select('-__v')
+      .limit(50)
+      .lean();
+
+    res.json({
+      success: true,
+      data: fanEvents
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching fan events',
       error: error.message
     });
   }

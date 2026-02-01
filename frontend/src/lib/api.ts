@@ -592,6 +592,70 @@ export async function updateTestimonialStatus(token: string, id: string, status:
   return response.json();
 }
 
+// Fan Events CRUD (Admin)
+export async function getAdminFanEvents(token: string, params?: { status?: string; page?: number; limit?: number }) {
+  const queryParams = new URLSearchParams();
+  if (params?.status) queryParams.append('status', params.status);
+  if (params?.page) queryParams.append('page', params.page.toString());
+  if (params?.limit) queryParams.append('limit', params.limit.toString());
+  const response = await fetch(`${API_BASE_URL}/admin/content/fan-events?${queryParams.toString()}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch fan events');
+  return response.json();
+}
+
+export async function getAdminFanEvent(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/fan-events/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch fan event');
+  return response.json();
+}
+
+export async function approveFanEvent(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/fan-events/${id}/approve`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to approve fan event');
+  return response.json();
+}
+
+export async function rejectFanEvent(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/fan-events/${id}/reject`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) throw new Error('Failed to reject fan event');
+  return response.json();
+}
+
+export async function deleteFanEvent(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/fan-events/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) throw new Error('Failed to delete fan event');
+  return response.json();
+}
+
 // ==================== PUBLIC APIs (No Authentication Required) ====================
 
 // Get all active programs (public - no auth required)
@@ -659,6 +723,54 @@ export async function getPublicProjects() {
       throw new Error('Cannot connect to backend server. Please ensure the backend is running on https://charitytrust-eykm.onrender.com');
     }
     throw new Error(error.message || 'Failed to fetch projects');
+  }
+}
+
+// Submit fan event (public - no auth required)
+export async function submitFanEvent(data: {
+  title: string;
+  eventDate: string;
+  eventBy: string;
+  photos?: string[];
+  videoBase64?: string;
+  videoUrl?: string;
+}) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/fan-events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.message || 'Failed to submit fan event');
+    return result;
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please try again later.');
+    }
+    throw error;
+  }
+}
+
+// Get approved fan events (public - no auth required)
+export async function getPublicFanEvents() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/fan-events`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+      keepalive: true,
+    });
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Failed to fetch fan events: ${response.status}`);
+    }
+    return response.json();
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please try again later.');
+    }
+    throw error;
   }
 }
 

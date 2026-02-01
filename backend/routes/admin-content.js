@@ -14,6 +14,7 @@ import HeroImage from '../models/HeroImage.js';
 import Timeline from '../models/Timeline.js';
 import EyeDonationPledge from '../models/EyeDonationPledge.js';
 import BloodDonation from '../models/BloodDonation.js';
+import FanEvent from '../models/FanEvent.js';
 
 const router = express.Router();
 
@@ -1262,6 +1263,136 @@ router.get('/blood-donations/stats/overview', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching stats',
+      error: error.message
+    });
+  }
+});
+
+// ==================== FAN EVENTS (Admin Review) ====================
+
+// Get all fan events (admin)
+router.get('/fan-events', async (req, res) => {
+  try {
+    const { status, page = 1, limit = 20 } = req.query;
+    const query = status ? { status } : {};
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const [fanEvents, total] = await Promise.all([
+      FanEvent.find(query).sort({ submittedAt: -1 }).skip(skip).limit(parseInt(limit)).lean(),
+      FanEvent.countDocuments(query)
+    ]);
+
+    res.json({
+      success: true,
+      data: fanEvents,
+      pagination: { page: parseInt(page), limit: parseInt(limit), total }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching fan events',
+      error: error.message
+    });
+  }
+});
+
+// Get single fan event (admin)
+router.get('/fan-events/:id', async (req, res) => {
+  try {
+    const fanEvent = await FanEvent.findById(req.params.id);
+    if (!fanEvent) {
+      return res.status(404).json({
+        success: false,
+        message: 'Fan event not found'
+      });
+    }
+    res.json({
+      success: true,
+      data: fanEvent
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching fan event',
+      error: error.message
+    });
+  }
+});
+
+// Approve fan event (admin)
+router.patch('/fan-events/:id/approve', async (req, res) => {
+  try {
+    const fanEvent = await FanEvent.findByIdAndUpdate(
+      req.params.id,
+      { status: 'approved', reviewedAt: new Date(), updatedAt: Date.now() },
+      { new: true }
+    );
+    if (!fanEvent) {
+      return res.status(404).json({
+        success: false,
+        message: 'Fan event not found'
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Fan event approved successfully',
+      data: fanEvent
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error approving fan event',
+      error: error.message
+    });
+  }
+});
+
+// Reject fan event (admin)
+router.patch('/fan-events/:id/reject', async (req, res) => {
+  try {
+    const fanEvent = await FanEvent.findByIdAndUpdate(
+      req.params.id,
+      { status: 'rejected', reviewedAt: new Date(), updatedAt: Date.now() },
+      { new: true }
+    );
+    if (!fanEvent) {
+      return res.status(404).json({
+        success: false,
+        message: 'Fan event not found'
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Fan event rejected',
+      data: fanEvent
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error rejecting fan event',
+      error: error.message
+    });
+  }
+});
+
+// Delete fan event (admin)
+router.delete('/fan-events/:id', async (req, res) => {
+  try {
+    const fanEvent = await FanEvent.findByIdAndDelete(req.params.id);
+    if (!fanEvent) {
+      return res.status(404).json({
+        success: false,
+        message: 'Fan event not found'
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Fan event deleted successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting fan event',
       error: error.message
     });
   }

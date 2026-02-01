@@ -3,6 +3,7 @@ import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ScrollAnimationProvider from "@/components/animation/ScrollAnimationProvider";
 import ErrorReporter from "@/components/ErrorReporter";
+import FansEventPopup from "@/components/FansEventPopup";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
           data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
         />
         {children}
+        <FansEventPopup />
         <VisualEditsMessenger />
       </body>
     </html>

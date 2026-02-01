@@ -142,22 +142,22 @@ const NavigationHeader = () => {
   };
 
   return (
-    <header className="fixed top-4 z-50 flex w-full justify-center px-4">
-      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-black px-6 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10">
+    <header className="fixed top-3 z-50 flex w-full justify-center px-4">
+      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-black px-5 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex-shrink-0">
+        <Link href="/" className="flex shrink-0">
           <Image
             src="/LogoFinal.png"
             alt="Chiranjeevi Charitable Trust logo"
             width={500}
             height={150}
-            className="h-32 w-auto object-contain"
+            className="h-16 w-auto object-contain lg:h-20"
             priority
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {navItems.map((item) =>
             item.dropdown ? (
               <div
@@ -229,8 +229,8 @@ const NavigationHeader = () => {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 transition-colors">
-                  <Avatar className="h-7 w-7">
+                <button className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/20 transition-colors">
+                  <Avatar className="h-6 w-6">
                     <AvatarFallback className="bg-[#FD7E14] text-white text-xs">
                       {user?.name?.charAt(0).toUpperCase() || "U"}
                     </AvatarFallback>
@@ -271,14 +271,14 @@ const NavigationHeader = () => {
           ) : (
             <Link
               href="/login"
-              className="inline-flex items-center rounded-full bg-[#FD7E14] px-6 py-2.5 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
+              className="inline-flex items-center rounded-full bg-[#FD7E14] px-5 py-2 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
             >
               Sign In
             </Link>
           )}
           <Link
             href="/donate"
-            className="inline-flex items-center rounded-full bg-[#FD7E14] px-6 py-2.5 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
+            className="inline-flex items-center rounded-full bg-[#FD7E14] px-5 py-2 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
           >
             Donate Now
           </Link>
@@ -302,7 +302,7 @@ const NavigationHeader = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-[92px] left-0 w-full bg-[#1a1a1a] px-6 py-6 shadow-[0_20px_40px_rgba(0,0,0,0.45)] lg:hidden">
+        <div className="absolute top-full left-0 mt-2 w-full bg-[#1a1a1a] px-6 py-6 shadow-[0_20px_40px_rgba(0,0,0,0.45)] lg:hidden">
           <nav className="flex flex-col">
             {navItems.map((item) => (
               <div key={item.name} className="border-b border-white/10">
