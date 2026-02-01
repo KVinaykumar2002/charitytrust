@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import ThemeToggle from "@/components/ThemeToggle";
+import LanguageSelector from "@/components/LanguageSelector";
 
 interface NavItem {
   name: string;
@@ -227,6 +228,7 @@ const NavigationHeader = () => {
 
         {/* Auth Buttons (Desktop) */}
         <div className="hidden lg:flex items-center gap-3">
+          <LanguageSelector />
           <ThemeToggle />
           {user ? (
             <DropdownMenu>
@@ -281,6 +283,7 @@ const NavigationHeader = () => {
 
         {/* Mobile Menu Toggle */}
         <div className="lg:hidden flex items-center gap-2">
+          <LanguageSelector />
           <ThemeToggle />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
