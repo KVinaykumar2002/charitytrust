@@ -26,13 +26,13 @@ interface Project {
 const getStatusInfo = (status?: string) => {
   switch (status) {
     case 'completed':
-      return { label: 'Completed', icon: CheckCircle2, color: 'text-green-600 bg-green-50' };
+      return { label: 'Completed', icon: CheckCircle2, color: 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30' };
     case 'in_progress':
-      return { label: 'In Progress', icon: PlayCircle, color: 'text-blue-600 bg-blue-50' };
+      return { label: 'In Progress', icon: PlayCircle, color: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' };
     case 'planning':
-      return { label: 'Planning', icon: Clock, color: 'text-yellow-600 bg-yellow-50' };
+      return { label: 'Planning', icon: Clock, color: 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/30' };
     default:
-      return { label: 'Planning', icon: Clock, color: 'text-gray-600 bg-gray-50' };
+      return { label: 'Planning', icon: Clock, color: 'text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800' };
   }
 };
 
@@ -260,7 +260,7 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950">
       <NavigationHeader />
       <main className="flex-1 pt-24">
         {/* Hero Section */}
@@ -314,7 +314,7 @@ export default function ProjectsPage() {
         </section>
 
         {/* Search and Filter Section */}
-        <section className="py-12 bg-gray-50 border-b border-gray-200">
+        <section className="py-12 bg-gray-50 dark:bg-neutral-900 border-b border-gray-200 dark:border-neutral-800">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             <div className="max-w-7xl mx-auto space-y-6">
               {/* Search Bar */}
@@ -324,18 +324,18 @@ export default function ProjectsPage() {
                 transition={{ duration: 0.6 }}
                 className="relative max-w-2xl mx-auto"
               >
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-neutral-500" />
                 <input
                   type="text"
                   placeholder="Search projects by title, description, location, or category..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-12 py-3 bg-white border border-gray-300 rounded-full text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FD7E14] focus:ring-2 focus:ring-[#FD7E14]/20 transition-all shadow-sm"
+                  className="w-full pl-12 pr-12 py-3 bg-white dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-full text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-500 focus:outline-none focus:border-[#FD7E14] focus:ring-2 focus:ring-[#FD7E14]/20 transition-all shadow-sm"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-neutral-500 hover:text-gray-600 dark:hover:text-neutral-300 transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -353,7 +353,7 @@ export default function ProjectsPage() {
                 <select
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
-                  className="px-4 py-2.5 bg-white border border-gray-300 rounded-full text-gray-900 text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm"
+                  className="px-4 py-2.5 bg-white dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-full text-gray-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm"
                 >
                   <option value="all">All Status</option>
                   <option value="planning">Planning</option>
@@ -365,7 +365,7 @@ export default function ProjectsPage() {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-2.5 bg-white border border-gray-300 rounded-full text-gray-900 text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm"
+                  className="px-4 py-2.5 bg-white dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-full text-gray-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm"
                 >
                   <option value="all">All Categories</option>
                   {getAvailableCategories().map((category) => (
@@ -383,7 +383,7 @@ export default function ProjectsPage() {
                     setSelectedMonth("");
                     setSelectedDay("");
                   }}
-                  className="px-4 py-2.5 bg-white border border-gray-300 rounded-full text-gray-900 text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm"
+                  className="px-4 py-2.5 bg-white dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-full text-gray-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm"
                 >
                   <option value="">All Years</option>
                   {getAvailableYears().map((year) => (
@@ -401,7 +401,7 @@ export default function ProjectsPage() {
                     setSelectedDay("");
                   }}
                   disabled={!selectedYear}
-                  className="px-4 py-2.5 bg-white border border-gray-300 rounded-full text-gray-900 text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2.5 bg-white dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-full text-gray-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <option value="">All Months</option>
                   {getAvailableMonths().map((month) => (
@@ -416,7 +416,7 @@ export default function ProjectsPage() {
                   value={selectedDay}
                   onChange={(e) => setSelectedDay(e.target.value)}
                   disabled={!selectedYear || !selectedMonth}
-                  className="px-4 py-2.5 bg-white border border-gray-300 rounded-full text-gray-900 text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2.5 bg-white dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-full text-gray-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <option value="">All Days</option>
                   {getAvailableDays().map((day) => (
@@ -430,7 +430,7 @@ export default function ProjectsPage() {
                 {(searchQuery || selectedYear || selectedMonth || selectedDay || selectedStatus !== "all" || selectedCategory !== "all") && (
                   <button
                     onClick={clearAllFilters}
-                    className="px-4 py-2.5 bg-gray-200 hover:bg-gray-300 border border-gray-300 rounded-full text-gray-900 text-sm transition-all flex items-center gap-2 shadow-sm"
+                    className="px-4 py-2.5 bg-gray-200 dark:bg-neutral-700 hover:bg-gray-300 dark:hover:bg-neutral-600 border border-gray-300 dark:border-neutral-600 rounded-full text-gray-900 dark:text-white text-sm transition-all flex items-center gap-2 shadow-sm"
                   >
                     <X className="w-4 h-4" />
                     Clear All
@@ -443,7 +443,7 @@ export default function ProjectsPage() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-center text-gray-600 text-sm"
+                  className="text-center text-gray-600 dark:text-neutral-400 text-sm"
                 >
                   Showing <span className="font-semibold text-[#FD7E14]">{filteredProjects.length}</span> of {projects.length} projects
                 </motion.div>
@@ -453,7 +453,7 @@ export default function ProjectsPage() {
         </section>
 
         {/* Projects Grid */}
-        <section className="py-20 md:py-32 bg-white">
+        <section className="py-20 md:py-32 bg-white dark:bg-neutral-950">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {loading ? (
               <div className="text-center py-20">
@@ -462,24 +462,24 @@ export default function ProjectsPage() {
             ) : error ? (
               <div className="text-center py-20">
                 <h3 className="text-2xl font-semibold text-red-600 mb-4">Error Loading Projects</h3>
-                <p className="text-muted-foreground mb-4">{error}</p>
+                <p className="text-neutral-600 dark:text-neutral-300 mb-4">{error}</p>
                 <button
                   onClick={() => {
                     setError(null);
                     fetchProjects();
                   }}
-                  className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  className="px-6 py-3 bg-[#FD7E14] text-white rounded-lg hover:bg-[#FD7E14]/90 transition-colors"
                 >
                   Retry
                 </button>
-                <p className="text-sm text-muted-foreground mt-4">
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 mt-4">
                   Make sure the backend server is running on https://charitytrust-eykm.onrender.com
                 </p>
               </div>
             ) : projects.length === 0 ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-foreground mb-4">No Projects Available</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">No Projects Available</h3>
+                <p className="text-neutral-600 dark:text-neutral-300">
                   Check back soon for upcoming projects and initiatives.
                 </p>
                 <button
@@ -491,8 +491,8 @@ export default function ProjectsPage() {
               </div>
             ) : filteredProjects.length === 0 ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-foreground mb-4">No Projects Found</h3>
-                <p className="text-muted-foreground mb-4">
+                <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">No Projects Found</h3>
+                <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                   {searchQuery || selectedYear || selectedMonth || selectedDay || selectedStatus !== "all" || selectedCategory !== "all"
                     ? "Try adjusting your filters to see more projects."
                     : "Check back soon for upcoming projects and initiatives."}
@@ -509,8 +509,8 @@ export default function ProjectsPage() {
             ) : (
               <>
                 <div className="mb-8 text-center">
-                  <p className="text-muted-foreground">
-                    Showing <span className="font-semibold text-primary">{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'}
+                  <p className="text-neutral-600 dark:text-neutral-300">
+                    Showing <span className="font-semibold text-[#FD7E14]">{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -521,8 +521,7 @@ export default function ProjectsPage() {
                     return (
                       <div
                         key={project.id || project._id}
-                        data-animation="fade-up"
-                        className="bg-white rounded-2xl border border-border shadow-lg overflow-hidden hover-lift-up group"
+                        className="bg-white dark:bg-neutral-800 rounded-2xl border border-gray-200 dark:border-neutral-700 shadow-lg overflow-hidden hover-lift-up group opacity-100"
                       >
                         <div className="relative w-full h-64 overflow-hidden">
                           <img
@@ -542,33 +541,33 @@ export default function ProjectsPage() {
                         </div>
                         <div className="p-6">
                           {project.category && (
-                            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full mb-3">
+                            <span className="inline-block px-3 py-1 bg-[#FD7E14]/10 dark:bg-[#FD7E14]/20 text-[#FD7E14] text-xs font-semibold rounded-full mb-3">
                               {mapCategoryName(project.category)}
                             </span>
                           )}
-                          <h3 className="text-2xl font-bold text-foreground mb-4 line-clamp-2">
+                          <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4 line-clamp-2">
                             {project.title}
                           </h3>
                           {project.description && (
-                            <p className="text-muted-foreground mb-4 line-clamp-3">
+                            <p className="text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-3">
                               {project.description}
                             </p>
                           )}
                           <div className="space-y-2 mb-6">
                             {project.startDate && (
-                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
                                 <Calendar className="w-4 h-4" />
                                 <span>Started: {formatDate(project.startDate)}</span>
                               </div>
                             )}
                             {project.endDate && (
-                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
                                 <Target className="w-4 h-4" />
                                 <span>Ends: {formatDate(project.endDate)}</span>
                               </div>
                             )}
                             {project.location && (
-                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
                                 <MapPin className="w-4 h-4" />
                                 <span>{project.location}</span>
                               </div>
