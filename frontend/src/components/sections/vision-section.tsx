@@ -41,7 +41,7 @@ const VisionSection = () => {
     <section
       id="vision"
       data-page-animation="staggered-fade"
-      className="relative bg-gradient-to-b from-gray-50 via-white to-gray-50 py-24 md:py-32 overflow-hidden scroll-mt-24"
+      className="relative bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 py-24 md:py-32 overflow-hidden scroll-mt-24"
     >
       {/* Background Decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -59,7 +59,7 @@ const VisionSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6"
           >
             Our Vision
           </h2>
@@ -68,7 +68,7 @@ const VisionSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-animation-delay="0.2s"
-            className="text-xl md:text-2xl leading-relaxed text-muted-foreground max-w-3xl mx-auto"
+            className="text-xl md:text-2xl leading-relaxed text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto"
           >
             To create a society where every individual has access to healthcare, 
             education, and opportunities for growth—a future where compassion, 
@@ -91,13 +91,13 @@ const VisionSection = () => {
           >
             <h3
               data-text-animation="reveal-from-bottom"
-              className="text-3xl md:text-4xl font-bold text-foreground mb-6"
+              className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-6"
             >
               Looking Forward
             </h3>
             <p
               data-animation="fade-in"
-              className="text-lg leading-relaxed text-muted-foreground"
+              className="text-lg leading-relaxed text-neutral-600 dark:text-neutral-300"
             >
               Our vision extends far beyond immediate relief. We envision a future 
               where sustainable change is the norm, where communities are empowered 
@@ -107,7 +107,7 @@ const VisionSection = () => {
             <p
               data-animation="fade-in"
               data-animation-delay="0.1s"
-              className="text-lg leading-relaxed text-muted-foreground"
+              className="text-lg leading-relaxed text-neutral-600 dark:text-neutral-300"
             >
               We see a society where healthcare is accessible to all, education is 
               a right not a privilege, and economic opportunities are available to 
@@ -118,7 +118,7 @@ const VisionSection = () => {
             <p
               data-animation="fade-in"
               data-animation-delay="0.2s"
-              className="text-lg leading-relaxed text-muted-foreground"
+              className="text-lg leading-relaxed text-neutral-600 dark:text-neutral-300"
             >
               Our commitment to creating sustainable change means that every program 
               we launch is designed to have lasting impact. We don't just provide 
@@ -159,7 +159,7 @@ const VisionSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12"
+            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-12"
           >
             Our Long-Term Goals
           </h3>
@@ -170,15 +170,15 @@ const VisionSection = () => {
                 data-stagger-item
                 data-animation="slide-up"
                 data-animation-delay={`${index * 0.1}s`}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-border hover-lift-up group"
+                className="bg-white dark:bg-neutral-800 rounded-2xl p-8 shadow-lg border border-neutral-200 dark:border-neutral-700 hover-lift-up group"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                   {goal.icon}
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-4">
+                <h4 className="text-xl font-semibold text-neutral-900 dark:text-white mb-4">
                   {goal.title}
                 </h4>
-                <p className="text-base leading-relaxed text-muted-foreground">
+                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
                   {goal.description}
                 </p>
               </div>

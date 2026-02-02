@@ -20,7 +20,7 @@ export const getRGBA = (
   if (!cssColor) return fallback;
 
   try {
-    // Handle CSS variables
+
     if (typeof cssColor === "string" && cssColor.startsWith("var(")) {
       const element = document.createElement("div");
       element.style.color = cssColor;

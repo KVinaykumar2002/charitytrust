@@ -57,7 +57,7 @@ const AboutCompanySection = () => {
     <section
       id="about-company"
       data-page-animation="staggered-fade"
-      className="relative bg-gradient-to-b from-white via-gray-50 to-white py-24 md:py-32 overflow-hidden scroll-mt-24"
+      className="relative bg-gradient-to-b from-white via-gray-50 to-white dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 py-24 md:py-32 overflow-hidden scroll-mt-24"
     >
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -75,7 +75,7 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white mb-6 leading-tight"
           >
             About Chiranjeevi Charitable Trust
           </h1>
@@ -89,7 +89,7 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-animation-delay="0.3s"
-            className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-3xl mx-auto"
+            className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl mx-auto"
           >
             Transforming lives through compassion, service, and unwavering commitment to humanity
           </p>
@@ -130,13 +130,13 @@ const AboutCompanySection = () => {
           >
             <h2
               data-text-animation="reveal-from-bottom"
-              className="text-4xl md:text-5xl font-bold text-foreground mb-6"
+              className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white mb-6"
             >
               Who We Are
             </h2>
             <p
               data-animation="fade-in"
-              className="text-lg text-muted-foreground leading-relaxed"
+              className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
             >
               Chiranjeevi Charitable Trust is a beacon of hope and transformation, 
               founded with a vision to serve humanity and create lasting positive change 
@@ -147,7 +147,7 @@ const AboutCompanySection = () => {
             <p
               data-animation="fade-in"
               data-animation-delay="0.1s"
-              className="text-lg text-muted-foreground leading-relaxed"
+              className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
             >
               Our journey began with a simple yet powerful belief: that every act of 
               kindness, no matter how small, can create a ripple effect of positive change. 
@@ -158,7 +158,7 @@ const AboutCompanySection = () => {
             <p
               data-animation="fade-in"
               data-animation-delay="0.2s"
-              className="text-lg text-muted-foreground leading-relaxed"
+              className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
             >
               We believe in the power of collective action and community participation. 
               Every program we launch, every life we touch, and every initiative we 
@@ -178,7 +178,7 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl font-bold text-foreground text-center mb-8"
+            className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white text-center mb-8"
           >
             Why We Were Founded
           </h2>
@@ -186,9 +186,9 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-animation-delay="0.1s"
-            className="bg-gradient-to-br from-primary/5 to-secondary/10 rounded-3xl p-8 md:p-12 border border-primary/10"
+            className="bg-gradient-to-br from-primary/5 to-secondary/10 dark:from-primary/10 dark:to-secondary/20 rounded-3xl p-8 md:p-12 border border-primary/10 dark:border-primary/20"
           >
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-center">
+            <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
               Chiranjeevi Charitable Trust was founded to bridge the gap between those who need help and those 
               who can provide it. We recognized that many communities across India lacked 
               access to essential healthcare services, educational opportunities, and 
@@ -208,7 +208,7 @@ const AboutCompanySection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl font-bold text-foreground text-center mb-12"
+            className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white text-center mb-12"
           >
             Our Core Values
           </h2>

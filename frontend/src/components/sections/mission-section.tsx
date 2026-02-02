@@ -41,7 +41,7 @@ const MissionSection = () => {
     <section
       id="mission"
       data-page-animation="scale-fade"
-      className="relative bg-black text-white py-24 md:py-32 overflow-hidden scroll-mt-24"
+      className="relative bg-black dark:bg-neutral-950 text-white py-24 md:py-32 overflow-hidden scroll-mt-24"
     >
       {/* Background Decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
