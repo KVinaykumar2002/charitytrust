@@ -105,7 +105,7 @@ const AnimatedCounter = ({ targetValue, suffix, duration = 2000, delay = 0 }: {
   };
 
   return (
-    <div ref={counterRef} className="text-4xl md:text-5xl font-bold mb-2">
+    <div ref={counterRef} className="text-4xl md:text-5xl font-bold mb-2 text-white">
       {formatNumber(count)}{suffix}
     </div>
   );
@@ -154,13 +154,12 @@ const TeamPartnersSection = () => {
   return (
     <section
       id="team-partners"
-      data-page-animation="staggered-fade"
-      className="relative bg-gradient-to-b from-white via-gray-50 to-white py-24 md:py-32 overflow-hidden scroll-mt-24"
+      className="relative bg-gradient-to-b from-white via-gray-50 to-white dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 py-24 md:py-32 overflow-hidden scroll-mt-24"
     >
       {/* Background Decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 dark:bg-secondary/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
@@ -173,16 +172,16 @@ const TeamPartnersSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6"
           >
             Our Team & Partners
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-6"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent dark:via-primary dark:opacity-80 mx-auto mb-6"></div>
           <p
             data-stagger-item
             data-animation="fade-up"
             data-animation-delay="0.2s"
-            className="text-xl text-muted-foreground leading-relaxed"
+            className="text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed"
           >
             Dedicated individuals and collaborative organizations working together to create lasting impact
           </p>
@@ -197,7 +196,7 @@ const TeamPartnersSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12"
+            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-12"
           >
             Leadership Team
           </h3>
@@ -208,18 +207,18 @@ const TeamPartnersSection = () => {
                 data-stagger-item
                 data-animation="slide-up"
                 data-animation-delay={`${index * 0.1}s`}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-border hover-lift-up text-center group"
+                className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up text-center group"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                   {member.icon}
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-2">
+                <h4 className="text-xl font-semibold text-neutral-900 dark:text-white mb-2">
                   {member.name}
                 </h4>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4">
                   {member.role}
                 </p>
-                <p className="text-base leading-relaxed text-muted-foreground">
+                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
                   {member.description}
                 </p>
               </div>
@@ -234,7 +233,7 @@ const TeamPartnersSection = () => {
         >
           <div className="bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white dark:bg-foreground/20 rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
             </div>
             <div className="relative z-10">
@@ -290,7 +289,7 @@ const TeamPartnersSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12"
+            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-12"
           >
             Our Partners
           </h3>
@@ -298,7 +297,7 @@ const TeamPartnersSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-animation-delay="0.1s"
-            className="text-lg text-center text-muted-foreground max-w-3xl mx-auto mb-12"
+            className="text-lg text-center text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto mb-12"
           >
             We believe in the power of collaboration. Our partnerships with 
             healthcare institutions, educational organizations, corporations, 
@@ -312,15 +311,15 @@ const TeamPartnersSection = () => {
                 data-stagger-item
                 data-animation="slide-up"
                 data-animation-delay={`${index * 0.1}s`}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-border hover-lift-up group"
+                className="bg-white dark:bg-neutral-900 rounded-2xl p-6 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up group"
               >
                 <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br ${partner.color} rounded-full mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   {partner.icon}
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-3">
+                <h4 className="text-xl font-semibold text-neutral-900 dark:text-white mb-3">
                   {partner.name}
                 </h4>
-                <p className="text-base leading-relaxed text-muted-foreground">
+                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
                   {partner.description}
                 </p>
               </div>
@@ -336,15 +335,15 @@ const TeamPartnersSection = () => {
           <div
             data-stagger-item
             data-animation="scale-fade"
-            className="bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-3xl p-8 md:p-12 border-2 border-secondary/30 text-center"
+            className="bg-gradient-to-br from-secondary/20 to-secondary/10 dark:from-neutral-800/50 dark:to-neutral-900/50 rounded-3xl p-8 md:p-12 border-2 border-secondary/30 dark:border-neutral-700 text-center"
           >
             <h3
               data-text-animation="reveal-from-bottom"
-              className="text-3xl md:text-4xl font-bold text-foreground mb-6"
+              className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-6"
             >
               Join Our Mission
             </h3>
-            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground max-w-3xl mx-auto mb-8">
+            <p className="text-lg md:text-xl leading-relaxed text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto mb-8">
               Whether you're interested in volunteering, partnering with us, or 
               supporting our programs, we'd love to have you join our community 
               of changemakers. Together, we can create a brighter future for all.

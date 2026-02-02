@@ -66,8 +66,8 @@ const ScrollAnimationProvider = () => {
     };
 
     const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.2,
-      rootMargin: "0px 0px -10% 0px",
+      threshold: 0.1,
+      rootMargin: "0px 0px 0px 0px",
     });
 
     const registerElement = (element: AnimationElement) => {
@@ -76,7 +76,26 @@ const ScrollAnimationProvider = () => {
       if (!element.classList.contains("is-anim-ready")) {
         element.classList.add("is-anim-ready");
       }
+      
+      // Always observe the element
       observer.observe(element);
+      
+      // Check if element is already in viewport and make it visible immediately
+      const rect = element.getBoundingClientRect();
+      const isInViewport = 
+        rect.top < window.innerHeight * 0.8 && 
+        rect.bottom > 0 && 
+        rect.left < window.innerWidth && 
+        rect.right > 0;
+      
+      if (isInViewport) {
+        // Small delay to allow CSS to apply, then make visible
+        setTimeout(() => {
+          if (!element.classList.contains("is-visible")) {
+            element.classList.add("is-visible");
+          }
+        }, 100);
+      }
     };
 
     const scanAnimatedElements = (root: ParentNode | Document = document) => {

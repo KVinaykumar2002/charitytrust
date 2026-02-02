@@ -300,6 +300,25 @@
     transform: translate3d(0, 0, 0);
   }
 
+  /* Fallback: Ensure content is visible if IntersectionObserver hasn't triggered */
+  /* Reduced delay to 0.8s for faster visibility while still allowing animations to work */
+  [data-animation]:not(.is-visible):not(.is-anim-ready) {
+    animation: fadeInFallback 0.3s ease-out 0.8s forwards;
+  }
+  
+  /* If element is ready but not visible after 1.5s, force visibility */
+  [data-animation].is-anim-ready:not(.is-visible) {
+    animation: fadeInFallback 0.3s ease-out 1.5s forwards;
+  }
+
+  @keyframes fadeInFallback {
+    to {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+  }
+
   [data-animation="fade-in"] {
     transform: translate3d(0, 24px, 0);
   }
