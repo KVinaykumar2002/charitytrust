@@ -269,7 +269,7 @@ export default function ProjectsPage() {
           <div className="absolute inset-0">
             <img 
               src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=2074&auto=format&fit=crop"
-              alt="Projects background"
+              alt="Special Service background"
               className="w-full h-full object-cover"
             />
             {/* Dark overlay */}
@@ -304,10 +304,10 @@ export default function ProjectsPage() {
                 data-text-animation="reveal-from-bottom"
                 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-lg"
               >
-                Our Projects
+                Special Service
               </h1>
               <p className="text-xl md:text-2xl text-white/90 leading-relaxed drop-shadow-md">
-                Discover the impactful projects we're working on to create positive change in communities.
+                Discover the impactful special services we&apos;re working on to create positive change in communities.
               </p>
             </div>
           </div>
@@ -445,7 +445,7 @@ export default function ProjectsPage() {
                   animate={{ opacity: 1 }}
                   className="text-center text-gray-600 dark:text-neutral-400 text-sm"
                 >
-                  Showing <span className="font-semibold text-[#FD7E14]">{filteredProjects.length}</span> of {projects.length} projects
+                  Showing <span className="font-semibold text-[#FD7E14]">{filteredProjects.length}</span> of {projects.length} services
                 </motion.div>
               )}
             </div>
@@ -457,11 +457,11 @@ export default function ProjectsPage() {
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {loading ? (
               <div className="text-center py-20">
-                <TrustLoader variant="both" size="lg" label="Loading projects..." />
+                <TrustLoader variant="both" size="lg" label="Loading..." />
               </div>
             ) : error ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-red-600 mb-4">Error Loading Projects</h3>
+                <h3 className="text-2xl font-semibold text-red-600 mb-4">Error Loading Special Service</h3>
                 <p className="text-neutral-600 dark:text-neutral-300 mb-4">{error}</p>
                 <button
                   onClick={() => {
@@ -478,7 +478,7 @@ export default function ProjectsPage() {
               </div>
             ) : projects.length === 0 ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">No Projects Available</h3>
+                <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">No Special Service Available</h3>
                 <p className="text-neutral-600 dark:text-neutral-300">
                   Check back soon for upcoming projects and initiatives.
                 </p>
@@ -491,7 +491,7 @@ export default function ProjectsPage() {
               </div>
             ) : filteredProjects.length === 0 ? (
               <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">No Projects Found</h3>
+                <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">No Special Service Found</h3>
                 <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                   {searchQuery || selectedYear || selectedMonth || selectedDay || selectedStatus !== "all" || selectedCategory !== "all"
                     ? "Try adjusting your filters to see more projects."
@@ -510,7 +510,7 @@ export default function ProjectsPage() {
               <>
                 <div className="mb-8 text-center">
                   <p className="text-neutral-600 dark:text-neutral-300">
-                    Showing <span className="font-semibold text-[#FD7E14]">{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'}
+                    Showing <span className="font-semibold text-[#FD7E14]">{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'service' : 'services'}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

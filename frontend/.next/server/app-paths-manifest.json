@@ -4,12 +4,14 @@
   "/blood-donation/page": "app/blood-donation/page.js",
   "/donate/page": "app/donate/page.js",
   "/events-by-fans/page": "app/events-by-fans/page.js",
+  "/events-by-fans/submit/page": "app/events-by-fans/submit/page.js",
   "/events/page": "app/events/page.js",
   "/eye-donation/page": "app/eye-donation/page.js",
+  "/faq/page": "app/faq/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/gallery/page": "app/gallery/page.js",
   "/login/page": "app/login/page.js",
   "/page": "app/page.js",
   "/projects/page": "app/projects/page.js",
+  "/signup/page": "app/signup/page.js",
   "/team/page": "app/team/page.js"
 }

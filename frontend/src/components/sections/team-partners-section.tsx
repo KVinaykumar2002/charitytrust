@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Users, Award, Handshake, Heart, Star, Target } from "lucide-react";
+import { Users, Award, Heart, Target } from "lucide-react";
 
 const leadershipTeam = [
   {
@@ -111,45 +111,6 @@ const AnimatedCounter = ({ targetValue, suffix, duration = 2000, delay = 0 }: {
   );
 };
 
-const partners = [
-  {
-    name: "Healthcare Partners",
-    description: "Collaborating with leading hospitals and medical institutions to provide quality healthcare services.",
-    icon: <Heart className="w-6 h-6 text-white" />,
-    color: "from-red-500 to-red-600",
-  },
-  {
-    name: "Educational Institutions",
-    description: "Partnering with schools and universities to provide educational support and scholarships.",
-    icon: <Star className="w-6 h-6 text-white" />,
-    color: "from-blue-500 to-blue-600",
-  },
-  {
-    name: "Corporate Partners",
-    description: "Working with businesses and corporations to create sustainable social impact programs.",
-    icon: <Handshake className="w-6 h-6 text-white" />,
-    color: "from-green-500 to-green-600",
-  },
-  {
-    name: "Government Agencies",
-    description: "Collaborating with government bodies to implement large-scale welfare and development programs.",
-    icon: <Award className="w-6 h-6 text-white" />,
-    color: "from-purple-500 to-purple-600",
-  },
-  {
-    name: "NGO Networks",
-    description: "Partnering with other non-profit organizations to maximize our collective impact.",
-    icon: <Users className="w-6 h-6 text-white" />,
-    color: "from-orange-500 to-orange-600",
-  },
-  {
-    name: "Community Organizations",
-    description: "Working closely with local community groups to ensure our programs reach those who need them most.",
-    icon: <Handshake className="w-6 h-6 text-white" />,
-    color: "from-cyan-500 to-cyan-600",
-  },
-];
-
 const TeamPartnersSection = () => {
   return (
     <section
@@ -174,7 +135,7 @@ const TeamPartnersSection = () => {
             data-text-animation="reveal-from-bottom"
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6"
           >
-            Our Team & Partners
+            Our Team
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent dark:via-primary dark:opacity-80 mx-auto mb-6"></div>
           <p
@@ -281,7 +242,30 @@ const TeamPartnersSection = () => {
           </div>
         </div>
 
-        {/* Partners Section */}
+        {/* Our Organizers - Separate Section */}
+        <div
+          data-stagger-parent
+          className="mb-20"
+        >
+          <h3
+            data-stagger-item
+            data-animation="fade-up"
+            data-text-animation="reveal-from-bottom"
+            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-6"
+          >
+            Our Organizers
+          </h3>
+          <p
+            data-stagger-item
+            data-animation="fade-up"
+            data-animation-delay="0.1s"
+            className="text-lg text-center text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto"
+          >
+            Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.
+          </p>
+        </div>
+
+        {/* Government Hospitals - Separate Section */}
         <div
           data-stagger-parent
         >
@@ -289,42 +273,18 @@ const TeamPartnersSection = () => {
             data-stagger-item
             data-animation="fade-up"
             data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-12"
+            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-6"
           >
-            Our Partners
+            Government Hospitals
           </h3>
           <p
             data-stagger-item
             data-animation="fade-up"
             data-animation-delay="0.1s"
-            className="text-lg text-center text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto mb-12"
+            className="text-lg text-center text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto"
           >
-            We believe in the power of collaboration. Our partnerships with 
-            healthcare institutions, educational organizations, corporations, 
-            and government agencies enable us to maximize our impact and reach 
-            more people in need.
+            We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {partners.map((partner, index) => (
-              <div
-                key={index}
-                data-stagger-item
-                data-animation="slide-up"
-                data-animation-delay={`${index * 0.1}s`}
-                className="bg-white dark:bg-neutral-900 rounded-2xl p-6 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up group"
-              >
-                <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br ${partner.color} rounded-full mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  {partner.icon}
-                </div>
-                <h4 className="text-xl font-semibold text-neutral-900 dark:text-white mb-3">
-                  {partner.name}
-                </h4>
-                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-                  {partner.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Call to Action */}

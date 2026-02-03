@@ -170,7 +170,7 @@ export default function TestimonialsSection() {
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-6"></div>
           <p className="text-xl text-muted-foreground leading-relaxed">
             Hear from the lives we&apos;ve touched—beneficiaries, volunteers, and partners
-            share their experiences with Chiranjeevi Charity Trust.
+            share their experiences with Chiranjeevi Charitable Trust.
           </p>
         </div>
       </div>

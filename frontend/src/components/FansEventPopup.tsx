@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Heart, ArrowRight, X } from "lucide-react";
 
-const POPUP_DELAY_MS = 5000; // 5 seconds
+const POPUP_DELAY_MS = 30000; // 30 seconds
 const STORAGE_KEY = "fans-event-popup-closed-v2"; // v2 = reset for users who closed old popup
 
 export default function FansEventPopup() {

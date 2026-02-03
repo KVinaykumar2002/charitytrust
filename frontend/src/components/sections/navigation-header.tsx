@@ -30,10 +30,20 @@ const navItems: NavItem[] = [
   {
     name: "About Us",
     dropdown: [
+      { name: "Founder and Chairman", href: "/about#founder-chairman" },
       { name: "About Chiranjeevi Charitable Trust", href: "/about#about-company" },
       { name: "Our Journey", href: "/about#journey" },
       { name: "Our Mission", href: "/about#mission" },
       { name: "Our Vision", href: "/about#vision" },
+    ],
+  },
+  {
+    name: "Our Services",
+    href: "/services",
+    dropdown: [
+      { name: "Our Journey", href: "/services#journey" },
+      { name: "Chiranjeevi Eye Bank", href: "/services#eye-bank" },
+      { name: "Chiranjeevi Blood Center", href: "/services#blood-center" },
     ],
   },
   {
@@ -43,7 +53,7 @@ const navItems: NavItem[] = [
       { name: "Events by Fans", href: "/events-by-fans" },
     ],
   },
-  { name: "Projects", href: "/projects" },
+  { name: "Special Service", href: "/projects" },
   { name: "Our Team", href: "/team" },
   {
     name: "Donations",
@@ -77,10 +87,13 @@ const NavigationHeader = () => {
     if (item.name === "About Us") {
       return pathname?.startsWith("/about");
     }
+    if (item.name === "Our Services") {
+      return pathname?.startsWith("/services");
+    }
     if (item.name === "Events") {
       return pathname === "/events" || pathname === "/events-by-fans";
     }
-    if (item.name === "Projects") {
+    if (item.name === "Special Service") {
       return pathname === "/projects";
     }
     if (item.name === "Our Team") {
@@ -147,7 +160,7 @@ const NavigationHeader = () => {
 
   return (
     <header className="fixed top-3 z-50 flex w-full justify-center px-4">
-      <div className="relative flex w-full max-w-[1220px] items-center justify-between rounded-full border border-white/15 bg-black px-5 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-8">
+      <div className="relative flex w-full max-w-[1280px] items-center justify-between gap-4 rounded-full border border-white/15 bg-black px-4 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10 lg:gap-6">
         {/* Logo */}
         <Link href="/" className="flex shrink-0">
           <Image
@@ -161,7 +174,7 @@ const NavigationHeader = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-7 lg:flex lg:gap-8">
           {navItems.map((item) =>
             item.dropdown ? (
               <div
@@ -170,10 +183,10 @@ const NavigationHeader = () => {
                 onMouseEnter={() => setOpenDropdown(item.name)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 py-2 px-1">
                   <Link
                     href={item.name === "About Us" ? "/about" : item.href || "#"}
-                    className={`text-sm font-medium transition-colors duration-300 hover-underline-slide ${
+                    className={`whitespace-nowrap text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                       isActive(item)
                         ? "text-[#FD7E14]"
                         : "text-white/80 hover:text-[#FD7E14]"
@@ -222,7 +235,7 @@ const NavigationHeader = () => {
               <Link
                 key={item.name}
                 href={item.href!}
-                className={`text-sm font-medium transition-colors duration-300 hover-underline-slide ${
+                className={`whitespace-nowrap py-2 px-1 text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                   isActive(item)
                     ? "text-[#FD7E14]"
                     : "text-white/80 hover:text-[#FD7E14]"
@@ -235,7 +248,7 @@ const NavigationHeader = () => {
         </nav>
 
         {/* Auth Buttons (Desktop) */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 ml-4 lg:ml-8 shrink-0">
           <TextToSpeech />
           <LanguageSelector />
           <ThemeToggle />
