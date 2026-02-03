@@ -159,8 +159,8 @@ const NavigationHeader = () => {
   };
 
   return (
-    <header className="fixed top-3 z-50 flex w-full justify-center px-4">
-      <div className="relative flex w-full max-w-[1280px] items-center justify-between gap-4 rounded-full border border-white/15 bg-black px-4 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:px-10 lg:gap-6">
+    <header className="fixed top-3 z-50 flex w-full max-w-full justify-center px-3 sm:px-4">
+      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 rounded-full border border-white/15 bg-black px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-4 lg:px-6 xl:px-10">
         {/* Logo */}
         <Link href="/" className="flex shrink-0">
           <Image
@@ -174,7 +174,7 @@ const NavigationHeader = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-7 lg:flex lg:gap-8">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-4 lg:flex lg:gap-6 xl:gap-8">
           {navItems.map((item) =>
             item.dropdown ? (
               <div
@@ -248,7 +248,7 @@ const NavigationHeader = () => {
         </nav>
 
         {/* Auth Buttons (Desktop) */}
-        <div className="hidden lg:flex items-center gap-3 ml-4 lg:ml-8 shrink-0">
+        <div className="hidden lg:flex items-center gap-2 ml-2 shrink-0 lg:ml-4 xl:gap-3 xl:ml-6">
           <TextToSpeech />
           <LanguageSelector />
           <ThemeToggle />
@@ -297,7 +297,7 @@ const NavigationHeader = () => {
           ) : null}
           <Link
             href="/donate"
-            className="inline-flex items-center gap-2 rounded-full bg-[#FD7E14] px-5 py-2 text-sm font-semibold text-[#ffffff] btn-hover-bounce btn-shine-effect"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#FD7E14] px-4 py-1.5 text-sm font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
           >
             <Droplet className="h-4 w-4 shrink-0" />
             Donate Blood
