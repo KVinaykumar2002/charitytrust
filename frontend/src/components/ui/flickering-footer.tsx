@@ -498,11 +498,11 @@ export const Component = () => {
           <div className="flex flex-col items-start justify-start gap-y-5 max-w-md mx-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/LogoFinal.png"
+                src="/footerLogo.png"
                 alt="Chiranjeevi Charitable Trust logo"
                 width={700}
                 height={150}
-                className="h-20 md:h-24 w-auto"
+                className="h-28 md:h-32 lg:h-36 w-auto"
               />
             </Link>
             <p className="tracking-tight text-white/70 font-medium text-base leading-relaxed">
