@@ -147,9 +147,9 @@ const NavigationHeader = () => {
 
   return (
     <header className="fixed top-3 z-50 flex w-full max-w-full justify-center px-3 sm:px-4">
-      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 rounded-full border border-white/15 bg-black px-3 py-1 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-4 lg:px-6 xl:px-10">
+      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 rounded-full border border-white/15 bg-black px-2 py-0 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-3 lg:px-4 xl:px-6 overflow-visible">
         {/* Logo */}
-        <Link href="/" className="flex shrink-0 items-center justify-center h-full">
+        <Link href="/" className="flex shrink-0 items-center justify-center h-full overflow-visible">
           <Image
             src="/LogoFinal.png"
             alt="Chiranjeevi Charitable Trust logo"
@@ -184,7 +184,7 @@ const NavigationHeader = () => {
                   <ChevronDown className="h-3 w-3 text-current transition-transform duration-300" />
                 </div>
                 {openDropdown === item.name && (
-                  <div className="absolute top-full left-1/2 w-max -translate-x-1/2 pt-2 z-[100]">
+                  <div className="absolute top-full left-1/2 w-max -translate-x-1/2 mt-2 z-[9999]">
                     <div className="overflow-hidden rounded-xl border border-[#333] bg-[#1a1a1a] shadow-lg">
                       {item.dropdown.map((subItem) => {
                       const isEye = subItem.href === "/eye-donation";
