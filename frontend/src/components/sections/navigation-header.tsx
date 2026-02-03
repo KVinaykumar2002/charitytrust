@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu as MenuIcon, X, User, LogOut, Settings, LayoutDashboard, Droplet, Eye } from "lucide-react";
+import { ChevronDown, Menu as MenuIcon, X, User, LogOut, Settings, LayoutDashboard, Droplet, Eye, ArrowRight } from "lucide-react";
 import { getUserData, clearAuthData, isAdmin } from "@/lib/auth-storage";
 import {
   DropdownMenu,
@@ -148,15 +148,15 @@ const NavigationHeader = () => {
 
   return (
     <header className="fixed top-3 z-50 flex w-full max-w-full justify-center px-3 sm:px-4">
-      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 rounded-full border border-white/15 bg-black px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-4 lg:px-6 xl:px-10">
+      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 rounded-full border border-white/15 bg-black px-3 py-1 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-4 lg:px-6 xl:px-10 overflow-hidden">
         {/* Logo */}
-        <Link href="/" className="flex shrink-0">
+        <Link href="/" className="flex shrink-0 items-center justify-center h-full">
           <Image
             src="/LogoFinal.png"
             alt="Chiranjeevi Charitable Trust logo"
             width={500}
             height={150}
-            className="h-16 w-auto object-contain lg:h-20"
+            className="h-24 w-auto object-contain lg:h-28 transform scale-110 lg:scale-125"
             priority
           />
         </Link>
@@ -283,13 +283,15 @@ const NavigationHeader = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : null}
-          <Link
-            href="/donate"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#FD7E14] px-4 py-1.5 text-sm font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
+          <a
+            href="https://wa.me/919849756785"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#FD7E14] px-6 py-2.5 text-base font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
           >
-            <Droplet className="h-4 w-4 shrink-0" />
-            Donate Blood
-          </Link>
+            Contact Us
+            <ArrowRight className="h-4 w-4 shrink-0" />
+          </a>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -424,14 +426,16 @@ const NavigationHeader = () => {
                 </button>
               </>
             ) : null}
-            <Link
-              href="/donate"
+            <a
+              href="https://wa.me/919849756785"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-sm font-semibold text-[#ffffff]"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-base font-semibold text-[#ffffff]"
             >
-              <Droplet className="h-4 w-4 shrink-0" />
-              Donate Blood
-            </Link>
+              Contact Us
+              <ArrowRight className="h-4 w-4 shrink-0" />
+            </a>
           </div>
         </div>
       )}
