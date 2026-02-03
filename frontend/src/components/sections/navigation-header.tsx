@@ -40,7 +40,6 @@ const navItems: NavItem[] = [
     name: "Our Services",
     href: "/services",
     dropdown: [
-      { name: "Our Journey", href: "/services#journey" },
       { name: "Chiranjeevi Eye Bank", href: "/services#eye-bank" },
       { name: "Chiranjeevi Blood Center", href: "/services#blood-center" },
     ],

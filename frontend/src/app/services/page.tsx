@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Droplet, Eye, Compass } from "lucide-react";
+import { Droplet, Eye } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 
@@ -17,23 +17,6 @@ export default function ServicesPage() {
           <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto text-center mb-16">
             Chiranjeevi Charitable Trust delivers life-saving and sight-restoring services across India.
           </p>
-
-          <section id="journey" className="scroll-mt-24 mb-20">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                <Compass className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">Our Journey</h2>
-                <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
-                  Chiranjeevi garu started the Trust with a simple yet powerful belief: that timely support and community participation can transform lives. Inspired by the spirit of service, he established Chiranjeevi Eye Bank and Chiranjeevi Blood Center to save lives and restore sight—creating a legacy of compassion that continues to grow.
-                </p>
-                <Link href="/about#journey" className="text-primary font-semibold hover:underline">
-                  Read more in Our Journey →
-                </Link>
-              </div>
-            </div>
-          </section>
 
           <section id="eye-bank" className="scroll-mt-24 mb-20">
             <div className="flex items-start gap-4 mb-6">
