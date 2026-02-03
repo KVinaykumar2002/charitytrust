@@ -26,7 +26,6 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "Home", href: "/" },
   {
     name: "About Us",
     dropdown: [
@@ -56,18 +55,13 @@ const navItems: NavItem[] = [
   { name: "Special Service", href: "/projects" },
   { name: "Our Team", href: "/team" },
   {
-    name: "Donations",
-    dropdown: [
-      { name: "Eye Donation Pledge", href: "/eye-donation" },
-      { name: "Blood Donation", href: "/blood-donation" },
-    ],
-  },
-  {
     name: "All Pages",
     dropdown: [
       { name: "Gallery", href: "/gallery" },
       { name: "FAQ", href: "/faq" },
       { name: "Contact", href: "/#contact" },
+      { name: "Eye Donation Pledge", href: "/eye-donation" },
+      { name: "Blood Donation", href: "/blood-donation" },
     ],
   },
 ];
@@ -81,9 +75,6 @@ const NavigationHeader = () => {
 
   // Check if a nav item is active
   const isActive = (item: NavItem) => {
-    if (item.name === "Home") {
-      return pathname === "/";
-    }
     if (item.name === "About Us") {
       return pathname?.startsWith("/about");
     }
@@ -99,11 +90,8 @@ const NavigationHeader = () => {
     if (item.name === "Our Team") {
       return pathname === "/team";
     }
-    if (item.name === "Donations") {
-      return pathname === "/eye-donation" || pathname === "/blood-donation";
-    }
     if (item.name === "All Pages") {
-      return pathname === "/gallery" || pathname === "/faq";
+      return pathname === "/gallery" || pathname === "/faq" || pathname === "/eye-donation" || pathname === "/blood-donation";
     }
     if (item.href) {
       return pathname === item.href;
