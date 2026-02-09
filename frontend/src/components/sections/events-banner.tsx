@@ -90,7 +90,7 @@ const EventsBanner = () => {
     return (
       <section className="bg-background-white py-[100px] overflow-hidden">
         <div className="container mx-auto flex justify-center mb-16 px-6 md:px-12 lg:px-20">
-          <TrustLoader variant="both" size="lg" label="Loading events..." />
+          <TrustLoader variant="blood" size="lg" label="Loading events..." />
         </div>
       </section>
     );

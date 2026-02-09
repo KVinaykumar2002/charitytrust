@@ -330,7 +330,7 @@ const NavigationHeader = () => {
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#FD7E14] px-6 py-2.5 text-base font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
           >
-            Contact Us
+            Send a Message
             <ArrowRight className="h-4 w-4 shrink-0" />
           </a>
         </div>
@@ -474,7 +474,7 @@ const NavigationHeader = () => {
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-base font-semibold text-[#ffffff]"
             >
-              Contact Us
+              Send a Message
               <ArrowRight className="h-4 w-4 shrink-0" />
             </a>
           </div>

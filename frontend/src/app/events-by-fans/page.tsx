@@ -429,7 +429,7 @@ export default function EventsByFansPage() {
           <div className="max-w-7xl mx-auto">
             {loading ? (
               <div className="flex items-center justify-center py-32">
-                <TrustLoader variant="both" size="lg" label="Loading events..." />
+                <TrustLoader variant="blood" size="lg" label="Loading events..." />
               </div>
             ) : error ? (
               <div className="flex items-center justify-center py-32">
