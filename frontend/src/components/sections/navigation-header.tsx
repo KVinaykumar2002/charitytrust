@@ -51,10 +51,10 @@ const navItems: NavItem[] = [
       { name: "Events by Fans", href: "/events-by-fans" },
     ],
   },
-  { name: "Special Service", href: "/projects" },
+  { name: "Special Services", href: "/projects" },
   { name: "Our Team", href: "/team" },
   {
-    name: "All Pages",
+    name: "More",
     dropdown: [
       { name: "Gallery", href: "/gallery" },
       { name: "FAQ", href: "/faq" },
@@ -71,6 +71,7 @@ const NavigationHeader = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
+  const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
 
   // Check if a nav item is active
   const isActive = (item: NavItem) => {
@@ -89,7 +90,7 @@ const NavigationHeader = () => {
     if (item.name === "Our Team") {
       return pathname === "/team";
     }
-    if (item.name === "All Pages") {
+    if (item.name === "More") {
       return pathname === "/gallery" || pathname === "/faq" || pathname === "/eye-donation" || pathname === "/blood-donation";
     }
     if (item.href) {
@@ -102,6 +103,15 @@ const NavigationHeader = () => {
     const userData = getUserData();
     setUser(userData);
   }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeout) {
+        clearTimeout(dropdownTimeout);
+      }
+    };
+  }, [dropdownTimeout]);
 
   const handleSignOut = () => {
     clearAuthData();
@@ -167,8 +177,20 @@ const NavigationHeader = () => {
               <div
                 key={item.name}
                 className="relative"
-                onMouseEnter={() => setOpenDropdown(item.name)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                onMouseEnter={() => {
+                  if (dropdownTimeout) {
+                    clearTimeout(dropdownTimeout);
+                    setDropdownTimeout(null);
+                  }
+                  setOpenDropdown(item.name);
+                }}
+                onMouseLeave={() => {
+                  // Add small delay before closing to prevent accidental closes
+                  const timeout = setTimeout(() => {
+                    setOpenDropdown(null);
+                  }, 100);
+                  setDropdownTimeout(timeout);
+                }}
               >
                 <div className="flex items-center gap-1.5 py-2 px-1">
                   <Link
@@ -184,7 +206,23 @@ const NavigationHeader = () => {
                   <ChevronDown className="h-3 w-3 text-current transition-transform duration-300" />
                 </div>
                 {openDropdown === item.name && (
-                  <div className="absolute top-full left-1/2 w-max -translate-x-1/2 mt-2 z-[9999]">
+                  <div 
+                    className="absolute top-full left-1/2 w-max -translate-x-1/2 z-[9999]"
+                    onMouseEnter={() => {
+                      if (dropdownTimeout) {
+                        clearTimeout(dropdownTimeout);
+                        setDropdownTimeout(null);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      const timeout = setTimeout(() => {
+                        setOpenDropdown(null);
+                      }, 100);
+                      setDropdownTimeout(timeout);
+                    }}
+                  >
+                    {/* Bridge area to prevent gap issues */}
+                    <div className="h-2" />
                     <div className="overflow-hidden rounded-xl border border-[#333] bg-[#1a1a1a] shadow-lg">
                       {item.dropdown.map((subItem) => {
                       const isEye = subItem.href === "/eye-donation";
@@ -196,6 +234,10 @@ const NavigationHeader = () => {
                           href={subItem.href}
                           onClick={() => {
                             setOpenDropdown(null);
+                            if (dropdownTimeout) {
+                              clearTimeout(dropdownTimeout);
+                              setDropdownTimeout(null);
+                            }
                             // Smooth scroll to anchor if hash is present
                             if (subItem.href.includes('#')) {
                               setTimeout(() => {
