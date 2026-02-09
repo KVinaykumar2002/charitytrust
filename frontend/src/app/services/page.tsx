@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Droplet, Eye } from "lucide-react";
+2import { Droplet, Eye } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 

@@ -219,7 +219,7 @@ export default function EventsByFansPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-[#0a0a0a]">
       <NavigationHeader />
 
       <main className="flex-1 pt-32 pb-20">
@@ -236,14 +236,14 @@ export default function EventsByFansPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="inline-block px-4 py-1.5 mb-6 text-xs font-medium tracking-[0.2em] uppercase text-[#FD7E14] border border-[#FD7E14]/30 rounded-full"
+                className="inline-block px-4 py-1.5 mb-6 text-xs font-medium tracking-[0.2em] uppercase text-[#FD7E14] dark:text-[#FD7E14] border border-[#FD7E14]/30 dark:border-[#FD7E14]/30 rounded-full"
               >
                 Fan Community
               </motion.span>
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+              <h1 className="text-5xl md:text-7xl font-bold text-neutral-900 dark:text-white mb-6 tracking-tight">
                 Events by Fans
               </h1>
-              <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-neutral-600 dark:text-white/60 max-w-2xl mx-auto leading-relaxed">
                 Celebrating the passion and dedication of our community. Discover events organized by fans and supporters who share our mission.
               </p>
             </motion.div>
@@ -259,17 +259,17 @@ export default function EventsByFansPage() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="grid grid-cols-3 gap-4 max-w-xl mx-auto"
             >
-              <div className="text-center p-4 bg-white/5 rounded-2xl border border-white/5">
+              <div className="text-center p-4 bg-neutral-100 dark:bg-white/5 rounded-2xl border border-neutral-200 dark:border-white/5">
                 <p className="text-3xl font-bold text-[#FD7E14]">{events.length}</p>
-                <p className="text-sm text-white/50">Total Events</p>
+                <p className="text-sm text-neutral-600 dark:text-white/50">Total Events</p>
               </div>
-              <div className="text-center p-4 bg-white/5 rounded-2xl border border-white/5">
-                <p className="text-3xl font-bold text-green-400">{upcomingCount}</p>
-                <p className="text-sm text-white/50">Upcoming</p>
+              <div className="text-center p-4 bg-neutral-100 dark:bg-white/5 rounded-2xl border border-neutral-200 dark:border-white/5">
+                <p className="text-3xl font-bold text-green-600 dark:text-green-400">{upcomingCount}</p>
+                <p className="text-sm text-neutral-600 dark:text-white/50">Upcoming</p>
               </div>
-              <div className="text-center p-4 bg-white/5 rounded-2xl border border-white/5">
-                <p className="text-3xl font-bold text-white/70">{pastCount}</p>
-                <p className="text-sm text-white/50">Completed</p>
+              <div className="text-center p-4 bg-neutral-100 dark:bg-white/5 rounded-2xl border border-neutral-200 dark:border-white/5">
+                <p className="text-3xl font-bold text-neutral-700 dark:text-white/70">{pastCount}</p>
+                <p className="text-sm text-neutral-600 dark:text-white/50">Completed</p>
               </div>
             </motion.div>
           </div>
@@ -285,18 +285,18 @@ export default function EventsByFansPage() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="relative max-w-2xl mx-auto"
             >
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-white/40" />
               <input
                 type="text"
                 placeholder="Search events by title or organizer..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#FD7E14] focus:bg-white/10 transition-all"
+                className="w-full pl-12 pr-4 py-3 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-full text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:outline-none focus:border-[#FD7E14] focus:bg-neutral-50 dark:focus:bg-white/10 transition-all"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 dark:text-white/40 hover:text-neutral-600 dark:hover:text-white transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -318,11 +318,11 @@ export default function EventsByFansPage() {
                   setSelectedMonth(""); // Reset month when year changes
                   setSelectedDay(""); // Reset day when year changes
                 }}
-                className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all"
+                className="px-4 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-full text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all"
               >
                 <option value="">All Years</option>
                 {getAvailableYears().map((year) => (
-                  <option key={year} value={year} className="bg-[#1a1a1a]">
+                  <option key={year} value={year} className="bg-white dark:bg-[#1a1a1a]">
                     {year}
                   </option>
                 ))}
@@ -336,11 +336,11 @@ export default function EventsByFansPage() {
                   setSelectedDay(""); // Reset day when month changes
                 }}
                 disabled={!selectedYear}
-                className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-full text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <option value="">All Months</option>
                 {getAvailableMonths().map((month) => (
-                  <option key={month} value={month} className="bg-[#1a1a1a]">
+                  <option key={month} value={month} className="bg-white dark:bg-[#1a1a1a]">
                     {monthNames[month - 1]}
                   </option>
                 ))}
@@ -351,11 +351,11 @@ export default function EventsByFansPage() {
                 value={selectedDay}
                 onChange={(e) => setSelectedDay(e.target.value)}
                 disabled={!selectedYear || !selectedMonth}
-                className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-full text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#FD7E14] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <option value="">All Days</option>
                 {getAvailableDays().map((day) => (
-                  <option key={day} value={day} className="bg-[#1a1a1a]">
+                  <option key={day} value={day} className="bg-white dark:bg-[#1a1a1a]">
                     {day}
                   </option>
                 ))}
@@ -365,7 +365,7 @@ export default function EventsByFansPage() {
               {(selectedYear || selectedMonth || selectedDay) && (
                 <button
                   onClick={clearDateFilters}
-                  className="px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white text-sm transition-all flex items-center gap-2"
+                  className="px-4 py-2.5 bg-neutral-200 dark:bg-white/10 hover:bg-neutral-300 dark:hover:bg-white/20 border border-neutral-300 dark:border-white/20 rounded-full text-neutral-900 dark:text-white text-sm transition-all flex items-center gap-2"
                 >
                   <X className="w-4 h-4" />
                   Clear Filters
@@ -393,15 +393,15 @@ export default function EventsByFansPage() {
                   onClick={() => setFilter(item.id as any)}
                   className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                     filter === item.id
-                      ? "text-black bg-[#FD7E14]"
-                      : "text-white/70 bg-white/5 hover:bg-white/10 hover:text-white"
+                      ? "text-white bg-[#FD7E14] dark:bg-[#FD7E14]"
+                      : "text-neutral-700 dark:text-white/70 bg-neutral-100 dark:bg-white/5 hover:bg-neutral-200 dark:hover:bg-white/10 hover:text-neutral-900 dark:hover:text-white"
                   }`}
                 >
                   {item.label}
                   {item.count > 0 && (
                     <span
                       className={`ml-2 text-xs ${
-                        filter === item.id ? "text-black/70" : "text-white/40"
+                        filter === item.id ? "text-white/80" : "text-neutral-500 dark:text-white/40"
                       }`}
                     >
                       {item.count}
@@ -416,7 +416,7 @@ export default function EventsByFansPage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center text-white/60 text-sm"
+                className="text-center text-neutral-600 dark:text-white/60 text-sm"
               >
                 Showing {filteredEvents.length} of {events.length} events
               </motion.div>
@@ -434,7 +434,7 @@ export default function EventsByFansPage() {
             ) : error ? (
               <div className="flex items-center justify-center py-32">
                 <div className="text-center">
-                  <p className="text-red-400 mb-4">{error}</p>
+                  <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
                   <button
                     onClick={fetchEvents}
                     className="px-6 py-2.5 text-sm font-medium text-white bg-[#FD7E14] rounded-full hover:bg-[#FD7E14]/90 transition-colors"
@@ -446,9 +446,9 @@ export default function EventsByFansPage() {
             ) : filteredEvents.length === 0 ? (
               <div className="flex items-center justify-center py-32">
                 <div className="text-center">
-                  <Heart className="w-12 h-12 text-white/20 mx-auto mb-4" />
-                  <p className="text-white/50 mb-2">No fan events found</p>
-                  <p className="text-white/30 text-sm">
+                  <Heart className="w-12 h-12 text-neutral-300 dark:text-white/20 mx-auto mb-4" />
+                  <p className="text-neutral-600 dark:text-white/50 mb-2">No fan events found</p>
+                  <p className="text-neutral-500 dark:text-white/30 text-sm">
                     {filter !== "all"
                       ? "Try selecting a different filter"
                       : "Check back soon for fan-organized events"}
@@ -477,7 +477,7 @@ export default function EventsByFansPage() {
                           delay: index * 0.05,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="group relative bg-[#111] rounded-2xl border border-white/5 overflow-hidden hover:border-white/10 transition-all duration-500"
+                        className="group relative bg-white dark:bg-[#111] rounded-2xl border border-neutral-200 dark:border-white/5 overflow-hidden hover:border-neutral-300 dark:hover:border-white/10 transition-all duration-500"
                       >
                         {/* Image Section */}
                         <div className="relative aspect-[16/10] overflow-hidden">
@@ -505,19 +505,19 @@ export default function EventsByFansPage() {
                           )}
 
                           {/* Fan Badge */}
-                          <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                          <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium bg-purple-500/20 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30">
                             Fan Event
                           </div>
                         </div>
 
                         {/* Content Section */}
                         <div className="p-5">
-                          <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 group-hover:text-[#FD7E14] transition-colors">
+                          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[#FD7E14] transition-colors">
                             {event.title}
                           </h3>
 
                           {event.eventBy && (
-                            <p className="text-white/50 text-sm mb-4 line-clamp-2 flex items-center gap-2">
+                            <p className="text-neutral-600 dark:text-white/50 text-sm mb-4 line-clamp-2 flex items-center gap-2">
                               <Users className="w-4 h-4 flex-shrink-0 text-[#FD7E14]" />
                               <span>{event.eventBy}</span>
                             </p>
@@ -526,7 +526,7 @@ export default function EventsByFansPage() {
                           {/* Event Details */}
                           <div className="space-y-2 mb-4">
                             {(event.date || event.eventDate) && (
-                              <div className="flex items-center gap-2 text-sm text-white/40">
+                              <div className="flex items-center gap-2 text-sm text-neutral-500 dark:text-white/40">
                                 <Calendar className="w-4 h-4 flex-shrink-0" />
                                 <span>{formatDate(event.date || event.eventDate)}</span>
                               </div>
@@ -534,7 +534,7 @@ export default function EventsByFansPage() {
                           </div>
 
                           {/* Action Button */}
-                          <button className="w-full py-3 px-4 bg-white/5 hover:bg-[#FD7E14] text-white/70 hover:text-white text-sm font-medium rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                          <button className="w-full py-3 px-4 bg-neutral-100 dark:bg-white/5 hover:bg-[#FD7E14] text-neutral-700 dark:text-white/70 hover:text-white text-sm font-medium rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn">
                             <span>{isUpcoming ? "Learn More" : "View Details"}</span>
                             <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                           </button>
@@ -557,17 +557,17 @@ export default function EventsByFansPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="relative bg-gradient-to-br from-[#FD7E14]/20 to-[#FD7E14]/5 rounded-3xl p-8 md:p-12 border border-[#FD7E14]/20 overflow-hidden"
+                className="relative bg-gradient-to-br from-[#FD7E14]/20 to-[#FD7E14]/5 dark:from-[#FD7E14]/20 dark:to-[#FD7E14]/5 rounded-3xl p-8 md:p-12 border border-[#FD7E14]/20 dark:border-[#FD7E14]/20 overflow-hidden"
               >
                 {/* Background Glow */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#FD7E14]/20 rounded-full blur-3xl" />
 
                 <div className="relative z-10 text-center">
                   <Heart className="w-12 h-12 text-[#FD7E14] mx-auto mb-4" />
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-3">
                     Want to Organize an Event?
                   </h2>
-                  <p className="text-white/60 mb-6 max-w-xl mx-auto">
+                  <p className="text-neutral-700 dark:text-white/60 mb-6 max-w-xl mx-auto">
                     Are you a fan who wants to organize an event? Join our community and make a real difference by hosting your own event.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -580,7 +580,7 @@ export default function EventsByFansPage() {
                     </Link>
                     <Link
                       href="/events"
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-full transition-colors"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-neutral-200 dark:bg-white/10 hover:bg-neutral-300 dark:hover:bg-white/20 text-neutral-900 dark:text-white font-medium rounded-full transition-colors"
                     >
                       View All Events
                     </Link>
