@@ -85,11 +85,11 @@ const Footer = () => {
             >
               <Link href="/">
                 <Image
-                  src="/footerLogo.png"
+                  src="/footerFinalLogo.png?v=2"
                   alt="Chiranjeevi Charitable Trust logo"
                   width={500}
-                  height={48}
-                  className="h-20 md:h-24 lg:h-28 w-auto"
+                  height={150}
+                  className="h-28 md:h-32 lg:h-40 w-auto"
                 />
               </Link>
             </motion.div>

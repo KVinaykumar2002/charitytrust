@@ -157,7 +157,7 @@ const NavigationHeader = () => {
 
   return (
     <header className="fixed top-3 z-50 flex w-full max-w-full justify-center px-3 sm:px-4">
-      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 rounded-full border border-white/15 bg-black px-2 py-0 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-3 lg:px-4 xl:px-6 overflow-visible">
+      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 rounded-full border border-white/15 bg-black px-1 py-0 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-1.5 lg:px-2 xl:px-3 overflow-visible">
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center justify-center h-full overflow-visible">
           <Image
@@ -165,13 +165,13 @@ const NavigationHeader = () => {
             alt="Chiranjeevi Charitable Trust logo"
             width={500}
             height={150}
-            className="h-24 w-auto object-contain lg:h-28 transform scale-110 lg:scale-125"
+            className="h-24 w-auto object-contain lg:h-28 transform scale-100"
             priority
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-4 lg:flex lg:gap-6 xl:gap-8">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-2 lg:flex lg:gap-3 xl:gap-4">
           {navItems.map((item) =>
             item.dropdown ? (
               <div
@@ -192,10 +192,10 @@ const NavigationHeader = () => {
                   setDropdownTimeout(timeout);
                 }}
               >
-                <div className="flex items-center gap-1.5 py-2 px-1">
+                <div className="flex items-center gap-1 py-1.5 px-0.5">
                   <Link
                     href={item.name === "About Us" ? "/about" : item.href || "#"}
-                    className={`whitespace-nowrap text-sm font-medium transition-colors duration-300 hover-underline-slide ${
+                    className={`whitespace-nowrap text-xs font-medium transition-colors duration-300 hover-underline-slide ${
                       isActive(item)
                         ? "text-[#FD7E14]"
                         : "text-white/80 hover:text-[#FD7E14]"
@@ -203,7 +203,7 @@ const NavigationHeader = () => {
                   >
                     {item.name}
                   </Link>
-                  <ChevronDown className="h-3 w-3 text-current transition-transform duration-300" />
+                  <ChevronDown className="h-2.5 w-2.5 text-current transition-transform duration-300" />
                 </div>
                 {openDropdown === item.name && (
                   <div 
@@ -264,7 +264,7 @@ const NavigationHeader = () => {
               <Link
                 key={item.name}
                 href={item.href!}
-                className={`whitespace-nowrap py-2 px-1 text-sm font-medium transition-colors duration-300 hover-underline-slide ${
+                className={`whitespace-nowrap py-1.5 px-0.5 text-xs font-medium transition-colors duration-300 hover-underline-slide ${
                   isActive(item)
                     ? "text-[#FD7E14]"
                     : "text-white/80 hover:text-[#FD7E14]"
@@ -277,16 +277,16 @@ const NavigationHeader = () => {
         </nav>
 
         {/* Auth Buttons (Desktop) */}
-        <div className="hidden lg:flex items-center gap-2 ml-2 shrink-0 lg:ml-4 xl:gap-3 xl:ml-6">
+        <div className="hidden lg:flex items-center gap-1 ml-1 shrink-0 lg:ml-1.5 xl:gap-1.5 xl:ml-2">
           <TextToSpeech />
           <LanguageSelector />
           <ThemeToggle />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/20 transition-colors">
-                  <Avatar className="h-6 w-6">
-                    <AvatarFallback className="bg-[#FD7E14] text-white text-xs">
+                <button className="flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-1 text-xs font-medium text-white hover:bg-white/20 transition-colors">
+                  <Avatar className="h-5 w-5">
+                    <AvatarFallback className="bg-[#FD7E14] text-white text-[10px]">
                       {user?.name?.charAt(0).toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -328,10 +328,10 @@ const NavigationHeader = () => {
             href="https://wa.me/919849756785"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#FD7E14] px-6 py-2.5 text-base font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#FD7E14] px-4 py-1.5 text-sm font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
           >
             Send a Message
-            <ArrowRight className="h-4 w-4 shrink-0" />
+            <ArrowRight className="h-3.5 w-3.5 shrink-0" />
           </a>
         </div>
 
@@ -475,7 +475,7 @@ const NavigationHeader = () => {
               className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-base font-semibold text-[#ffffff]"
             >
               Send a Message
-              <ArrowRight className="h-4 w-4 shrink-0" />
+              <ArrowRight className="h-3.5 w-3.5 shrink-0" />
             </a>
           </div>
         </div>
