@@ -1,26 +1,41 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Users, Award, Heart, Target } from "lucide-react";
+import { Users, Award, Heart, Target, ChevronDown, UsersRound, Building2 } from "lucide-react";
 
 const leadershipTeam = [
   {
     name: "Leadership Team",
     role: "Strategic Direction",
     description: "Our experienced leadership team brings decades of combined experience in healthcare, social work, and organizational management.",
-    icon: <Award className="w-8 h-8 text-primary" />,
+    icon: Award,
+    members: [
+      { name: "Dr. Chiranjeevi", position: "Founder & Chairman", bio: "Visionary leader with decades of experience in healthcare and social work." },
+      { name: "Dr. Ram Charan", position: "Vice Chairman", bio: "Strategic advisor with expertise in organizational management and program development." },
+      { name: "Ms. Surekha Konidela", position: "Executive Director", bio: "Dedicated to advancing healthcare initiatives and community outreach programs." },
+    ],
   },
   {
     name: "Program Directors",
     role: "Program Execution",
     description: "Dedicated professionals who oversee our various initiatives, ensuring effective implementation and maximum impact.",
-    icon: <Target className="w-8 h-8 text-primary" />,
+    icon: Target,
+    members: [
+      { name: "Dr. Venkatesh", position: "Blood Bank Director", bio: "Oversees blood collection, processing, and distribution operations." },
+      { name: "Dr. Priya Reddy", position: "Eye Bank Director", bio: "Manages corneal tissue collection and transplantation programs." },
+      { name: "Mr. Ravi Kumar", position: "Community Programs Director", bio: "Coordinates outreach initiatives and volunteer management." },
+    ],
   },
   {
     name: "Medical Advisors",
     role: "Healthcare Excellence",
     description: "Renowned medical professionals who guide our healthcare programs and ensure the highest standards of medical care.",
-    icon: <Heart className="w-8 h-8 text-primary" />,
+    icon: Heart,
+    members: [
+      { name: "Dr. Suresh Reddy", position: "Chief Medical Advisor", bio: "Leading ophthalmologist with 30+ years of experience in eye care." },
+      { name: "Dr. Anjali Sharma", position: "Hematology Advisor", bio: "Expert in blood banking and transfusion medicine." },
+      { name: "Dr. Rajesh Patel", position: "Public Health Advisor", bio: "Specializes in community health and preventive care programs." },
+    ],
   },
 ];
 
@@ -112,6 +127,12 @@ const AnimatedCounter = ({ targetValue, suffix, duration = 2000, delay = 0 }: {
 };
 
 const TeamPartnersSection = () => {
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+
+  const toggleDropdown = (index: number) => {
+    setOpenDropdown(openDropdown === index ? null : index);
+  };
+
   return (
     <section
       id="team-partners"
@@ -162,16 +183,18 @@ const TeamPartnersSection = () => {
             Leadership Team
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {leadershipTeam.map((member, index) => (
+            {leadershipTeam.map((member, index) => {
+              const IconComponent = member.icon;
+              return (
               <div
                 key={index}
                 data-stagger-item
                 data-animation="slide-up"
                 data-animation-delay={`${index * 0.1}s`}
-                className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up text-center group"
+                className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up text-center group flex flex-col"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {member.icon}
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                  <IconComponent className="w-8 h-8 text-primary" />
                 </div>
                 <h4 className="text-xl font-semibold text-neutral-900 dark:text-white mb-2">
                   {member.name}
@@ -179,11 +202,51 @@ const TeamPartnersSection = () => {
                 <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4">
                   {member.role}
                 </p>
-                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
+                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300 mb-6">
                   {member.description}
                 </p>
+                
+                {/* Dropdown Button */}
+                <button
+                  onClick={() => toggleDropdown(index)}
+                  className="mt-auto flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 hover:bg-primary/20 dark:hover:bg-primary/30 text-primary dark:text-primary font-medium transition-colors duration-200"
+                  aria-expanded={openDropdown === index}
+                  aria-label={`View ${member.name} members`}
+                >
+                  <span>View Team Members</span>
+                  <ChevronDown 
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                      openDropdown === index ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* Dropdown Content */}
+                {openDropdown === index && (
+                  <div className="mt-6 pt-6 border-t border-gray-200 dark:border-neutral-700 animate-in slide-in-from-top-2 duration-300">
+                    <div className="space-y-4 text-left">
+                      {member.members?.map((teamMember, memberIndex) => (
+                        <div
+                          key={memberIndex}
+                          className="p-4 rounded-lg bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700"
+                        >
+                          <h5 className="font-semibold text-neutral-900 dark:text-white mb-1">
+                            {teamMember.name}
+                          </h5>
+                          <p className="text-sm text-primary dark:text-primary mb-2">
+                            {teamMember.position}
+                          </p>
+                          <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                            {teamMember.bio}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -242,49 +305,48 @@ const TeamPartnersSection = () => {
           </div>
         </div>
 
-        {/* Our Organizers - Separate Section */}
+        {/* Our Organizers & Government Hospitals - Card Design */}
         <div
           data-stagger-parent
           className="mb-20"
         >
-          <h3
-            data-stagger-item
-            data-animation="fade-up"
-            data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-6"
-          >
-            Our Organizers
-          </h3>
-          <p
-            data-stagger-item
-            data-animation="fade-up"
-            data-animation-delay="0.1s"
-            className="text-lg text-center text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto"
-          >
-            Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.
-          </p>
-        </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {/* Our Organizers Card */}
+            <div
+              data-stagger-item
+              data-animation="slide-up"
+              data-animation-delay="0.1s"
+              className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up group"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
+                <UsersRound className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                Our Organizers
+              </h3>
+              <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
+                Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.
+              </p>
+            </div>
 
-        {/* Government Hospitals - Separate Section */}
-        <div
-          data-stagger-parent
-        >
-          <h3
-            data-stagger-item
-            data-animation="fade-up"
-            data-text-animation="reveal-from-bottom"
-            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-6"
-          >
-            Government Hospitals
-          </h3>
-          <p
-            data-stagger-item
-            data-animation="fade-up"
-            data-animation-delay="0.1s"
-            className="text-lg text-center text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto"
-          >
-            We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.
-          </p>
+            {/* Government Hospitals Card */}
+            <div
+              data-stagger-item
+              data-animation="slide-up"
+              data-animation-delay="0.2s"
+              className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up group"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Building2 className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                Government Hospitals
+              </h3>
+              <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
+                We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Call to Action */}
