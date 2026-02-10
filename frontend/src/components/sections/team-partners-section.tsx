@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { Users, Award, Heart, Target, ChevronDown, UsersRound, Building2 } from "lucide-react";
 
 const leadershipTeam = [
@@ -185,7 +186,7 @@ const TeamPartnersSection = () => {
           >
             Leadership Team
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {leadershipTeam.map((member, index) => {
               const IconComponent = member.icon;
               return (
@@ -231,17 +232,25 @@ const TeamPartnersSection = () => {
                       {member.members?.map((teamMember, memberIndex) => (
                         <div
                           key={memberIndex}
-                          className="p-4 rounded-lg bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700"
+                          className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700"
                         >
-                          <h5 className="font-semibold text-neutral-900 dark:text-white mb-1">
-                            {teamMember.name}
-                          </h5>
-                          <p className="text-sm text-primary dark:text-primary mb-2">
-                            {teamMember.position}
-                          </p>
-                          <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                            {teamMember.bio}
-                          </p>
+                          <div className="relative flex-shrink-0 w-14 h-14 rounded-full overflow-hidden bg-primary/20 dark:bg-primary/30">
+                            <Image
+                              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(teamMember.name)}&size=112&background=FD7E14&color=fff`}
+                              alt={teamMember.name}
+                              fill
+                              className="object-cover"
+                              sizes="56px"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h5 className="font-semibold text-neutral-900 dark:text-white">
+                              {teamMember.name}
+                            </h5>
+                            <p className="text-sm text-primary dark:text-primary">
+                              {teamMember.position}
+                            </p>
+                          </div>
                         </div>
                       ))}
                     </div>

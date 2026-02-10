@@ -58,7 +58,7 @@ const navItems: NavItem[] = [
     dropdown: [
       { name: "Gallery", href: "/gallery" },
       { name: "FAQ", href: "/faq" },
-      { name: "Contact", href: "/#contact" },
+      { name: "Contact Us", href: "/#contact" },
       { name: "Eye Donation Pledge", href: "/eye-donation" },
       { name: "Blood Donation", href: "/blood-donation" },
     ],
