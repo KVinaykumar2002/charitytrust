@@ -130,7 +130,10 @@ const TeamPartnersSection = () => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
 
   const toggleDropdown = (index: number) => {
-    setOpenDropdown(openDropdown === index ? null : index);
+    setOpenDropdown((prevIndex) => {
+      // If clicking the same dropdown, close it. Otherwise, open the clicked one.
+      return prevIndex === index ? null : index;
+    });
   };
 
   return (
