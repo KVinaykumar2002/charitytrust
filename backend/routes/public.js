@@ -11,6 +11,7 @@ import FanEvent from '../models/FanEvent.js';
 import Testimonial from '../models/Testimonial.js';
 import HeroImage from '../models/HeroImage.js';
 import Timeline from '../models/Timeline.js';
+import TeamCategory from '../models/TeamCategory.js';
 import EyeDonationPledge from '../models/EyeDonationPledge.js';
 import BloodDonation from '../models/BloodDonation.js';
 
@@ -252,6 +253,28 @@ router.get('/timeline', async (req, res) => {
       success: false,
       message: 'Error fetching timeline',
       error: error.message
+    });
+  }
+});
+
+// ==================== PUBLIC TEAM (Our Team section) ====================
+
+// Get all team categories with members (public - no auth required)
+router.get('/team', async (req, res) => {
+  try {
+    const categories = await TeamCategory.find()
+      .sort({ order: 1, createdAt: 1 })
+      .select('-__v')
+      .lean();
+    res.json({
+      success: true,
+      data: categories,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching team',
+      error: error.message,
     });
   }
 });

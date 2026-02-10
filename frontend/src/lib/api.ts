@@ -1038,6 +1038,108 @@ export async function getPublicTimeline() {
   }
 }
 
+// ==================== TEAM (Our Team section) APIs ====================
+
+// Get team categories with members (public - no auth required)
+export async function getPublicTeam() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/team`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Failed to fetch team: ${response.status}`);
+    }
+    return response.json();
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed to fetch team');
+  }
+}
+
+// Get all team categories (admin)
+export async function getAdminTeamCategories(token: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/team-categories`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to fetch team categories');
+  }
+  return response.json();
+}
+
+// Get single team category (admin)
+export async function getAdminTeamCategory(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/team-categories/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to fetch team category');
+  }
+  return response.json();
+}
+
+// Create team category (admin)
+export async function createTeamCategory(token: string, body: Record<string, unknown>) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/team-categories`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to create team category');
+  }
+  return response.json();
+}
+
+// Update team category (admin)
+export async function updateTeamCategory(token: string, id: string, body: Record<string, unknown>) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/team-categories/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to update team category');
+  }
+  return response.json();
+}
+
+// Delete team category (admin)
+export async function deleteTeamCategory(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/team-categories/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to delete team category');
+  }
+  return response.json();
+}
+
 // ==================== EYE DONATION PLEDGE APIs ====================
 
 export interface EyeDonationPledgeData {

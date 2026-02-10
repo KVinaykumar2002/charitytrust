@@ -15,6 +15,7 @@ import Timeline from '../models/Timeline.js';
 import EyeDonationPledge from '../models/EyeDonationPledge.js';
 import BloodDonation from '../models/BloodDonation.js';
 import FanEvent from '../models/FanEvent.js';
+import TeamCategory from '../models/TeamCategory.js';
 
 const router = express.Router();
 
@@ -1394,6 +1395,118 @@ router.delete('/fan-events/:id', async (req, res) => {
       success: false,
       message: 'Error deleting fan event',
       error: error.message
+    });
+  }
+});
+
+// ==================== TEAM CATEGORIES (Our Team) CRUD ====================
+
+// Get all team categories
+router.get('/team-categories', async (req, res) => {
+  try {
+    const categories = await TeamCategory.find().sort({ order: 1, createdAt: 1 });
+    res.json({
+      success: true,
+      data: categories,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching team categories',
+      error: error.message,
+    });
+  }
+});
+
+// Get single team category
+router.get('/team-categories/:id', async (req, res) => {
+  try {
+    const category = await TeamCategory.findById(req.params.id);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team category not found',
+      });
+    }
+    res.json({
+      success: true,
+      data: category,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching team category',
+      error: error.message,
+    });
+  }
+});
+
+// Create team category
+router.post('/team-categories', async (req, res) => {
+  try {
+    const category = new TeamCategory(req.body);
+    await category.save();
+    res.status(201).json({
+      success: true,
+      message: 'Team category created successfully',
+      data: category,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error creating team category',
+      error: error.message,
+    });
+  }
+});
+
+// Update team category (including members array)
+router.put('/team-categories/:id', async (req, res) => {
+  try {
+    const category = await TeamCategory.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, updatedAt: new Date() },
+      { new: true, runValidators: true }
+    );
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team category not found',
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Team category updated successfully',
+      data: category,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating team category',
+      error: error.message,
+    });
+  }
+});
+
+// Delete team category
+router.delete('/team-categories/:id', async (req, res) => {
+  try {
+    const category = await TeamCategory.findByIdAndDelete(req.params.id);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team category not found',
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Team category deleted successfully',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting team category',
+      error: error.message,
     });
   }
 });

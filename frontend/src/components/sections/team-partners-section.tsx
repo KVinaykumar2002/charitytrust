@@ -3,39 +3,47 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Users, Award, Heart, Target, ChevronDown, UsersRound, Building2 } from "lucide-react";
+import { getPublicTeam } from "@/lib/api";
 
-const leadershipTeam = [
+const ICON_MAP: Record<string, typeof Award> = {
+  Award,
+  Target,
+  Heart,
+  Users,
+};
+
+const FALLBACK_TEAM = [
   {
     name: "Leadership Team",
     role: "Strategic Direction",
     description: "Our experienced leadership team brings decades of combined experience in healthcare, social work, and organizational management.",
-    icon: Award,
+    icon: "Award",
     members: [
-      { name: "Dr. Chiranjeevi", position: "Founder & Chairman", bio: "Visionary leader with decades of experience in healthcare and social work." },
-      { name: "Dr. Ram Charan", position: "Vice Chairman", bio: "Strategic advisor with expertise in organizational management and program development." },
-      { name: "Ms. Surekha Konidela", position: "Executive Director", bio: "Dedicated to advancing healthcare initiatives and community outreach programs." },
+      { name: "Dr. Chiranjeevi", position: "Founder & Chairman", imageUrl: "", bio: "" },
+      { name: "Dr. Ram Charan", position: "Vice Chairman", imageUrl: "", bio: "" },
+      { name: "Ms. Surekha Konidela", position: "Executive Director", imageUrl: "", bio: "" },
     ],
   },
   {
     name: "Program Directors",
     role: "Program Execution",
     description: "Dedicated professionals who oversee our various initiatives, ensuring effective implementation and maximum impact.",
-    icon: Target,
+    icon: "Target",
     members: [
-      { name: "Dr. Venkatesh", position: "Blood Bank Director", bio: "Oversees blood collection, processing, and distribution operations." },
-      { name: "Dr. Priya Reddy", position: "Eye Bank Director", bio: "Manages corneal tissue collection and transplantation programs." },
-      { name: "Mr. Ravi Kumar", position: "Community Programs Director", bio: "Coordinates outreach initiatives and volunteer management." },
+      { name: "Dr. Venkatesh", position: "Blood Bank Director", imageUrl: "", bio: "" },
+      { name: "Dr. Priya Reddy", position: "Eye Bank Director", imageUrl: "", bio: "" },
+      { name: "Mr. Ravi Kumar", position: "Community Programs Director", imageUrl: "", bio: "" },
     ],
   },
   {
     name: "Medical Advisors",
     role: "Healthcare Excellence",
     description: "Renowned medical professionals who guide our healthcare programs and ensure the highest standards of medical care.",
-    icon: Heart,
+    icon: "Heart",
     members: [
-      { name: "Dr. Suresh Reddy", position: "Chief Medical Advisor", bio: "Leading ophthalmologist with 30+ years of experience in eye care." },
-      { name: "Dr. Anjali Sharma", position: "Hematology Advisor", bio: "Expert in blood banking and transfusion medicine." },
-      { name: "Dr. Rajesh Patel", position: "Public Health Advisor", bio: "Specializes in community health and preventive care programs." },
+      { name: "Dr. Suresh Reddy", position: "Chief Medical Advisor", imageUrl: "", bio: "" },
+      { name: "Dr. Anjali Sharma", position: "Hematology Advisor", imageUrl: "", bio: "" },
+      { name: "Dr. Rajesh Patel", position: "Public Health Advisor", imageUrl: "", bio: "" },
     ],
   },
 ];
@@ -129,6 +137,27 @@ const AnimatedCounter = ({ targetValue, suffix, duration = 2000, delay = 0 }: {
 
 const TeamPartnersSection = () => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [teamCategories, setTeamCategories] = useState<typeof FALLBACK_TEAM>(FALLBACK_TEAM);
+
+  useEffect(() => {
+    getPublicTeam()
+      .then((res) => {
+        if (res?.success && Array.isArray(res.data) && res.data.length > 0) {
+          setTeamCategories(
+            res.data.map((c: { name: string; role?: string; description?: string; icon?: string; members?: Array<{ name: string; position: string; imageUrl?: string; bio?: string }> }) => ({
+              name: c.name,
+              role: c.role || "",
+              description: c.description || "",
+              icon: c.icon || "Award",
+              members: c.members || [],
+            }))
+          );
+        }
+      })
+      .catch(() => {
+        setTeamCategories(FALLBACK_TEAM);
+      });
+  }, []);
 
   const toggleDropdown = (index: number) => {
     setOpenDropdown((prevIndex) => {
@@ -187,8 +216,8 @@ const TeamPartnersSection = () => {
             Leadership Team
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            {leadershipTeam.map((member, index) => {
-              const IconComponent = member.icon;
+            {teamCategories.map((member, index) => {
+              const IconComponent = ICON_MAP[member.icon] || Award;
               return (
               <div
                 key={index}
@@ -235,13 +264,23 @@ const TeamPartnersSection = () => {
                           className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700"
                         >
                           <div className="relative flex-shrink-0 w-14 h-14 rounded-full overflow-hidden bg-primary/20 dark:bg-primary/30">
-                            <Image
-                              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(teamMember.name)}&size=112&background=FD7E14&color=fff`}
-                              alt={teamMember.name}
-                              fill
-                              className="object-cover"
-                              sizes="56px"
-                            />
+                            {teamMember.imageUrl ? (
+                              <Image
+                                src={teamMember.imageUrl}
+                                alt={teamMember.name}
+                                fill
+                                className="object-cover"
+                                sizes="56px"
+                              />
+                            ) : (
+                              <Image
+                                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(teamMember.name)}&size=112&background=FD7E14&color=fff`}
+                                alt={teamMember.name}
+                                fill
+                                className="object-cover"
+                                sizes="56px"
+                              />
+                            )}
                           </div>
                           <div className="min-w-0 flex-1">
                             <h5 className="font-semibold text-neutral-900 dark:text-white">
