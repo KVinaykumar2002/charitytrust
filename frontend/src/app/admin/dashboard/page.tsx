@@ -2,34 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { getToken } from "@/lib/auth-storage";
-import { getAdminDashboard, getMonthlyDonations, getProgramDistribution, getRecentActivity } from "@/lib/api";
+import { getAdminDashboard, getProgramDistribution, getRecentActivity } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
-  Heart, 
   FolderKanban, 
   Calendar, 
   MessageSquare,
   TrendingUp,
   Users,
-  DollarSign,
-  Activity,
-  BarChart3,
-  PieChart
 } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, Tooltip } from "recharts";
+import { ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, Tooltip } from "recharts";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
-    totalDonations: 0,
     totalPrograms: 0,
     totalProjects: 0,
     totalEvents: 0,
     totalTestimonials: 0,
-    monthlyDonations: 0,
     activeVolunteers: 0,
     recentActivity: 0,
   });
-  const [monthlyDonationsData, setMonthlyDonationsData] = useState<Array<{month: string, amount: number}>>([]);
   const [programDistributionData, setProgramDistributionData] = useState<Array<{name: string, value: number}>>([]);
   const [recentActivity, setRecentActivity] = useState<Array<{action: string, amount?: string, details?: string, time: string}>>([]);
   const [loading, setLoading] = useState(true);
@@ -46,9 +38,8 @@ export default function AdminDashboard() {
         }
 
         // Fetch all data in parallel
-        const [dashboardData, monthlyData, programData, activityData] = await Promise.all([
+        const [dashboardData, programData, activityData] = await Promise.all([
           getAdminDashboard(token).catch(() => null),
-          getMonthlyDonations(token).catch(() => null),
           getProgramDistribution(token).catch(() => null),
           getRecentActivity(token).catch(() => null),
         ]);
@@ -56,23 +47,13 @@ export default function AdminDashboard() {
         // Update stats
         if (dashboardData?.success && dashboardData.data.stats) {
           setStats({
-            totalDonations: dashboardData.data.stats.totalDonations || 0,
             totalPrograms: dashboardData.data.stats.totalPrograms || 0,
             totalProjects: dashboardData.data.stats.totalProjects || 0,
             totalEvents: dashboardData.data.stats.totalEvents || 0,
             totalTestimonials: dashboardData.data.stats.totalTestimonials || 0,
-            monthlyDonations: dashboardData.data.stats.monthlyDonations || 0,
             activeVolunteers: dashboardData.data.stats.activeVolunteers || 0,
             recentActivity: activityData?.data?.length || 0,
           });
-        }
-
-        // Update monthly donations chart data - only from database
-        if (monthlyData?.success && monthlyData.data && monthlyData.data.length > 0) {
-          setMonthlyDonationsData(monthlyData.data);
-        } else {
-          // Empty if no data in database
-          setMonthlyDonationsData([]);
         }
 
         // Update program distribution chart data - only from database
@@ -96,12 +77,10 @@ export default function AdminDashboard() {
         console.error("Error fetching dashboard data:", error);
         // Use fallback data on error
         setStats({
-          totalDonations: 0,
           totalPrograms: 0,
           totalProjects: 0,
           totalEvents: 0,
           totalTestimonials: 0,
-          monthlyDonations: 0,
           activeVolunteers: 0,
           recentActivity: 0,
         });
@@ -125,14 +104,6 @@ export default function AdminDashboard() {
 
   const statCards = [
     {
-      title: "Total Donations",
-      value: `₹${stats.totalDonations.toLocaleString()}`,
-      icon: DollarSign,
-      change: "+12.5%",
-      color: "text-[#FD7E14]",
-      bgColor: "bg-[#FFF3E8]",
-    },
-    {
       title: "Active Programs",
       value: stats.totalPrograms.toString(),
       icon: FolderKanban,
@@ -155,14 +126,6 @@ export default function AdminDashboard() {
       change: "+5",
       color: "text-[#E56B00]",
       bgColor: "bg-[#FFE0C2]",
-    },
-    {
-      title: "Monthly Donations",
-      value: `₹${stats.monthlyDonations.toLocaleString()}`,
-      icon: TrendingUp,
-      change: "+8.2%",
-      color: "text-[#FD7E14]",
-      bgColor: "bg-[#FFF3E8]",
     },
     {
       title: "Active Volunteers",
@@ -213,31 +176,6 @@ export default function AdminDashboard() {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        {/* Donations Chart */}
-        <Card className="border-[#e5e5e5]">
-          <CardHeader>
-            <CardTitle className="text-[#1a1a1a]">Monthly Donations</CardTitle>
-            <CardDescription>Donation trends over the last 6 months</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {monthlyDonationsData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={monthlyDonationsData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
-                <XAxis dataKey="month" stroke="#4a4a4a" />
-                <YAxis stroke="#4a4a4a" />
-                <Tooltip />
-                  <Bar dataKey="amount" fill="#FD7E14" radius={[8, 8, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="flex items-center justify-center h-[300px] text-[#4a4a4a]">
-                <p>No donation data available</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
         {/* Programs Distribution */}
         <Card className="border-[#e5e5e5]">
           <CardHeader>
@@ -323,7 +261,6 @@ export default function AdminDashboard() {
                 { label: "Add Program", href: "/admin/programs/new", icon: FolderKanban },
                 { label: "Create Event", href: "/admin/events/new", icon: Calendar },
                 { label: "Add Testimonial", href: "/admin/testimonials/new", icon: MessageSquare },
-                { label: "View Donations", href: "/admin/donations", icon: Heart },
               ].map((action, index) => {
                 const Icon = action.icon;
                 return (
