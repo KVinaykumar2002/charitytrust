@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { getPublicHeroImages } from "@/lib/api";
-import { AnimatedButton } from "@/components/ui/animated-button";
 
 import {
   Carousel,
@@ -19,10 +18,7 @@ import TrustLoader from "@/components/TrustLoader";
 interface HeroSlide {
   title: string;
   description: string;
-  ctaLabel: string;
-  ctaHref: string;
   image: string;
-  badge: string;
 }
 
 const HeroBanner = () => {
@@ -55,10 +51,7 @@ const HeroBanner = () => {
         const slides: HeroSlide[] = activeImages.map((img: any) => ({
           title: img.title || "",
           description: img.description || "",
-          ctaLabel: img.ctaLabel || "Learn More",
-          ctaHref: img.ctaHref || "/",
           image: img.imageBase64 || img.image || "",
-          badge: img.badge || "",
         }));
         setHeroSlides(slides);
       }
@@ -149,17 +142,6 @@ const HeroBanner = () => {
                   className="absolute inset-x-0 bottom-0 z-20 flex justify-center pb-16 pt-32 md:pb-24 md:pt-40"
                 >
                   <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-6 px-6 text-center md:px-12 lg:px-20">
-                    {slide.badge && slide.badge.trim() && (
-                      <span
-                        data-stagger-item
-                        data-animation="fade-down"
-                        data-animation-duration="1s"
-                        className="inline-flex items-center rounded-full border border-white/30 bg-black/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-white/90 backdrop-blur-sm"
-                      >
-                        {slide.badge}
-                      </span>
-                    )}
-
                     {slide.title && slide.title.trim() && (
                       <h1
                         data-stagger-item
@@ -182,18 +164,6 @@ const HeroBanner = () => {
                       </p>
                     )}
 
-                    {slide.ctaLabel && slide.ctaLabel.trim() && (
-                      <div
-                        data-stagger-item
-                        data-animation="scale-in"
-                        data-animation-duration="0.9s"
-                        className="relative z-30"
-                      >
-                        <AnimatedButton href={slide.ctaHref || "/"} variant="filled">
-                          {slide.ctaLabel}
-                        </AnimatedButton>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
