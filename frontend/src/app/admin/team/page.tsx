@@ -92,8 +92,15 @@ export default function AdminTeamPage() {
       const token = getToken();
       if (!token) return;
       const result = await getAdminTeamCategories(token);
-      if (result.success && result.data) {
-        setCategories(result.data);
+      if (result.success && result.data && Array.isArray(result.data)) {
+        // Normalize: ensure members array and sort categories/members by order so existing data displays correctly
+        const normalized = result.data
+          .map((c: TeamCategory) => ({
+            ...c,
+            members: (c.members || []).slice().sort((a: TeamMember, b: TeamMember) => (a.order ?? 0) - (b.order ?? 0)),
+          }))
+          .sort((a: TeamCategory, b: TeamCategory) => (a.order ?? 0) - (b.order ?? 0));
+        setCategories(normalized);
       }
     } catch (err) {
       console.error("Error fetching team categories:", err);
@@ -215,7 +222,7 @@ export default function AdminTeamPage() {
       if (editingMemberIndex !== null) {
         newMembers[editingMemberIndex] = { ...newMembers[editingMemberIndex], ...memberPayload };
       } else {
-        newMembers.push(memberPayload);
+        newMembers.push({ ...memberPayload, order: newMembers.length });
       }
       await updateTeamCategory(token, memberCategoryId, {
         name: cat.name,
@@ -384,13 +391,18 @@ export default function AdminTeamPage() {
                                     {member.name.charAt(0).toUpperCase()}
                                   </div>
                                 )}
-                                <div className="min-w-0">
+                                <div className="min-w-0 flex-1">
                                   <p className="font-medium text-[#1a1a1a] truncate">
                                     {member.name}
                                   </p>
                                   <p className="text-sm text-[#4a4a4a] truncate">
                                     {member.position}
                                   </p>
+                                  {member.bio && (
+                                    <p className="text-xs text-[#6a6a6a] truncate mt-0.5 max-w-[200px]">
+                                      {member.bio}
+                                    </p>
+                                  )}
                                 </div>
                               </div>
                               <div className="flex gap-2 shrink-0">

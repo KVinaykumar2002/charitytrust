@@ -28,7 +28,7 @@ router.use(authorizeAdmin);
 // Get all programs
 router.get('/programs', async (req, res) => {
   try {
-    const programs = await Program.find().sort({ createdAt: -1 });
+    const programs = await Program.find().sort({ startDate: -1, createdAt: -1 });
     res.json({
       success: true,
       data: programs
@@ -140,7 +140,7 @@ router.delete('/programs/:id', async (req, res) => {
 // Get all projects
 router.get('/projects', async (req, res) => {
   try {
-    const projects = await Project.find().sort({ createdAt: -1 });
+    const projects = await Project.find().sort({ startDate: -1, createdAt: -1 });
     res.json({
       success: true,
       data: projects
@@ -249,10 +249,10 @@ router.delete('/projects/:id', async (req, res) => {
 
 // ==================== EVENTS CRUD ====================
 
-// Get all events
+// Get all events (upcoming first, then completed; within each group by date desc)
 router.get('/events', async (req, res) => {
   try {
-    const events = await Event.find().sort({ date: 1 });
+    const events = await Event.find().sort({ status: -1, date: -1 });
     res.json({
       success: true,
       data: events
@@ -1274,19 +1274,53 @@ router.get('/blood-donations/stats/overview', async (req, res) => {
 // Get all fan events (admin)
 router.get('/fan-events', async (req, res) => {
   try {
-    const { status, page = 1, limit = 20 } = req.query;
-    const query = status ? { status } : {};
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const { status, page = 1, limit = 20, year, month, day } = req.query;
+    const query = {};
+
+    if (status) query.status = status;
+
+    // Event date filter: year, month (1-12), day (1-31). Year optional for month-only.
+    if (year || month || day) {
+      const y = year ? parseInt(year, 10) : null;
+      const m = month ? parseInt(month, 10) : null;
+      const d = day ? parseInt(day, 10) : null;
+      const hasYear = y != null && !Number.isNaN(y);
+      const hasMonth = m != null && !Number.isNaN(m);
+      const hasDay = d != null && !Number.isNaN(d);
+
+      if (hasYear) {
+        if (hasDay && hasMonth) {
+          const start = new Date(Date.UTC(y, m - 1, d, 0, 0, 0, 0));
+          const end = new Date(Date.UTC(y, m - 1, d, 23, 59, 59, 999));
+          query.eventDate = { $gte: start, $lte: end };
+        } else if (hasMonth) {
+          const start = new Date(Date.UTC(y, m - 1, 1, 0, 0, 0, 0));
+          const end = new Date(Date.UTC(y, m, 0, 23, 59, 59, 999));
+          query.eventDate = { $gte: start, $lte: end };
+        } else {
+          const start = new Date(Date.UTC(y, 0, 1, 0, 0, 0, 0));
+          const end = new Date(Date.UTC(y, 11, 31, 23, 59, 59, 999));
+          query.eventDate = { $gte: start, $lte: end };
+        }
+      } else if (hasMonth) {
+        // Month only: same month in any year (e.g. all January events)
+        query.$expr = { $eq: [{ $month: '$eventDate' }, m] };
+      }
+    }
+
+    const limitNum = Math.min(parseInt(limit, 10) || 50, 100);
+    const pageNum = Math.max(parseInt(page, 10) || 1, 1);
+    const skip = (pageNum - 1) * limitNum;
 
     const [fanEvents, total] = await Promise.all([
-      FanEvent.find(query).sort({ submittedAt: -1 }).skip(skip).limit(parseInt(limit)).lean(),
+      FanEvent.find(query).sort({ submittedAt: -1 }).skip(skip).limit(limitNum).lean(),
       FanEvent.countDocuments(query)
     ]);
 
     res.json({
       success: true,
       data: fanEvents,
-      pagination: { page: parseInt(page), limit: parseInt(limit), total }
+      pagination: { page: pageNum, limit: limitNum, total }
     });
   } catch (error) {
     res.status(500).json({

@@ -24,7 +24,7 @@ router.use(authenticate);
 router.get('/programs', async (req, res) => {
   try {
     const programs = await Program.find({ status: 'active' })
-      .sort({ createdAt: -1 })
+      .sort({ startDate: -1, createdAt: -1 })
       .select('-__v');
     res.json({
       success: true,
@@ -71,7 +71,7 @@ router.get('/programs/:id', async (req, res) => {
 router.get('/projects', async (req, res) => {
   try {
     const projects = await Project.find()
-      .sort({ createdAt: -1 })
+      .sort({ startDate: -1, createdAt: -1 })
       .select('-__v');
     res.json({
       success: true,
@@ -117,7 +117,7 @@ router.get('/events', async (req, res) => {
     const events = await Event.find({
       status: { $in: ['upcoming', 'ongoing'] }
     })
-      .sort({ date: 1 })
+      .sort({ date: -1 })
       .select('-__v');
     res.json({
       success: true,

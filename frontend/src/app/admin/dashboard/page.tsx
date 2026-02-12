@@ -240,9 +240,6 @@ export default function AdminDashboard() {
                       <span>{activity.time}</span>
                     </p>
                   </div>
-                  {activity.amount && (
-                    <span className="text-sm font-semibold text-[#FD7E14]">{activity.amount}</span>
-                  )}
                 </div>
               )) : (
                 <p className="text-sm text-[#4a4a4a] text-center py-4">No recent activity</p>

@@ -309,7 +309,7 @@ router.get('/users', (req, res) => {
 // Get all programs
 router.get('/programs', async (req, res) => {
   try {
-    const programs = await Program.find().sort({ createdAt: -1 });
+    const programs = await Program.find().sort({ startDate: -1, createdAt: -1 });
     res.json({
       success: true,
       data: programs
@@ -472,7 +472,7 @@ router.delete('/programs/:id', async (req, res) => {
 // Get all projects
 router.get('/projects', async (req, res) => {
   try {
-    const projects = await Project.find().sort({ createdAt: -1 });
+    const projects = await Project.find().sort({ startDate: -1, createdAt: -1 });
     res.json({
       success: true,
       data: projects

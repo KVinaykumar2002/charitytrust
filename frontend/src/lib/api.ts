@@ -593,11 +593,17 @@ export async function updateTestimonialStatus(token: string, id: string, status:
 }
 
 // Fan Events CRUD (Admin)
-export async function getAdminFanEvents(token: string, params?: { status?: string; page?: number; limit?: number }) {
+export async function getAdminFanEvents(
+  token: string,
+  params?: { status?: string; page?: number; limit?: number; year?: number; month?: number; day?: number }
+) {
   const queryParams = new URLSearchParams();
   if (params?.status) queryParams.append('status', params.status);
   if (params?.page) queryParams.append('page', params.page.toString());
   if (params?.limit) queryParams.append('limit', params.limit.toString());
+  if (params?.year) queryParams.append('year', params.year.toString());
+  if (params?.month) queryParams.append('month', params.month.toString());
+  if (params?.day) queryParams.append('day', params.day.toString());
   const response = await fetch(`${API_BASE_URL}/admin/content/fan-events?${queryParams.toString()}`, {
     method: 'GET',
     headers: {
@@ -629,7 +635,10 @@ export async function approveFanEvent(token: string, id: string) {
       'Content-Type': 'application/json',
     },
   });
-  if (!response.ok) throw new Error('Failed to approve fan event');
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to approve fan event');
+  }
   return response.json();
 }
 
@@ -641,7 +650,10 @@ export async function rejectFanEvent(token: string, id: string) {
       'Content-Type': 'application/json',
     },
   });
-  if (!response.ok) throw new Error('Failed to reject fan event');
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to reject fan event');
+  }
   return response.json();
 }
 

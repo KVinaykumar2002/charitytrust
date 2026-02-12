@@ -144,12 +144,12 @@ const TeamPartnersSection = () => {
       .then((res) => {
         if (res?.success && Array.isArray(res.data) && res.data.length > 0) {
           setTeamCategories(
-            res.data.map((c: { name: string; role?: string; description?: string; icon?: string; members?: Array<{ name: string; position: string; imageUrl?: string; bio?: string }> }) => ({
+            res.data.map((c: { name: string; role?: string; description?: string; icon?: string; order?: number; members?: Array<{ name: string; position: string; imageUrl?: string; bio?: string; order?: number }> }) => ({
               name: c.name,
               role: c.role || "",
               description: c.description || "",
               icon: c.icon || "Award",
-              members: c.members || [],
+              members: (c.members || []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
             }))
           );
         }
@@ -289,6 +289,11 @@ const TeamPartnersSection = () => {
                             <p className="text-sm text-primary dark:text-primary">
                               {teamMember.position}
                             </p>
+                            {teamMember.bio && (
+                              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1 line-clamp-3">
+                                {teamMember.bio}
+                              </p>
+                            )}
                           </div>
                         </div>
                       ))}

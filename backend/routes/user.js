@@ -88,7 +88,7 @@ router.get('/events', authorizeUser, async (req, res) => {
     const events = await Event.find({
       status: { $in: ['upcoming', 'ongoing'] }
     })
-      .sort({ date: 1 })
+      .sort({ date: -1 })
       .limit(10)
       .select('-__v');
     

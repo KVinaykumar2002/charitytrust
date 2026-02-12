@@ -71,16 +71,11 @@ export default function EventsByFansPage() {
         };
       });
 
-      const sortedEvents = mappedEvents.sort((a, b) => {
+      // Sort events by date descending (newest first)
+      const sortedEvents = mappedEvents.sort((a: { dateTimestamp?: number }, b: { dateTimestamp?: number }) => {
         const dateA = a.dateTimestamp || 0;
         const dateB = b.dateTimestamp || 0;
-        const now = Date.now();
-        const aIsUpcoming = dateA >= now;
-        const bIsUpcoming = dateB >= now;
-        if (aIsUpcoming === bIsUpcoming) {
-          return aIsUpcoming ? dateA - dateB : dateB - dateA;
-        }
-        return aIsUpcoming ? -1 : 1;
+        return dateB - dateA;
       });
 
       setEvents(sortedEvents);

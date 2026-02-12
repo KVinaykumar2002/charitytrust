@@ -57,25 +57,43 @@ interface FanEventItem {
   submittedAt: string;
 }
 
+const CURRENT_YEAR = new Date().getFullYear();
+const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - 5 + i);
+const MONTHS = [
+  { value: "1", label: "January" }, { value: "2", label: "February" }, { value: "3", label: "March" },
+  { value: "4", label: "April" }, { value: "5", label: "May" }, { value: "6", label: "June" },
+  { value: "7", label: "July" }, { value: "8", label: "August" }, { value: "9", label: "September" },
+  { value: "10", label: "October" }, { value: "11", label: "November" }, { value: "12", label: "December" },
+];
+const DAYS = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+
 export default function AdminFanEventsPage() {
   const [events, setEvents] = useState<FanEventItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("all");
+  const [eventDateYear, setEventDateYear] = useState<string>("all");
+  const [eventDateMonth, setEventDateMonth] = useState<string>("all");
+  const [eventDateDay, setEventDateDay] = useState<string>("all");
   const [selectedEvent, setSelectedEvent] = useState<FanEventItem | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   useEffect(() => {
     fetchEvents();
-  }, [statusFilter]);
+  }, [statusFilter, eventDateYear, eventDateMonth, eventDateDay]);
 
   const fetchEvents = async () => {
     try {
       const token = getToken();
       if (!token) return;
+      setLoading(true);
 
-      const params: any = { limit: 50 };
+      const params: { limit: number; status?: string; year?: number; month?: number; day?: number } = { limit: 50 };
       if (statusFilter !== "all") params.status = statusFilter;
+      if (eventDateYear !== "all") params.year = parseInt(eventDateYear, 10);
+      if (eventDateMonth !== "all") params.month = parseInt(eventDateMonth, 10);
+      if (eventDateDay !== "all") params.day = parseInt(eventDateDay, 10);
 
       const result = await getAdminFanEvents(token, params);
       if (result.success) {
@@ -88,6 +106,11 @@ export default function AdminFanEventsPage() {
     }
   };
 
+  const showFeedback = (type: "success" | "error", message: string) => {
+    setFeedback({ type, message });
+    setTimeout(() => setFeedback(null), 3000);
+  };
+
   const handleApprove = async (id: string) => {
     setActionLoading(true);
     try {
@@ -95,10 +118,12 @@ export default function AdminFanEventsPage() {
       if (!token) return;
 
       await approveFanEvent(token, id);
-      fetchEvents();
+      await fetchEvents();
       setSelectedEvent(null);
-    } catch (error) {
+      showFeedback("success", "Event approved. It will now appear on the public fan events page.");
+    } catch (error: any) {
       console.error("Error approving:", error);
+      showFeedback("error", error?.message || "Failed to approve event.");
     } finally {
       setActionLoading(false);
     }
@@ -111,10 +136,12 @@ export default function AdminFanEventsPage() {
       if (!token) return;
 
       await rejectFanEvent(token, id);
-      fetchEvents();
+      await fetchEvents();
       setSelectedEvent(null);
-    } catch (error) {
+      showFeedback("success", "Event rejected.");
+    } catch (error: any) {
       console.error("Error rejecting:", error);
+      showFeedback("error", error?.message || "Failed to reject event.");
     } finally {
       setActionLoading(false);
     }
@@ -157,9 +184,21 @@ export default function AdminFanEventsPage() {
       <div>
         <h1 className="text-3xl font-bold text-[#1a1a1a]">Fan Events</h1>
         <p className="text-[#4a4a4a] mt-1">
-          Review and approve fan-submitted events inspired by Chiranjeevi garu
+          Review and approve or reject fan-submitted events. Approved events appear on the public Events by Fans page.
         </p>
       </div>
+
+      {feedback && (
+        <div
+          className={`rounded-lg px-4 py-3 text-sm ${
+            feedback.type === "success"
+              ? "bg-green-50 text-green-800 border border-green-200"
+              : "bg-red-50 text-red-800 border border-red-200"
+          }`}
+        >
+          {feedback.message}
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -195,22 +234,80 @@ export default function AdminFanEventsPage() {
         </Card>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4">
-        <Select
-          value={statusFilter}
-          onValueChange={setStatusFilter}
-        >
-          <SelectTrigger className="w-[180px] border-[#e5e5e5]">
-            <SelectValue placeholder="Filter by status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="approved">Approved</SelectItem>
-            <SelectItem value="rejected">Rejected</SelectItem>
-          </SelectContent>
-        </Select>
+      {/* Search / Filters */}
+      <div className="space-y-3">
+        <p className="text-sm font-medium text-[#4a4a4a]">Search & filter</p>
+        <div className="flex flex-wrap gap-4 items-end">
+          <div>
+            <label className="text-xs text-[#4a4a4a] block mb-1">Event status</label>
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[160px] border-[#e5e5e5]">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Status</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="approved">Approved</SelectItem>
+                <SelectItem value="rejected">Rejected</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="text-xs text-[#4a4a4a] block mb-1">Event date – Year</label>
+            <Select value={eventDateYear} onValueChange={setEventDateYear}>
+              <SelectTrigger className="w-[120px] border-[#e5e5e5]">
+                <SelectValue placeholder="Year" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Year</SelectItem>
+                {YEARS.map((y) => (
+                  <SelectItem key={y} value={String(y)}>{y}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="text-xs text-[#4a4a4a] block mb-1">Month</label>
+            <Select value={eventDateMonth} onValueChange={setEventDateMonth}>
+              <SelectTrigger className="w-[140px] border-[#e5e5e5]">
+                <SelectValue placeholder="Month" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Month</SelectItem>
+                {MONTHS.map((m) => (
+                  <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="text-xs text-[#4a4a4a] block mb-1">Date (day)</label>
+            <Select value={eventDateDay} onValueChange={setEventDateDay}>
+              <SelectTrigger className="w-[100px] border-[#e5e5e5]">
+                <SelectValue placeholder="Day" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Days</SelectItem>
+                {DAYS.map((d) => (
+                  <SelectItem key={d} value={d}>{d}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-[#e5e5e5]"
+            onClick={() => {
+              setStatusFilter("all");
+              setEventDateYear("all");
+              setEventDateMonth("all");
+              setEventDateDay("all");
+            }}
+          >
+            Clear filters
+          </Button>
+        </div>
       </div>
 
       {/* Table */}
@@ -274,14 +371,16 @@ export default function AdminFanEventsPage() {
                       {formatDate(event.submittedAt)}
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-2 flex-wrap">
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => setSelectedEvent(event)}
                           className="text-[#FD7E14] hover:bg-[#FFF3E8]"
+                          title="View details"
                         >
-                          <Eye className="h-4 w-4" />
+                          <Eye className="h-4 w-4 mr-1" />
+                          View
                         </Button>
                         {event.status === "pending" && (
                           <>
@@ -291,8 +390,10 @@ export default function AdminFanEventsPage() {
                               onClick={() => handleApprove(event._id)}
                               disabled={actionLoading}
                               className="text-green-600 hover:bg-green-50"
+                              title="Approve event"
                             >
-                              <CheckCircle className="h-4 w-4" />
+                              <CheckCircle className="h-4 w-4 mr-1" />
+                              Approve
                             </Button>
                             <Button
                               variant="ghost"
@@ -300,8 +401,10 @@ export default function AdminFanEventsPage() {
                               onClick={() => handleReject(event._id)}
                               disabled={actionLoading}
                               className="text-red-600 hover:bg-red-50"
+                              title="Reject event"
                             >
-                              <XCircle className="h-4 w-4" />
+                              <XCircle className="h-4 w-4 mr-1" />
+                              Reject
                             </Button>
                           </>
                         )}
@@ -310,6 +413,7 @@ export default function AdminFanEventsPage() {
                           size="sm"
                           onClick={() => setDeleteConfirm(event._id)}
                           className="text-red-600 hover:bg-red-50"
+                          title="Delete event"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -384,16 +488,16 @@ export default function AdminFanEventsPage() {
                   )}
                 </div>
               )}
-              <div className="flex gap-2 pt-4">
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-[#e5e5e5]">
                 {selectedEvent.status === "pending" && (
                   <>
                     <Button
                       onClick={() => handleApprove(selectedEvent._id)}
                       disabled={actionLoading}
-                      className="bg-green-600 hover:bg-green-700"
+                      className="bg-green-600 hover:bg-green-700 text-white"
                     >
                       <CheckCircle className="h-4 w-4 mr-2" />
-                      Approve
+                      Approve event
                     </Button>
                     <Button
                       variant="outline"
@@ -402,14 +506,14 @@ export default function AdminFanEventsPage() {
                       className="border-red-500 text-red-600 hover:bg-red-50"
                     >
                       <XCircle className="h-4 w-4 mr-2" />
-                      Reject
+                      Reject event
                     </Button>
                   </>
                 )}
                 <Button
                   variant="outline"
                   onClick={() => setSelectedEvent(null)}
-                  className="ml-auto"
+                  className="ml-auto border-[#e5e5e5]"
                 >
                   Close
                 </Button>

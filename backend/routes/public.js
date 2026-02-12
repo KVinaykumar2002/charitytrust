@@ -24,7 +24,7 @@ router.get('/programs', async (req, res) => {
   try {
     // Optimize query with lean() for faster performance
     const programs = await Program.find({ status: 'active' })
-      .sort({ createdAt: -1 })
+      .sort({ startDate: -1, createdAt: -1 })
       .select('-__v')
       .limit(20) // Limit to 20 programs for carousel
       .lean(); // Use lean() for faster queries
@@ -80,7 +80,7 @@ router.get('/projects', async (req, res) => {
     const projects = await Project.find({
       status: { $ne: 'on_hold' } // Exclude projects on hold
     })
-      .sort({ createdAt: -1 })
+      .sort({ startDate: -1, createdAt: -1 })
       .select('-__v')
       .limit(20)
       .lean(); // Use lean() for faster queries (returns plain JS objects)

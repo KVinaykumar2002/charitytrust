@@ -87,28 +87,11 @@ export default function EventsPage() {
         };
       });
 
-      // Sort events: upcoming first (ascending by date), then past events (descending by date)
-      const sortedEvents = mappedEvents.sort((a, b) => {
+      // Sort events by date descending (newest first)
+      const sortedEvents = mappedEvents.sort((a: { dateTimestamp?: number }, b: { dateTimestamp?: number }) => {
         const dateA = a.dateTimestamp || 0;
         const dateB = b.dateTimestamp || 0;
-        const now = Date.now();
-
-        const aIsUpcoming = dateA >= now;
-        const bIsUpcoming = dateB >= now;
-
-        // If both are upcoming or both are past
-        if (aIsUpcoming === bIsUpcoming) {
-          if (aIsUpcoming) {
-            // Upcoming: sort ascending (earliest first)
-            return dateA - dateB;
-          } else {
-            // Past: sort descending (most recent first)
-            return dateB - dateA;
-          }
-        }
-
-        // Upcoming events come before past events
-        return aIsUpcoming ? -1 : 1;
+        return dateB - dateA;
       });
 
       setEvents(sortedEvents);

@@ -70,7 +70,17 @@ export default function EventsPage() {
           createdAt: e.createdAt || new Date().toISOString(),
           updatedAt: e.updatedAt || new Date().toISOString(),
         }));
-        setEvents(eventsData);
+        // Upcoming first, then completed; within each group by date desc
+        const statusOrder: Record<string, number> = { upcoming: 0, completed: 1 };
+        const sorted = [...eventsData].sort((a, b) => {
+          const aOrder = statusOrder[a.status?.toLowerCase() ?? ""] ?? 1;
+          const bOrder = statusOrder[b.status?.toLowerCase() ?? ""] ?? 1;
+          if (aOrder !== bOrder) return aOrder - bOrder;
+          const aTime = new Date(a.date || 0).getTime();
+          const bTime = new Date(b.date || 0).getTime();
+          return bTime - aTime;
+        });
+        setEvents(sorted);
       }
     } catch (error) {
       console.error("Error fetching events:", error);
