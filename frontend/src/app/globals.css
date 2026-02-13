@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -90,6 +91,14 @@
   --color-overlay-dark: #1a1a1a99; /* rgba(26, 26, 26, 0.6) */
 
   --font-inter: "Inter", sans-serif;
+
+  /* Reliance founder-page theme */
+  --color-brand-blue: #004291;
+  --color-brand-gold: #c59b5f;
+  --color-brand-cream: #fdf5e6;
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", "Arial", sans-serif;
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 /*
@@ -113,6 +122,42 @@
 @layer utilities {
   body {
     font-family: var(--font-inter);
+  }
+
+  /* Reliance founder-page utilities */
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .bg-hero-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 40%);
+  }
+  .section-heading {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+  .card-shadow,
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .text-meta {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-brand-blue);
+  }
+  .bg-brand-blue {
+    background-color: var(--color-brand-blue);
+  }
+  .bg-brand-gold {
+    background-color: var(--color-brand-gold);
+  }
+  .bg-brand-cream {
+    background-color: var(--color-brand-cream);
   }
 }
 
