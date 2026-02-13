@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { founderCarouselImages } from "@/lib/founder-images";
 
-const AUTO_SCROLL_INTERVAL_MS = 1000;
+const AUTO_SCROLL_INTERVAL_MS = 6000;
 
 const HeroVisionary = () => {
   const [isLoaded, setIsLoaded] = useState(false);
