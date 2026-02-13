@@ -1,59 +1,54 @@
 import Image from "next/image";
+import { founderImages } from "@/lib/founder-images";
 
 const AwardsRecognitions = () => {
   const awards = [
     {
       id: 1,
-      name: "Padma Vibhushan",
+      name: "Padma Bhushan",
       description:
-        "Posthumously conferred the Padma Vibhushan, India's second highest civilian honour, by the Hon'ble Former President of India, Shri Pranab Mukherjee",
-      image:
-        "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/2016-16.jpg",
+        "Conferred the Padma Bhushan, India's third highest civilian honour, for distinguished service to the arts and society.",
+      image: founderImages.padmaBhushan,
       bgColor: "#E9C7BE",
     },
     {
       id: 2,
-      name: "ABLF",
+      name: "NTR National Award",
       description:
-        "Posthumously awarded the 'ABLF Global Asian Award' at the Asian Business Leadership Forum Awards",
-      image:
-        "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/2011-17.jpg",
+        "Honoured with the NTR National Award for outstanding contribution to Indian cinema and public service.",
+      image: founderImages.portrait,
       bgColor: "#FFFFFF",
     },
     {
       id: 3,
-      name: "Postal Stamp",
+      name: "Filmfare Awards",
       description:
-        "Commemorative postal stamp is released by the Philately Department, Department of Posts, on Dhirubhai Ambani's 70th birth anniversary",
-      image:
-        "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/2002_0-18.jpg",
-      bgColor: "#FFFFFF",
+        "Multiple Filmfare Awards and lifetime recognition for his contribution to Telugu and Indian cinema.",
+      image: founderImages.portrait,
+      bgColor: "#1a1a1a",
     },
     {
       id: 4,
-      name: "The Economic Times",
+      name: "Civil & Social Honours",
       description:
-        "The Economic Times confers 'Lifetime Achievement Award for Corporate Excellence'",
-      image:
-        "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/2001-19.jpg",
-      bgColor: "#FFFFFF",
+        "Numerous state and national honours for philanthropy, blood and eye donation advocacy, and social welfare.",
+      image: founderImages.portrait,
+      bgColor: "#fdf5e6",
     },
     {
       id: 5,
-      name: "TOI",
+      name: "Chiranjeevi Charitable Trust",
       description:
-        "Voted as 'Creator of Wealth of the Century' in The Times of India (TOI) poll",
-      image:
-        "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/2000-20.jpg",
-      bgColor: "#D52000",
+        "Founded the Trust to save lives and restore sight; leading initiatives in eye banking and blood donation across India.",
+      image: founderImages.portrait,
+      bgColor: "#004291",
     },
     {
       id: 6,
-      name: "BMC",
+      name: "Public Service",
       description:
-        "Bombay Municipal Corporation (BMC) confers 'First Citizen's Award'; hosts civic reception in his honour",
-      image:
-        "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/2000_0-21.jpg",
+        "Recognised for inspiring millions to donate blood and eyes and for building one of India's most impactful charitable organisations.",
+      image: founderImages.portrait,
       bgColor: "#E9E9E9",
     },
   ];
@@ -75,19 +70,20 @@ const AwardsRecognitions = () => {
                 className="w-full h-full flex items-center justify-center relative p-8"
                 style={{ backgroundColor: award.bgColor }}
               >
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full min-h-[200px]">
                   <Image
                     src={award.image}
                     alt={award.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-contain"
+                    className="object-cover opacity-40 group-hover:opacity-60 transition-opacity"
                     priority={award.id <= 3}
                   />
                 </div>
               </div>
 
-              <div className="absolute inset-0 bg-[#004291]/90 text-white p-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform pointer-events-none">
+              <div className="absolute inset-0 bg-[#004291]/90 text-white p-8 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform pointer-events-none">
+                <span className="font-display font-bold text-lg mb-2">{award.name}</span>
                 <p className="text-center text-sm md:text-base leading-relaxed font-sans">
                   {award.description}
                 </p>

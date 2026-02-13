@@ -2,13 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
+import { founderCarouselImages } from "@/lib/founder-images";
 
 const FounderBiography = () => {
-  const thumbnailImages = [
-    "/founder-chairman.jpg",
-    "/founder-chairman.jpg",
-    "/founder-chairman.jpg",
-  ];
+  const thumbnailImages = founderCarouselImages;
 
   return (
     <section className="relative w-full bg-[#fdf5e6] pb-20 dark:bg-neutral-900">
@@ -101,18 +98,19 @@ const FounderBiography = () => {
                   </svg>
                 </button>
 
-                <div className="flex gap-4 w-full overflow-hidden">
+                <div className="flex gap-4 w-full overflow-x-auto overflow-y-hidden justify-center flex-wrap md:flex-nowrap">
                   {thumbnailImages.map((src, index) => (
                     <div
-                      key={index}
-                      className="relative flex-1 min-w-[200px] h-[180px] overflow-hidden group"
+                      key={`${index}-${src.slice(-40)}`}
+                      className="relative w-[200px] flex-shrink-0 h-[240px] overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800"
                     >
                       <Image
                         src={src}
-                        alt={`Founder moment ${index + 1}`}
+                        alt={`Chiranjeevi - Founder moment ${index + 1}`}
                         fill
-                        className="object-cover grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
+                        className="object-cover object-center"
                         sizes="200px"
+                        unoptimized={src.startsWith("https://upload.wikimedia.org")}
                       />
                     </div>
                   ))}

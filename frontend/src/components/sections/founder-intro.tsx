@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { defaultFounderImage } from "@/lib/founder-images";
 
 const FounderIntro = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -122,7 +123,7 @@ const FounderIntro = () => {
               style={{ transitionDelay: "0.2s" }}
             >
               <Image
-                src="/founder-chairman.jpg"
+                src={defaultFounderImage}
                 alt="Portrait of Chiranjeevi - Founder and Chairman, Chiranjeevi Charitable Trust"
                 fill
                 className="object-cover rounded-sm"

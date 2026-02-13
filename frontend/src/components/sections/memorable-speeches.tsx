@@ -1,22 +1,40 @@
 import React from "react";
 import Image from "next/image";
+import { defaultFounderImage } from "@/lib/founder-images";
 
 /**
- * MemorableSpeeches component - from reliance-website
- * Central image of the founder surrounded by four cards describing specific awards/speeches.
+ * Memorable Speeches – Chiranjeevi: central image with key addresses & moments.
  */
 const MemorableSpeeches = () => {
+  const speeches = [
+    {
+      title: "Padma Bhushan Acceptance",
+      subtitle: "India's third highest civilian honour, for distinguished service to arts and society",
+    },
+    {
+      title: "NTR National Award",
+      subtitle: "For outstanding contribution to Indian cinema and public service",
+    },
+    {
+      title: "Chiranjeevi Charitable Trust Launch",
+      subtitle: "Inaugural address on the vision to save lives through blood and eye donation",
+    },
+    {
+      title: "Eye & Blood Donation Drives",
+      subtitle: "Public addresses inspiring citizens to donate and become part of the movement",
+    },
+  ];
+
   return (
     <section className="bg-[#fdf5e6] py-20 px-4 md:px-0">
       <div className="max-w-[1200px] mx-auto text-center mb-16">
         <h2 className="font-display text-[48px] leading-[1.2] text-[#333333] mb-8">
-          Memorable Speeches
+          Memorable Speeches &amp; Addresses
         </h2>
         <p className="max-w-[800px] mx-auto text-[#666666] text-[16px] leading-[1.6]">
-          A collection of memorable speeches by the Founder-Chairman that shed
-          light on his persona
+          Key speeches and addresses by the Founder-Chairman that reflect his
           <br className="hidden md:block" />
-          and inspired scores of people to believe in their dreams
+          commitment to saving lives and inspiring millions to give back
         </p>
       </div>
 
@@ -24,98 +42,54 @@ const MemorableSpeeches = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-y-12 lg:gap-y-0">
           {/* Left Column Cards */}
           <div className="lg:col-span-4 flex flex-col gap-12 z-10">
-            <div className="bg-white flex items-center p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-[4px] min-h-[140px] relative">
-              <div className="flex-1 pr-4 text-left">
-                <h3 className="text-[#004291] font-sans font-bold text-[18px] leading-[1.3] mb-2">
-                  Lifetime Achievement Award Acceptance Speech
-                </h3>
-                <p className="text-[#666666] text-[14px] leading-[1.4]">
-                  The Economic Times Awards for Corporate Excellence
-                </p>
+            {speeches.slice(0, 2).map((item, i) => (
+              <div
+                key={i}
+                className="bg-white flex items-center p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-[4px] min-h-[140px]"
+              >
+                <div className="flex-1 text-left">
+                  <h3 className="text-[#004291] font-sans font-bold text-[18px] leading-[1.3] mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-[#666666] text-[14px] leading-[1.4]">
+                    {item.subtitle}
+                  </p>
+                </div>
               </div>
-              <div className="w-[80px] h-[60px] relative flex-shrink-0">
-                <Image
-                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/ach-img1-12.png"
-                  alt="Lifetime Achievement Logo"
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-            </div>
-
-            <div className="bg-white flex items-center p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-[4px] min-h-[140px] relative">
-              <div className="flex-1 pr-4 text-left">
-                <h3 className="text-[#004291] font-sans font-bold text-[18px] leading-[1.3] mb-2">
-                  Man of the Century Award Acceptance Speech
-                </h3>
-                <p className="text-[#666666] text-[14px] leading-[1.4]">
-                  Chemtech Foundation
-                </p>
-              </div>
-              <div className="w-[80px] h-[60px] relative flex-shrink-0">
-                <Image
-                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/ach-img2-13.png"
-                  alt="Chemtech Foundation Logo"
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Center Image */}
+          {/* Center: Chiranjeevi image */}
           <div className="lg:col-span-4 flex justify-center items-center relative z-0 mt-8 lg:mt-0">
-            <div className="relative w-[300px] md:w-[450px] lg:w-[600px] h-[400px] md:h-[550px] lg:h-[650px] -mx-10 md:-mx-20 lg:-mx-32 pointer-events-none">
+            <div className="relative w-[300px] md:w-[450px] lg:w-[500px] h-[380px] md:h-[520px] lg:h-[580px] -mx-10 md:-mx-20 lg:-mx-24 pointer-events-none rounded overflow-hidden shadow-2xl">
               <Image
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/founder-img-11.png"
-                alt="Founder seated"
+                src={defaultFounderImage}
+                alt="Chiranjeevi - Founder and Chairman, Chiranjeevi Charitable Trust"
                 fill
                 priority
-                style={{ objectFit: "contain" }}
-                className="drop-shadow-2xl"
+                className="object-cover drop-shadow-2xl"
+                sizes="(max-width: 1024px) 450px, 500px"
               />
             </div>
           </div>
 
           {/* Right Column Cards */}
           <div className="lg:col-span-4 flex flex-col gap-12 z-10">
-            <div className="bg-white flex items-center p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-[4px] min-h-[140px] relative">
-              <div className="flex-1 pr-4 text-left">
-                <h3 className="text-[#004291] font-sans font-bold text-[18px] leading-[1.3] mb-2">
-                  Wharton Dean&apos;s Medal Acceptance Speech
-                </h3>
-                <p className="text-[#666666] text-[14px] leading-[1.4]">
-                  The Wharton School, University of Pennsylvania
-                </p>
+            {speeches.slice(2, 4).map((item, i) => (
+              <div
+                key={i}
+                className="bg-white flex items-center p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-[4px] min-h-[140px]"
+              >
+                <div className="flex-1 text-left">
+                  <h3 className="text-[#004291] font-sans font-bold text-[18px] leading-[1.3] mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-[#666666] text-[14px] leading-[1.4]">
+                    {item.subtitle}
+                  </p>
+                </div>
               </div>
-              <div className="w-[80px] h-[60px] relative flex-shrink-0">
-                <Image
-                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/ach-img3-14.png"
-                  alt="Wharton School Logo"
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-            </div>
-
-            <div className="bg-white flex items-center p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-[4px] min-h-[140px] relative">
-              <div className="flex-1 pr-4 text-left">
-                <h3 className="text-[#004291] font-sans font-bold text-[18px] leading-[1.3] mb-2">
-                  Civic Address & Civic Reception Acceptance Speech
-                </h3>
-                <p className="text-[#666666] text-[14px] leading-[1.4]">
-                  Bombay Municipal Corporation
-                </p>
-              </div>
-              <div className="w-[80px] h-[60px] relative flex-shrink-0">
-                <Image
-                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/2a18a6f6-56a3-4153-8f6a-6bcae6d8af15-ril-com/assets/images/ach-img4-15.png"
-                  alt="BMC Logo"
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

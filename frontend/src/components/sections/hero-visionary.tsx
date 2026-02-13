@@ -1,35 +1,55 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { founderCarouselImages } from "@/lib/founder-images";
+
+const AUTO_SCROLL_INTERVAL_MS = 1000;
 
 const HeroVisionary = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % founderCarouselImages.length);
+    }, AUTO_SCROLL_INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative w-full h-[100vh] overflow-hidden bg-white">
-      {/* Background Video */}
+    <section className="relative w-full h-[100vh] overflow-hidden bg-neutral-900">
+      {/* Background: auto-scrolling Chiranjeevi images */}
       <div className="absolute inset-0 w-full h-full z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover grayscale brightness-110"
-        >
-          <source
-            src="https://rilstaticasset.akamaized.net/sites/default/files/2023-03/Ril-founder_chairman.mp4"
-            type="video/mp4"
-          />
-        </video>
+        {founderCarouselImages.map((src, index) => (
+          <div
+            key={src}
+            className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+            style={{
+              opacity: index === activeIndex ? 1 : 0,
+              zIndex: index === activeIndex ? 1 : 0,
+            }}
+          >
+            <Image
+              src={src}
+              alt=""
+              fill
+              className="object-cover object-center brightness-90"
+              priority={index === 0}
+              sizes="100vw"
+              unoptimized={src.startsWith("https://upload.wikimedia.org")}
+            />
+          </div>
+        ))}
         {/* Top Overlay for Navbar Visibility */}
-        <div className="absolute inset-0 bg-hero-overlay pointer-events-none" />
+        <div className="absolute inset-0 bg-hero-overlay pointer-events-none z-[2]" />
         {/* Subtle Vignette/Overlay for Text Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none z-[2]" />
       </div>
 
       {/* Content Overlay */}
@@ -43,7 +63,7 @@ const HeroVisionary = () => {
               fontSize: "clamp(40px, 8vw, 80px)",
               lineHeight: "1.1",
               fontWeight: "400",
-              textShadow: "0px 2px 4px rgba(0,0,0,0.1)",
+              textShadow: "0px 2px 8px rgba(0,0,0,0.4)",
             }}
           >
             A timeless visionary
@@ -57,12 +77,29 @@ const HeroVisionary = () => {
               fontSize: "clamp(20px, 3.5vw, 36px)",
               fontWeight: "400",
               lineHeight: "1.2",
-              textShadow: "0px 2px 4px rgba(0,0,0,0.1)",
+              textShadow: "0px 2px 8px rgba(0,0,0,0.4)",
             }}
           >
-            whose legacy emboldens the imagination of a billion people
+            whose legacy inspires millions to save lives and restore sight
           </p>
         </div>
+      </div>
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-24 left-0 right-0 z-10 flex justify-center gap-2">
+        {founderCarouselImages.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => setActiveIndex(index)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === activeIndex
+                ? "w-8 bg-[#c59b5f]"
+                : "w-2 bg-white/50 hover:bg-white/70"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
 
       {/* Breadcrumb Strip */}
