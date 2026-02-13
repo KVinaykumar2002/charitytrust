@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Instagram, Facebook, Twitter, Youtube, Linkedin, Phone, MapPin } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
+import { FaInstagram, FaFacebookF, FaXTwitter, FaYoutube, FaLinkedin } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 import { cn } from "@/lib/utils";
 
@@ -538,8 +539,8 @@ export const Component = () => {
                 </ul>
               ))}
             </div>
-            {/* Social Media Icons */}
-            <div className="flex items-center gap-4 pt-5 md:pt-0 md:justify-end">
+            {/* Social Media Icons - Original brand logos, larger size */}
+            <div className="flex items-center gap-8 pt-5 md:pt-0 md:justify-end">
               <a
                 href="https://www.instagram.com"
                 target="_blank"
@@ -547,7 +548,7 @@ export const Component = () => {
                 className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
                 aria-label="Instagram"
               >
-                <Instagram className="h-5 w-5" />
+                <FaInstagram className="h-10 w-10" />
               </a>
               <a
                 href="https://www.facebook.com"
@@ -556,16 +557,16 @@ export const Component = () => {
                 className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
                 aria-label="Facebook"
               >
-                <Facebook className="h-5 w-5" />
+                <FaFacebookF className="h-10 w-10" />
               </a>
               <a
-                href="https://www.twitter.com"
+                href="https://x.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
-                aria-label="Twitter"
+                aria-label="X (Twitter)"
               >
-                <Twitter className="h-5 w-5" />
+                <FaXTwitter className="h-10 w-10" />
               </a>
               <a
                 href="https://www.youtube.com"
@@ -574,7 +575,7 @@ export const Component = () => {
                 className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
                 aria-label="YouTube"
               >
-                <Youtube className="h-5 w-5" />
+                <FaYoutube className="h-10 w-10" />
               </a>
               <a
                 href="https://www.linkedin.com"
@@ -583,9 +584,17 @@ export const Component = () => {
                 className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="h-5 w-5" />
+                <FaLinkedin className="h-10 w-10" />
               </a>
             </div>
+          </div>
+        </div>
+        {/* Bottom Bar - ISO certification & copyright */}
+        <div className="mt-12 pt-8 border-t border-white/10">
+          <div className="flex flex-col items-center justify-center gap-2 text-center text-sm text-white/60 md:flex-row md:gap-4">
+            <p>© Chiranjeevi Charitable Trust. All rights reserved.</p>
+            <p className="font-medium text-white/80">ISO 9001:2000 Certified</p>
+            <p>Serving with love, compassion, and community.</p>
           </div>
         </div>
       </div>
