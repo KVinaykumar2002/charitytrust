@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { defaultFounderImage } from "@/lib/founder-images";
+
+const CHAIRMAN_IMAGE = "/chairmain_logo.png";
 
 /**
  * Memorable Speeches – Chiranjeevi: central image with key addresses & moments.
@@ -59,16 +60,16 @@ const MemorableSpeeches = () => {
             ))}
           </div>
 
-          {/* Center: Chiranjeevi image */}
-          <div className="lg:col-span-4 flex justify-center items-center relative z-0 mt-8 lg:mt-0">
-            <div className="relative w-[300px] md:w-[450px] lg:w-[500px] h-[380px] md:h-[520px] lg:h-[580px] -mx-10 md:-mx-20 lg:-mx-24 pointer-events-none rounded overflow-hidden shadow-2xl">
+          {/* Center: Chairman portrait – upfront; blend removes white background on cream */}
+          <div className="lg:col-span-4 flex justify-center items-end relative z-20 mt-8 lg:mt-0">
+            <div className="relative w-[280px] md:w-[380px] lg:w-[420px] h-[360px] md:h-[480px] lg:h-[560px] pointer-events-none">
               <Image
-                src={defaultFounderImage}
-                alt="Chiranjeevi - Founder and Chairman, Chiranjeevi Charitable Trust"
+                src={CHAIRMAN_IMAGE}
+                alt="Founder and Chairman, Chiranjeevi Charitable Trust"
                 fill
                 priority
-                className="object-cover drop-shadow-2xl"
-                sizes="(max-width: 1024px) 450px, 500px"
+                className="object-contain object-bottom drop-shadow-2xl"
+                sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
               />
             </div>
           </div>
