@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { founderCarouselImages } from "@/lib/founder-images";
 
 const AUTO_SCROLL_INTERVAL_MS = 1000;
@@ -86,7 +85,7 @@ const HeroVisionary = () => {
       </div>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-24 left-0 right-0 z-10 flex justify-center gap-2">
+      <div className="absolute bottom-8 left-0 right-0 z-10 flex justify-center gap-2">
         {founderCarouselImages.map((_, index) => (
           <button
             key={index}
@@ -100,57 +99,6 @@ const HeroVisionary = () => {
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
-      </div>
-
-      {/* Breadcrumb Strip */}
-      <div className="absolute bottom-0 left-0 w-full z-20 bg-[#FDF5E6] py-3 border-t border-white/20">
-        <div className="container max-w-[1200px] mx-auto px-4">
-          <nav className="flex items-center space-x-2 text-[13px] text-[#333333]">
-            <Link href="/" className="hover:text-[#004291] transition-colors">
-              Home
-            </Link>
-            <span className="text-[#666666]/50">
-              <svg
-                width="8"
-                height="12"
-                viewBox="0 0 8 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="inline-block mx-1"
-              >
-                <path
-                  d="M1.5 1L6.5 6L1.5 11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            <Link href="/about" className="hover:text-[#004291] transition-colors">
-              About
-            </Link>
-            <span className="text-[#666666]/50">
-              <svg
-                width="8"
-                height="12"
-                viewBox="0 0 8 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="inline-block mx-1"
-              >
-                <path
-                  d="M1.5 1L6.5 6L1.5 11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            <span className="font-semibold">Founder-Chairman</span>
-          </nav>
-        </div>
       </div>
     </section>
   );

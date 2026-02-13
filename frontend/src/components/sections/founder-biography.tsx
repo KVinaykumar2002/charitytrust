@@ -1,11 +1,36 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { founderCarouselImages } from "@/lib/founder-images";
 
+const AUTO_SCROLL_INTERVAL_MS = 4000;
+const CARD_WIDTH_PX = 200;
+const GAP_PX = 16;
+
 const FounderBiography = () => {
   const thumbnailImages = founderCarouselImages;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % thumbnailImages.length);
+    }, AUTO_SCROLL_INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, [thumbnailImages.length]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const scrollLeft = activeIndex * (CARD_WIDTH_PX + GAP_PX);
+    el.scrollTo({ left: scrollLeft, behavior: "smooth" });
+  }, [activeIndex]);
+
+  const goTo = (index: number) => {
+    const next = Math.max(0, Math.min(index, thumbnailImages.length - 1));
+    setActiveIndex(next);
+  };
 
   return (
     <section className="relative w-full bg-[#fdf5e6] pb-20 dark:bg-neutral-900">
@@ -80,6 +105,7 @@ const FounderBiography = () => {
                 {/* Previous Arrow */}
                 <button
                   type="button"
+                  onClick={() => goTo(activeIndex - 1)}
                   className="flex-shrink-0 w-10 h-10 rounded-full bg-[#c59b5f] flex items-center justify-center transition-opacity hover:opacity-90 z-10 shadow-md"
                   aria-label="Previous"
                 >
@@ -98,11 +124,15 @@ const FounderBiography = () => {
                   </svg>
                 </button>
 
-                <div className="flex gap-4 w-full overflow-x-auto overflow-y-hidden justify-center flex-wrap md:flex-nowrap">
+                <div
+                  ref={scrollRef}
+                  className="flex gap-4 w-full overflow-x-auto overflow-y-hidden justify-start flex-nowrap scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  style={{ scrollSnapType: "x mandatory" }}
+                >
                   {thumbnailImages.map((src, index) => (
                     <div
                       key={`${index}-${src.slice(-40)}`}
-                      className="relative w-[200px] flex-shrink-0 h-[240px] overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800"
+                      className="relative w-[200px] flex-shrink-0 h-[240px] overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800 snap-center"
                     >
                       <Image
                         src={src}
@@ -119,6 +149,7 @@ const FounderBiography = () => {
                 {/* Next Arrow */}
                 <button
                   type="button"
+                  onClick={() => goTo(activeIndex + 1)}
                   className="flex-shrink-0 w-10 h-10 rounded-full bg-[#c59b5f] flex items-center justify-center transition-opacity hover:opacity-90 z-10 shadow-md"
                   aria-label="Next"
                 >
