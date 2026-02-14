@@ -1156,7 +1156,7 @@ export async function deleteTeamCategory(token: string, id: string) {
 export async function addTeamMember(
   token: string,
   categoryId: string,
-  body: { name: string; position: string; imageUrl?: string; bio?: string; order?: number }
+  body: { teamNumber?: string; name: string; position: string; imageUrl?: string; bio?: string; order?: number }
 ) {
   const response = await fetch(`${API_BASE_URL}/admin/content/team-categories/${categoryId}/members`, {
     method: 'POST',
@@ -1178,7 +1178,7 @@ export async function updateTeamMember(
   token: string,
   categoryId: string,
   memberId: string,
-  body: { name?: string; position?: string; imageUrl?: string; bio?: string; order?: number }
+  body: { teamNumber?: string; name?: string; position?: string; imageUrl?: string; bio?: string; order?: number }
 ) {
   const response = await fetch(
     `${API_BASE_URL}/admin/content/team-categories/${categoryId}/members/${memberId}`,

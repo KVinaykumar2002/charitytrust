@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const teamMemberSchema = new mongoose.Schema({
+  teamNumber: {
+    type: String,
+    trim: true,
+    default: '',
+  },
   name: {
     type: String,
     required: [true, 'Member name is required'],

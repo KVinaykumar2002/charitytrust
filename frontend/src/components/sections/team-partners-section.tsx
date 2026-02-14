@@ -283,9 +283,16 @@ const TeamPartnersSection = () => {
                             )}
                           </div>
                           <div className="min-w-0 flex-1">
-                            <h5 className="font-semibold text-neutral-900 dark:text-white">
-                              {teamMember.name}
-                            </h5>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              {(teamMember as { teamNumber?: string }).teamNumber && (
+                                <span className="text-xs font-medium text-primary bg-primary/10 dark:bg-primary/20 px-2 py-0.5 rounded">
+                                  #{(teamMember as { teamNumber?: string }).teamNumber}
+                                </span>
+                              )}
+                              <h5 className="font-semibold text-neutral-900 dark:text-white">
+                                {teamMember.name}
+                              </h5>
+                            </div>
                             <p className="text-sm text-primary dark:text-primary">
                               {teamMember.position}
                             </p>

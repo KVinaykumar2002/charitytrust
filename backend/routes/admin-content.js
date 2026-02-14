@@ -1559,7 +1559,7 @@ router.post('/team-categories/:id/members', async (req, res) => {
         message: 'Team category not found',
       });
     }
-    const { name, position, imageUrl, bio, order } = req.body;
+    const { teamNumber, name, position, imageUrl, bio, order } = req.body;
     if (!name || !position) {
       return res.status(400).json({
         success: false,
@@ -1567,6 +1567,7 @@ router.post('/team-categories/:id/members', async (req, res) => {
       });
     }
     const newMember = {
+      teamNumber: teamNumber ? String(teamNumber).trim() : '',
       name: name.trim(),
       position: position.trim(),
       imageUrl: imageUrl ? String(imageUrl).trim() : '',
@@ -1609,7 +1610,8 @@ router.put('/team-categories/:categoryId/members/:memberId', async (req, res) =>
         message: 'Team member not found',
       });
     }
-    const { name, position, imageUrl, bio, order } = req.body;
+    const { teamNumber, name, position, imageUrl, bio, order } = req.body;
+    if (teamNumber !== undefined) member.teamNumber = String(teamNumber).trim();
     if (name !== undefined) member.name = String(name).trim();
     if (position !== undefined) member.position = String(position).trim();
     if (imageUrl !== undefined) member.imageUrl = String(imageUrl).trim();

@@ -22,7 +22,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Plus, Edit, Trash2, Award, Target, Heart, Users } from "lucide-react";
+import { Plus, Edit, Trash2, Award, Target, Heart, Users, Upload } from "lucide-react";
 import { getToken } from "@/lib/auth-storage";
 import {
   getAdminTeamCategories,
@@ -36,6 +36,7 @@ import {
 
 export interface TeamMember {
   _id?: string;
+  teamNumber?: string;
   name: string;
   position: string;
   imageUrl?: string;
@@ -78,11 +79,13 @@ export default function AdminTeamPage() {
   const [memberCategoryId, setMemberCategoryId] = useState<string | null>(null);
   const [editingMemberIndex, setEditingMemberIndex] = useState<number | null>(null);
   const [memberForm, setMemberForm] = useState({
+    teamNumber: "",
     name: "",
     position: "",
     imageUrl: "",
     bio: "",
   });
+  const [memberImageDragging, setMemberImageDragging] = useState(false);
   const [deleteCategoryId, setDeleteCategoryId] = useState<string | null>(null);
   const [deleteMemberState, setDeleteMemberState] = useState<{
     categoryId: string;
@@ -189,7 +192,7 @@ export default function AdminTeamPage() {
   const openAddMember = (categoryId: string) => {
     setMemberCategoryId(categoryId);
     setEditingMemberIndex(null);
-    setMemberForm({ name: "", position: "", imageUrl: "", bio: "" });
+    setMemberForm({ teamNumber: "", name: "", position: "", imageUrl: "", bio: "" });
     setMemberModalOpen(true);
   };
 
@@ -200,12 +203,35 @@ export default function AdminTeamPage() {
     setMemberCategoryId(categoryId);
     setEditingMemberIndex(index);
     setMemberForm({
+      teamNumber: member.teamNumber || "",
       name: member.name,
       position: member.position,
       imageUrl: member.imageUrl || "",
       bio: member.bio || "",
     });
     setMemberModalOpen(true);
+  };
+
+  const readImageFile = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setMemberForm((f) => ({ ...f, imageUrl: reader.result as string }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleMemberImageDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setMemberImageDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) readImageFile(file);
+  };
+
+  const handleMemberImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) readImageFile(file);
+    e.target.value = "";
   };
 
   const handleSaveMember = async () => {
@@ -216,6 +242,7 @@ export default function AdminTeamPage() {
     setSaving(true);
     try {
       const memberPayload = {
+        teamNumber: memberForm.teamNumber.trim() || undefined,
         name: memberForm.name.trim(),
         position: memberForm.position.trim(),
         imageUrl: memberForm.imageUrl.trim() || undefined,
@@ -424,9 +451,16 @@ export default function AdminTeamPage() {
                                   </div>
                                 )}
                                 <div className="min-w-0 flex-1">
-                                  <p className="font-medium text-[#1a1a1a] truncate">
-                                    {member.name}
-                                  </p>
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    {member.teamNumber && (
+                                      <span className="text-xs font-medium text-[#FD7E14] bg-[#FFF3E8] px-2 py-0.5 rounded">
+                                        #{member.teamNumber}
+                                      </span>
+                                    )}
+                                    <p className="font-medium text-[#1a1a1a] truncate">
+                                      {member.name}
+                                    </p>
+                                  </div>
                                   <p className="text-sm text-[#4a4a4a] truncate">
                                     {member.position}
                                   </p>
@@ -560,7 +594,18 @@ export default function AdminTeamPage() {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div>
-              <Label htmlFor="mem-name">Name</Label>
+              <Label htmlFor="mem-teamNumber">Team number (optional)</Label>
+              <Input
+                id="mem-teamNumber"
+                value={memberForm.teamNumber}
+                onChange={(e) =>
+                  setMemberForm((f) => ({ ...f, teamNumber: e.target.value }))
+                }
+                placeholder="e.g. 1, 01, or TM-001"
+              />
+            </div>
+            <div>
+              <Label htmlFor="mem-name">Name *</Label>
               <Input
                 id="mem-name"
                 value={memberForm.name}
@@ -571,7 +616,7 @@ export default function AdminTeamPage() {
               />
             </div>
             <div>
-              <Label htmlFor="mem-position">Position</Label>
+              <Label htmlFor="mem-position">Role / Position *</Label>
               <Input
                 id="mem-position"
                 value={memberForm.position}
@@ -582,15 +627,50 @@ export default function AdminTeamPage() {
               />
             </div>
             <div>
-              <Label htmlFor="mem-image">Profile image URL (optional)</Label>
-              <Input
-                id="mem-image"
-                value={memberForm.imageUrl}
-                onChange={(e) =>
-                  setMemberForm((f) => ({ ...f, imageUrl: e.target.value }))
-                }
-                placeholder="https://..."
-              />
+              <Label className="text-[#1a1a1a]">Profile image (optional)</Label>
+              <div
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setMemberImageDragging(true);
+                }}
+                onDragLeave={() => setMemberImageDragging(false)}
+                onDrop={handleMemberImageDrop}
+                className={`border-2 border-dashed rounded-lg p-4 flex flex-col items-center justify-center gap-2 transition-colors ${
+                  memberImageDragging
+                    ? "border-[#FD7E14] bg-[#FFF3E8]"
+                    : "border-[#e5e5e5] hover:border-[#d0d0d0] bg-[#f8f9f8]"
+                }`}
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleMemberImageSelect}
+                  className="hidden"
+                  id="mem-image-input"
+                />
+                <label
+                  htmlFor="mem-image-input"
+                  className="cursor-pointer flex flex-col items-center gap-2 w-full"
+                >
+                  {memberForm.imageUrl ? (
+                    <>
+                      <img
+                        src={memberForm.imageUrl}
+                        alt="Preview"
+                        className="w-20 h-20 rounded-full object-cover border-2 border-[#e5e5e5]"
+                      />
+                      <span className="text-sm text-[#4a4a4a]">Click or drop to replace</span>
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="h-8 w-8 text-[#a0a0a0]" />
+                      <span className="text-sm text-[#4a4a4a]">
+                        Drag & drop an image or click to upload
+                      </span>
+                    </>
+                  )}
+                </label>
+              </div>
             </div>
             <div>
               <Label htmlFor="mem-bio">Bio (optional)</Label>
