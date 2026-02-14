@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Users, Award, Heart, Target, ChevronDown, UsersRound, Building2 } from "lucide-react";
 import { getPublicTeam } from "@/lib/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ICON_MAP: Record<string, typeof Award> = {
   Award,
@@ -137,9 +138,11 @@ const AnimatedCounter = ({ targetValue, suffix, duration = 2000, delay = 0 }: {
 
 const TeamPartnersSection = () => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
-  const [teamCategories, setTeamCategories] = useState<typeof FALLBACK_TEAM>(FALLBACK_TEAM);
+  const [teamLoading, setTeamLoading] = useState(true);
+  const [teamCategories, setTeamCategories] = useState<typeof FALLBACK_TEAM>([]);
 
   useEffect(() => {
+    setTeamLoading(true);
     getPublicTeam()
       .then((res) => {
         if (res?.success && Array.isArray(res.data) && res.data.length > 0) {
@@ -152,10 +155,15 @@ const TeamPartnersSection = () => {
               members: (c.members || []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
             }))
           );
+        } else {
+          setTeamCategories([]);
         }
       })
       .catch(() => {
-        setTeamCategories(FALLBACK_TEAM);
+        setTeamCategories([]);
+      })
+      .finally(() => {
+        setTeamLoading(false);
       });
   }, []);
 
@@ -216,7 +224,31 @@ const TeamPartnersSection = () => {
             Leadership Team
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            {teamCategories.map((member, index) => {
+            {teamLoading ? (
+              <>
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 flex flex-col animate-in fade-in duration-300"
+                  >
+                    <Skeleton className="w-16 h-16 rounded-full mx-auto mb-6" />
+                    <Skeleton className="h-6 w-3/4 mx-auto mb-2" />
+                    <Skeleton className="h-4 w-1/2 mx-auto mb-4" />
+                    <Skeleton className="h-4 w-full mb-2" />
+                    <Skeleton className="h-4 w-full mb-2" />
+                    <Skeleton className="h-4 w-2/3 mb-6" />
+                    <Skeleton className="h-11 w-full mt-auto rounded-lg" />
+                  </div>
+                ))}
+              </>
+            ) : teamCategories.length === 0 ? (
+              <div className="col-span-full text-center py-12 px-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700">
+                <p className="text-neutral-600 dark:text-neutral-400 text-lg">
+                  No team categories yet. Team information will appear here once added from the admin panel.
+                </p>
+              </div>
+            ) : (
+            teamCategories.map((member, index) => {
               const IconComponent = ICON_MAP[member.icon] || Award;
               return (
               <div
@@ -309,7 +341,8 @@ const TeamPartnersSection = () => {
                 )}
               </div>
               );
-            })}
+            })
+            )}
           </div>
         </div>
 
