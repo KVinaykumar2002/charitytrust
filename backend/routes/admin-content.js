@@ -1433,7 +1433,9 @@ router.delete('/fan-events/:id', async (req, res) => {
   }
 });
 
-// ==================== TEAM CATEGORIES (Our Team) CRUD ====================
+// ==================== TEAM CATEGORIES & MEMBERS (Our Team section) ====================
+// Backend section for managing the public "Our Team" page: categories (e.g. Leadership
+// Team, Program Directors, Medical Advisors) and their members (name, position, image, bio).
 
 // Get all team categories
 router.get('/team-categories', async (req, res) => {
@@ -1540,6 +1542,118 @@ router.delete('/team-categories/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error deleting team category',
+      error: error.message,
+    });
+  }
+});
+
+// ==================== TEAM MEMBERS (within a category) ====================
+
+// Add a member to a team category
+router.post('/team-categories/:id/members', async (req, res) => {
+  try {
+    const category = await TeamCategory.findById(req.params.id);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team category not found',
+      });
+    }
+    const { name, position, imageUrl, bio, order } = req.body;
+    if (!name || !position) {
+      return res.status(400).json({
+        success: false,
+        message: 'Member name and position are required',
+      });
+    }
+    const newMember = {
+      name: name.trim(),
+      position: position.trim(),
+      imageUrl: imageUrl ? String(imageUrl).trim() : '',
+      bio: bio ? String(bio).trim() : '',
+      order: typeof order === 'number' ? order : (category.members?.length ?? 0),
+    };
+    category.members = category.members || [];
+    category.members.push(newMember);
+    await category.save();
+    const added = category.members[category.members.length - 1];
+    res.status(201).json({
+      success: true,
+      message: 'Team member added successfully',
+      data: { category, member: added },
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error adding team member',
+      error: error.message,
+    });
+  }
+});
+
+// Update a team member
+router.put('/team-categories/:categoryId/members/:memberId', async (req, res) => {
+  try {
+    const category = await TeamCategory.findById(req.params.categoryId);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team category not found',
+      });
+    const memberId = req.params.memberId;
+    const member = category.members?.id(memberId);
+    if (!member) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team member not found',
+      });
+    const { name, position, imageUrl, bio, order } = req.body;
+    if (name !== undefined) member.name = String(name).trim();
+    if (position !== undefined) member.position = String(position).trim();
+    if (imageUrl !== undefined) member.imageUrl = String(imageUrl).trim();
+    if (bio !== undefined) member.bio = String(bio).trim();
+    if (typeof order === 'number') member.order = order;
+    await category.save();
+    res.json({
+      success: true,
+      message: 'Team member updated successfully',
+      data: { category, member },
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating team member',
+      error: error.message,
+    });
+  }
+});
+
+// Delete a team member
+router.delete('/team-categories/:categoryId/members/:memberId', async (req, res) => {
+  try {
+    const category = await TeamCategory.findById(req.params.categoryId);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team category not found',
+      });
+    const memberId = req.params.memberId;
+    const member = category.members?.id(memberId);
+    if (!member) {
+      return res.status(404).json({
+        success: false,
+        message: 'Team member not found',
+      });
+    category.members.pull(memberId);
+    await category.save();
+    res.json({
+      success: true,
+      message: 'Team member removed successfully',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error removing team member',
       error: error.message,
     });
   }

@@ -1152,6 +1152,70 @@ export async function deleteTeamCategory(token: string, id: string) {
   return response.json();
 }
 
+// Add team member to a category (admin)
+export async function addTeamMember(
+  token: string,
+  categoryId: string,
+  body: { name: string; position: string; imageUrl?: string; bio?: string; order?: number }
+) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/team-categories/${categoryId}/members`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to add team member');
+  }
+  return response.json();
+}
+
+// Update team member (admin)
+export async function updateTeamMember(
+  token: string,
+  categoryId: string,
+  memberId: string,
+  body: { name?: string; position?: string; imageUrl?: string; bio?: string; order?: number }
+) {
+  const response = await fetch(
+    `${API_BASE_URL}/admin/content/team-categories/${categoryId}/members/${memberId}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to update team member');
+  }
+  return response.json();
+}
+
+// Delete team member (admin)
+export async function deleteTeamMember(token: string, categoryId: string, memberId: string) {
+  const response = await fetch(
+    `${API_BASE_URL}/admin/content/team-categories/${categoryId}/members/${memberId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }
+  );
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to remove team member');
+  }
+  return response.json();
+}
+
 // ==================== EYE DONATION PLEDGE APIs ====================
 
 export interface EyeDonationPledgeData {

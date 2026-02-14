@@ -29,6 +29,9 @@ import {
   createTeamCategory,
   updateTeamCategory,
   deleteTeamCategory,
+  addTeamMember,
+  updateTeamMember,
+  deleteTeamMember,
 } from "@/lib/api";
 
 export interface TeamMember {
@@ -212,7 +215,6 @@ export default function AdminTeamPage() {
     if (!cat) return;
     setSaving(true);
     try {
-      let newMembers: TeamMember[] = [...(cat.members || [])];
       const memberPayload = {
         name: memberForm.name.trim(),
         position: memberForm.position.trim(),
@@ -220,23 +222,48 @@ export default function AdminTeamPage() {
         bio: memberForm.bio.trim() || undefined,
       };
       if (editingMemberIndex !== null) {
-        newMembers[editingMemberIndex] = { ...newMembers[editingMemberIndex], ...memberPayload };
+        const member = cat.members?.[editingMemberIndex];
+        if (member?._id) {
+          const res = await updateTeamMember(token, memberCategoryId, member._id, memberPayload);
+          if (res.success && res.data) {
+            setCategories((prev) =>
+              prev.map((c) =>
+                c._id === memberCategoryId
+                  ? { ...c, members: (c.members || []).map((m, i) => (i === editingMemberIndex ? { ...m, ...memberPayload } : m)) }
+                  : c
+              )
+            );
+          }
+        } else {
+          await updateTeamCategory(token, memberCategoryId, {
+            name: cat.name,
+            role: cat.role,
+            description: cat.description,
+            icon: cat.icon,
+            order: cat.order,
+            members: (cat.members || []).map((m, i) => (i === editingMemberIndex ? { ...m, ...memberPayload } : m)),
+          });
+          setCategories((prev) =>
+            prev.map((c) =>
+              c._id === memberCategoryId
+                ? { ...c, members: (c.members || []).map((m, i) => (i === editingMemberIndex ? { ...m, ...memberPayload } : m)) }
+                : c
+            )
+          );
+        }
       } else {
-        newMembers.push({ ...memberPayload, order: newMembers.length });
+        const res = await addTeamMember(token, memberCategoryId, {
+          ...memberPayload,
+          order: (cat.members?.length ?? 0),
+        });
+        if (res.success && res.data?.member) {
+          setCategories((prev) =>
+            prev.map((c) =>
+              c._id === memberCategoryId ? { ...c, members: [...(c.members || []), res.data.member] } : c
+            )
+          );
+        }
       }
-      await updateTeamCategory(token, memberCategoryId, {
-        name: cat.name,
-        role: cat.role,
-        description: cat.description,
-        icon: cat.icon,
-        order: cat.order,
-        members: newMembers,
-      });
-      setCategories((prev) =>
-        prev.map((c) =>
-          c._id === memberCategoryId ? { ...c, members: newMembers } : c
-        )
-      );
       setMemberModalOpen(false);
     } catch (e: any) {
       alert(e.message || "Failed to save member");
@@ -250,19 +277,24 @@ export default function AdminTeamPage() {
     if (!token) return;
     const cat = categories.find((c) => c._id === categoryId);
     if (!cat) return;
-    const newMembers = cat.members.filter((_, i) => i !== index);
+    const member = cat.members?.[index];
     try {
-      await updateTeamCategory(token, categoryId, {
-        name: cat.name,
-        role: cat.role,
-        description: cat.description,
-        icon: cat.icon,
-        order: cat.order,
-        members: newMembers,
-      });
+      if (member?._id) {
+        await deleteTeamMember(token, categoryId, member._id);
+      } else {
+        const newMembers = (cat.members || []).filter((_, i) => i !== index);
+        await updateTeamCategory(token, categoryId, {
+          name: cat.name,
+          role: cat.role,
+          description: cat.description,
+          icon: cat.icon,
+          order: cat.order,
+          members: newMembers,
+        });
+      }
       setCategories((prev) =>
         prev.map((c) =>
-          c._id === categoryId ? { ...c, members: newMembers } : c
+          c._id === categoryId ? { ...c, members: (c.members || []).filter((_, i) => i !== index) } : c
         )
       );
       setDeleteMemberState(null);
