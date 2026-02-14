@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Droplet, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +11,10 @@ interface TrustLoaderProps {
   size?: "sm" | "md" | "lg";
   label?: string;
   className?: string;
+  /** Show percentage (default true for blood/both). Use percentage prop for real progress, or simulated 0→99 when unmounted. */
+  showPercentage?: boolean;
+  /** Optional 0–100 progress. When not set, a simulated percentage runs for blood/both. */
+  percentage?: number;
 }
 
 const sizeClasses = {
@@ -23,8 +28,24 @@ export function TrustLoader({
   size = "md",
   label = "Loading...",
   className,
+  showPercentage = true,
+  percentage: percentageProp,
 }: TrustLoaderProps) {
   const iconSize = size === "sm" ? 20 : size === "md" ? 28 : 36;
+  const [simulatedPercent, setSimulatedPercent] = useState(0);
+
+  const isBloodVariant = variant === "blood" || variant === "both";
+  const showPercent = showPercentage && isBloodVariant;
+  const displayPercent = percentageProp ?? simulatedPercent;
+
+  useEffect(() => {
+    if (!showPercent || percentageProp !== undefined) return;
+    const interval = 80;
+    const id = setInterval(() => {
+      setSimulatedPercent((p) => (p >= 99 ? 99 : p + 1));
+    }, interval);
+    return () => clearInterval(id);
+  }, [showPercent, percentageProp]);
 
   return (
     <div
@@ -84,6 +105,11 @@ export function TrustLoader({
       {label && (
         <p className="text-sm text-muted-foreground dark:text-white/60 animate-pulse">
           {label}
+        </p>
+      )}
+      {showPercent && (
+        <p className="text-lg font-semibold tabular-nums text-[#c41e3a] dark:text-red-400" aria-live="polite">
+          {Math.round(displayPercent)}%
         </p>
       )}
     </div>
