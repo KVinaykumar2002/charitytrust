@@ -1600,6 +1600,7 @@ router.put('/team-categories/:categoryId/members/:memberId', async (req, res) =>
         success: false,
         message: 'Team category not found',
       });
+    }
     const memberId = req.params.memberId;
     const member = category.members?.id(memberId);
     if (!member) {
@@ -1607,6 +1608,7 @@ router.put('/team-categories/:categoryId/members/:memberId', async (req, res) =>
         success: false,
         message: 'Team member not found',
       });
+    }
     const { name, position, imageUrl, bio, order } = req.body;
     if (name !== undefined) member.name = String(name).trim();
     if (position !== undefined) member.position = String(position).trim();
@@ -1637,6 +1639,7 @@ router.delete('/team-categories/:categoryId/members/:memberId', async (req, res)
         success: false,
         message: 'Team category not found',
       });
+    }
     const memberId = req.params.memberId;
     const member = category.members?.id(memberId);
     if (!member) {
@@ -1644,6 +1647,7 @@ router.delete('/team-categories/:categoryId/members/:memberId', async (req, res)
         success: false,
         message: 'Team member not found',
       });
+    }
     category.members.pull(memberId);
     await category.save();
     res.json({
