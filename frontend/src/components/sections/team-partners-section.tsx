@@ -142,29 +142,49 @@ const TeamPartnersSection = () => {
   const [teamCategories, setTeamCategories] = useState<typeof FALLBACK_TEAM>([]);
 
   useEffect(() => {
+    let cancelled = false;
     setTeamLoading(true);
     getPublicTeam()
-      .then((res) => {
-        if (res?.success && Array.isArray(res.data) && res.data.length > 0) {
-          setTeamCategories(
-            res.data.map((c: { name: string; role?: string; description?: string; icon?: string; order?: number; members?: Array<{ name: string; position: string; imageUrl?: string; bio?: string; order?: number }> }) => ({
-              name: c.name,
-              role: c.role || "",
-              description: c.description || "",
-              icon: c.icon || "Award",
-              members: (c.members || []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
-            }))
-          );
-        } else {
+      .then((res: unknown) => {
+        if (cancelled) return;
+        const r = res as Record<string, unknown>;
+        const raw = Array.isArray(r?.data)
+          ? (r.data as unknown[])
+          : Array.isArray(r?.categories)
+            ? (r.categories as unknown[])
+            : Array.isArray(res)
+              ? (res as unknown[])
+              : null;
+        if (!raw || raw.length === 0) {
           setTeamCategories([]);
+          return;
+        }
+        try {
+          const mapped = raw.map((c: Record<string, unknown>) => {
+            const members = Array.isArray(c?.members) ? c.members : [];
+            const sortedMembers = members
+              .slice()
+              .sort((a: { order?: number }, b: { order?: number }) => (a?.order ?? 0) - (b?.order ?? 0));
+            return {
+              name: String(c?.name ?? ""),
+              role: String(c?.role ?? ""),
+              description: String(c?.description ?? ""),
+              icon: ["Award", "Target", "Heart", "Users"].includes(String(c?.icon ?? "")) ? String(c.icon) : "Award",
+              members: sortedMembers,
+            };
+          });
+          if (!cancelled) setTeamCategories(mapped);
+        } catch {
+          if (!cancelled) setTeamCategories([]);
         }
       })
       .catch(() => {
-        setTeamCategories([]);
+        if (!cancelled) setTeamCategories([]);
       })
       .finally(() => {
-        setTeamLoading(false);
+        if (!cancelled) setTeamLoading(false);
       });
+    return () => { cancelled = true; };
   }, []);
 
   const toggleDropdown = (index: number) => {
@@ -248,11 +268,12 @@ const TeamPartnersSection = () => {
                 </p>
               </div>
             ) : (
-            teamCategories.map((member, index) => {
+            <div className="contents" key={`team-cards-${teamCategories.length}`}>
+            {teamCategories.map((member, index) => {
               const IconComponent = ICON_MAP[member.icon] || Award;
               return (
               <div
-                key={index}
+                key={member.name ? `${member.name}-${index}` : index}
                 data-stagger-item
                 data-animation="slide-up"
                 data-animation-delay={`${index * 0.1}s`}
@@ -341,7 +362,8 @@ const TeamPartnersSection = () => {
                 )}
               </div>
               );
-            })
+            })}
+            </div>
             )}
           </div>
         </div>

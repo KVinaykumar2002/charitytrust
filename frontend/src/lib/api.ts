@@ -1058,7 +1058,7 @@ export async function getPublicTeam() {
     const response = await fetch(`${API_BASE_URL}/public/team`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      next: { revalidate: 60 },
+      cache: 'no-store',
     });
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
