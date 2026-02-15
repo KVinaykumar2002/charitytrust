@@ -537,13 +537,6 @@ const TeamPartnersSection = () => {
           data-stagger-parent
           className="mb-20"
         >
-          <h3
-            data-stagger-item
-            data-animation="fade-up"
-            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-12"
-          >
-            Our Organizers & Government Hospitals
-          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {/* Our Organizers Card */}
             {organizersCategory && (
