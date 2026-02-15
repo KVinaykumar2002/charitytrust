@@ -61,7 +61,7 @@ export function TrustLoader({
     >
       <div className={cn("relative flex items-center justify-center", sizeClasses[size])}>
         {variant === "blood" && (
-          <div className="trust-loader-blood relative" aria-hidden>
+          <div className="trust-loader-blood absolute inset-0" aria-hidden>
             <Droplet
               className="size-full text-[#c41e3a] drop-shadow-[0_0_8px_rgba(196,30,58,0.5)]"
               strokeWidth={1.5}
