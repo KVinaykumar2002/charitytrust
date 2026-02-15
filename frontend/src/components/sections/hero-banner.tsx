@@ -80,7 +80,7 @@ const HeroBanner = () => {
   if (loading) {
     return (
       <section className="relative w-full min-h-screen mt-0 overflow-hidden flex items-center justify-center bg-[#1a1a1a]">
-        <TrustLoader variant="blood" size="lg" label="Loading..." />
+        <TrustLoader variant="blood" size="xl" label="Loading..." />
       </section>
     );
   }
