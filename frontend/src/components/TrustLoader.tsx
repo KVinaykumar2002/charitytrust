@@ -18,20 +18,20 @@ interface TrustLoaderProps {
 }
 
 const sizeClasses = {
-  sm: "size-8",
-  md: "size-12",
-  lg: "size-16",
+  sm: "size-16",
+  md: "size-24",
+  lg: "size-32",
 };
 
 export function TrustLoader({
   variant = "blood",
-  size = "md",
+  size = "lg",
   label = "Loading...",
   className,
   showPercentage = true,
   percentage: percentageProp,
 }: TrustLoaderProps) {
-  const iconSize = size === "sm" ? 20 : size === "md" ? 28 : 36;
+  const iconSize = size === "sm" ? 40 : size === "md" ? 56 : 72;
   const [simulatedPercent, setSimulatedPercent] = useState(0);
 
   const isBloodVariant = variant === "blood" || variant === "both";

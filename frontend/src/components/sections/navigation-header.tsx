@@ -182,8 +182,11 @@ const NavigationHeader = () => {
     setActiveSubmenu(activeSubmenu === itemName ? null : itemName);
   };
 
+  // Transparent on home and about when at top; black when scrolled or on other pages
+  const isTransparent = (pathname === "/" || pathname?.startsWith("/about")) && !scrolled;
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 flex h-24 max-h-24 w-full justify-center px-3 sm:px-4 transition-colors duration-300 overflow-visible ${scrolled ? "bg-black" : "bg-transparent"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 flex h-24 max-h-24 w-full justify-center px-3 sm:px-4 transition-colors duration-300 overflow-visible ${isTransparent ? "bg-transparent" : "bg-black"}`}>
       <div className="relative flex h-full w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 lg:gap-1.5 lg:px-2 xl:px-3 overflow-visible">
         {/* Logo - size independent of navbar height */}
         <Link href="/" className="flex shrink-0 items-center justify-center overflow-visible">
