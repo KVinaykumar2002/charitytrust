@@ -183,16 +183,16 @@ const NavigationHeader = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 flex h-14 max-h-14 w-full justify-center px-3 sm:px-4 transition-colors duration-300 ${scrolled ? "bg-black" : "bg-transparent"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 flex h-24 max-h-24 w-full justify-center px-3 sm:px-4 transition-colors duration-300 overflow-visible ${scrolled ? "bg-black" : "bg-transparent"}`}>
       <div className="relative flex h-full w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 lg:gap-1.5 lg:px-2 xl:px-3 overflow-visible">
-        {/* Logo */}
-        <Link href="/" className="flex h-full max-h-full shrink-0 items-center justify-center overflow-visible">
+        {/* Logo - size independent of navbar height */}
+        <Link href="/" className="flex shrink-0 items-center justify-center overflow-visible">
           <Image
             src="/LogoFinal.png"
             alt="Chiranjeevi Charitable Trust logo"
             width={500}
             height={150}
-            className="max-h-full w-auto object-contain object-left"
+            className="h-32 w-auto object-contain object-left lg:h-36 xl:h-40"
             priority
           />
         </Link>
@@ -222,7 +222,7 @@ const NavigationHeader = () => {
                 <div className="flex items-center gap-1 py-1.5 px-0.5">
                   <Link
                     href={item.name === "About Us" ? "/about" : item.href || "#"}
-                    className={`whitespace-nowrap text-xs font-medium transition-colors duration-300 hover-underline-slide ${
+                    className={`whitespace-nowrap text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                       isActive(item)
                         ? "text-[#FD7E14]"
                         : "text-white/80 hover:text-[#FD7E14]"
@@ -276,7 +276,7 @@ const NavigationHeader = () => {
                               }, 100);
                             }
                           }}
-                          className="flex items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-[#FD7E14]"
+                          className="flex items-center gap-2 whitespace-nowrap px-4 py-2.5 text-base text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-[#FD7E14]"
                         >
                           {Icon && <Icon className="h-4 w-4 shrink-0 text-[#FD7E14]" />}
                           {subItem.name}
@@ -291,7 +291,7 @@ const NavigationHeader = () => {
               <Link
                 key={item.name}
                 href={item.href!}
-                className={`whitespace-nowrap py-1.5 px-0.5 text-xs font-medium transition-colors duration-300 hover-underline-slide ${
+                className={`whitespace-nowrap py-1.5 px-0.5 text-sm font-medium transition-colors duration-300 hover-underline-slide ${
                   isActive(item)
                     ? "text-[#FD7E14]"
                     : "text-white/80 hover:text-[#FD7E14]"
@@ -311,7 +311,7 @@ const NavigationHeader = () => {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-1 text-xs font-medium text-white hover:bg-white/20 transition-colors">
+                <button className="flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-1 text-sm font-medium text-white hover:bg-white/20 transition-colors">
                   <Avatar className="h-5 w-5">
                     <AvatarFallback className="bg-[#FD7E14] text-white text-[10px]">
                       {user?.name?.charAt(0).toUpperCase() || "U"}
@@ -355,7 +355,7 @@ const NavigationHeader = () => {
             href="https://wa.me/919849756785"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#FD7E14] px-4 py-1.5 text-sm font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#FD7E14] px-4 py-1.5 text-base font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
           >
             Send a Message
             <ArrowRight className="h-3.5 w-3.5 shrink-0" />
@@ -397,7 +397,7 @@ const NavigationHeader = () => {
                             setIsMobileMenuOpen(false);
                           }
                         }}
-                        className={`flex-1 py-4 text-sm font-medium hover-underline-slide ${
+                        className={`flex-1 py-4 text-base font-medium hover-underline-slide ${
                           isActive(item)
                             ? "text-[#FD7E14]"
                             : activeSubmenu === item.name
@@ -420,7 +420,7 @@ const NavigationHeader = () => {
                       </button>
                     </div>
                     {activeSubmenu === item.name && (
-                      <div className="flex flex-col pb-2 pl-4 text-sm text-white/70">
+                      <div className="flex flex-col pb-2 pl-4 text-base text-white/70">
                         {item.dropdown.map((subItem) => {
                           const isEye = subItem.href === "/eye-donation";
                           const isBlood = subItem.href === "/blood-donation";
@@ -456,7 +456,7 @@ const NavigationHeader = () => {
                   <Link
                     href={item.href!}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block py-4 text-sm font-medium transition-colors duration-200 hover-underline-slide ${
+                    className={`block py-4 text-base font-medium transition-colors duration-200 hover-underline-slide ${
                       isActive(item)
                         ? "text-[#FD7E14]"
                         : "text-white/80 hover:text-white"
@@ -476,7 +476,7 @@ const NavigationHeader = () => {
                   <Link
                     href="/"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex w-full items-center justify-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white"
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-white/10 px-6 py-3 text-base font-semibold text-white"
                   >
                     <LayoutDashboard className="h-4 w-4" />
                     My Dashboard
@@ -487,7 +487,7 @@ const NavigationHeader = () => {
                     handleSignOut();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-red-500/20 px-6 py-3 text-sm font-semibold text-white"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-red-500/20 px-6 py-3 text-base font-semibold text-white"
                 >
                   <LogOut className="h-4 w-4" />
                   Sign Out
@@ -499,7 +499,7 @@ const NavigationHeader = () => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-base font-semibold text-[#ffffff]"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-lg font-semibold text-[#ffffff]"
             >
               Send a Message
               <ArrowRight className="h-3.5 w-3.5 shrink-0" />
