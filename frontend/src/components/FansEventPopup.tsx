@@ -1,18 +1,41 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Heart, ArrowRight, X } from "lucide-react";
 
 export default function FansEventPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const autoCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleClose = () => setIsOpen(false);
+  // On every load: show popup, then auto-close after 5 seconds
+  useEffect(() => {
+    if (!mounted) return;
+    setIsOpen(true);
+    autoCloseTimerRef.current = setTimeout(() => {
+      setIsOpen(false);
+      autoCloseTimerRef.current = null;
+    }, 5000);
+    return () => {
+      if (autoCloseTimerRef.current) {
+        clearTimeout(autoCloseTimerRef.current);
+        autoCloseTimerRef.current = null;
+      }
+    };
+  }, [mounted]);
+
+  const handleClose = () => {
+    if (autoCloseTimerRef.current) {
+      clearTimeout(autoCloseTimerRef.current);
+      autoCloseTimerRef.current = null;
+    }
+    setIsOpen(false);
+  };
 
   if (!mounted) return null;
 
