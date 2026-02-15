@@ -259,9 +259,38 @@ router.get('/timeline', async (req, res) => {
 
 // ==================== PUBLIC TEAM (Our Team section) ====================
 
+// Ensure default Our Organizers and Government Hospitals categories exist (same logic as admin)
+async function ensurePublicTeamSectionCategories() {
+  const organizers = await TeamCategory.findOne({ sectionType: 'organizers' });
+  if (!organizers) {
+    await TeamCategory.create({
+      name: 'Our Organizers',
+      role: '',
+      description: 'Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.',
+      icon: 'UsersRound',
+      sectionType: 'organizers',
+      order: 1000,
+      members: [],
+    });
+  }
+  const hospitals = await TeamCategory.findOne({ sectionType: 'government_hospitals' });
+  if (!hospitals) {
+    await TeamCategory.create({
+      name: 'Government Hospitals',
+      role: '',
+      description: 'We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.',
+      icon: 'Building2',
+      sectionType: 'government_hospitals',
+      order: 1001,
+      members: [],
+    });
+  }
+}
+
 // Get all team categories with members (public - no auth required)
 router.get('/team', async (req, res) => {
   try {
+    await ensurePublicTeamSectionCategories();
     const categories = await TeamCategory.find()
       .sort({ order: 1, createdAt: 1 })
       .select('-__v')

@@ -6,11 +6,13 @@ import { Users, Award, Heart, Target, ChevronDown, UsersRound, Building2 } from 
 import { getPublicTeam } from "@/lib/api";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const ICON_MAP: Record<string, typeof Award> = {
+const ICON_MAP: Record<string, typeof Award | typeof UsersRound | typeof Building2> = {
   Award,
   Target,
   Heart,
   Users,
+  UsersRound,
+  Building2,
 };
 
 const FALLBACK_TEAM = [
@@ -136,10 +138,21 @@ const AnimatedCounter = ({ targetValue, suffix, duration = 2000, delay = 0 }: {
   );
 };
 
+type TeamCategoryItem = {
+  name: string;
+  role: string;
+  description: string;
+  icon: string;
+  sectionType?: string;
+  members: Array<{ name: string; position: string; imageUrl?: string; bio?: string; teamNumber?: string }>;
+};
+
 const TeamPartnersSection = () => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [organizersDropdownOpen, setOrganizersDropdownOpen] = useState(false);
+  const [hospitalsDropdownOpen, setHospitalsDropdownOpen] = useState(false);
   const [teamLoading, setTeamLoading] = useState(true);
-  const [teamCategories, setTeamCategories] = useState<typeof FALLBACK_TEAM>([]);
+  const [teamCategories, setTeamCategories] = useState<TeamCategoryItem[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -160,16 +173,18 @@ const TeamPartnersSection = () => {
           return;
         }
         try {
-          const mapped = raw.map((c: Record<string, unknown>) => {
+          const mapped = (raw as Record<string, unknown>[]).map((c: Record<string, unknown>) => {
             const members = Array.isArray(c?.members) ? c.members : [];
             const sortedMembers = members
               .slice()
               .sort((a: { order?: number }, b: { order?: number }) => (a?.order ?? 0) - (b?.order ?? 0));
+            const icon = ["Award", "Target", "Heart", "Users", "UsersRound", "Building2"].includes(String(c?.icon ?? "")) ? String(c.icon) : "Award";
             return {
               name: String(c?.name ?? ""),
               role: String(c?.role ?? ""),
               description: String(c?.description ?? ""),
-              icon: ["Award", "Target", "Heart", "Users"].includes(String(c?.icon ?? "")) ? String(c.icon) : "Award",
+              icon,
+              sectionType: (c?.sectionType as string) || "leadership",
               members: sortedMembers,
             };
           });
@@ -188,11 +203,105 @@ const TeamPartnersSection = () => {
   }, []);
 
   const toggleDropdown = (index: number) => {
-    setOpenDropdown((prevIndex) => {
-      // If clicking the same dropdown, close it. Otherwise, open the clicked one.
-      return prevIndex === index ? null : index;
-    });
+    setOpenDropdown((prevIndex) => (prevIndex === index ? null : index));
   };
+
+  // When API fails or returns empty, use fallback so the section is never blank.
+  // Always include Our Organizers and Government Hospitals (from API or placeholder) so they show below Volunteers.
+  const baseCategories: TeamCategoryItem[] =
+    teamCategories.length > 0
+      ? teamCategories
+      : FALLBACK_TEAM.map((f) => ({
+          name: f.name,
+          role: f.role,
+          description: f.description,
+          icon: f.icon,
+          sectionType: "leadership",
+          members: f.members || [],
+        }));
+
+  const organizersFromApi = baseCategories.find((c) => c.sectionType === "organizers" || c.name === "Our Organizers");
+  const hospitalsFromApi = baseCategories.find((c) => c.sectionType === "government_hospitals" || c.name === "Government Hospitals");
+
+  const displayCategories: TeamCategoryItem[] =
+    baseCategories.length > 0
+      ? [
+          ...baseCategories.filter(
+            (c) => c.name !== "Our Organizers" && c.name !== "Government Hospitals"
+          ),
+          organizersFromApi ?? {
+            name: "Our Organizers",
+            role: "",
+            description: "Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.",
+            icon: "UsersRound",
+            sectionType: "organizers",
+            members: [],
+          },
+          hospitalsFromApi ?? {
+            name: "Government Hospitals",
+            role: "",
+            description: "We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.",
+            icon: "Building2",
+            sectionType: "government_hospitals",
+            members: [],
+          },
+        ]
+      : [];
+
+  const organizersCategory = displayCategories.find((c) => c.sectionType === "organizers" || c.name === "Our Organizers");
+  const governmentHospitalsCategory = displayCategories.find((c) => c.sectionType === "government_hospitals" || c.name === "Government Hospitals");
+  const leadershipCategories = displayCategories.filter(
+    (c) =>
+      (c.sectionType || "leadership") === "leadership" &&
+      c.name !== "Our Organizers" &&
+      c.name !== "Government Hospitals"
+  );
+
+  /** Reusable member list (same as in leadership dropdown) */
+  const renderMemberList = (members: TeamCategoryItem["members"]) => (
+    <div className="space-y-4 text-left">
+      {members?.map((teamMember, memberIndex) => (
+        <div
+          key={memberIndex}
+          className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700"
+        >
+          <div className="relative flex-shrink-0 w-14 h-14 rounded-full overflow-hidden bg-primary/20 dark:bg-primary/30">
+            {teamMember.imageUrl ? (
+              <Image
+                src={teamMember.imageUrl}
+                alt={teamMember.name}
+                fill
+                className="object-cover"
+                sizes="56px"
+              />
+            ) : (
+              <Image
+                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(teamMember.name)}&size=112&background=FD7E14&color=fff`}
+                alt={teamMember.name}
+                fill
+                className="object-cover"
+                sizes="56px"
+              />
+            )}
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              {teamMember.teamNumber && (
+                <span className="text-xs font-medium text-primary bg-primary/10 dark:bg-primary/20 px-2 py-0.5 rounded">
+                  #{teamMember.teamNumber}
+                </span>
+              )}
+              <h5 className="font-semibold text-neutral-900 dark:text-white">{teamMember.name}</h5>
+            </div>
+            <p className="text-sm text-primary dark:text-primary">{teamMember.position}</p>
+            {teamMember.bio && (
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1 line-clamp-3">{teamMember.bio}</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <section
@@ -261,15 +370,15 @@ const TeamPartnersSection = () => {
                   </div>
                 ))}
               </>
-            ) : teamCategories.length === 0 ? (
+            ) : leadershipCategories.length === 0 ? (
               <div className="col-span-full text-center py-12 px-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700">
                 <p className="text-neutral-600 dark:text-neutral-400 text-lg">
                   No team categories yet. Team information will appear here once added from the admin panel.
                 </p>
               </div>
             ) : (
-            <div className="contents" key={`team-cards-${teamCategories.length}`}>
-            {teamCategories.map((member, index) => {
+            <div className="contents" key={`team-cards-${leadershipCategories.length}`}>
+            {leadershipCategories.map((member, index) => {
               const IconComponent = ICON_MAP[member.icon] || Award;
               return (
               <div
@@ -277,7 +386,7 @@ const TeamPartnersSection = () => {
                 data-stagger-item
                 data-animation="slide-up"
                 data-animation-delay={`${index * 0.1}s`}
-                className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up text-center group flex flex-col"
+                className="relative bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up text-center group flex flex-col"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
                   <IconComponent className="w-8 h-8 text-primary" />
@@ -307,9 +416,9 @@ const TeamPartnersSection = () => {
                   />
                 </button>
 
-                {/* Dropdown Content */}
+                {/* Dropdown Content - absolute so other cards don't move */}
                 {openDropdown === index && (
-                  <div className="mt-6 pt-6 border-t border-gray-200 dark:border-neutral-700 animate-in slide-in-from-top-2 duration-300">
+                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
                     <div className="space-y-4 text-left">
                       {member.members?.map((teamMember, memberIndex) => (
                         <div
@@ -423,47 +532,94 @@ const TeamPartnersSection = () => {
           </div>
         </div>
 
-        {/* Our Organizers & Government Hospitals - Card Design */}
+        {/* Our Organizers & Government Hospitals - below Volunteers, data from Admin → Our Team */}
         <div
           data-stagger-parent
           className="mb-20"
         >
+          <h3
+            data-stagger-item
+            data-animation="fade-up"
+            className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white text-center mb-12"
+          >
+            Our Organizers & Government Hospitals
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {/* Our Organizers Card */}
-            <div
-              data-stagger-item
-              data-animation="slide-up"
-              data-animation-delay="0.1s"
-              className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up group"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
-                <UsersRound className="w-8 h-8 text-primary" />
+            {organizersCategory && (
+              <div
+                data-stagger-item
+                data-animation="slide-up"
+                data-animation-delay="0.1s"
+                className="relative bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up text-center group flex flex-col"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                  <UsersRound className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                  {organizersCategory.name}
+                </h3>
+                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300 mb-6">
+                  {organizersCategory.description}
+                </p>
+                <button
+                  onClick={() => setOrganizersDropdownOpen((o) => !o)}
+                  className="mt-auto flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 hover:bg-primary/20 dark:hover:bg-primary/30 text-primary dark:text-primary font-medium transition-colors duration-200"
+                  aria-expanded={organizersDropdownOpen}
+                >
+                  <span>View organizers</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${organizersDropdownOpen ? "rotate-180" : ""}`} />
+                </button>
+                {organizersDropdownOpen && organizersCategory.members?.length > 0 && (
+                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
+                    {renderMemberList(organizersCategory.members)}
+                  </div>
+                )}
+                {organizersDropdownOpen && (!organizersCategory.members || organizersCategory.members.length === 0) && (
+                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 animate-in slide-in-from-top-2 duration-200">
+                    <p className="text-neutral-500 dark:text-neutral-400 text-sm">No members added yet.</p>
+                  </div>
+                )}
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
-                Our Organizers
-              </h3>
-              <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-                Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.
-              </p>
-            </div>
+            )}
 
             {/* Government Hospitals Card */}
-            <div
-              data-stagger-item
-              data-animation="slide-up"
-              data-animation-delay="0.2s"
-              className="bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up group"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Building2 className="w-8 h-8 text-primary" />
+            {governmentHospitalsCategory && (
+              <div
+                data-stagger-item
+                data-animation="slide-up"
+                data-animation-delay="0.2s"
+                className="relative bg-white dark:bg-neutral-900 rounded-2xl p-8 shadow-lg dark:shadow-neutral-900/50 border border-gray-200 dark:border-neutral-800 hover-lift-up text-center group flex flex-col"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/20 dark:bg-primary/20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                  <Building2 className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                  {governmentHospitalsCategory.name}
+                </h3>
+                <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300 mb-6">
+                  {governmentHospitalsCategory.description}
+                </p>
+                <button
+                  onClick={() => setHospitalsDropdownOpen((o) => !o)}
+                  className="mt-auto flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 hover:bg-primary/20 dark:hover:bg-primary/30 text-primary dark:text-primary font-medium transition-colors duration-200"
+                  aria-expanded={hospitalsDropdownOpen}
+                >
+                  <span>View hospitals/partners</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${hospitalsDropdownOpen ? "rotate-180" : ""}`} />
+                </button>
+                {hospitalsDropdownOpen && governmentHospitalsCategory.members?.length > 0 && (
+                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
+                    {renderMemberList(governmentHospitalsCategory.members)}
+                  </div>
+                )}
+                {hospitalsDropdownOpen && (!governmentHospitalsCategory.members || governmentHospitalsCategory.members.length === 0) && (
+                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 animate-in slide-in-from-top-2 duration-200">
+                    <p className="text-neutral-500 dark:text-neutral-400 text-sm">No members added yet.</p>
+                  </div>
+                )}
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
-                Government Hospitals
-              </h3>
-              <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-                We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.
-              </p>
-            </div>
+            )}
           </div>
         </div>
 

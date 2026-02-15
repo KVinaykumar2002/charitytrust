@@ -1437,9 +1437,38 @@ router.delete('/fan-events/:id', async (req, res) => {
 // Backend section for managing the public "Our Team" page: categories (e.g. Leadership
 // Team, Program Directors, Medical Advisors) and their members (name, position, image, bio).
 
+// Ensure default "Our Organizers" and "Government Hospitals" categories exist (admin-managed like Leadership)
+async function ensureTeamSectionCategories() {
+  const organizers = await TeamCategory.findOne({ sectionType: 'organizers' });
+  if (!organizers) {
+    await TeamCategory.create({
+      name: 'Our Organizers',
+      role: '',
+      description: 'Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.',
+      icon: 'UsersRound',
+      sectionType: 'organizers',
+      order: 1000,
+      members: [],
+    });
+  }
+  const hospitals = await TeamCategory.findOne({ sectionType: 'government_hospitals' });
+  if (!hospitals) {
+    await TeamCategory.create({
+      name: 'Government Hospitals',
+      role: '',
+      description: 'We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.',
+      icon: 'Building2',
+      sectionType: 'government_hospitals',
+      order: 1001,
+      members: [],
+    });
+  }
+}
+
 // Get all team categories
 router.get('/team-categories', async (req, res) => {
   try {
+    await ensureTeamSectionCategories();
     const categories = await TeamCategory.find().sort({ order: 1, createdAt: 1 });
     res.json({
       success: true,
@@ -1488,10 +1517,11 @@ router.post('/team-categories', async (req, res) => {
       data: category,
     });
   } catch (error) {
+    const message = error.message || 'Error creating team category';
     res.status(400).json({
       success: false,
-      message: 'Error creating team category',
-      error: error.message,
+      message,
+      error: message,
     });
   }
 });
