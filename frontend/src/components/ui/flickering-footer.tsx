@@ -539,55 +539,55 @@ export const Component = () => {
                 </ul>
               ))}
             </div>
-            {/* Social Media Icons - Original brand logos, larger size */}
-            <div className="flex items-center gap-8 pt-5 md:pt-0 md:justify-end">
-              <a
-                href="https://www.instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
-                aria-label="Instagram"
-              >
-                <FaInstagram className="h-10 w-10" />
-              </a>
-              <a
-                href="https://www.facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
-                aria-label="Facebook"
-              >
-                <FaFacebookF className="h-10 w-10" />
-              </a>
-              <a
-                href="https://x.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
-                aria-label="X (Twitter)"
-              >
-                <FaXTwitter className="h-10 w-10" />
-              </a>
-              <a
-                href="https://www.youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
-                aria-label="YouTube"
-              >
-                <FaYoutube className="h-10 w-10" />
-              </a>
-              <a
-                href="https://www.linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin className="h-10 w-10" />
-              </a>
-            </div>
           </div>
+        </div>
+        {/* Social Media Icons - Original brand colors, placed below link columns */}
+        <div className="flex items-center justify-center gap-8 mt-10 pt-8 border-t border-white/10">
+          <a
+            href="https://www.instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-90 hover:opacity-100 transition-opacity duration-300"
+            aria-label="Instagram"
+          >
+            <FaInstagram className="h-10 w-10 text-[#E4405F]" />
+          </a>
+          <a
+            href="https://www.facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-90 hover:opacity-100 transition-opacity duration-300"
+            aria-label="Facebook"
+          >
+            <FaFacebookF className="h-10 w-10 text-[#1877F2]" />
+          </a>
+          <a
+            href="https://x.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-90 hover:opacity-100 transition-opacity duration-300"
+            aria-label="X (Twitter)"
+          >
+            <FaXTwitter className="h-10 w-10 text-white" />
+          </a>
+          <a
+            href="https://www.youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-90 hover:opacity-100 transition-opacity duration-300"
+            aria-label="YouTube"
+          >
+            <FaYoutube className="h-10 w-10 text-[#FF0000]" />
+          </a>
+          <a
+            href="https://www.linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-90 hover:opacity-100 transition-opacity duration-300"
+            aria-label="LinkedIn"
+          >
+            <FaLinkedin className="h-10 w-10 text-[#0A66C2]" />
+          </a>
         </div>
         {/* Bottom Bar - ISO certification & copyright */}
         <div className="mt-12 pt-8 border-t border-white/10">

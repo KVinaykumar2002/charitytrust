@@ -219,7 +219,7 @@ const Footer = () => {
                   </a>
                 </motion.li>
               </ul>
-              {/* Social Media Icons */}
+              {/* Social Media Icons - Original brand colors */}
               <motion.div
                 variants={fadeUp}
                 className="flex items-center gap-4 pt-6 mt-6 border-t border-white/10"
@@ -228,46 +228,46 @@ const Footer = () => {
                   href="https://www.instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  className="opacity-90 hover:opacity-100 transition-opacity duration-300"
                   aria-label="Instagram"
                 >
-                  <Instagram className="h-5 w-5" />
+                  <Instagram className="h-5 w-5 text-[#E4405F]" />
                 </a>
                 <a
                   href="https://www.facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  className="opacity-90 hover:opacity-100 transition-opacity duration-300"
                   aria-label="Facebook"
                 >
-                  <Facebook className="h-5 w-5" />
+                  <Facebook className="h-5 w-5 text-[#1877F2]" />
                 </a>
                 <a
                   href="https://www.twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  className="opacity-90 hover:opacity-100 transition-opacity duration-300"
                   aria-label="Twitter"
                 >
-                  <Twitter className="h-5 w-5" />
+                  <Twitter className="h-5 w-5 text-white" />
                 </a>
                 <a
                   href="https://www.youtube.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  className="opacity-90 hover:opacity-100 transition-opacity duration-300"
                   aria-label="YouTube"
                 >
-                  <Youtube className="h-5 w-5" />
+                  <Youtube className="h-5 w-5 text-[#FF0000]" />
                 </a>
                 <a
                   href="https://www.linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/70 hover:text-[#FD7E14] transition-colors duration-300"
+                  className="opacity-90 hover:opacity-100 transition-opacity duration-300"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="h-5 w-5" />
+                  <Linkedin className="h-5 w-5 text-[#0A66C2]" />
                 </a>
               </motion.div>
             </motion.div>
