@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-const CHAIRMAN_IMAGE = "/chairmain_logo.png";
+/** Central portrait: chairman in chair. Use a PNG with transparent background to blend with section cream (#fdf5e6). */
+const CHAIRMAN_IMAGE = "/chairman-portrait.png";
 
 /**
  * Memorable Speeches – Chiranjeevi: central image with key addresses & moments.
@@ -40,9 +41,9 @@ const MemorableSpeeches = () => {
       </div>
 
       <div className="container mx-auto px-4 relative max-w-[1250px]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-y-12 lg:gap-y-0">
-          {/* Left Column Cards */}
-          <div className="lg:col-span-4 flex flex-col gap-12 z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-y-12 lg:gap-y-0">
+          {/* Left Column Cards – top/bottom cards align to center image */}
+          <div className="lg:col-span-4 flex flex-col gap-12 z-10 justify-center">
             {speeches.slice(0, 2).map((item, i) => (
               <div
                 key={i}
@@ -60,22 +61,22 @@ const MemorableSpeeches = () => {
             ))}
           </div>
 
-          {/* Center: Chairman portrait – upfront; blend removes white background on cream */}
-          <div className="lg:col-span-4 flex justify-center items-end relative z-20 mt-8 lg:mt-0">
-            <div className="relative w-[280px] md:w-[380px] lg:w-[420px] h-[360px] md:h-[480px] lg:h-[560px] pointer-events-none">
+          {/* Center: Chairman portrait – larger, perfectly centered between the 4 cards */}
+          <div className="lg:col-span-4 flex justify-center items-center relative z-20 mt-8 lg:mt-0 py-4">
+            <div className="relative w-[320px] md:w-[420px] lg:w-[520px] h-[400px] md:h-[520px] lg:h-[640px] pointer-events-none flex-shrink-0">
               <Image
                 src={CHAIRMAN_IMAGE}
                 alt="Founder and Chairman, Chiranjeevi Charitable Trust"
                 fill
                 priority
-                className="object-contain object-bottom drop-shadow-2xl"
-                sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
+                className="object-contain object-center drop-shadow-2xl"
+                sizes="(max-width: 768px) 320px, (max-width: 1024px) 420px, 520px"
               />
             </div>
           </div>
 
           {/* Right Column Cards */}
-          <div className="lg:col-span-4 flex flex-col gap-12 z-10">
+          <div className="lg:col-span-4 flex flex-col gap-12 z-10 justify-center">
             {speeches.slice(2, 4).map((item, i) => (
               <div
                 key={i}
