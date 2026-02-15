@@ -1114,7 +1114,8 @@ export async function createTeamCategory(token: string, body: Record<string, unk
   });
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || 'Failed to create team category');
+    const msg = typeof error?.error === 'string' ? error.error : (error.message || 'Failed to create team category');
+    throw new Error(msg);
   }
   return response.json();
 }

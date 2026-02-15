@@ -22,7 +22,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Plus, Edit, Trash2, Award, Target, Heart, Users, Upload } from "lucide-react";
+import { Plus, Edit, Trash2, Award, Target, Heart, Users, UsersRound, Building2, Upload } from "lucide-react";
 import { getToken } from "@/lib/auth-storage";
 import {
   getAdminTeamCategories,
@@ -44,12 +44,15 @@ export interface TeamMember {
   order?: number;
 }
 
+export type TeamSectionType = "leadership" | "organizers" | "government_hospitals";
+
 export interface TeamCategory {
   _id: string;
   name: string;
   role: string;
   description: string;
   icon: string;
+  sectionType?: TeamSectionType;
   order: number;
   members: TeamMember[];
   createdAt?: string;
@@ -61,6 +64,8 @@ const ICON_OPTIONS = [
   { value: "Target", label: "Target", Icon: Target },
   { value: "Heart", label: "Heart", Icon: Heart },
   { value: "Users", label: "Users", Icon: Users },
+  { value: "UsersRound", label: "Organizers", Icon: UsersRound },
+  { value: "Building2", label: "Hospitals", Icon: Building2 },
 ];
 
 export default function AdminTeamPage() {
@@ -73,6 +78,7 @@ export default function AdminTeamPage() {
     role: "",
     description: "",
     icon: "Award",
+    sectionType: "leadership" as TeamSectionType,
     order: 0,
   });
   const [memberModalOpen, setMemberModalOpen] = useState(false);
@@ -92,6 +98,8 @@ export default function AdminTeamPage() {
     index: number;
   } | null>(null);
   const [saving, setSaving] = useState(false);
+  const [creatingOrganizers, setCreatingOrganizers] = useState(false);
+  const [creatingHospitals, setCreatingHospitals] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -103,6 +111,7 @@ export default function AdminTeamPage() {
         const normalized = result.data
           .map((c: TeamCategory) => ({
             ...c,
+            sectionType: c.sectionType || "leadership",
             members: (c.members || []).slice().sort((a: TeamMember, b: TeamMember) => (a.order ?? 0) - (b.order ?? 0)),
           }))
           .sort((a: TeamCategory, b: TeamCategory) => (a.order ?? 0) - (b.order ?? 0));
@@ -115,6 +124,16 @@ export default function AdminTeamPage() {
     }
   };
 
+  // Find by sectionType, or by name if backend hasn't been updated with sectionType
+  const organizersCategory = categories.find((c) => c.sectionType === "organizers" || c.name === "Our Organizers");
+  const governmentHospitalsCategory = categories.find((c) => c.sectionType === "government_hospitals" || c.name === "Government Hospitals");
+  const leadershipCategories = categories.filter(
+    (c) =>
+      (c.sectionType || "leadership") === "leadership" &&
+      c.name !== "Our Organizers" &&
+      c.name !== "Government Hospitals"
+  );
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -126,6 +145,7 @@ export default function AdminTeamPage() {
       role: "",
       description: "",
       icon: "Award",
+      sectionType: "leadership",
       order: categories.length,
     });
     setCategoryModalOpen(true);
@@ -138,6 +158,7 @@ export default function AdminTeamPage() {
       role: cat.role || "",
       description: cat.description || "",
       icon: cat.icon || "Award",
+      sectionType: (cat.sectionType || "leadership") as TeamSectionType,
       order: cat.order ?? 0,
     });
     setCategoryModalOpen(true);
@@ -151,6 +172,7 @@ export default function AdminTeamPage() {
       if (editingCategory) {
         await updateTeamCategory(token, editingCategory._id, {
           ...categoryForm,
+          sectionType: categoryForm.sectionType,
           members: editingCategory.members,
         });
         setCategories((prev) =>
@@ -163,6 +185,7 @@ export default function AdminTeamPage() {
       } else {
         const res = await createTeamCategory(token, {
           ...categoryForm,
+          sectionType: categoryForm.sectionType,
           members: [],
         });
         if (res.success && res.data) {
@@ -335,173 +358,312 @@ export default function AdminTeamPage() {
     return opt ? opt.Icon : Award;
   };
 
+  const handleCreateOrganizersSection = async () => {
+    const token = getToken();
+    if (!token) return;
+    setCreatingOrganizers(true);
+    try {
+      await createTeamCategory(token, {
+        name: "Our Organizers",
+        role: "",
+        description: "Our organizers are the backbone of Chiranjeevi Charitable Trust. They plan and execute blood donation camps, eye donation drives, and community programs—bringing our mission to life across the region.",
+        icon: "Users",
+        sectionType: "organizers",
+        order: 1000,
+        members: [],
+      });
+      await fetchCategories();
+    } catch (e: any) {
+      alert(e?.message || "Failed to create Our Organizers section. If you see a validation error, ensure the backend is deployed with the latest TeamCategory model.");
+    } finally {
+      setCreatingOrganizers(false);
+    }
+  };
+
+  const handleCreateGovernmentHospitalsSection = async () => {
+    const token = getToken();
+    if (!token) return;
+    setCreatingHospitals(true);
+    try {
+      await createTeamCategory(token, {
+        name: "Government Hospitals",
+        role: "",
+        description: "We work with government hospitals and related institutions to extend blood and eye donation services, support public health initiatives, and reach more beneficiaries in need.",
+        icon: "Users",
+        sectionType: "government_hospitals",
+        order: 1001,
+        members: [],
+      });
+      await fetchCategories();
+    } catch (e: any) {
+      alert(e?.message || "Failed to create Government Hospitals section. If you see a validation error, ensure the backend is deployed with the latest TeamCategory model.");
+    } finally {
+      setCreatingHospitals(false);
+    }
+  };
+
+  const renderCategoryCard = (cat: TeamCategory, showDeleteCategory: boolean) => {
+    const IconC = getIconComponent(cat.icon);
+    return (
+      <Card key={cat._id} className="border-[#e5e5e5]">
+        <CardHeader className="pb-3">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-[#FFF3E8] flex items-center justify-center">
+                <IconC className="w-5 h-5 text-[#FD7E14]" />
+              </div>
+              <div>
+                <CardTitle className="text-[#1a1a1a]">{cat.name}</CardTitle>
+                {cat.role && (
+                  <p className="text-sm text-[#4a4a4a]">{cat.role}</p>
+                )}
+                {cat.description && (
+                  <p className="text-sm text-[#4a4a4a] mt-1 line-clamp-2">
+                    {cat.description}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]"
+                onClick={() => openEditCategory(cat)}
+              >
+                <Edit className="h-4 w-4 mr-1" />
+                Edit
+              </Button>
+              {showDeleteCategory && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-red-300 text-red-600 hover:bg-red-50"
+                  onClick={() => setDeleteCategoryId(cat._id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              )}
+              <Button
+                size="sm"
+                className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
+                onClick={() => openAddMember(cat._id)}
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                {(cat.sectionType === "organizers" || cat.name === "Our Organizers")
+                  ? "Add organizer"
+                  : (cat.sectionType === "government_hospitals" || cat.name === "Government Hospitals")
+                    ? "Add hospital/partner"
+                    : "Add Member"}
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {!cat.members || cat.members.length === 0 ? (
+            <p className="text-sm text-[#4a4a4a] py-2">
+              No members in this category.
+            </p>
+          ) : (
+            <ul className="space-y-2">
+              {cat.members.map((member, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-center justify-between py-2 px-3 rounded-lg bg-[#f8f9f8] hover:bg-[#FFF3E8]"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    {member.imageUrl ? (
+                      <img
+                        src={member.imageUrl}
+                        alt={member.name}
+                        className="w-10 h-10 rounded-full object-cover shrink-0"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-[#FD7E14] flex items-center justify-center text-white font-semibold shrink-0">
+                        {member.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {member.teamNumber && (
+                          <span className="text-xs font-medium text-[#FD7E14] bg-[#FFF3E8] px-2 py-0.5 rounded">
+                            #{member.teamNumber}
+                          </span>
+                        )}
+                        <p className="font-medium text-[#1a1a1a] truncate">
+                          {member.name}
+                        </p>
+                      </div>
+                      <p className="text-sm text-[#4a4a4a] truncate">
+                        {member.position}
+                      </p>
+                      {member.bio && (
+                        <p className="text-xs text-[#6a6a6a] truncate mt-0.5 max-w-[200px]">
+                          {member.bio}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => openEditMember(cat._id, idx)}
+                    >
+                      <Edit className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-red-600 hover:bg-red-50"
+                      onClick={() =>
+                        setDeleteMemberState({ categoryId: cat._id, index: idx })
+                      }
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </CardContent>
+      </Card>
+    );
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Our Team</h1>
           <p className="text-[#4a4a4a]">
-            Manage team categories and members shown on the public Our Team section
+            Manage team categories and members shown on the public Our Team section (Leadership, Organizers, Government Hospitals)
           </p>
         </div>
-        <Button
-          className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
-          onClick={openAddCategory}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Add Category
-        </Button>
       </div>
 
+      {/* Leadership Team */}
       <Card className="border-[#e5e5e5]">
-        <CardHeader>
-          <CardTitle className="text-[#1a1a1a]">
-            Team Categories ({categories.length})
-          </CardTitle>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle className="text-[#1a1a1a]">Leadership Team</CardTitle>
+          <Button
+            className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
+            onClick={openAddCategory}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Add Category
+          </Button>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="text-center py-8 text-[#4a4a4a]">Loading...</div>
-          ) : categories.length === 0 ? (
-            <div className="text-center py-8 text-[#4a4a4a]">
-              <p className="mb-4">No team categories yet. Add one to get started.</p>
-              <Button
-                className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
-                onClick={openAddCategory}
-              >
-                <Plus className="mr-2 h-4 w-4" />
-                Add Category
-              </Button>
-            </div>
           ) : (
             <div className="space-y-6">
-              {categories.map((cat) => {
-                const IconC = getIconComponent(cat.icon);
-                return (
-                  <Card key={cat._id} className="border-[#e5e5e5]">
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-[#FFF3E8] flex items-center justify-center">
-                            <IconC className="w-5 h-5 text-[#FD7E14]" />
-                          </div>
-                          <div>
-                            <CardTitle className="text-[#1a1a1a]">{cat.name}</CardTitle>
-                            {cat.role && (
-                              <p className="text-sm text-[#4a4a4a]">{cat.role}</p>
-                            )}
-                            {cat.description && (
-                              <p className="text-sm text-[#4a4a4a] mt-1 line-clamp-2">
-                                {cat.description}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex gap-2 shrink-0">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="border-[#FD7E14] text-[#FD7E14] hover:bg-[#FFF3E8]"
-                            onClick={() => openEditCategory(cat)}
-                          >
-                            <Edit className="h-4 w-4 mr-1" />
-                            Edit
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="border-red-300 text-red-600 hover:bg-red-50"
-                            onClick={() => setDeleteCategoryId(cat._id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
-                            onClick={() => openAddMember(cat._id)}
-                          >
-                            <Plus className="h-4 w-4 mr-1" />
-                            Add Member
-                          </Button>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      {!cat.members || cat.members.length === 0 ? (
-                        <p className="text-sm text-[#4a4a4a] py-2">
-                          No members in this category.
-                        </p>
-                      ) : (
-                        <ul className="space-y-2">
-                          {cat.members.map((member, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-center justify-between py-2 px-3 rounded-lg bg-[#f8f9f8] hover:bg-[#FFF3E8]"
-                            >
-                              <div className="flex items-center gap-3 min-w-0">
-                                {member.imageUrl ? (
-                                  <img
-                                    src={member.imageUrl}
-                                    alt={member.name}
-                                    className="w-10 h-10 rounded-full object-cover shrink-0"
-                                  />
-                                ) : (
-                                  <div className="w-10 h-10 rounded-full bg-[#FD7E14] flex items-center justify-center text-white font-semibold shrink-0">
-                                    {member.name.charAt(0).toUpperCase()}
-                                  </div>
-                                )}
-                                <div className="min-w-0 flex-1">
-                                  <div className="flex items-center gap-2 flex-wrap">
-                                    {member.teamNumber && (
-                                      <span className="text-xs font-medium text-[#FD7E14] bg-[#FFF3E8] px-2 py-0.5 rounded">
-                                        #{member.teamNumber}
-                                      </span>
-                                    )}
-                                    <p className="font-medium text-[#1a1a1a] truncate">
-                                      {member.name}
-                                    </p>
-                                  </div>
-                                  <p className="text-sm text-[#4a4a4a] truncate">
-                                    {member.position}
-                                  </p>
-                                  {member.bio && (
-                                    <p className="text-xs text-[#6a6a6a] truncate mt-0.5 max-w-[200px]">
-                                      {member.bio}
-                                    </p>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex gap-2 shrink-0">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => openEditMember(cat._id, idx)}
-                                >
-                                  <Edit className="h-3 w-3" />
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="text-red-600 hover:bg-red-50"
-                                  onClick={() =>
-                                    setDeleteMemberState({ categoryId: cat._id, index: idx })
-                                  }
-                                >
-                                  <Trash2 className="h-3 w-3" />
-                                </Button>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
+              {leadershipCategories.length === 0 ? (
+                <p className="text-sm text-[#4a4a4a] py-2">No leadership categories yet. Add one above.</p>
+              ) : (
+                leadershipCategories.map((cat) => renderCategoryCard(cat, true))
+              )}
             </div>
           )}
         </CardContent>
       </Card>
+
+      {/* Our Organizers */}
+      <Card className="border-[#e5e5e5]">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="text-[#1a1a1a]">Our Organizers</CardTitle>
+            <p className="text-sm text-[#4a4a4a] mt-1">Manage organizers shown on the public Our Team page. Add members (name, position, image, bio).</p>
+          </div>
+          {!loading && !organizersCategory && (
+            <Button
+              className="bg-[#FD7E14] hover:bg-[#E56B00] text-white shrink-0"
+              onClick={handleCreateOrganizersSection}
+              disabled={creatingOrganizers}
+            >
+              {creatingOrganizers ? "Creating..." : (
+                <>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Create Organizers Section
+                </>
+              )}
+            </Button>
+          )}
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="text-center py-8 text-[#4a4a4a]">Loading...</div>
+          ) : organizersCategory ? (
+            renderCategoryCard(organizersCategory, false)
+          ) : (
+            <div className="py-6 text-center">
+              <p className="text-sm text-[#4a4a4a] mb-4">No Organizers section yet. Create it to add and manage organizer members.</p>
+              <Button
+                className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
+                onClick={handleCreateOrganizersSection}
+                disabled={creatingOrganizers}
+              >
+                {creatingOrganizers ? "Creating..." : (
+                  <>
+                    <Plus className="mr-2 h-4 w-4" />
+                    Create Organizers Section
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Government Hospitals */}
+      <Card className="border-[#e5e5e5]">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="text-[#1a1a1a]">Government Hospitals</CardTitle>
+            <p className="text-sm text-[#4a4a4a] mt-1">Manage government hospitals/partners shown on the public Our Team page. Add members (name, position, image, bio).</p>
+          </div>
+          {!loading && !governmentHospitalsCategory && (
+            <Button
+              className="bg-[#FD7E14] hover:bg-[#E56B00] text-white shrink-0"
+              onClick={handleCreateGovernmentHospitalsSection}
+              disabled={creatingHospitals}
+            >
+              {creatingHospitals ? "Creating..." : (
+                <>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Create Government Hospitals Section
+                </>
+              )}
+            </Button>
+          )}
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="text-center py-8 text-[#4a4a4a]">Loading...</div>
+          ) : governmentHospitalsCategory ? (
+            renderCategoryCard(governmentHospitalsCategory, false)
+          ) : (
+            <div className="py-6 text-center">
+              <p className="text-sm text-[#4a4a4a] mb-4">No Government Hospitals section yet. Create it to add and manage hospital/partner members.</p>
+              <Button
+                className="bg-[#FD7E14] hover:bg-[#E56B00] text-white"
+                onClick={handleCreateGovernmentHospitalsSection}
+                disabled={creatingHospitals}
+              >
+                {creatingHospitals ? "Creating..." : (
+                  <>
+                    <Plus className="mr-2 h-4 w-4" />
+                    Create Government Hospitals Section
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
 
       {/* Category modal */}
       <Dialog open={categoryModalOpen} onOpenChange={setCategoryModalOpen}>
@@ -512,6 +674,30 @@ export default function AdminTeamPage() {
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
+            {editingCategory && (editingCategory.sectionType === "organizers" || editingCategory.sectionType === "government_hospitals") ? (
+              <div>
+                <Label>Section</Label>
+                <p className="text-sm text-[#4a4a4a] mt-1">
+                  {editingCategory.sectionType === "organizers" ? "Our Organizers" : "Government Hospitals"}
+                </p>
+              </div>
+            ) : (
+              <div>
+                <Label htmlFor="cat-sectionType">Section (for new categories use Leadership)</Label>
+                <select
+                  id="cat-sectionType"
+                  value={categoryForm.sectionType}
+                  onChange={(e) =>
+                    setCategoryForm((f) => ({ ...f, sectionType: e.target.value as TeamSectionType }))
+                  }
+                  className="w-full px-3 py-2 border border-[#e5e5e5] rounded-md text-sm"
+                >
+                  <option value="leadership">Leadership Team</option>
+                  <option value="organizers">Our Organizers</option>
+                  <option value="government_hospitals">Government Hospitals</option>
+                </select>
+              </div>
+            )}
             <div>
               <Label htmlFor="cat-name">Name</Label>
               <Input

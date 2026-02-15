@@ -52,7 +52,14 @@ const teamCategorySchema = new mongoose.Schema({
     type: String,
     trim: true,
     default: 'Award',
-    enum: ['Award', 'Target', 'Heart', 'Users'],
+    enum: ['Award', 'Target', 'Heart', 'Users', 'UsersRound', 'Building2'],
+  },
+  /** Section on public Our Team page: leadership (grid), organizers (card + members), government_hospitals (card + members) */
+  sectionType: {
+    type: String,
+    trim: true,
+    default: 'leadership',
+    enum: ['leadership', 'organizers', 'government_hospitals'],
   },
   order: {
     type: Number,
