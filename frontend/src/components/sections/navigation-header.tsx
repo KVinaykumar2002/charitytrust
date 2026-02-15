@@ -54,13 +54,26 @@ const navItems: NavItem[] = [
   { name: "Special Services", href: "/projects" },
   { name: "Our Team", href: "/team" },
   {
+    name: "Impact",
+    dropdown: [
+      { name: "Testimonials", href: "/#voice-of-impact" },
+      { name: "Voice of Impact", href: "/#voice-of-impact" },
+      { name: "Awards", href: "/about#awards" },
+    ],
+  },
+  {
+    name: "Donations",
+    dropdown: [
+      { name: "Eye Donation", href: "/eye-donation" },
+      { name: "Blood Donation", href: "/blood-donation" },
+    ],
+  },
+  {
     name: "More",
     dropdown: [
       { name: "Gallery", href: "/gallery" },
       { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/#contact" },
-      { name: "Eye Donation Pledge", href: "/eye-donation" },
-      { name: "Blood Donation", href: "/blood-donation" },
     ],
   },
 ];
@@ -72,6 +85,14 @@ const NavigationHeader = () => {
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Check if a nav item is active
   const isActive = (item: NavItem) => {
@@ -84,14 +105,20 @@ const NavigationHeader = () => {
     if (item.name === "Events") {
       return pathname === "/events" || pathname === "/events-by-fans";
     }
-    if (item.name === "Special Service") {
+    if (item.name === "Special Services") {
       return pathname === "/projects";
     }
     if (item.name === "Our Team") {
       return pathname === "/team";
     }
+    if (item.name === "Impact") {
+      return pathname === "/" || pathname?.startsWith("/about");
+    }
+    if (item.name === "Donations") {
+      return pathname === "/eye-donation" || pathname === "/blood-donation";
+    }
     if (item.name === "More") {
-      return pathname === "/gallery" || pathname === "/faq" || pathname === "/eye-donation" || pathname === "/blood-donation";
+      return pathname === "/gallery" || pathname === "/faq";
     }
     if (item.href) {
       return pathname === item.href;
@@ -156,16 +183,16 @@ const NavigationHeader = () => {
   };
 
   return (
-    <header className="fixed top-3 z-50 flex w-full max-w-full justify-center px-3 sm:px-4">
-      <div className="relative flex w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 rounded-full border border-white/15 bg-black px-1 py-0 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover-shadow-pop lg:gap-1.5 lg:px-2 xl:px-3 overflow-visible">
+    <header className={`fixed top-0 left-0 right-0 z-50 flex h-14 max-h-14 w-full justify-center px-3 sm:px-4 transition-colors duration-300 ${scrolled ? "bg-black" : "bg-transparent"}`}>
+      <div className="relative flex h-full w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 lg:gap-1.5 lg:px-2 xl:px-3 overflow-visible">
         {/* Logo */}
-        <Link href="/" className="flex shrink-0 items-center justify-center h-full overflow-visible">
+        <Link href="/" className="flex h-full max-h-full shrink-0 items-center justify-center overflow-visible">
           <Image
             src="/LogoFinal.png"
             alt="Chiranjeevi Charitable Trust logo"
             width={500}
             height={150}
-            className="h-24 w-auto object-contain lg:h-28 transform scale-100"
+            className="max-h-full w-auto object-contain object-left"
             priority
           />
         </Link>
