@@ -8,7 +8,7 @@ export type TrustLoaderVariant = "blood" | "eye" | "both";
 
 interface TrustLoaderProps {
   variant?: TrustLoaderVariant;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "5xl";
   label?: string;
   className?: string;
   /** Show percentage (default true for blood/both). Use percentage prop for real progress, or simulated 0→99 when unmounted. */
@@ -21,6 +21,9 @@ const sizeClasses = {
   sm: "size-16",
   md: "size-24",
   lg: "size-32",
+  xl: "size-44",
+  "2xl": "size-56",
+  "5xl": "size-72",
 };
 
 export function TrustLoader({
@@ -31,7 +34,7 @@ export function TrustLoader({
   showPercentage = true,
   percentage: percentageProp,
 }: TrustLoaderProps) {
-  const iconSize = size === "sm" ? 40 : size === "md" ? 56 : 72;
+  const iconSize = size === "sm" ? 40 : size === "md" ? 56 : size === "lg" ? 72 : size === "xl" ? 96 : size === "2xl" ? 120 : 160;
   const [simulatedPercent, setSimulatedPercent] = useState(0);
 
   const isBloodVariant = variant === "blood" || variant === "both";

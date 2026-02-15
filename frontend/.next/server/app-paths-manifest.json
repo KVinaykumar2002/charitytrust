@@ -1,9 +1,13 @@
 {
   "/about/page": "app/about/page.js",
   "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/admin/team/page": "app/admin/team/page.js",
+  "/eye-donation/page": "app/eye-donation/page.js",
+  "/faq/page": "app/faq/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/gallery/page": "app/gallery/page.js",
   "/login/page": "app/login/page.js",
   "/page": "app/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/services/page": "app/services/page.js",
   "/team/page": "app/team/page.js"
 }
