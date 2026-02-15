@@ -1217,6 +1217,104 @@ export async function deleteTeamMember(token: string, categoryId: string, member
   return response.json();
 }
 
+// ==================== FAQ APIs ====================
+
+// Get FAQs (public - no auth required)
+export async function getPublicFaqs() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/faqs`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store',
+    });
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Failed to fetch FAQs: ${response.status}`);
+    }
+    return response.json();
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed to fetch FAQs');
+  }
+}
+
+// Get all FAQs (admin)
+export async function getAdminFaqs(token: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/faqs`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to fetch FAQs');
+  }
+  return response.json();
+}
+
+// Create FAQ (admin)
+export async function createFaq(
+  token: string,
+  body: { question: string; answer: string; order?: number }
+) {
+  const payload = {
+    question: body.question?.trim() ?? '',
+    answer: body.answer?.trim() ?? '',
+    order: typeof body.order === 'number' && !Number.isNaN(body.order) ? body.order : 0,
+  };
+  const response = await fetch(`${API_BASE_URL}/admin/content/faqs`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const msg = data.message || data.error || (typeof data.error === 'string' ? data.error : 'Failed to create FAQ');
+    throw new Error(msg);
+  }
+  return data;
+}
+
+// Update FAQ (admin)
+export async function updateFaq(
+  token: string,
+  id: string,
+  body: { question?: string; answer?: string; order?: number }
+) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/faqs/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to update FAQ');
+  }
+  return response.json();
+}
+
+// Delete FAQ (admin)
+export async function deleteFaq(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/faqs/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to delete FAQ');
+  }
+  return response.json();
+}
+
 // ==================== EYE DONATION PLEDGE APIs ====================
 
 export interface EyeDonationPledgeData {

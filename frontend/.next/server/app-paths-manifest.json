@@ -1,7 +1,9 @@
 {
   "/about/page": "app/about/page.js",
   "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/faq/page": "app/admin/faq/page.js",
   "/admin/team/page": "app/admin/team/page.js",
+  "/faq/page": "app/faq/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/login/page": "app/login/page.js",
   "/page": "app/page.js",

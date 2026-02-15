@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { getPublicFaqs } from "@/lib/api";
 
 export default function FAQWithSpiral() {
   const spiralRef = useRef<HTMLDivElement | null>(null);
@@ -129,49 +130,53 @@ export default function FAQWithSpiral() {
     spiralRef.current.appendChild(svg);
   }, [cfg, gradients]);
 
-  // Chiranjeevi Charitable Trust-specific FAQ content
-  const faqs = [
-    {
-      q: "What is Chiranjeevi Charitable Trust?",
-      a: "Chiranjeevi Charitable Trust is a non-profit organization founded in 1998, dedicated to saving lives and sight through blood donation drives, eye care programs, and corneal transplants. We operate one of the largest blood banks in Hyderabad.",
-    },
-    {
-      q: "How can I donate blood at Chiranjeevi Charitable Trust?",
-      a: "You can donate blood by visiting our blood bank at Jubilee Hills, Hyderabad, or by participating in our mobile blood donation camps. We ensure a safe, hygienic, and comfortable experience for all donors. Call 040-23554849 to schedule your donation.",
-    },
-    {
-      q: "What are the eligibility criteria for blood donation?",
-      a: "You must be 18-65 years old, weigh at least 45 kg, have hemoglobin above 12.5 g/dL, and be in good health. You should not have donated blood in the last 3 months. Our team will conduct a quick health screening before donation.",
-    },
-    {
-      q: "How does Chiranjeevi Charitable Trust's Eye Bank work?",
-      a: "Our eye bank collects, processes, and distributes corneal tissue for transplantation. We work with hospitals and eye surgeons across the region to restore vision to those suffering from corneal blindness. We've facilitated over 10,000 corneal transplants.",
-    },
-    {
-      q: "How can I pledge to donate my eyes?",
-      a: "You can pledge your eyes by filling out our eye donation pledge form on our website or at any of our camps. After pledging, inform your family about your decision so they can contact us at the time of need. Eye donation is done after natural death.",
-    },
-    {
-      q: "Are donations to Chiranjeevi Charitable Trust tax-deductible?",
-      a: "Yes, all donations to Chiranjeevi Charitable Trust are eligible for tax exemption under Section 80G of the Income Tax Act. We provide official receipts for all donations that can be used for tax filing purposes.",
-    },
-    {
-      q: "How can I volunteer with Chiranjeevi Charitable Trust?",
-      a: "We welcome volunteers for blood donation camps, awareness programs, administrative support, and community outreach. You can register as a volunteer through our website or contact us at 98497 56785 to learn about current opportunities.",
-    },
-    {
-      q: "What programs does Chiranjeevi Charitable Trust run for the community?",
-      a: "Chiranjeevi Charitable Trust runs blood donation drives, eye care camps, corneal transplant support, free health checkups, awareness programs in schools and colleges, and emergency blood supply services. We also organize mega blood donation camps during festivals and important occasions.",
-    },
-    {
-      q: "How can organizations partner with Chiranjeevi Charitable Trust?",
-      a: "Corporate partners, educational institutions, and community organizations can collaborate with us for blood donation camps, CSR initiatives, and awareness programs. Contact us to discuss partnership opportunities that align with your organization's goals.",
-    },
-    {
-      q: "How do I contact Chiranjeevi Charitable Trust for emergencies?",
-      a: "For emergency blood requirements, call our 24/7 helpline at 040-23554849 or 040-23555005. We maintain a well-stocked blood bank and coordinate with other blood banks to ensure availability of all blood groups during emergencies.",
-    },
-  ];
+  // Fallback FAQ content when API fails or returns empty
+  const fallbackFaqs = useMemo(
+    () => [
+      { q: "What is Chiranjeevi Charitable Trust?", a: "Chiranjeevi Charitable Trust is a non-profit organization founded in 1998, dedicated to saving lives and sight through blood donation drives, eye care programs, and corneal transplants. We operate one of the largest blood banks in Hyderabad." },
+      { q: "How can I donate blood at Chiranjeevi Charitable Trust?", a: "You can donate blood by visiting our blood bank at Jubilee Hills, Hyderabad, or by participating in our mobile blood donation camps. We ensure a safe, hygienic, and comfortable experience for all donors. Call 040-23554849 to schedule your donation." },
+      { q: "What are the eligibility criteria for blood donation?", a: "You must be 18-65 years old, weigh at least 45 kg, have hemoglobin above 12.5 g/dL, and be in good health. You should not have donated blood in the last 3 months. Our team will conduct a quick health screening before donation." },
+      { q: "How does Chiranjeevi Charitable Trust's Eye Bank work?", a: "Our eye bank collects, processes, and distributes corneal tissue for transplantation. We work with hospitals and eye surgeons across the region to restore vision to those suffering from corneal blindness. We've facilitated over 10,000 corneal transplants." },
+      { q: "How can I pledge to donate my eyes?", a: "You can pledge your eyes by filling out our eye donation pledge form on our website or at any of our camps. After pledging, inform your family about your decision so they can contact us at the time of need. Eye donation is done after natural death." },
+      { q: "Are donations to Chiranjeevi Charitable Trust tax-deductible?", a: "Yes, all donations to Chiranjeevi Charitable Trust are eligible for tax exemption under Section 80G of the Income Tax Act. We provide official receipts for all donations that can be used for tax filing purposes." },
+      { q: "How can I volunteer with Chiranjeevi Charitable Trust?", a: "We welcome volunteers for blood donation camps, awareness programs, administrative support, and community outreach. You can register as a volunteer through our website or contact us at 98497 56785 to learn about current opportunities." },
+      { q: "What programs does Chiranjeevi Charitable Trust run for the community?", a: "Chiranjeevi Charitable Trust runs blood donation drives, eye care camps, corneal transplant support, free health checkups, awareness programs in schools and colleges, and emergency blood supply services. We also organize mega blood donation camps during festivals and important occasions." },
+      { q: "How can organizations partner with Chiranjeevi Charitable Trust?", a: "Corporate partners, educational institutions, and community organizations can collaborate with us for blood donation camps, CSR initiatives, and awareness programs. Contact us to discuss partnership opportunities that align with your organization's goals." },
+      { q: "How do I contact Chiranjeevi Charitable Trust for emergencies?", a: "For emergency blood requirements, call our 24/7 helpline at 040-23554849 or 040-23555005. We maintain a well-stocked blood bank and coordinate with other blood banks to ensure availability of all blood groups during emergencies." },
+    ],
+    []
+  );
+
+  const [apiFaqs, setApiFaqs] = useState<{ q: string; a: string }[]>([]);
+  const [faqsLoaded, setFaqsLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPublicFaqs()
+      .then((res: any) => {
+        if (cancelled) return;
+        const list = Array.isArray(res?.data) ? res.data : Array.isArray(res) ? res : [];
+        const mapped = list
+          .sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0))
+          .map((item: { question?: string; answer?: string }) => ({
+            q: item.question ?? "",
+            a: item.answer ?? "",
+          }))
+          .filter((item: { q: string; a: string }) => item.q || item.a);
+        setApiFaqs(mapped);
+      })
+      .catch(() => {
+        if (!cancelled) setApiFaqs([]);
+      })
+      .finally(() => {
+        if (!cancelled) setFaqsLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const faqs = faqsLoaded && apiFaqs.length > 0 ? apiFaqs : fallbackFaqs;
 
   const filtered = query
     ? faqs.filter(({ q, a }) => (q + a).toLowerCase().includes(query.toLowerCase()))

@@ -14,6 +14,7 @@ import Timeline from '../models/Timeline.js';
 import TeamCategory from '../models/TeamCategory.js';
 import EyeDonationPledge from '../models/EyeDonationPledge.js';
 import BloodDonation from '../models/BloodDonation.js';
+import Faq from '../models/Faq.js';
 
 const router = express.Router();
 
@@ -303,6 +304,28 @@ router.get('/team', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching team',
+      error: error.message,
+    });
+  }
+});
+
+// ==================== PUBLIC FAQ ====================
+
+// Get all FAQs (public - no auth required)
+router.get('/faqs', async (req, res) => {
+  try {
+    const faqs = await Faq.find()
+      .sort({ order: 1, createdAt: 1 })
+      .select('-__v')
+      .lean();
+    res.json({
+      success: true,
+      data: faqs,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching FAQs',
       error: error.message,
     });
   }

@@ -16,6 +16,7 @@ import EyeDonationPledge from '../models/EyeDonationPledge.js';
 import BloodDonation from '../models/BloodDonation.js';
 import FanEvent from '../models/FanEvent.js';
 import TeamCategory from '../models/TeamCategory.js';
+import Faq from '../models/Faq.js';
 
 const router = express.Router();
 
@@ -1690,6 +1691,136 @@ router.delete('/team-categories/:categoryId/members/:memberId', async (req, res)
     res.status(500).json({
       success: false,
       message: 'Error removing team member',
+      error: error.message,
+    });
+  }
+});
+
+// ==================== FAQ CRUD ====================
+
+// Get all FAQs (admin)
+router.get('/faqs', async (req, res) => {
+  try {
+    const faqs = await Faq.find().sort({ order: 1, createdAt: 1 });
+    res.json({
+      success: true,
+      data: faqs,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching FAQs',
+      error: error.message,
+    });
+  }
+});
+
+// Get single FAQ (admin)
+router.get('/faqs/:id', async (req, res) => {
+  try {
+    const faq = await Faq.findById(req.params.id);
+    if (!faq) {
+      return res.status(404).json({
+        success: false,
+        message: 'FAQ not found',
+      });
+    }
+    res.json({
+      success: true,
+      data: faq,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching FAQ',
+      error: error.message,
+    });
+  }
+});
+
+// Create FAQ (admin)
+router.post('/faqs', async (req, res) => {
+  try {
+    const { question, answer, order } = req.body;
+    const q = typeof question === 'string' ? question.trim() : '';
+    const a = typeof answer === 'string' ? answer.trim() : '';
+    if (!q || !a) {
+      return res.status(400).json({
+        success: false,
+        message: 'Question and answer are required',
+      });
+    }
+    const orderNum = typeof order === 'number' && !Number.isNaN(order) ? order : 0;
+    const faq = new Faq({
+      question: q,
+      answer: a,
+      order: orderNum,
+    });
+    await faq.save();
+    res.status(201).json({
+      success: true,
+      message: 'FAQ created successfully',
+      data: faq,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error creating FAQ',
+      error: error.message,
+    });
+  }
+});
+
+// Update FAQ (admin)
+router.put('/faqs/:id', async (req, res) => {
+  try {
+    const { question, answer, order } = req.body;
+    const update = { updatedAt: new Date() };
+    if (question !== undefined) update.question = String(question).trim();
+    if (answer !== undefined) update.answer = String(answer).trim();
+    if (typeof order === 'number') update.order = order;
+    const faq = await Faq.findByIdAndUpdate(req.params.id, update, {
+      new: true,
+      runValidators: true,
+    });
+    if (!faq) {
+      return res.status(404).json({
+        success: false,
+        message: 'FAQ not found',
+      });
+    }
+    res.json({
+      success: true,
+      message: 'FAQ updated successfully',
+      data: faq,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating FAQ',
+      error: error.message,
+    });
+  }
+});
+
+// Delete FAQ (admin)
+router.delete('/faqs/:id', async (req, res) => {
+  try {
+    const faq = await Faq.findByIdAndDelete(req.params.id);
+    if (!faq) {
+      return res.status(404).json({
+        success: false,
+        message: 'FAQ not found',
+      });
+    }
+    res.json({
+      success: true,
+      message: 'FAQ deleted successfully',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting FAQ',
       error: error.message,
     });
   }
