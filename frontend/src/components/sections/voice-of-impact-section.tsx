@@ -130,7 +130,7 @@ export default function VoiceOfImpactSection() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-b from-white to-gray-50 dark:from-neutral-950 dark:to-gray-900 py-16 md:py-24 overflow-hidden">
+    <section id="voice-of-impact" className="relative bg-gradient-to-b from-white to-gray-50 dark:from-neutral-950 dark:to-gray-900 py-16 md:py-24 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
