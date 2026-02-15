@@ -94,15 +94,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const translatePageContent = async (targetLanguage: string) => {
     setIsTranslating(true);
-    
+
     try {
-      // Get all text nodes in the document
       const walker = document.createTreeWalker(
         document.body,
         NodeFilter.SHOW_TEXT,
         {
           acceptNode: (node) => {
-            // Skip script, style, and empty text nodes
             if (
               node.parentElement?.tagName === "SCRIPT" ||
               node.parentElement?.tagName === "STYLE" ||
@@ -122,22 +120,32 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         textNodes.push(node);
       }
 
-      // Translate text nodes in batches
       const batchSize = 10;
       for (let i = 0; i < textNodes.length; i += batchSize) {
         const batch = textNodes.slice(i, i + batchSize);
         await Promise.all(
           batch.map(async (textNode) => {
-            const originalText = textNode.textContent?.trim();
-            if (originalText && originalText.length > 0) {
-              try {
-                const translatedText = await translateText(originalText, targetLanguage);
-                if (textNode.textContent) {
-                  textNode.textContent = translatedText;
-                }
-              } catch (error) {
-                console.error("Translation error:", error);
+            const parent = textNode.parentElement;
+            if (!parent) return;
+            const trimmed = textNode.textContent?.trim();
+            if (!trimmed || trimmed.length === 0) return;
+
+            // Always use English as source: stored when we first translated, or current text if still English
+            const sourceEnglish =
+              parent.getAttribute("data-original-en") ?? trimmed;
+
+            try {
+              const translatedText = await translateText(
+                sourceEnglish,
+                targetLanguage
+              );
+              if (textNode.textContent) {
+                textNode.textContent = translatedText;
               }
+              // Keep English source for future language switches (e.g. Hindi → Tamil)
+              parent.setAttribute("data-original-en", sourceEnglish);
+            } catch (error) {
+              console.error("Translation error:", error);
             }
           })
         );
