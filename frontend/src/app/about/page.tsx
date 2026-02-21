@@ -10,10 +10,12 @@ import AboutCompanySection from "@/components/sections/about-company-section";
 import JourneyTimelineSection from "@/components/sections/journey-timeline-section";
 import MissionSection from "@/components/sections/mission-section";
 import VisionSection from "@/components/sections/vision-section";
+import ScrollToHash from "@/components/ScrollToHash";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950">
+      <ScrollToHash />
       <NavigationHeader />
       <main className="flex-1">
         <HeroVisionary />
