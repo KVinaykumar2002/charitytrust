@@ -6,6 +6,7 @@ import ErrorReporter from "@/components/ErrorReporter";
 import FansEventPopup from "@/components/FansEventPopup";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { HeroLoadingProvider } from "@/contexts/HeroLoadingContext";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className="antialiased">
         <ThemeProvider>
           <LanguageProvider>
+            <HeroLoadingProvider>
             <ErrorReporter />
             <ScrollAnimationProvider />
             <Script
@@ -38,6 +40,7 @@ export default function RootLayout({
             {children}
             <FansEventPopup />
             <VisualEditsMessenger />
+            </HeroLoadingProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

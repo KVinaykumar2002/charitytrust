@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { getPublicHeroImages } from "@/lib/api";
+import { useHeroLoading } from "@/contexts/HeroLoadingContext";
 
 import {
   Carousel,
@@ -22,10 +23,16 @@ interface HeroSlide {
 }
 
 const HeroBanner = () => {
+  const { setIsHeroLoading } = useHeroLoading();
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setIsHeroLoading(loading);
+    return () => setIsHeroLoading(false);
+  }, [loading, setIsHeroLoading]);
 
   const autoplayPlugin = React.useRef(
     Autoplay({

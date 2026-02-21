@@ -19,6 +19,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageSelector from "@/components/LanguageSelector";
 import TextToSpeech from "@/components/TextToSpeech";
+import { useHeroLoading } from "@/contexts/HeroLoadingContext";
 
 interface NavItem {
   name: string;
@@ -80,6 +81,7 @@ const DEFAULT_SERVICES_DROPDOWN: { name: string; href: string }[] = [
 
 const NavigationHeader = () => {
   const pathname = usePathname();
+  const { isHeroLoading } = useHeroLoading();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
@@ -204,21 +206,25 @@ const NavigationHeader = () => {
 
   // Fully transparent on hero (home) and about when at top; glassy when scrolled or on other pages
   const isTransparent = (pathname === "/" || pathname?.startsWith("/about")) && !scrolled;
-  const navTextClass = isTransparent
+  // While hero is loading (white background), use black text and light navbar for readability
+  const isLoadingStyle = pathname === "/" && isHeroLoading;
+  const navTextClass = isLoadingStyle
+    ? "text-black font-semibold hover:text-black/90"
+    : isTransparent
     ? "text-white font-semibold hover:text-white/95"
     : "text-white/80 font-semibold hover:text-[#FD7E14]";
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 flex h-24 max-h-24 w-full justify-center px-3 sm:px-4 transition-[background-color,backdrop-filter] duration-300 overflow-visible ${isTransparent ? "bg-transparent" : "bg-black/60 backdrop-blur-md"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 flex h-24 max-h-24 w-full justify-center px-3 sm:px-4 transition-[background-color,backdrop-filter] duration-300 overflow-visible ${isLoadingStyle ? "bg-white/95 backdrop-blur-md" : isTransparent ? "bg-transparent" : "bg-black/60 backdrop-blur-md"}`}>
       <div className="relative flex h-full w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 lg:gap-1.5 lg:px-2 lg:pr-4 xl:px-3 xl:pr-5 overflow-visible">
         {/* Logo - size independent of navbar height */}
         <Link href="/" className="flex shrink-0 items-center justify-center overflow-visible">
           <Image
-            src="/LogoFinal.png"
+            src="/logo_solo1.png"
             alt="Chiranjeevi Charitable Trust logo"
-            width={500}
+            width={150}
             height={150}
-            className="h-32 w-auto object-contain object-left lg:h-36 xl:h-40"
+            className="h-24 w-auto object-contain object-left lg:h-28 xl:h-32"
             priority
           />
         </Link>
@@ -330,14 +336,14 @@ const NavigationHeader = () => {
         </nav>
 
         {/* Auth Buttons (Desktop) - rightmost */}
-        <div className="hidden lg:flex items-center gap-1 shrink-0 ml-auto lg:gap-1.5 xl:gap-1.5 [&_button]:font-semibold">
+        <div className={`hidden lg:flex items-center gap-1 shrink-0 ml-auto lg:gap-1.5 xl:gap-1.5 [&_button]:font-semibold ${isLoadingStyle ? "text-black" : ""}`}>
           <TextToSpeech />
           <LanguageSelector />
           <ThemeToggle />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className={`flex items-center gap-1.5 rounded-full px-2 py-1 text-sm font-semibold transition-colors ${isTransparent ? "bg-white/15 text-white hover:bg-white/25" : "bg-white/10 text-white hover:bg-white/20"}`}>
+                <button className={`flex items-center gap-1.5 rounded-full px-2 py-1 text-sm font-semibold transition-colors ${isLoadingStyle ? "bg-black/10 text-black hover:bg-black/15" : isTransparent ? "bg-white/15 text-white hover:bg-white/25" : "bg-white/10 text-white hover:bg-white/20"}`}>
                   <Avatar className="h-5 w-5">
                     <AvatarFallback className="bg-[#FD7E14] text-white text-[10px]">
                       {user?.name?.charAt(0).toUpperCase() || "U"}
@@ -389,14 +395,14 @@ const NavigationHeader = () => {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className="lg:hidden flex items-center gap-2 [&_button]:font-semibold">
+        <div className={`lg:hidden flex items-center gap-2 [&_button]:font-semibold ${isLoadingStyle ? "text-black" : ""}`}>
           <TextToSpeech />
           <LanguageSelector />
           <ThemeToggle />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
-            className="rounded-full p-2 text-white font-semibold transition-colors duration-200 btn-press-down bg-white/10 hover:bg-white/20"
+            className={`rounded-full p-2 font-semibold transition-colors duration-200 btn-press-down ${isLoadingStyle ? "text-black bg-black/10 hover:bg-black/15" : "text-white bg-white/10 hover:bg-white/20"}`}
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />
