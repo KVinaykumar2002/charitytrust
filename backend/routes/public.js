@@ -16,8 +16,30 @@ import EyeDonationPledge from '../models/EyeDonationPledge.js';
 import BloodDonation from '../models/BloodDonation.js';
 import Faq from '../models/Faq.js';
 import Service from '../models/Service.js';
+import Award from '../models/Award.js';
 
 const router = express.Router();
+
+// ==================== PUBLIC AWARDS ====================
+
+router.get('/awards', async (req, res) => {
+  try {
+    const awards = await Award.find({ active: true })
+      .sort({ order: 1, createdAt: 1 })
+      .select('-__v')
+      .lean();
+    res.json({
+      success: true,
+      data: awards
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching awards',
+      error: error.message
+    });
+  }
+});
 
 // ==================== PUBLIC SERVICES ====================
 

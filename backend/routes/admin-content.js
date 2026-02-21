@@ -18,6 +18,7 @@ import FanEvent from '../models/FanEvent.js';
 import TeamCategory from '../models/TeamCategory.js';
 import Faq from '../models/Faq.js';
 import Service from '../models/Service.js';
+import Award from '../models/Award.js';
 
 const router = express.Router();
 
@@ -1923,6 +1924,107 @@ router.delete('/services/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error deleting service',
+      error: error.message,
+    });
+  }
+});
+
+// ==================== AWARDS CRUD (Awards & Recognitions) ====================
+
+router.get('/awards', async (req, res) => {
+  try {
+    const awards = await Award.find().sort({ order: 1, createdAt: 1 });
+    res.json({ success: true, data: awards });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching awards',
+      error: error.message,
+    });
+  }
+});
+
+router.get('/awards/:id', async (req, res) => {
+  try {
+    const award = await Award.findById(req.params.id);
+    if (!award) {
+      return res.status(404).json({
+        success: false,
+        message: 'Award not found',
+      });
+    }
+    res.json({ success: true, data: award });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching award',
+      error: error.message,
+    });
+  }
+});
+
+router.post('/awards', async (req, res) => {
+  try {
+    const award = new Award(req.body);
+    await award.save();
+    res.status(201).json({
+      success: true,
+      message: 'Award created successfully',
+      data: award,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error creating award',
+      error: error.message,
+    });
+  }
+});
+
+router.put('/awards/:id', async (req, res) => {
+  try {
+    const award = await Award.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, updatedAt: new Date() },
+      { new: true, runValidators: true }
+    );
+    if (!award) {
+      return res.status(404).json({
+        success: false,
+        message: 'Award not found',
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Award updated successfully',
+      data: award,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating award',
+      error: error.message,
+    });
+  }
+});
+
+router.delete('/awards/:id', async (req, res) => {
+  try {
+    const award = await Award.findByIdAndDelete(req.params.id);
+    if (!award) {
+      return res.status(404).json({
+        success: false,
+        message: 'Award not found',
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Award deleted successfully',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting award',
       error: error.message,
     });
   }
