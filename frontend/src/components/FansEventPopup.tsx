@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Heart, ArrowRight, X } from "lucide-react";
@@ -9,7 +9,6 @@ export default function FansEventPopup() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const autoCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isAdminPage = pathname?.startsWith("/admin") ?? false;
 
@@ -17,27 +16,13 @@ export default function FansEventPopup() {
     setMounted(true);
   }, []);
 
-  // On every load: show popup, then auto-close after 5 seconds (not on admin)
+  // On every load: show popup (not on admin). Only close when user closes.
   useEffect(() => {
     if (!mounted || isAdminPage) return;
     setIsOpen(true);
-    autoCloseTimerRef.current = setTimeout(() => {
-      setIsOpen(false);
-      autoCloseTimerRef.current = null;
-    }, 5000);
-    return () => {
-      if (autoCloseTimerRef.current) {
-        clearTimeout(autoCloseTimerRef.current);
-        autoCloseTimerRef.current = null;
-      }
-    };
   }, [mounted, isAdminPage]);
 
   const handleClose = () => {
-    if (autoCloseTimerRef.current) {
-      clearTimeout(autoCloseTimerRef.current);
-      autoCloseTimerRef.current = null;
-    }
     setIsOpen(false);
   };
 

@@ -6,7 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { ArrowRight } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 import {
   Carousel,
   CarouselContent,
@@ -119,7 +119,7 @@ export default function ProgramsCarousel() {
             {loading ? (
               <CarouselItem className="basis-full pl-6">
                 <div className="flex items-center justify-center py-20">
-                  <TrustLoader variant="both" size="lg" label="Loading programs..." />
+                  <VideoLoader size="lg" label="Loading programs..." />
                 </div>
               </CarouselItem>
             ) : programs.length === 0 ? (

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { TestimonialSlider } from "@/components/ui/testimonial-slider-1";
 import { getPublicTestimonials } from "@/lib/api";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 
 const celebritiesAndLeaders = [
   {
@@ -185,7 +185,7 @@ export default function VoiceOfImpactSection() {
           <div className="max-w-5xl mx-auto">
             {loading ? (
               <div className="flex justify-center min-h-[300px] items-center">
-                <TrustLoader variant="eye" size="lg" label="Loading..." />
+                <VideoLoader size="lg" label="Loading..." />
               </div>
             ) : (
               <TestimonialSlider

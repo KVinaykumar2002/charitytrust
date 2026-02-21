@@ -416,9 +416,9 @@ const TeamPartnersSection = () => {
                   />
                 </button>
 
-                {/* Dropdown Content - absolute so other cards don't move */}
+                {/* Dropdown Content - in-flow so it pushes content below and avoids overlap */}
                 {openDropdown === index && (
-                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
+                  <div className="mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
                     <div className="space-y-4 text-left">
                       {member.members?.map((teamMember, memberIndex) => (
                         <div
@@ -564,12 +564,12 @@ const TeamPartnersSection = () => {
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${organizersDropdownOpen ? "rotate-180" : ""}`} />
                 </button>
                 {organizersDropdownOpen && organizersCategory.members?.length > 0 && (
-                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
+                  <div className="mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
                     {renderMemberList(organizersCategory.members)}
                   </div>
                 )}
                 {organizersDropdownOpen && (!organizersCategory.members || organizersCategory.members.length === 0) && (
-                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 animate-in slide-in-from-top-2 duration-200">
+                  <div className="mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 animate-in slide-in-from-top-2 duration-200">
                     <p className="text-neutral-500 dark:text-neutral-400 text-sm">No members added yet.</p>
                   </div>
                 )}
@@ -602,12 +602,12 @@ const TeamPartnersSection = () => {
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${hospitalsDropdownOpen ? "rotate-180" : ""}`} />
                 </button>
                 {hospitalsDropdownOpen && governmentHospitalsCategory.members?.length > 0 && (
-                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
+                  <div className="mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 max-h-[70vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
                     {renderMemberList(governmentHospitalsCategory.members)}
                   </div>
                 )}
                 {hospitalsDropdownOpen && (!governmentHospitalsCategory.members || governmentHospitalsCategory.members.length === 0) && (
-                  <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 animate-in slide-in-from-top-2 duration-200">
+                  <div className="mt-2 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-xl p-4 animate-in slide-in-from-top-2 duration-200">
                     <p className="text-neutral-500 dark:text-neutral-400 text-sm">No members added yet.</p>
                   </div>
                 )}

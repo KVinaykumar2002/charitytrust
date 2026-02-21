@@ -7,7 +7,7 @@ import { Calendar, MapPin, Clock, ArrowRight, Users, Search, X } from "lucide-re
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { getPublicEvents } from "@/lib/api";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 
 interface Event {
   _id?: string;
@@ -437,7 +437,7 @@ export default function EventsPage() {
           <div className="max-w-7xl mx-auto">
             {loading ? (
               <div className="flex items-center justify-center py-32">
-                <TrustLoader variant="blood" size="lg" label="Loading events..." />
+                <VideoLoader size="lg" label="Loading events..." />
               </div>
             ) : error ? (
               <div className="flex items-center justify-center py-32">

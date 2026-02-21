@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu as MenuIcon, X, User, LogOut, Settings, LayoutDashboard, Droplet, Eye, ArrowRight } from "lucide-react";
 import { getUserData, clearAuthData, isAdmin } from "@/lib/auth-storage";
+import { getPublicServices } from "@/lib/api";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,6 +35,8 @@ const navItems: NavItem[] = [
       { name: "Our Journey", href: "/about#journey" },
       { name: "Our Mission", href: "/about#mission" },
       { name: "Our Vision", href: "/about#vision" },
+      { name: "Voice of Impact", href: "/#voice-of-impact" },
+      { name: "Awards", href: "/about#awards" },
     ],
   },
   {
@@ -54,14 +57,6 @@ const navItems: NavItem[] = [
   { name: "Special Services", href: "/projects" },
   { name: "Our Team", href: "/team" },
   {
-    name: "Impact",
-    dropdown: [
-      { name: "Testimonials", href: "/#voice-of-impact" },
-      { name: "Voice of Impact", href: "/#voice-of-impact" },
-      { name: "Awards", href: "/about#awards" },
-    ],
-  },
-  {
     name: "Donations",
     dropdown: [
       { name: "Eye Donation", href: "/eye-donation" },
@@ -73,9 +68,14 @@ const navItems: NavItem[] = [
     dropdown: [
       { name: "Gallery", href: "/gallery" },
       { name: "FAQ", href: "/faq" },
-      { name: "Contact Us", href: "/#contact" },
+      { name: "Contact Us", href: "/contact-us" },
     ],
   },
+];
+
+const DEFAULT_SERVICES_DROPDOWN: { name: string; href: string }[] = [
+  { name: "Chiranjeevi Eye Bank", href: "/services#eye-bank" },
+  { name: "Chiranjeevi Blood Center", href: "/services#blood-center" },
 ];
 
 const NavigationHeader = () => {
@@ -86,6 +86,29 @@ const NavigationHeader = () => {
   const [user, setUser] = useState<any>(null);
   const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesDropdown, setServicesDropdown] = useState<{ name: string; href: string }[]>(DEFAULT_SERVICES_DROPDOWN);
+
+  useEffect(() => {
+    getPublicServices()
+      .then((res: { success?: boolean; data?: Array<{ title: string; slug: string }> }) => {
+        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setServicesDropdown(
+            res.data.map((s) => ({ name: s.title, href: `/services#${s.slug}` }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const navItemsDisplay = useMemo(
+    () =>
+      navItems.map((item) =>
+        item.name === "Our Services"
+          ? { ...item, dropdown: servicesDropdown }
+          : item
+      ),
+    [servicesDropdown]
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -111,14 +134,11 @@ const NavigationHeader = () => {
     if (item.name === "Our Team") {
       return pathname === "/team";
     }
-    if (item.name === "Impact") {
-      return pathname === "/" || pathname?.startsWith("/about");
-    }
     if (item.name === "Donations") {
       return pathname === "/eye-donation" || pathname === "/blood-donation";
     }
     if (item.name === "More") {
-      return pathname === "/gallery" || pathname === "/faq";
+      return pathname === "/gallery" || pathname === "/faq" || pathname === "/contact-us";
     }
     if (item.href) {
       return pathname === item.href;
@@ -182,12 +202,15 @@ const NavigationHeader = () => {
     setActiveSubmenu(activeSubmenu === itemName ? null : itemName);
   };
 
-  // Transparent on home and about when at top; black when scrolled or on other pages
+  // Fully transparent on hero (home) and about when at top; glassy when scrolled or on other pages
   const isTransparent = (pathname === "/" || pathname?.startsWith("/about")) && !scrolled;
+  const navTextClass = isTransparent
+    ? "text-white font-semibold hover:text-white/95"
+    : "text-white/80 font-medium hover:text-[#FD7E14]";
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 flex h-24 max-h-24 w-full justify-center px-3 sm:px-4 transition-colors duration-300 overflow-visible ${isTransparent ? "bg-transparent" : "bg-black"}`}>
-      <div className="relative flex h-full w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 lg:gap-1.5 lg:px-2 xl:px-3 overflow-visible">
+    <header className={`fixed top-0 left-0 right-0 z-50 flex h-24 max-h-24 w-full justify-center px-3 sm:px-4 transition-[background-color,backdrop-filter] duration-300 overflow-visible ${isTransparent ? "bg-transparent" : "bg-black/60 backdrop-blur-md"}`}>
+      <div className="relative flex h-full w-full max-w-[1280px] min-w-0 items-center justify-between gap-1 lg:gap-1.5 lg:px-2 lg:pr-4 xl:px-3 xl:pr-5 overflow-visible">
         {/* Logo - size independent of navbar height */}
         <Link href="/" className="flex shrink-0 items-center justify-center overflow-visible">
           <Image
@@ -202,7 +225,7 @@ const NavigationHeader = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden min-w-0 flex-1 items-center justify-center gap-2 lg:flex lg:gap-3 xl:gap-4">
-          {navItems.map((item) =>
+          {navItemsDisplay.map((item) =>
             item.dropdown ? (
               <div
                 key={item.name}
@@ -225,10 +248,10 @@ const NavigationHeader = () => {
                 <div className="flex items-center gap-1 py-1.5 px-0.5">
                   <Link
                     href={item.name === "About Us" ? "/about" : item.href || "#"}
-                    className={`whitespace-nowrap text-sm font-medium transition-colors duration-300 hover-underline-slide ${
+                    className={`whitespace-nowrap text-sm transition-colors duration-300 hover-underline-slide ${
                       isActive(item)
-                        ? "text-[#FD7E14]"
-                        : "text-white/80 hover:text-[#FD7E14]"
+                        ? "text-[#FD7E14] font-semibold"
+                        : navTextClass
                     }`}
                   >
                     {item.name}
@@ -294,10 +317,10 @@ const NavigationHeader = () => {
               <Link
                 key={item.name}
                 href={item.href!}
-                className={`whitespace-nowrap py-1.5 px-0.5 text-sm font-medium transition-colors duration-300 hover-underline-slide ${
+                className={`whitespace-nowrap py-1.5 px-0.5 text-sm transition-colors duration-300 hover-underline-slide ${
                   isActive(item)
-                    ? "text-[#FD7E14]"
-                    : "text-white/80 hover:text-[#FD7E14]"
+                    ? "text-[#FD7E14] font-semibold"
+                    : navTextClass
                 }`}
               >
                 {item.name}
@@ -306,15 +329,15 @@ const NavigationHeader = () => {
           )}
         </nav>
 
-        {/* Auth Buttons (Desktop) */}
-        <div className="hidden lg:flex items-center gap-1 ml-1 shrink-0 lg:ml-1.5 xl:gap-1.5 xl:ml-2">
+        {/* Auth Buttons (Desktop) - rightmost */}
+        <div className={`hidden lg:flex items-center gap-1 shrink-0 ml-auto lg:gap-1.5 xl:gap-1.5 ${isTransparent ? "[&_button]:text-white [&_button]:font-semibold [&_button]:bg-white/15 [&_button:hover]:bg-white/25" : ""}`}>
           <TextToSpeech />
           <LanguageSelector />
           <ThemeToggle />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-1 text-sm font-medium text-white hover:bg-white/20 transition-colors">
+                <button className={`flex items-center gap-1.5 rounded-full px-2 py-1 text-sm transition-colors ${isTransparent ? "bg-white/15 text-white font-semibold hover:bg-white/25" : "bg-white/10 font-medium text-white hover:bg-white/20"}`}>
                   <Avatar className="h-5 w-5">
                     <AvatarFallback className="bg-[#FD7E14] text-white text-[10px]">
                       {user?.name?.charAt(0).toUpperCase() || "U"}
@@ -360,20 +383,20 @@ const NavigationHeader = () => {
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#FD7E14] px-4 py-1.5 text-base font-semibold text-[#ffffff] whitespace-nowrap btn-hover-bounce btn-shine-effect"
           >
-            Send a Message
+            Reach us
             <ArrowRight className="h-3.5 w-3.5 shrink-0" />
           </a>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className="lg:hidden flex items-center gap-2">
+        <div className={`lg:hidden flex items-center gap-2 ${isTransparent ? "[&_button]:text-white [&_button]:font-semibold [&_button]:bg-white/15 [&_button:hover]:bg-white/25" : ""}`}>
           <TextToSpeech />
           <LanguageSelector />
           <ThemeToggle />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
-            className="rounded-full bg-white/10 p-2 text-white transition-colors duration-200 hover:bg-white/20 btn-press-down"
+            className={`rounded-full p-2 text-white transition-colors duration-200 btn-press-down ${isTransparent ? "bg-white/15 font-semibold hover:bg-white/25" : "bg-white/10 hover:bg-white/20"}`}
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />
@@ -388,7 +411,7 @@ const NavigationHeader = () => {
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 mt-2 w-full bg-[#1a1a1a] px-6 py-6 shadow-[0_20px_40px_rgba(0,0,0,0.45)] lg:hidden">
           <nav className="flex flex-col">
-            {navItems.map((item) => (
+            {navItemsDisplay.map((item) => (
               <div key={item.name} className="border-b border-white/10">
                 {item.dropdown ? (
                   <>
@@ -504,7 +527,7 @@ const NavigationHeader = () => {
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FD7E14] px-6 py-3 text-lg font-semibold text-[#ffffff]"
             >
-              Send a Message
+              Reach us
               <ArrowRight className="h-3.5 w-3.5 shrink-0" />
             </a>
           </div>

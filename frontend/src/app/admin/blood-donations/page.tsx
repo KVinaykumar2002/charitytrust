@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getToken } from "@/lib/auth-storage";
 import { getAdminBloodDonations, updateBloodDonationStatus, deleteBloodDonation, getBloodDonationStats } from "@/lib/api";
 import { Droplet, Search, Filter, CheckCircle, XCircle, Clock, Trash2, Loader2, Users, AlertTriangle, Heart, Hospital } from "lucide-react";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -360,7 +360,7 @@ export default function AdminBloodDonationsPage() {
           <div className="bg-white rounded-xl border border-[#e5e5e5] overflow-hidden">
             {loading ? (
               <div className="flex items-center justify-center py-20">
-                <TrustLoader variant="blood" size="lg" label="Loading..." />
+                <VideoLoader size="lg" label="Loading..." />
               </div>
             ) : entries.length === 0 ? (
               <div className="text-center py-20">
@@ -508,7 +508,7 @@ export default function AdminBloodDonationsPage() {
           <div className="bg-white rounded-xl border border-[#e5e5e5] overflow-hidden">
             {loading ? (
               <div className="flex items-center justify-center py-20">
-                <TrustLoader variant="blood" size="lg" label="Loading..." />
+                <VideoLoader size="lg" label="Loading..." />
               </div>
             ) : entries.length === 0 ? (
               <div className="text-center py-20">

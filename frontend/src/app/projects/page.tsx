@@ -6,7 +6,7 @@ import { Component as FlickeringFooter } from "@/components/ui/flickering-footer
 import { Calendar, MapPin, Target, CheckCircle2, Clock, PlayCircle, Search, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { getPublicProjects } from "@/lib/api";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 
 interface Project {
   _id?: string;
@@ -457,7 +457,7 @@ export default function ProjectsPage() {
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {loading ? (
               <div className="text-center py-20">
-                <TrustLoader variant="both" size="lg" label="Loading..." />
+                <VideoLoader size="lg" label="Loading..." />
               </div>
             ) : error ? (
               <div className="text-center py-20">

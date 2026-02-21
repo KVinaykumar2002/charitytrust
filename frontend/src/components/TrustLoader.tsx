@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Droplet, Eye } from "lucide-react";
+import { Droplet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type TrustLoaderVariant = "blood" | "eye" | "both";
@@ -31,7 +31,7 @@ export function TrustLoader({
   size = "lg",
   label = "Loading...",
   className,
-  showPercentage = true,
+  showPercentage = false,
   percentage: percentageProp,
 }: TrustLoaderProps) {
   const iconSize = size === "sm" ? 40 : size === "md" ? 56 : size === "lg" ? 72 : size === "xl" ? 96 : size === "2xl" ? 120 : 160;
@@ -60,47 +60,23 @@ export function TrustLoader({
       )}
     >
       <div className={cn("relative flex items-center justify-center", sizeClasses[size])}>
-        {variant === "blood" && (
+        {(variant === "blood" || variant === "eye" || variant === "both") && (
           <div className="trust-loader-blood absolute inset-0" aria-hidden>
+            {/* Outline (static) */}
             <Droplet
               className="size-full text-[#c41e3a] drop-shadow-[0_0_8px_rgba(196,30,58,0.5)]"
               strokeWidth={1.5}
             />
-            <div
-              className="trust-loader-blood-fill absolute inset-0 overflow-hidden rounded-full"
-              aria-hidden
-            >
-              <Droplet
-                className="size-full text-[#e63946]"
-                strokeWidth={0}
-                fill="currentColor"
-                style={{ filter: "drop-shadow(0 0 6px rgba(230,57,70,0.6))" }}
-              />
-            </div>
-          </div>
-        )}
-        {variant === "eye" && (
-          <div className="trust-loader-eye" aria-hidden>
-            <Eye
-              className={cn("size-full text-[#0d9488]")}
-              strokeWidth={1.5}
-              style={{ filter: "drop-shadow(0 0 6px rgba(13,148,136,0.4))" }}
-            />
-          </div>
-        )}
-        {variant === "both" && (
-          <div className="flex items-center gap-1.5" aria-hidden>
-            <div className="trust-loader-blood relative" style={{ width: iconSize, height: iconSize }}>
-              <Droplet
-                className="size-full text-[#c41e3a]"
-                strokeWidth={1.5}
-              />
-              <div className="trust-loader-blood-fill absolute inset-0 overflow-hidden rounded-full">
-                <Droplet className="size-full text-[#e63946]" strokeWidth={0} fill="currentColor" />
+            {/* Filling blood animation (rises from bottom) */}
+            <div className="trust-loader-blood-fill" aria-hidden>
+              <div className="trust-loader-blood-fill-inner">
+                <Droplet
+                  className="size-full text-[#e63946]"
+                  strokeWidth={0}
+                  fill="currentColor"
+                  style={{ filter: "drop-shadow(0 0 6px rgba(230,57,70,0.6))" }}
+                />
               </div>
-            </div>
-            <div className="trust-loader-eye" style={{ width: iconSize, height: iconSize }}>
-              <Eye className="size-full text-[#0d9488]" strokeWidth={1.5} />
             </div>
           </div>
         )}

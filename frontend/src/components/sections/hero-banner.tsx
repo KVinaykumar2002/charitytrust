@@ -13,7 +13,7 @@ import {
   CarouselNext,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 
 interface HeroSlide {
   title: string;
@@ -79,8 +79,8 @@ const HeroBanner = () => {
 
   if (loading) {
     return (
-      <section className="relative w-full min-h-screen mt-0 overflow-hidden flex items-center justify-center bg-[#1a1a1a]">
-        <TrustLoader variant="blood" size="xl" label="Loading..." />
+      <section className="relative w-full min-h-screen mt-0 overflow-hidden flex items-center justify-center bg-white dark:bg-[#1a1a1a]">
+        <VideoLoader src="/loader.mp4" size="xl" label="Loading..." />
       </section>
     );
   }

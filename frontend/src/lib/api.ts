@@ -670,6 +670,33 @@ export async function deleteFanEvent(token: string, id: string) {
 
 // ==================== PUBLIC APIs (No Authentication Required) ====================
 
+// Get all active services (Our Services - public, no auth required)
+export async function getPublicServices() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/services`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+      keepalive: true,
+    });
+    if (!response.ok) {
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
+      }
+      throw new Error(errorData.message || `Failed to fetch services: ${response.status} ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running.');
+    }
+    throw new Error(error.message || 'Failed to fetch services');
+  }
+}
+
 // Get all active programs (public - no auth required)
 export async function getPublicPrograms() {
   try {

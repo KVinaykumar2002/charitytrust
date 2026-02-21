@@ -6,7 +6,7 @@ import { getToken, getUserData, clearAuthData } from "@/lib/auth-storage";
 import { verifyToken } from "@/lib/api";
 import { requireAdmin } from "@/middleware/route-guard";
 import AdminSidebar from "@/components/admin/AdminSidebar";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 
 export default function AdminLayout({
   children,
@@ -78,7 +78,7 @@ export default function AdminLayout({
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8f9f8] dark:bg-[#0a0a0a]">
-        <TrustLoader variant="both" size="lg" label="Loading..." />
+        <VideoLoader size="lg" label="Loading..." />
       </div>
     );
   }

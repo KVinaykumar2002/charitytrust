@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Heart, Eye, Wind, Hospital, Users, Target, Award, Star, Gift, Globe, Building, GraduationCap, Truck, Shield } from "lucide-react";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 import { Timeline } from "@/components/ui/timeline";
 import { getPublicTimeline } from "@/lib/api";
 
@@ -166,7 +166,7 @@ const JourneyTimelineSection = () => {
             </p>
           </div>
           <div className="flex items-center justify-center py-20">
-            <TrustLoader variant="both" size="lg" label="Loading journey..." />
+            <VideoLoader size="lg" label="Loading journey..." />
           </div>
         </div>
       </section>

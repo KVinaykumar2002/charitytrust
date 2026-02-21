@@ -15,8 +15,30 @@ import TeamCategory from '../models/TeamCategory.js';
 import EyeDonationPledge from '../models/EyeDonationPledge.js';
 import BloodDonation from '../models/BloodDonation.js';
 import Faq from '../models/Faq.js';
+import Service from '../models/Service.js';
 
 const router = express.Router();
+
+// ==================== PUBLIC SERVICES ====================
+
+router.get('/services', async (req, res) => {
+  try {
+    const services = await Service.find({ active: true })
+      .sort({ order: 1, createdAt: 1 })
+      .select('-__v')
+      .lean();
+    res.json({
+      success: true,
+      data: services
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching services',
+      error: error.message
+    });
+  }
+});
 
 // ==================== PUBLIC PROGRAMS ====================
 

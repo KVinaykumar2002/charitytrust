@@ -7,9 +7,7 @@ import VolunteerHeroSection from "@/components/sections/volunteer-hero-section";
 import ProgramsCarousel from "@/components/sections/programs-carousel";
 import JoinBanner from "@/components/sections/join-banner";
 import ProjectsShowcase from "@/components/sections/projects-showcase";
-import EventsBanner from "@/components/sections/events-banner";
 import VoiceOfImpactSection from "@/components/sections/voice-of-impact-section";
-import ContactSection from "@/components/sections/contact-section";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import Featured_05 from "@/components/ui/globe-feature-section";
 
@@ -27,8 +25,6 @@ export default function Home() {
         <Featured_05 />
         <ProjectsShowcase />
         <VoiceOfImpactSection />
-        <EventsBanner />
-        <ContactSection />
         <VolunteerHeroSection />
       </main>
       <FlickeringFooter />

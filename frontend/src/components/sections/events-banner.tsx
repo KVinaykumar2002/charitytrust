@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { getPublicEvents } from '@/lib/api';
 import { AnimatedButton } from '@/components/ui/animated-button';
-import TrustLoader from '@/components/TrustLoader';
+import VideoLoader from '@/components/VideoLoader';
 
 interface Event {
   _id?: string;
@@ -90,7 +90,7 @@ const EventsBanner = () => {
     return (
       <section className="bg-background-white py-[100px] overflow-hidden">
         <div className="container mx-auto flex justify-center mb-16 px-6 md:px-12 lg:px-20">
-          <TrustLoader variant="blood" size="lg" label="Loading events..." />
+          <VideoLoader size="lg" label="Loading events..." />
         </div>
       </section>
     );

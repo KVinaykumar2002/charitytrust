@@ -7,7 +7,7 @@ import { X, ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { getPublicEvents, getPublicProjects, getPublicPrograms } from "@/lib/api";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 
 interface GalleryImage {
   id: string;
@@ -227,7 +227,7 @@ export default function GalleryPage() {
           <div className="max-w-7xl mx-auto">
             {loading ? (
               <div className="flex items-center justify-center py-32">
-                <TrustLoader variant="both" size="lg" label="Loading gallery..." />
+                <VideoLoader size="lg" label="Loading gallery..." />
               </div>
             ) : error ? (
               <div className="flex items-center justify-center py-32">

@@ -177,7 +177,7 @@ const RelianceFooter = () => {
                 Privacy Policy
               </Link>
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="hover:text-[#004291] transition-colors"
               >
                 Contact Us

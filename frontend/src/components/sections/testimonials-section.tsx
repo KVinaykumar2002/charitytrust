@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { TestimonialSlider } from "@/components/ui/testimonial-slider-1";
 import { getPublicTestimonials } from "@/lib/api";
-import TrustLoader from "@/components/TrustLoader";
+import VideoLoader from "@/components/VideoLoader";
 
 // Fallback testimonials in case API fails or returns empty
 const fallbackTestimonials = [
@@ -179,7 +179,7 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto">
         {loading ? (
           <div className="flex items-center justify-center min-h-[400px]">
-            <TrustLoader variant="eye" size="lg" label="Loading testimonials..." />
+            <VideoLoader size="lg" label="Loading testimonials..." />
           </div>
         ) : (
           <TestimonialSlider 
