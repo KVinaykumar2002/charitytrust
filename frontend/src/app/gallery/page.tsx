@@ -16,6 +16,7 @@ interface GalleryImage {
   title: string;
   category: string;
   date?: string;
+  allImages?: string[];
 }
 
 export default function GalleryPage() {
@@ -24,6 +25,7 @@ export default function GalleryPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedGalleryItem, setSelectedGalleryItem] = useState<GalleryImage | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -49,10 +51,13 @@ export default function GalleryPage() {
         if (Array.isArray(eventsData)) {
           eventsData.forEach((event: any) => {
             const imageSrc = event.imageBase64 || event.image || event.imageUrl;
+            const extraImages = Array.isArray(event.images) ? event.images : [];
+            const allImages = [imageSrc, ...extraImages].filter(Boolean);
             if (imageSrc) {
               galleryImages.push({
                 id: `event-${event._id || event.id}`,
                 src: imageSrc,
+                allImages,
                 alt: event.title || event.name || "Event image",
                 title: event.title || event.name || "Event",
                 category: "Events",
@@ -69,10 +74,13 @@ export default function GalleryPage() {
         if (Array.isArray(projectsData)) {
           projectsData.forEach((project: any) => {
             const imageSrc = project.imageBase64 || project.image || project.imageUrl;
+            const extraImages = Array.isArray(project.images) ? project.images : [];
+            const allImages = [imageSrc, ...extraImages].filter(Boolean);
             if (imageSrc) {
               galleryImages.push({
                 id: `project-${project._id || project.id}`,
                 src: imageSrc,
+                allImages,
                 alt: project.title || "Project image",
                 title: project.title || "Project",
                 category: "Projects",
@@ -89,10 +97,13 @@ export default function GalleryPage() {
         if (Array.isArray(programsData)) {
           programsData.forEach((program: any) => {
             const imageSrc = program.imageBase64 || program.image || program.imageUrl;
+            const extraImages = Array.isArray(program.images) ? program.images : [];
+            const allImages = [imageSrc, ...extraImages].filter(Boolean);
             if (imageSrc) {
               galleryImages.push({
                 id: `program-${program._id || program.id}`,
                 src: imageSrc,
+                allImages,
                 alt: program.name || "Program image",
                 title: program.name || "Program",
                 category: "Programs",
@@ -118,23 +129,28 @@ export default function GalleryPage() {
       ? images
       : images.filter((img) => img.category === selectedCategory);
 
-  const openLightbox = (index: number) => {
-    setCurrentImageIndex(index);
+  const openLightbox = (image: GalleryImage) => {
+    setSelectedGalleryItem(image);
+    setCurrentImageIndex(0);
     setLightboxOpen(true);
     document.body.style.overflow = "hidden";
   };
 
   const closeLightbox = () => {
     setLightboxOpen(false);
+    setTimeout(() => setSelectedGalleryItem(null), 300); // clear after exit animation
     document.body.style.overflow = "auto";
   };
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % filteredImages.length);
+    if (!selectedGalleryItem?.allImages) return;
+    setCurrentImageIndex((prev) => (prev + 1) % selectedGalleryItem.allImages!.length);
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + filteredImages.length) % filteredImages.length);
+    if (!selectedGalleryItem?.allImages) return;
+    const len = selectedGalleryItem.allImages.length;
+    setCurrentImageIndex((prev) => (prev - 1 + len) % len);
   };
 
   // Handle keyboard navigation
@@ -264,16 +280,7 @@ export default function GalleryPage() {
                         delay: index * 0.05,
                         ease: [0.22, 1, 0.36, 1],
                       }}
-                      onClick={() => {
-                        if (selectedCategory === "All") {
-                          setSelectedCategory(image.category);
-                          const categoryImages = images.filter((img) => img.category === image.category);
-                          const newIndex = categoryImages.findIndex((img) => img.id === image.id);
-                          openLightbox(newIndex);
-                        } else {
-                          openLightbox(index);
-                        }
-                      }}
+                      onClick={() => openLightbox(image)}
                       className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer bg-white/5"
                     >
                       {/* Image */}
@@ -332,7 +339,7 @@ export default function GalleryPage() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxOpen && filteredImages[currentImageIndex] && (
+        {lightboxOpen && selectedGalleryItem && selectedGalleryItem.allImages && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -350,7 +357,7 @@ export default function GalleryPage() {
             </button>
 
             {/* Navigation buttons */}
-            {filteredImages.length > 1 && (
+            {selectedGalleryItem.allImages.length > 1 && (
               <>
                 <button
                   onClick={(e) => {
@@ -384,30 +391,28 @@ export default function GalleryPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={filteredImages[currentImageIndex]?.src}
-                alt={filteredImages[currentImageIndex]?.alt}
+                src={selectedGalleryItem.allImages[currentImageIndex]}
+                alt={selectedGalleryItem.alt}
                 className="max-w-full max-h-[80vh] object-contain rounded-lg"
               />
 
               {/* Image info */}
-              {filteredImages[currentImageIndex] && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                  className="absolute -bottom-20 left-0 right-0 text-center"
-                >
-                  <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase">
-                    {filteredImages[currentImageIndex].category}
-                  </span>
-                  <h3 className="text-white font-semibold text-xl mt-1">
-                    {filteredImages[currentImageIndex].title}
-                  </h3>
-                  <p className="text-white/40 text-sm mt-2">
-                    {currentImageIndex + 1} / {filteredImages.length}
-                  </p>
-                </motion.div>
-              )}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+                className="absolute -bottom-20 left-0 right-0 text-center"
+              >
+                <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase">
+                  {selectedGalleryItem.category}
+                </span>
+                <h3 className="text-white font-semibold text-xl mt-1">
+                  {selectedGalleryItem.title}
+                </h3>
+                <p className="text-white/40 text-sm mt-2">
+                  {currentImageIndex + 1} / {selectedGalleryItem.allImages.length}
+                </p>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}

@@ -17,6 +17,7 @@ import {
 import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
+import MultiImageUpload from "@/components/admin/MultiImageUpload";
 import { getToken } from "@/lib/auth-storage";
 import { updateEvent, getAdminEvent } from "@/lib/api";
 
@@ -32,6 +33,7 @@ export default function EditEventPage() {
     date: "",
     location: "",
     image: "",
+    images: [] as string[],
     status: "upcoming",
     maxAttendees: "",
     currentAttendees: "",
@@ -70,6 +72,7 @@ export default function EditEventPage() {
           date: formattedDate,
           location: event.location || "",
           image: event.imageBase64 || event.image || event.imageUrl || "",
+          images: event.images || [],
           status: event.status || "upcoming",
           maxAttendees: event.maxAttendees?.toString() || "",
           currentAttendees: event.currentAttendees?.toString() || "",
@@ -93,7 +96,7 @@ export default function EditEventPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate required fields
     if (!formData.image) {
       alert("Please upload an image for the event");
@@ -117,6 +120,7 @@ export default function EditEventPage() {
         date: new Date(formData.date).toISOString(),
         location: formData.location,
         imageBase64: formData.image, // Store only imageBase64
+        images: formData.images,
         status: formData.status,
         maxAttendees: formData.maxAttendees ? parseInt(formData.maxAttendees) : 0,
         currentAttendees: formData.currentAttendees ? parseInt(formData.currentAttendees) : 0,
@@ -236,6 +240,15 @@ export default function EditEventPage() {
                   {!formData.image && (
                     <p className="text-xs text-red-600 mt-1">Image is required</p>
                   )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-[#1a1a1a]">Gallery Images (Optional)</Label>
+                  <p className="text-xs text-[#4a4a4a]">Upload up to 5 additional images for this event's gallery.</p>
+                  <MultiImageUpload
+                    value={formData.images}
+                    onChange={(base64Array) => setFormData({ ...formData, images: base64Array.slice(0, 5) })}
+                  />
                 </div>
               </CardContent>
             </Card>

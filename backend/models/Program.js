@@ -19,6 +19,9 @@ const programSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  images: [{
+    type: String
+  }],
   link: {
     type: String,
     trim: true,
@@ -58,7 +61,7 @@ const programSchema = new mongoose.Schema({
   }
 });
 
-programSchema.pre('save', function(next) {
+programSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });

@@ -22,6 +22,9 @@ const projectSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  images: [{
+    type: String
+  }],
   programId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Program',
@@ -58,7 +61,7 @@ const projectSchema = new mongoose.Schema({
   }
 });
 
-projectSchema.pre('save', function(next) {
+projectSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });

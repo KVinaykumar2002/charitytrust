@@ -17,6 +17,7 @@ import {
 import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
+import MultiImageUpload from "@/components/admin/MultiImageUpload";
 import { getToken } from "@/lib/auth-storage";
 
 export default function EditProjectPage() {
@@ -32,6 +33,7 @@ export default function EditProjectPage() {
     location: "",
     status: "planning",
     image: "",
+    images: [] as string[],
     startDate: "",
     endDate: "",
   });
@@ -52,12 +54,12 @@ export default function EditProjectPage() {
       if (response.ok) {
         const result = await response.json();
         const project = result.data || result;
-        
+
         // Format dates for input fields
-        const startDate = project.startDate 
+        const startDate = project.startDate
           ? new Date(project.startDate).toISOString().split('T')[0]
           : "";
-        const endDate = project.endDate 
+        const endDate = project.endDate
           ? new Date(project.endDate).toISOString().split('T')[0]
           : "";
 
@@ -68,6 +70,7 @@ export default function EditProjectPage() {
           location: project.location || "",
           status: project.status || "planning",
           image: project.imageBase64 || project.image || project.imageUrl || "",
+          images: project.images || [],
           startDate: startDate,
           endDate: endDate,
         });
@@ -87,7 +90,7 @@ export default function EditProjectPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate required fields
     if (!formData.title || !formData.description) {
       alert("Please fill in all required fields");
@@ -119,6 +122,7 @@ export default function EditProjectPage() {
           imageBase64: formData.image,
           image: formData.image,
           imageUrl: formData.image,
+          images: formData.images,
           startDate: formData.startDate ? new Date(formData.startDate) : undefined,
           endDate: formData.endDate ? new Date(formData.endDate) : undefined,
         }),
@@ -231,6 +235,15 @@ export default function EditProjectPage() {
                   <ImageUpload
                     value={formData.image}
                     onChange={(base64) => setFormData({ ...formData, image: base64 })}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-[#1a1a1a]">Gallery Images (Optional)</Label>
+                  <p className="text-xs text-[#4a4a4a]">Upload up to 5 additional images for this project's gallery.</p>
+                  <MultiImageUpload
+                    value={formData.images}
+                    onChange={(base64Array) => setFormData({ ...formData, images: base64Array.slice(0, 5) })}
                   />
                 </div>
 

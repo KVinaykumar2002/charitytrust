@@ -17,6 +17,7 @@ import {
 import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
+import MultiImageUpload from "@/components/admin/MultiImageUpload";
 import { getToken } from "@/lib/auth-storage";
 
 export default function NewProjectPage() {
@@ -29,13 +30,14 @@ export default function NewProjectPage() {
     location: "",
     status: "planning",
     image: "",
+    images: [] as string[],
     startDate: "",
     endDate: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate required fields
     if (!formData.title || !formData.description) {
       alert("Please fill in all required fields");
@@ -67,6 +69,7 @@ export default function NewProjectPage() {
           imageBase64: formData.image,
           image: formData.image,
           imageUrl: formData.image,
+          images: formData.images,
           startDate: formData.startDate ? new Date(formData.startDate) : undefined,
           endDate: formData.endDate ? new Date(formData.endDate) : undefined,
         }),
@@ -168,6 +171,15 @@ export default function NewProjectPage() {
                   <ImageUpload
                     value={formData.image}
                     onChange={(base64) => setFormData({ ...formData, image: base64 })}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-[#1a1a1a]">Gallery Images (Optional)</Label>
+                  <p className="text-xs text-[#4a4a4a]">Upload up to 5 additional images for this project's gallery.</p>
+                  <MultiImageUpload
+                    value={formData.images}
+                    onChange={(base64Array) => setFormData({ ...formData, images: base64Array.slice(0, 5) })}
                   />
                 </div>
 

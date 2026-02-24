@@ -27,6 +27,9 @@ const eventSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  images: [{
+    type: String
+  }],
   status: {
     type: String,
     enum: ['upcoming', 'ongoing', 'completed', 'cancelled'],
@@ -50,7 +53,7 @@ const eventSchema = new mongoose.Schema({
   }
 });
 
-eventSchema.pre('save', function(next) {
+eventSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });

@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
+import MultiImageUpload from "@/components/admin/MultiImageUpload";
 import { getToken } from "@/lib/auth-storage";
 
 export default function NewProgramPage() {
@@ -21,13 +22,14 @@ export default function NewProgramPage() {
     description: "",
     category: "",
     image: "",
+    images: [] as string[],
     link: "",
     featured: false,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate required fields
     if (!formData.image) {
       alert("Please upload an image for the program");
@@ -53,6 +55,7 @@ export default function NewProgramPage() {
         body: JSON.stringify({
           ...formData,
           imageBase64: formData.image, // Store base64 in imageBase64 field
+          images: formData.images,
         }),
       });
 
@@ -136,6 +139,15 @@ export default function NewProgramPage() {
                   {!formData.image && (
                     <p className="text-xs text-red-600 mt-1">Image is required</p>
                   )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-[#1a1a1a]">Gallery Images (Optional)</Label>
+                  <p className="text-xs text-[#4a4a4a]">Upload up to 5 additional images for this program's gallery.</p>
+                  <MultiImageUpload
+                    value={formData.images}
+                    onChange={(base64Array) => setFormData({ ...formData, images: base64Array.slice(0, 5) })}
+                  />
                 </div>
 
                 <div className="space-y-2">

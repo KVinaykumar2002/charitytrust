@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, MapPin, Clock, ArrowRight, Users, Search, X } from "lucide-react";
+import { Calendar, MapPin, Clock, ArrowRight, Users, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
 import { getPublicEvents } from "@/lib/api";
@@ -23,6 +23,7 @@ interface Event {
   time?: string;
   status?: string;
   dateTimestamp?: number;
+  allImages?: string[];
 }
 
 export default function EventsPage() {
@@ -34,6 +35,9 @@ export default function EventsPage() {
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [selectedMonth, setSelectedMonth] = useState<string>("");
   const [selectedDay, setSelectedDay] = useState<string>("");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedEventImages, setSelectedEventImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     fetchEvents();
@@ -48,11 +52,13 @@ export default function EventsPage() {
       const eventsData = Array.isArray(result?.data)
         ? result.data
         : Array.isArray(result)
-        ? result
-        : [];
+          ? result
+          : [];
 
       const mappedEvents = eventsData.map((e: any) => {
         const imageSrc = e.imageBase64 || e.image || e.imageUrl;
+        const extraImages = Array.isArray(e.images) ? e.images : [];
+        const allImages = [imageSrc, ...extraImages].filter(Boolean);
         let timeString = e.time || "";
         if (!timeString && e.date) {
           try {
@@ -79,6 +85,7 @@ export default function EventsPage() {
           title: e.title || e.name || "Untitled Event",
           description: e.description || "",
           image: imageSrc,
+          allImages: allImages,
           date: e.date || e.eventDate,
           location: e.location || "",
           time: timeString,
@@ -102,6 +109,43 @@ export default function EventsPage() {
       setLoading(false);
     }
   };
+
+  const openLightbox = (images: string[] | undefined) => {
+    if (!images || images.length === 0) return;
+    setSelectedEventImages(images);
+    setCurrentImageIndex(0);
+    setLightboxOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setTimeout(() => setSelectedEventImages([]), 300);
+    document.body.style.overflow = "auto";
+  };
+
+  const nextImage = () => {
+    if (selectedEventImages.length === 0) return;
+    setCurrentImageIndex((prev) => (prev + 1) % selectedEventImages.length);
+  };
+
+  const prevImage = () => {
+    if (selectedEventImages.length === 0) return;
+    const len = selectedEventImages.length;
+    setCurrentImageIndex((prev) => (prev - 1 + len) % len);
+  };
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!lightboxOpen) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxOpen, selectedEventImages.length]);
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return "";
@@ -163,9 +207,9 @@ export default function EventsPage() {
     events.forEach((event) => {
       if (event.date) {
         const date = new Date(event.date);
-        if (!isNaN(date.getTime()) && 
-            (!selectedYear || date.getFullYear() === parseInt(selectedYear)) &&
-            (!selectedMonth || date.getMonth() + 1 === parseInt(selectedMonth))) {
+        if (!isNaN(date.getTime()) &&
+          (!selectedYear || date.getFullYear() === parseInt(selectedYear)) &&
+          (!selectedMonth || date.getMonth() + 1 === parseInt(selectedMonth))) {
           days.add(date.getDate());
         }
       }
@@ -399,18 +443,16 @@ export default function EventsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
                   onClick={() => setFilter(item.id as any)}
-                  className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-                    filter === item.id
-                      ? "text-white bg-[#FD7E14] dark:bg-[#FD7E14]"
-                      : "text-neutral-700 dark:text-white/70 bg-neutral-100 dark:bg-white/5 hover:bg-neutral-200 dark:hover:bg-white/10 hover:text-neutral-900 dark:hover:text-white"
-                  }`}
+                  className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${filter === item.id
+                    ? "text-white bg-[#FD7E14] dark:bg-[#FD7E14]"
+                    : "text-neutral-700 dark:text-white/70 bg-neutral-100 dark:bg-white/5 hover:bg-neutral-200 dark:hover:bg-white/10 hover:text-neutral-900 dark:hover:text-white"
+                    }`}
                 >
                   {item.label}
                   {item.count > 0 && (
                     <span
-                      className={`ml-2 text-xs ${
-                        filter === item.id ? "text-white/80" : "text-neutral-500 dark:text-white/40"
-                      }`}
+                      className={`ml-2 text-xs ${filter === item.id ? "text-white/80" : "text-neutral-500 dark:text-white/40"
+                        }`}
                     >
                       {item.count}
                     </span>
@@ -488,25 +530,28 @@ export default function EventsPage() {
                         className="group relative bg-white dark:bg-[#111] rounded-2xl border border-neutral-200 dark:border-white/5 overflow-hidden hover:border-neutral-300 dark:hover:border-white/10 transition-all duration-500"
                       >
                         {/* Image Section */}
-                        <div className="relative aspect-[16/10] overflow-hidden">
+                        <div
+                          className="relative aspect-[16/10] overflow-hidden cursor-pointer"
+                          onClick={() => openLightbox(event.allImages)}
+                        >
                           {event.image ? (
                             <img
                               src={event.image}
                               alt={event.title}
-                              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 pointer-events-none"
                             />
                           ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-[#FD7E14]/20 to-[#FD7E14]/5 flex items-center justify-center">
+                            <div className="w-full h-full bg-gradient-to-br from-[#FD7E14]/20 to-[#FD7E14]/5 flex items-center justify-center pointer-events-none">
                               <Calendar className="w-12 h-12 text-[#FD7E14]/30" />
                             </div>
                           )}
 
                           {/* Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
                           {/* Date Badge */}
                           {dateInfo.day && (
-                            <div className="absolute top-4 left-4 bg-[#FD7E14] text-white rounded-xl px-3 py-2 text-center min-w-[60px]">
+                            <div className="absolute top-4 left-4 bg-[#FD7E14] text-white rounded-xl px-3 py-2 text-center min-w-[60px] pointer-events-none">
                               <p className="text-xl font-bold leading-none">{dateInfo.day}</p>
                               <p className="text-xs uppercase tracking-wide opacity-80">{dateInfo.month}</p>
                             </div>
@@ -514,18 +559,17 @@ export default function EventsPage() {
 
                           {/* Status Badge */}
                           <div
-                            className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium ${
-                              isUpcoming
-                                ? "bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/30"
-                                : "bg-neutral-200 dark:bg-white/10 text-neutral-600 dark:text-white/60 border border-neutral-300 dark:border-white/10"
-                            }`}
+                            className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium pointer-events-none ${isUpcoming
+                              ? "bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/30"
+                              : "bg-neutral-200 dark:bg-white/10 text-neutral-600 dark:text-white/60 border border-neutral-300 dark:border-white/10"
+                              }`}
                           >
                             {isUpcoming ? "Upcoming" : "Completed"}
                           </div>
                         </div>
 
                         {/* Content Section */}
-                        <div className="p-5">
+                        <div className="p-5 cursor-pointer" onClick={() => openLightbox(event.allImages)}>
                           <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[#FD7E14] transition-colors">
                             {event.title}
                           </h3>
@@ -553,7 +597,13 @@ export default function EventsPage() {
                           </div>
 
                           {/* Action Button */}
-                          <button className="w-full py-3 px-4 bg-neutral-100 dark:bg-white/5 hover:bg-[#FD7E14] text-neutral-700 dark:text-white/70 hover:text-white text-sm font-medium rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                          <button
+                            className="w-full py-3 px-4 bg-neutral-100 dark:bg-white/5 hover:bg-[#FD7E14] text-neutral-700 dark:text-white/70 hover:text-white text-sm font-medium rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openLightbox(event.allImages);
+                            }}
+                          >
                             <span>{isUpcoming ? "Learn More" : "View Details"}</span>
                             <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                           </button>
@@ -611,6 +661,81 @@ export default function EventsPage() {
           </section>
         )}
       </main>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxOpen && selectedEventImages.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Navigation buttons */}
+            {selectedEventImages.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="absolute left-4 md:left-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="absolute right-4 md:right-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </button>
+              </>
+            )}
+
+            {/* Image container */}
+            <motion.div
+              key={currentImageIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-5xl max-h-[80vh] mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={selectedEventImages[currentImageIndex]}
+                alt="Event Gallery"
+                className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+              />
+
+              {/* Image info */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+                className="absolute -bottom-16 left-0 right-0 text-center"
+              >
+                <p className="text-white/80 text-sm mt-2 font-medium">
+                  {currentImageIndex + 1} / {selectedEventImages.length}
+                </p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <FlickeringFooter />
     </div>
