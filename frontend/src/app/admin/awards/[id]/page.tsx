@@ -112,7 +112,7 @@ export default function EditAwardPage({ params }: PageProps) {
         </Link>
         <div>
           <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">Edit Award</h1>
-          <p className="text-[#4a4a4a]">Update award details and set the link users go to when they click this award</p>
+          <p className="text-[#4a4a4a]">Update award details. You set the link here — when someone clicks this award on the site, they will navigate to that URL.</p>
         </div>
       </div>
 
@@ -148,17 +148,17 @@ export default function EditAwardPage({ params }: PageProps) {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="link" className="text-[#1a1a1a]">Link (URL)</Label>
+                  <Label htmlFor="link" className="text-[#1a1a1a]">Where to go when award is clicked (you set this link)</Label>
                   <Input
                     id="link"
                     type="url"
                     value={formData.link}
                     onChange={(e) => setFormData({ ...formData, link: e.target.value })}
                     className="border-[#d0d0d0] focus:border-[#E56B00]"
-                    placeholder="https://example.com/award-details"
+                    placeholder="https://example.com/award-article-or-detail-page"
                   />
                   <p className="text-xs text-[#4a4a4a]">
-                    When set, clicking this award on the About page will open this URL in a new tab.
+                    Admin must enter the URL here. When a visitor clicks this award on the About page, they will be taken to this link (opens in a new tab). Leave empty if the award should not be clickable.
                   </p>
                 </div>
                 <div className="space-y-2">

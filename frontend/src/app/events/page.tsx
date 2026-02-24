@@ -604,7 +604,7 @@ export default function EventsPage() {
                               openLightbox(event.allImages);
                             }}
                           >
-                            <span>{isUpcoming ? "Learn More" : "View Details"}</span>
+                            <span>View Gallery</span>
                             <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                           </button>
                         </div>
