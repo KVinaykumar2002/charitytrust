@@ -724,6 +724,55 @@ export async function getPublicAwards() {
   }
 }
 
+// Admin: get all awards
+export async function getAdminAwards(token: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/awards`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to fetch awards');
+  }
+  return response.json();
+}
+
+// Admin: get single award
+export async function getAdminAward(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/awards/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to fetch award');
+  }
+  return response.json();
+}
+
+// Admin: update award
+export async function updateAward(token: string, id: string, data: { name?: string; description?: string; image?: string; bgColor?: string; order?: number; link?: string; active?: boolean }) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/awards/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to update award');
+  }
+  return response.json();
+}
+
 // Get all active programs (public - no auth required)
 export async function getPublicPrograms() {
   try {

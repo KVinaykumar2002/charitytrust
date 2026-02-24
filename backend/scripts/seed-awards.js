@@ -22,6 +22,7 @@ const existingAwards = [
     image: PADMA_IMAGE,
     bgColor: '#E9C7BE',
     order: 0,
+    link: '',
     active: true,
   },
   {
@@ -30,6 +31,7 @@ const existingAwards = [
     image: PORTRAIT_IMAGE,
     bgColor: '#FFFFFF',
     order: 1,
+    link: '',
     active: true,
   },
   {
@@ -38,6 +40,7 @@ const existingAwards = [
     image: PORTRAIT_IMAGE,
     bgColor: '#1a1a1a',
     order: 2,
+    link: '',
     active: true,
   },
   {
@@ -46,6 +49,7 @@ const existingAwards = [
     image: PORTRAIT_IMAGE,
     bgColor: '#fdf5e6',
     order: 3,
+    link: '',
     active: true,
   },
   {
@@ -54,6 +58,7 @@ const existingAwards = [
     image: PORTRAIT_IMAGE,
     bgColor: '#004291',
     order: 4,
+    link: '',
     active: true,
   },
   {
@@ -62,6 +67,7 @@ const existingAwards = [
     image: PORTRAIT_IMAGE,
     bgColor: '#E9E9E9',
     order: 5,
+    link: '',
     active: true,
   },
 ];

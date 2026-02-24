@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { founderImages } from "@/lib/founder-images";
-import { getPublicAwards } from "@/lib/api";
+import { getPublicAwards } from "@/lib/api"; // Fetches awards from backend GET /api/public/awards
 
 export interface AwardItem {
   _id: string;
@@ -12,6 +12,7 @@ export interface AwardItem {
   image?: string;
   bgColor?: string;
   order?: number;
+  link?: string;
 }
 
 const AwardsRecognitions = () => {
@@ -93,33 +94,26 @@ const AwardsRecognitions = () => {
           {awards.map((award, index) => {
             const imageUrl = award.image?.trim() || defaultImage;
             const bgColor = award.bgColor?.trim() || "#fdf5e6";
+            const href = award.link?.trim() || undefined;
+            const cardClass =
+              "bg-white rounded-[4px] shadow-card overflow-hidden h-[340px] flex items-center justify-center transition-transform duration-300 hover:-translate-y-2 group relative" +
+              (href ? " cursor-pointer" : "");
             return (
-              <div
-                key={award._id}
-                className="bg-white rounded-[4px] shadow-card overflow-hidden h-[340px] flex items-center justify-center transition-transform duration-300 hover:-translate-y-2 group relative"
-              >
-                <div
-                  className="w-full h-full flex items-center justify-center relative p-8"
-                  style={{ backgroundColor: bgColor }}
-                >
-                  <div className="relative w-full h-full min-h-[200px]">
-                    <Image
-                      src={imageUrl}
-                      alt={award.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover opacity-40 group-hover:opacity-60 transition-opacity"
-                      priority={index <= 2}
-                    />
+              <div key={award._id} className="block">
+                {href ? (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cardClass}
+                  >
+                    <CardContent award={award} imageUrl={imageUrl} bgColor={bgColor} index={index} />
+                  </a>
+                ) : (
+                  <div className={cardClass}>
+                    <CardContent award={award} imageUrl={imageUrl} bgColor={bgColor} index={index} />
                   </div>
-                </div>
-
-                <div className="absolute inset-0 bg-[#004291]/90 text-white p-8 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform pointer-events-none">
-                  <span className="font-display font-bold text-lg mb-2">{award.name}</span>
-                  <p className="text-center text-sm md:text-base leading-relaxed font-sans">
-                    {award.description}
-                  </p>
-                </div>
+                )}
               </div>
             );
           })}
@@ -127,6 +121,44 @@ const AwardsRecognitions = () => {
       </div>
     </section>
   );
-};
+}
+
+function CardContent({
+  award,
+  imageUrl,
+  bgColor,
+  index,
+}: {
+  award: AwardItem;
+  imageUrl: string;
+  bgColor: string;
+  index: number;
+}) {
+  return (
+    <>
+      <div
+        className="w-full h-full flex items-center justify-center relative p-8"
+        style={{ backgroundColor: bgColor }}
+      >
+        <div className="relative w-full h-full min-h-[200px]">
+          <Image
+            src={imageUrl}
+            alt={award.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover opacity-40 group-hover:opacity-60 transition-opacity"
+            priority={index <= 2}
+          />
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-[#004291]/90 text-white p-8 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform pointer-events-none">
+        <span className="font-display font-bold text-lg mb-2">{award.name}</span>
+        <p className="text-center text-sm md:text-base leading-relaxed font-sans">
+          {award.description}
+        </p>
+      </div>
+    </>
+  );
+}
 
 export default AwardsRecognitions;

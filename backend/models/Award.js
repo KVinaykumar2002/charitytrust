@@ -24,6 +24,11 @@ const awardSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  link: {
+    type: String,
+    trim: true,
+    default: ''
+  },
   active: {
     type: Boolean,
     default: true

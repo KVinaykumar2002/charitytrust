@@ -296,17 +296,17 @@ router.get('/events/:id', async (req, res) => {
 router.post('/events', async (req, res) => {
   try {
     const eventData = { ...req.body };
-    
+
     // Store only imageBase64, remove other image fields
     if (eventData.imageBase64 || eventData.image) {
       eventData.imageBase64 = eventData.imageBase64 || eventData.image;
       delete eventData.image;
       delete eventData.imageUrl;
     }
-    
+
     const event = new Event(eventData);
     await event.save();
-    
+
     res.status(201).json({
       success: true,
       message: 'Event created successfully',
@@ -325,14 +325,14 @@ router.post('/events', async (req, res) => {
 router.put('/events/:id', async (req, res) => {
   try {
     const updateData = { ...req.body, updatedAt: new Date() };
-    
+
     // Store only imageBase64, remove other image fields
     if (updateData.imageBase64 || updateData.image) {
       updateData.imageBase64 = updateData.imageBase64 || updateData.image;
       delete updateData.image;
       delete updateData.imageUrl;
     }
-    
+
     const event = await Event.findByIdAndUpdate(
       req.params.id,
       updateData,
@@ -344,7 +344,7 @@ router.put('/events/:id', async (req, res) => {
         message: 'Event not found'
       });
     }
-    
+
     res.json({
       success: true,
       message: 'Event updated successfully',
@@ -428,13 +428,13 @@ router.get('/testimonials/:id', async (req, res) => {
 router.post('/testimonials', async (req, res) => {
   try {
     const testimonialData = { ...req.body };
-    
+
     // Store only imageBase64, remove other image fields
     if (testimonialData.imageBase64 || testimonialData.image) {
       testimonialData.imageBase64 = testimonialData.imageBase64 || testimonialData.image;
       delete testimonialData.image;
     }
-    
+
     const testimonial = new Testimonial(testimonialData);
     await testimonial.save();
     res.status(201).json({
@@ -455,13 +455,13 @@ router.post('/testimonials', async (req, res) => {
 router.put('/testimonials/:id', async (req, res) => {
   try {
     const updateData = { ...req.body, updatedAt: new Date() };
-    
+
     // Store only imageBase64, remove other image fields
     if (updateData.imageBase64 || updateData.image) {
       updateData.imageBase64 = updateData.imageBase64 || updateData.image;
       delete updateData.image;
     }
-    
+
     const testimonial = await Testimonial.findByIdAndUpdate(
       req.params.id,
       updateData,
@@ -591,17 +591,17 @@ router.get('/hero-images/:id', async (req, res) => {
 router.post('/hero-images', async (req, res) => {
   try {
     const heroImageData = { ...req.body };
-    
+
     // Store only imageBase64, remove other image fields
     if (heroImageData.imageBase64 || heroImageData.image) {
       heroImageData.imageBase64 = heroImageData.imageBase64 || heroImageData.image;
       delete heroImageData.image;
       delete heroImageData.imageUrl;
     }
-    
+
     const heroImage = new HeroImage(heroImageData);
     await heroImage.save();
-    
+
     res.status(201).json({
       success: true,
       message: 'Hero image created successfully',
@@ -620,14 +620,14 @@ router.post('/hero-images', async (req, res) => {
 router.put('/hero-images/:id', async (req, res) => {
   try {
     const updateData = { ...req.body, updatedAt: new Date() };
-    
+
     // Store only imageBase64, remove other image fields
     if (updateData.imageBase64 || updateData.image) {
       updateData.imageBase64 = updateData.imageBase64 || updateData.image;
       delete updateData.image;
       delete updateData.imageUrl;
     }
-    
+
     const heroImage = await HeroImage.findByIdAndUpdate(
       req.params.id,
       updateData,
@@ -639,7 +639,7 @@ router.put('/hero-images/:id', async (req, res) => {
         message: 'Hero image not found'
       });
     }
-    
+
     res.json({
       success: true,
       message: 'Hero image updated successfully',
@@ -723,7 +723,7 @@ router.get('/timeline/:id', async (req, res) => {
 router.post('/timeline', async (req, res) => {
   try {
     const timelineData = { ...req.body };
-    
+
     // Process images array - keep base64 data
     if (timelineData.images && Array.isArray(timelineData.images)) {
       timelineData.images = timelineData.images.map(img => ({
@@ -731,10 +731,10 @@ router.post('/timeline', async (req, res) => {
         alt: img.alt || 'Timeline image'
       }));
     }
-    
+
     const entry = new Timeline(timelineData);
     await entry.save();
-    
+
     res.status(201).json({
       success: true,
       message: 'Timeline entry created successfully',
@@ -753,7 +753,7 @@ router.post('/timeline', async (req, res) => {
 router.put('/timeline/:id', async (req, res) => {
   try {
     const updateData = { ...req.body, updatedAt: new Date() };
-    
+
     // Process images array - keep base64 data
     if (updateData.images && Array.isArray(updateData.images)) {
       updateData.images = updateData.images.map(img => ({
@@ -761,7 +761,7 @@ router.put('/timeline/:id', async (req, res) => {
         alt: img.alt || 'Timeline image'
       }));
     }
-    
+
     const entry = await Timeline.findByIdAndUpdate(
       req.params.id,
       updateData,
@@ -773,7 +773,7 @@ router.put('/timeline/:id', async (req, res) => {
         message: 'Timeline entry not found'
       });
     }
-    
+
     res.json({
       success: true,
       message: 'Timeline entry updated successfully',
@@ -815,21 +815,21 @@ router.delete('/timeline/:id', async (req, res) => {
 router.patch('/timeline/reorder', async (req, res) => {
   try {
     const { orderedIds } = req.body;
-    
+
     if (!Array.isArray(orderedIds)) {
       return res.status(400).json({
         success: false,
         message: 'orderedIds must be an array'
       });
     }
-    
+
     // Update order for each entry
-    const updatePromises = orderedIds.map((id, index) => 
+    const updatePromises = orderedIds.map((id, index) =>
       Timeline.findByIdAndUpdate(id, { order: index, updatedAt: new Date() })
     );
-    
+
     await Promise.all(updatePromises);
-    
+
     res.json({
       success: true,
       message: 'Timeline reordered successfully'
@@ -849,7 +849,7 @@ router.patch('/timeline/reorder', async (req, res) => {
 router.get('/eye-donation-pledges', async (req, res) => {
   try {
     const { status, search, page = 1, limit = 20 } = req.query;
-    
+
     const query = {};
     if (status) query.status = status;
     if (search) {
@@ -860,15 +860,15 @@ router.get('/eye-donation-pledges', async (req, res) => {
         { pledgeNumber: new RegExp(search, 'i') }
       ];
     }
-    
+
     const pledges = await EyeDonationPledge.find(query)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(parseInt(limit))
       .select('-__v');
-    
+
     const total = await EyeDonationPledge.countDocuments(query);
-    
+
     res.json({
       success: true,
       data: pledges,
@@ -921,30 +921,30 @@ router.patch('/eye-donation-pledges/:id/status', async (req, res) => {
         message: 'Invalid status'
       });
     }
-    
-    const updateData = { 
-      status, 
-      updatedAt: new Date() 
+
+    const updateData = {
+      status,
+      updatedAt: new Date()
     };
-    
+
     if (status === 'verified' || status === 'active') {
       updateData.verifiedBy = req.user.id;
       updateData.verifiedAt = new Date();
     }
-    
+
     const pledge = await EyeDonationPledge.findByIdAndUpdate(
       req.params.id,
       updateData,
       { new: true }
     );
-    
+
     if (!pledge) {
       return res.status(404).json({
         success: false,
         message: 'Eye donation pledge not found'
       });
     }
-    
+
     res.json({
       success: true,
       message: `Pledge ${status} successfully`,
@@ -964,22 +964,22 @@ router.patch('/eye-donation-pledges/:id/issue-card', async (req, res) => {
   try {
     const pledge = await EyeDonationPledge.findByIdAndUpdate(
       req.params.id,
-      { 
-        cardIssued: true, 
+      {
+        cardIssued: true,
         cardIssuedDate: new Date(),
         status: 'active',
-        updatedAt: new Date() 
+        updatedAt: new Date()
       },
       { new: true }
     );
-    
+
     if (!pledge) {
       return res.status(404).json({
         success: false,
         message: 'Eye donation pledge not found'
       });
     }
-    
+
     res.json({
       success: true,
       message: 'Card issued successfully',
@@ -1026,7 +1026,7 @@ router.get('/eye-donation-pledges/stats/overview', async (req, res) => {
     const active = await EyeDonationPledge.countDocuments({ status: 'active' });
     const cancelled = await EyeDonationPledge.countDocuments({ status: 'cancelled' });
     const cardsIssued = await EyeDonationPledge.countDocuments({ cardIssued: true });
-    
+
     res.json({
       success: true,
       data: {
@@ -1053,7 +1053,7 @@ router.get('/eye-donation-pledges/stats/overview', async (req, res) => {
 router.get('/blood-donations', async (req, res) => {
   try {
     const { type, status, bloodGroup, search, page = 1, limit = 20 } = req.query;
-    
+
     const query = {};
     if (type) query.type = type;
     if (status) query.status = status;
@@ -1066,15 +1066,15 @@ router.get('/blood-donations', async (req, res) => {
         { requestNumber: new RegExp(search, 'i') }
       ];
     }
-    
+
     const entries = await BloodDonation.find(query)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(parseInt(limit))
       .select('-__v');
-    
+
     const total = await BloodDonation.countDocuments(query);
-    
+
     res.json({
       success: true,
       data: entries,
@@ -1127,30 +1127,30 @@ router.patch('/blood-donations/:id/status', async (req, res) => {
         message: 'Invalid status'
       });
     }
-    
-    const updateData = { 
-      status, 
-      updatedAt: new Date() 
+
+    const updateData = {
+      status,
+      updatedAt: new Date()
     };
-    
+
     if (status === 'verified' || status === 'active') {
       updateData.verifiedBy = req.user.id;
       updateData.verifiedAt = new Date();
     }
-    
+
     const entry = await BloodDonation.findByIdAndUpdate(
       req.params.id,
       updateData,
       { new: true }
     );
-    
+
     if (!entry) {
       return res.status(404).json({
         success: false,
         message: 'Blood donation entry not found'
       });
     }
-    
+
     res.json({
       success: true,
       message: `Entry ${status} successfully`,
@@ -1169,7 +1169,7 @@ router.patch('/blood-donations/:id/status', async (req, res) => {
 router.patch('/blood-donations/:id/fulfill', async (req, res) => {
   try {
     const { units, donorId } = req.body;
-    
+
     const entry = await BloodDonation.findById(req.params.id);
     if (!entry || entry.type !== 'patient') {
       return res.status(404).json({
@@ -1177,22 +1177,22 @@ router.patch('/blood-donations/:id/fulfill', async (req, res) => {
         message: 'Patient request not found'
       });
     }
-    
+
     const fulfillment = {
       units: parseInt(units),
       date: new Date()
     };
     if (donorId) fulfillment.donorId = donorId;
-    
+
     entry.fulfilledBy.push(fulfillment);
     entry.unitsFulfilled += parseInt(units);
-    
+
     if (entry.unitsFulfilled >= entry.unitsRequired) {
       entry.status = 'fulfilled';
     }
-    
+
     await entry.save();
-    
+
     res.json({
       success: true,
       message: 'Request updated successfully',
@@ -1238,19 +1238,19 @@ router.get('/blood-donations/stats/overview', async (req, res) => {
     const totalRequests = await BloodDonation.countDocuments({ type: 'patient' });
     const pendingRequests = await BloodDonation.countDocuments({ type: 'patient', status: 'pending' });
     const fulfilledRequests = await BloodDonation.countDocuments({ type: 'patient', status: 'fulfilled' });
-    const urgentRequests = await BloodDonation.countDocuments({ 
-      type: 'patient', 
+    const urgentRequests = await BloodDonation.countDocuments({
+      type: 'patient',
       status: { $in: ['pending', 'verified'] },
       urgency: { $in: ['immediate', 'within_24_hours'] }
     });
-    
+
     // Blood group distribution for donors
     const bloodGroupDistribution = await BloodDonation.aggregate([
       { $match: { type: 'donor', status: 'active' } },
       { $group: { _id: '$bloodGroup', count: { $sum: 1 } } },
       { $sort: { _id: 1 } }
     ]);
-    
+
     res.json({
       success: true,
       data: {
@@ -1963,9 +1963,22 @@ router.get('/awards/:id', async (req, res) => {
   }
 });
 
+// Allowed fields for award create/update (from backend only; frontend reads from here)
+const AWARD_FIELDS = ['name', 'description', 'image', 'bgColor', 'order', 'link', 'active'];
+
+function pickAwardBody(body) {
+  const picked = {};
+  for (const key of AWARD_FIELDS) {
+    if (body[key] !== undefined) picked[key] = body[key];
+  }
+  picked.updatedAt = new Date();
+  return picked;
+}
+
 router.post('/awards', async (req, res) => {
   try {
-    const award = new Award(req.body);
+    const payload = pickAwardBody(req.body);
+    const award = new Award(payload);
     await award.save();
     res.status(201).json({
       success: true,
@@ -1983,9 +1996,10 @@ router.post('/awards', async (req, res) => {
 
 router.put('/awards/:id', async (req, res) => {
   try {
+    const payload = pickAwardBody(req.body);
     const award = await Award.findByIdAndUpdate(
       req.params.id,
-      { ...req.body, updatedAt: new Date() },
+      payload,
       { new: true, runValidators: true }
     );
     if (!award) {

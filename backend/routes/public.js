@@ -20,13 +20,13 @@ import Award from '../models/Award.js';
 
 const router = express.Router();
 
-// ==================== PUBLIC AWARDS ====================
+// ==================== PUBLIC AWARDS (Awards & Recognitions – source of truth from backend) ====================
 
 router.get('/awards', async (req, res) => {
   try {
     const awards = await Award.find({ active: true })
       .sort({ order: 1, createdAt: 1 })
-      .select('-__v')
+      .select('name description image bgColor order link _id')
       .lean();
     res.json({
       success: true,
