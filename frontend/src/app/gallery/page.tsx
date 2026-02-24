@@ -34,15 +34,15 @@ export default function GalleryPage() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const [eventsResult, projectsResult, programsResult] = await Promise.allSettled([
         getPublicEvents(),
         getPublicProjects(),
         getPublicPrograms(),
       ]);
-      
+
       const galleryImages: GalleryImage[] = [];
-      
+
       // Process events
       if (eventsResult.status === "fulfilled") {
         const eventsData = eventsResult.value?.data || eventsResult.value || [];
@@ -62,7 +62,7 @@ export default function GalleryPage() {
           });
         }
       }
-      
+
       // Process projects
       if (projectsResult.status === "fulfilled") {
         const projectsData = projectsResult.value?.data || projectsResult.value || [];
@@ -82,7 +82,7 @@ export default function GalleryPage() {
           });
         }
       }
-      
+
       // Process programs
       if (programsResult.status === "fulfilled") {
         const programsData = programsResult.value?.data || programsResult.value || [];
@@ -102,7 +102,7 @@ export default function GalleryPage() {
           });
         }
       }
-      
+
       setImages(galleryImages);
     } catch (error: any) {
       console.error("Error fetching gallery images:", error);
@@ -115,7 +115,7 @@ export default function GalleryPage() {
   const categories = ["All", "Events", "Projects", "Programs"];
   const filteredImages =
     selectedCategory === "All"
-    ? images 
+      ? images
       : images.filter((img) => img.category === selectedCategory);
 
   const openLightbox = (index: number) => {
@@ -191,8 +191,8 @@ export default function GalleryPage() {
               className="flex flex-wrap items-center justify-center gap-3"
             >
               {categories.map((category, index) => {
-                const count = category === "All" 
-                  ? images.length 
+                const count = category === "All"
+                  ? images.length
                   : images.filter((img) => img.category === category).length;
                 return (
                   <motion.button
@@ -201,17 +201,15 @@ export default function GalleryPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
                     onClick={() => setSelectedCategory(category)}
-                    className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-                      selectedCategory === category
-                        ? "text-black bg-[#FD7E14]"
-                        : "text-white/70 bg-white/5 hover:bg-white/10 hover:text-white"
-                    }`}
+                    className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${selectedCategory === category
+                      ? "text-black bg-[#FD7E14]"
+                      : "text-white/70 bg-white/5 hover:bg-white/10 hover:text-white"
+                      }`}
                   >
                     {category}
                     {count > 0 && (
-                      <span className={`ml-2 text-xs ${
-                        selectedCategory === category ? "text-black/70" : "text-white/40"
-                      }`}>
+                      <span className={`ml-2 text-xs ${selectedCategory === category ? "text-black/70" : "text-white/40"
+                        }`}>
                         {count}
                       </span>
                     )}
@@ -266,7 +264,16 @@ export default function GalleryPage() {
                         delay: index * 0.05,
                         ease: [0.22, 1, 0.36, 1],
                       }}
-                      onClick={() => openLightbox(index)}
+                      onClick={() => {
+                        if (selectedCategory === "All") {
+                          setSelectedCategory(image.category);
+                          const categoryImages = images.filter((img) => img.category === image.category);
+                          const newIndex = categoryImages.findIndex((img) => img.id === image.id);
+                          openLightbox(newIndex);
+                        } else {
+                          openLightbox(index);
+                        }
+                      }}
                       className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer bg-white/5"
                     >
                       {/* Image */}
@@ -290,9 +297,9 @@ export default function GalleryPage() {
                         {image.date && (
                           <p className="text-white/50 text-sm mt-1">
                             {new Date(image.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
                             })}
                           </p>
                         )}
@@ -313,12 +320,12 @@ export default function GalleryPage() {
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
                           />
                         </svg>
-            </div>
+                      </div>
                     </motion.div>
                   ))}
                 </AnimatePresence>
               </motion.div>
-          )}
+            )}
           </div>
         </section>
       </main>
@@ -377,28 +384,30 @@ export default function GalleryPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={filteredImages[currentImageIndex].src}
-                alt={filteredImages[currentImageIndex].alt}
+                src={filteredImages[currentImageIndex]?.src}
+                alt={filteredImages[currentImageIndex]?.alt}
                 className="max-w-full max-h-[80vh] object-contain rounded-lg"
               />
 
               {/* Image info */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.4 }}
-                className="absolute -bottom-20 left-0 right-0 text-center"
-              >
-                <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase">
-                  {filteredImages[currentImageIndex].category}
-                </span>
-                <h3 className="text-white font-semibold text-xl mt-1">
-                  {filteredImages[currentImageIndex].title}
-                </h3>
-                <p className="text-white/40 text-sm mt-2">
-                  {currentImageIndex + 1} / {filteredImages.length}
-                </p>
-              </motion.div>
+              {filteredImages[currentImageIndex] && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                  className="absolute -bottom-20 left-0 right-0 text-center"
+                >
+                  <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase">
+                    {filteredImages[currentImageIndex].category}
+                  </span>
+                  <h3 className="text-white font-semibold text-xl mt-1">
+                    {filteredImages[currentImageIndex].title}
+                  </h3>
+                  <p className="text-white/40 text-sm mt-2">
+                    {currentImageIndex + 1} / {filteredImages.length}
+                  </p>
+                </motion.div>
+              )}
             </motion.div>
           </motion.div>
         )}
