@@ -74,10 +74,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const imageSrc = project.imageBase64?.startsWith('data:image')
     ? project.imageBase64
     : project.imageBase64 || project.image || project.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y4ZjlmOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM0YTQhNGEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+  // Always link to project detail page (not Special Services list) so sub images show there
+  const projectId = project.id || project._id;
+  const detailHref = projectId ? `/projects/${projectId}` : "/projects";
 
   return (
     <Link
-      href={project.href || "#"}
+      href={detailHref}
       className="group block bg-card rounded-2xl border border-border-light shadow-[0_4px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 ease-in-out flex flex-col"
     >
       <div className="overflow-hidden rounded-t-2xl">

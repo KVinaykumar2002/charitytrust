@@ -218,12 +218,15 @@ export default function ProjectDetailPage() {
             )}
           </div>
 
-          {/* Thumbnail strip when multiple images */}
+          {/* Sub images / Gallery: thumbnails to switch main view */}
           {hasMultiple && galleryImages.length <= 12 && (
             <div className="mt-10">
-              <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">
-                All images ({galleryImages.length})
+              <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
+                Gallery — Sub images ({galleryImages.length})
               </h3>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+                Click a thumbnail to view that image above.
+              </p>
               <div className="flex flex-wrap gap-2">
                 {galleryImages.map((src, i) => (
                   <button
