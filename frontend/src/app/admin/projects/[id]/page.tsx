@@ -63,6 +63,8 @@ export default function EditProjectPage() {
           ? new Date(project.endDate).toISOString().split('T')[0]
           : "";
 
+        // Ensure images is always an array so gallery images show in edit form
+        const galleryImages = Array.isArray(project.images) ? project.images : [];
         setFormData({
           title: project.title || "",
           description: project.description || "",
@@ -70,7 +72,7 @@ export default function EditProjectPage() {
           location: project.location || "",
           status: project.status || "planning",
           image: project.imageBase64 || project.image || project.imageUrl || "",
-          images: project.images || [],
+          images: galleryImages,
           startDate: startDate,
           endDate: endDate,
         });

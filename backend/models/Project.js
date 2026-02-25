@@ -22,9 +22,10 @@ const projectSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  images: [{
-    type: String
-  }],
+  images: {
+    type: [String],
+    default: []
+  },
   programId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Program',

@@ -486,19 +486,21 @@ router.get('/projects', async (req, res) => {
   }
 });
 
-// Get single project
+// Get single project (use .lean() so JSON includes images array and all fields)
 router.get('/projects/:id', async (req, res) => {
   try {
-    const project = await Project.findById(req.params.id);
+    const project = await Project.findById(req.params.id).lean();
     if (!project) {
       return res.status(404).json({
         success: false,
         message: 'Project not found'
       });
     }
+    // Ensure images is always an array so edit form can show existing gallery images
+    const data = { ...project, images: Array.isArray(project.images) ? project.images : [] };
     res.json({
       success: true,
-      data: project
+      data
     });
   } catch (error) {
     res.status(500).json({
@@ -512,7 +514,7 @@ router.get('/projects/:id', async (req, res) => {
 // Create project - POST /api/admin/projects
 router.post('/projects', async (req, res) => {
   try {
-    const { title, description, category, location, image, imageBase64, status, startDate, endDate, programId, ...otherFields } = req.body;
+    const { title, description, category, location, image, imageBase64, images, status, startDate, endDate, programId, ...otherFields } = req.body;
 
     // Validate required fields
     if (!title || !description) {
@@ -522,7 +524,12 @@ router.post('/projects', async (req, res) => {
       });
     }
 
-    // Map incoming data to Project model
+    // Normalize images: ensure array of strings (base64 or URLs). Always store in DB.
+    const imagesArray = Array.isArray(images)
+      ? images.filter((u) => typeof u === 'string' && u.trim())
+      : [];
+
+    // Map incoming data to Project model (no ...otherFields so images cannot be overwritten)
     const projectData = {
       title: title.trim(),
       description: description.trim(),
@@ -534,9 +541,9 @@ router.post('/projects', async (req, res) => {
       status: status || 'planning',
       startDate: startDate ? new Date(startDate) : undefined,
       endDate: endDate ? new Date(endDate) : undefined,
-      programId: programId || null,
-      ...otherFields
+      programId: programId || null
     };
+    projectData.images = imagesArray;
 
     // Create new project
     const project = new Project(projectData);
@@ -560,11 +567,15 @@ router.post('/projects', async (req, res) => {
 // Update project
 router.put('/projects/:id', async (req, res) => {
   try {
-    const { title, description, category, location, image, imageBase64, status, startDate, endDate, programId, ...otherFields } = req.body;
+    const { title, description, category, location, image, imageBase64, images, status, startDate, endDate, programId, ...otherFields } = req.body;
 
-    // Map incoming data
+    // Normalize images array for DB (always set when key is present so it gets stored)
+    const imagesArray = (req.body.images !== undefined && Array.isArray(req.body.images))
+      ? req.body.images.filter((u) => typeof u === 'string' && u.trim())
+      : undefined;
+
+    // Map incoming data (build explicitly so images is never skipped)
     const updateData = {
-      ...otherFields,
       updatedAt: new Date()
     };
 
@@ -572,15 +583,20 @@ router.put('/projects/:id', async (req, res) => {
     if (description) updateData.description = description.trim();
     if (category !== undefined) updateData.category = category;
     if (location !== undefined) updateData.location = location;
-    
-    // Handle base64 image
+
+    // Handle base64 image (single primary image)
     if (imageBase64 !== undefined || image !== undefined) {
       const imageData = imageBase64 || image;
       updateData.imageBase64 = imageData;
       updateData.image = imageData;
       updateData.imageUrl = imageData;
     }
-    
+
+    // Always set images when provided so the array is stored in DB
+    if (imagesArray !== undefined) {
+      updateData.images = imagesArray;
+    }
+
     if (status !== undefined) updateData.status = status;
     if (startDate !== undefined) updateData.startDate = startDate ? new Date(startDate) : undefined;
     if (endDate !== undefined) updateData.endDate = endDate ? new Date(endDate) : undefined;

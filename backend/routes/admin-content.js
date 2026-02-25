@@ -19,6 +19,7 @@ import TeamCategory from '../models/TeamCategory.js';
 import Faq from '../models/Faq.js';
 import Service from '../models/Service.js';
 import Award from '../models/Award.js';
+import Gallery from '../models/Gallery.js';
 
 const router = express.Router();
 
@@ -2039,6 +2040,106 @@ router.delete('/awards/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error deleting award',
+      error: error.message,
+    });
+  }
+});
+
+// ==================== GALLERY CRUD (main category → sub category → multiple images) ====================
+
+router.get('/gallery', async (req, res) => {
+  try {
+    const items = await Gallery.find().sort({ mainCategory: 1, order: 1, subCategory: 1, createdAt: 1 });
+    res.json({ success: true, data: items });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching gallery',
+      error: error.message,
+    });
+  }
+});
+
+router.get('/gallery/:id', async (req, res) => {
+  try {
+    const item = await Gallery.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Gallery item not found' });
+    }
+    res.json({ success: true, data: item });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching gallery item',
+      error: error.message,
+    });
+  }
+});
+
+router.post('/gallery', async (req, res) => {
+  try {
+    const { mainCategory, subCategory, title, images, order, active } = req.body;
+    if (!mainCategory || !subCategory) {
+      return res.status(400).json({
+        success: false,
+        message: 'mainCategory and subCategory are required',
+      });
+    }
+    const imagesArray = Array.isArray(images) ? images.filter((u) => typeof u === 'string' && u.trim()) : [];
+    const item = new Gallery({
+      mainCategory: mainCategory.trim(),
+      subCategory: subCategory.trim(),
+      title: (title || '').trim(),
+      images: imagesArray,
+      order: order != null ? Number(order) : 0,
+      active: active !== false,
+    });
+    await item.save();
+    res.status(201).json({ success: true, message: 'Gallery item created', data: item });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error creating gallery item',
+      error: error.message,
+    });
+  }
+});
+
+router.put('/gallery/:id', async (req, res) => {
+  try {
+    const { mainCategory, subCategory, title, images, order, active } = req.body;
+    const updateData = { updatedAt: new Date() };
+    if (mainCategory !== undefined) updateData.mainCategory = String(mainCategory).trim();
+    if (subCategory !== undefined) updateData.subCategory = String(subCategory).trim();
+    if (title !== undefined) updateData.title = String(title).trim();
+    if (images !== undefined) updateData.images = Array.isArray(images) ? images.filter((u) => typeof u === 'string' && u.trim()) : [];
+    if (order !== undefined) updateData.order = Number(order) || 0;
+    if (active !== undefined) updateData.active = active !== false;
+    const item = await Gallery.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Gallery item not found' });
+    }
+    res.json({ success: true, message: 'Gallery item updated', data: item });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating gallery item',
+      error: error.message,
+    });
+  }
+});
+
+router.delete('/gallery/:id', async (req, res) => {
+  try {
+    const item = await Gallery.findByIdAndDelete(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Gallery item not found' });
+    }
+    res.json({ success: true, message: 'Gallery item deleted' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting gallery item',
       error: error.message,
     });
   }

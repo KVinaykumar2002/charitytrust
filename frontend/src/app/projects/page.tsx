@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
+import Link from "next/link";
 import { Calendar, MapPin, Target, CheckCircle2, Clock, PlayCircle, Search, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { getPublicProjects } from "@/lib/api";
@@ -517,11 +518,13 @@ export default function ProjectsPage() {
                   {filteredProjects.map((project) => {
                     const statusInfo = getStatusInfo(project.status);
                     const StatusIcon = statusInfo.icon;
+                    const projectId = project.id || project._id;
                     
                     return (
-                      <div
-                        key={project.id || project._id}
-                        className="bg-white dark:bg-neutral-800 rounded-2xl border border-gray-200 dark:border-neutral-700 shadow-lg overflow-hidden hover-lift-up group opacity-100"
+                      <Link
+                        key={projectId}
+                        href={projectId ? `/projects/${projectId}` : "#"}
+                        className="block bg-white dark:bg-neutral-800 rounded-2xl border border-gray-200 dark:border-neutral-700 shadow-lg overflow-hidden hover-lift-up group opacity-100"
                       >
                         <div className="relative w-full h-64 overflow-hidden">
                           <img
@@ -574,7 +577,7 @@ export default function ProjectsPage() {
                             )}
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>

@@ -1,159 +1,105 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Filter } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import NavigationHeader from "@/components/sections/navigation-header";
 import { Component as FlickeringFooter } from "@/components/ui/flickering-footer";
-import { getPublicEvents, getPublicProjects, getPublicPrograms } from "@/lib/api";
+import { getPublicGallery } from "@/lib/api";
 import VideoLoader from "@/components/VideoLoader";
 
-interface GalleryImage {
-  id: string;
-  src: string;
-  alt: string;
-  title: string;
-  category: string;
-  date?: string;
-  allImages?: string[];
+interface GalleryItem {
+  _id: string;
+  mainCategory: string;
+  subCategory: string;
+  title?: string;
+  images: string[];
 }
 
 export default function GalleryPage() {
-  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedMain, setSelectedMain] = useState<string>("All");
+  const [selectedSub, setSelectedSub] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [selectedGalleryItem, setSelectedGalleryItem] = useState<GalleryImage | null>(null);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+  const [lightboxTitle, setLightboxTitle] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    fetchGalleryImages();
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await getPublicGallery();
+        if (!cancelled && res?.data) setItems(res.data);
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load gallery");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
   }, []);
 
-  const fetchGalleryImages = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+  const mainCategories = ["All", ...Array.from(new Set(items.map((i) => i.mainCategory).filter(Boolean)))];
+  const subsForMain =
+    selectedMain === "All"
+      ? []
+      : Array.from(
+          new Set(
+            items
+              .filter((i) => i.mainCategory === selectedMain)
+              .map((i) => i.subCategory)
+              .filter(Boolean)
+          )
+        ).sort();
 
-      const [eventsResult, projectsResult, programsResult] = await Promise.allSettled([
-        getPublicEvents(),
-        getPublicProjects(),
-        getPublicPrograms(),
-      ]);
+  const displayItems: GalleryItem[] =
+    selectedMain === "All"
+      ? items
+      : selectedSub
+        ? items.filter((i) => i.mainCategory === selectedMain && i.subCategory === selectedSub)
+        : items.filter((i) => i.mainCategory === selectedMain);
 
-      const galleryImages: GalleryImage[] = [];
+  // When "All" or main-only (no sub): show one card per main→sub; click opens all images in lightbox
+  const showAsSubCards = selectedMain === "All" || selectedSub === null;
 
-      // Process events
-      if (eventsResult.status === "fulfilled") {
-        const eventsData = eventsResult.value?.data || eventsResult.value || [];
-        if (Array.isArray(eventsData)) {
-          eventsData.forEach((event: any) => {
-            const imageSrc = event.imageBase64 || event.image || event.imageUrl;
-            const extraImages = Array.isArray(event.images) ? event.images : [];
-            const allImages = [imageSrc, ...extraImages].filter(Boolean);
-            if (imageSrc) {
-              galleryImages.push({
-                id: `event-${event._id || event.id}`,
-                src: imageSrc,
-                allImages,
-                alt: event.title || event.name || "Event image",
-                title: event.title || event.name || "Event",
-                category: "Events",
-                date: event.date || event.eventDate,
-              });
-            }
-          });
-        }
-      }
+  const flatImages: { src: string; item: GalleryItem; indexInItem: number }[] = [];
+  if (!showAsSubCards) {
+    displayItems.forEach((item) => {
+      (item.images || []).forEach((src, idx) => {
+        if (src && src.trim()) flatImages.push({ src, item, indexInItem: idx });
+      });
+    });
+  }
 
-      // Process projects
-      if (projectsResult.status === "fulfilled") {
-        const projectsData = projectsResult.value?.data || projectsResult.value || [];
-        if (Array.isArray(projectsData)) {
-          projectsData.forEach((project: any) => {
-            const imageSrc = project.imageBase64 || project.image || project.imageUrl;
-            const extraImages = Array.isArray(project.images) ? project.images : [];
-            const allImages = [imageSrc, ...extraImages].filter(Boolean);
-            if (imageSrc) {
-              galleryImages.push({
-                id: `project-${project._id || project.id}`,
-                src: imageSrc,
-                allImages,
-                alt: project.title || "Project image",
-                title: project.title || "Project",
-                category: "Projects",
-                date: project.startDate || project.createdAt,
-              });
-            }
-          });
-        }
-      }
-
-      // Process programs
-      if (programsResult.status === "fulfilled") {
-        const programsData = programsResult.value?.data || programsResult.value || [];
-        if (Array.isArray(programsData)) {
-          programsData.forEach((program: any) => {
-            const imageSrc = program.imageBase64 || program.image || program.imageUrl;
-            const extraImages = Array.isArray(program.images) ? program.images : [];
-            const allImages = [imageSrc, ...extraImages].filter(Boolean);
-            if (imageSrc) {
-              galleryImages.push({
-                id: `program-${program._id || program.id}`,
-                src: imageSrc,
-                allImages,
-                alt: program.name || "Program image",
-                title: program.name || "Program",
-                category: "Programs",
-                date: program.startDate || program.createdAt,
-              });
-            }
-          });
-        }
-      }
-
-      setImages(galleryImages);
-    } catch (error: any) {
-      console.error("Error fetching gallery images:", error);
-      setError(error?.message || "Failed to load gallery images.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const categories = ["All", "Events", "Projects", "Programs"];
-  const filteredImages =
-    selectedCategory === "All"
-      ? images
-      : images.filter((img) => img.category === selectedCategory);
-
-  const openLightbox = (image: GalleryImage) => {
-    setSelectedGalleryItem(image);
-    setCurrentImageIndex(0);
+  const openLightbox = (item: GalleryItem, indexInItem: number) => {
+    setLightboxImages(item.images || []);
+    setLightboxTitle(item.subCategory ? `${item.mainCategory} → ${item.subCategory}` : item.mainCategory);
+    setCurrentImageIndex(indexInItem);
     setLightboxOpen(true);
     document.body.style.overflow = "hidden";
   };
 
   const closeLightbox = () => {
     setLightboxOpen(false);
-    setTimeout(() => setSelectedGalleryItem(null), 300); // clear after exit animation
+    setTimeout(() => {
+      setLightboxImages([]);
+      setLightboxTitle("");
+    }, 300);
     document.body.style.overflow = "auto";
   };
 
   const nextImage = () => {
-    if (!selectedGalleryItem?.allImages) return;
-    setCurrentImageIndex((prev) => (prev + 1) % selectedGalleryItem.allImages!.length);
+    setCurrentImageIndex((prev) => (prev + 1) % lightboxImages.length);
   };
 
   const prevImage = () => {
-    if (!selectedGalleryItem?.allImages) return;
-    const len = selectedGalleryItem.allImages.length;
+    const len = lightboxImages.length;
     setCurrentImageIndex((prev) => (prev - 1 + len) % len);
   };
 
-  // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!lightboxOpen) return;
@@ -163,14 +109,16 @@ export default function GalleryPage() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxOpen, filteredImages.length]);
+  }, [lightboxOpen, lightboxImages.length]);
+
+  const placeholder =
+    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y4ZjlmOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM0YTRhNGEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=";
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
       <NavigationHeader />
 
       <main className="flex-1 pt-32 pb-20">
-        {/* Hero Section */}
         <section className="relative px-6 md:px-12 lg:px-20 mb-16">
           <div className="max-w-7xl mx-auto">
             <motion.div
@@ -197,8 +145,8 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        {/* Filter Section */}
-        <section className="px-6 md:px-12 lg:px-20 mb-12">
+        {/* Main category tabs */}
+        <section className="px-6 md:px-12 lg:px-20 mb-6">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -206,26 +154,30 @@ export default function GalleryPage() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="flex flex-wrap items-center justify-center gap-3"
             >
-              {categories.map((category, index) => {
-                const count = category === "All"
-                  ? images.length
-                  : images.filter((img) => img.category === category).length;
+              {mainCategories.map((main, index) => {
+                const count =
+                  main === "All"
+                    ? items.length
+                    : items.filter((i) => i.mainCategory === main).length;
                 return (
                   <motion.button
-                    key={category}
+                    key={main}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${selectedCategory === category
-                      ? "text-black bg-[#FD7E14]"
-                      : "text-white/70 bg-white/5 hover:bg-white/10 hover:text-white"
-                      }`}
+                    onClick={() => {
+                      setSelectedMain(main);
+                      setSelectedSub(null);
+                    }}
+                    className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+                      selectedMain === main
+                        ? "text-black bg-[#FD7E14]"
+                        : "text-white/70 bg-white/5 hover:bg-white/10 hover:text-white"
+                    }`}
                   >
-                    {category}
+                    {main}
                     {count > 0 && (
-                      <span className={`ml-2 text-xs ${selectedCategory === category ? "text-black/70" : "text-white/40"
-                        }`}>
+                      <span className={`ml-2 text-xs ${selectedMain === main ? "text-black/70" : "text-white/40"}`}>
                         {count}
                       </span>
                     )}
@@ -236,96 +188,154 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        {/* Gallery Grid */}
+        {/* Sub-category tabs (when a main is selected and has subs) */}
+        {subsForMain.length > 0 && (
+          <section className="px-6 md:px-12 lg:px-20 mb-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <button
+                  onClick={() => setSelectedSub(null)}
+                  className={`px-4 py-2 text-xs font-medium rounded-full transition-all ${
+                    selectedSub === null
+                      ? "text-black bg-[#FD7E14]"
+                      : "text-white/60 bg-white/5 hover:bg-white/10"
+                  }`}
+                >
+                  All
+                </button>
+                {subsForMain.map((sub) => {
+                  const count = items
+                    .filter((i) => i.mainCategory === selectedMain && i.subCategory === sub)
+                    .reduce((acc, i) => acc + (i.images?.length || 0), 0);
+                  return (
+                    <button
+                      key={sub}
+                      onClick={() => setSelectedSub(sub)}
+                      className={`px-4 py-2 text-xs font-medium rounded-full transition-all ${
+                        selectedSub === sub
+                          ? "text-black bg-[#FD7E14]"
+                          : "text-white/60 bg-white/5 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {sub}
+                      {count > 0 && <span className="ml-1.5 opacity-80">({count})</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Gallery grid */}
         <section className="px-6 md:px-12 lg:px-20">
           <div className="max-w-7xl mx-auto">
             {loading ? (
-              <div className="flex items-center justify-center py-32">
+              <div className="flex justify-center py-32">
                 <VideoLoader size="lg" label="Loading gallery..." />
               </div>
             ) : error ? (
-              <div className="flex items-center justify-center py-32">
+              <div className="flex justify-center py-32">
                 <div className="text-center">
                   <p className="text-red-400 mb-4">{error}</p>
                   <button
-                    onClick={fetchGalleryImages}
-                    className="px-6 py-2.5 text-sm font-medium text-white bg-[#FD7E14] rounded-full hover:bg-[#FD7E14]/90 transition-colors"
+                    onClick={() => window.location.reload()}
+                    className="px-6 py-2.5 text-sm font-medium text-white bg-[#FD7E14] rounded-full hover:bg-[#FD7E14]/90"
                   >
                     Try Again
                   </button>
                 </div>
               </div>
-            ) : filteredImages.length === 0 ? (
-              <div className="flex items-center justify-center py-32">
-                <div className="text-center">
-                  <p className="text-white/50 mb-2">No images found</p>
-                  <p className="text-white/30 text-sm">Check back soon for updates</p>
+            ) : showAsSubCards ? (
+              displayItems.length === 0 ? (
+                <div className="flex justify-center py-32 text-center">
+                  <p className="text-white/50 mb-2">No categories yet.</p>
+                  <p className="text-white/30 text-sm">Admins can add main and sub-categories with images.</p>
                 </div>
+              ) : (
+                <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <AnimatePresence mode="popLayout">
+                    {displayItems.map((item, index) => {
+                      const thumb = (item.images && item.images[0]) || placeholder;
+                      const imageCount = item.images?.length || 0;
+                      return (
+                        <motion.div
+                          key={item._id}
+                          layout
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                          onClick={() => openLightbox(item, 0)}
+                          className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer bg-white/5"
+                        >
+                          <img
+                            src={thumb}
+                            alt={item.title || `${item.mainCategory} → ${item.subCategory}`}
+                            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                            onError={(e) => {
+                              e.currentTarget.src = placeholder;
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          <div className="absolute inset-0 p-5 flex flex-col justify-end">
+                            <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase mb-1">
+                              {item.mainCategory} → {item.subCategory}
+                            </span>
+                            {item.title && (
+                              <h3 className="text-white font-semibold text-lg line-clamp-2">{item.title}</h3>
+                            )}
+                            <p className="text-white/60 text-sm mt-1">{imageCount} image{imageCount !== 1 ? "s" : ""} · Click to view</p>
+                          </div>
+                          <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                            </svg>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
+                </motion.div>
+              )
+            ) : flatImages.length === 0 ? (
+              <div className="flex justify-center py-32 text-center">
+                <p className="text-white/50 mb-2">No images in this sub-category yet.</p>
               </div>
             ) : (
-              <motion.div
-                layout
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-              >
+              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <AnimatePresence mode="popLayout">
-                  {filteredImages.map((image, index) => (
+                  {flatImages.map(({ src, item, indexInItem }, index) => (
                     <motion.div
-                      key={image.id}
+                      key={`${item._id}-${indexInItem}`}
                       layout
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{
-                        duration: 0.4,
-                        delay: index * 0.05,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      onClick={() => openLightbox(image)}
+                      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                      onClick={() => openLightbox(item, indexInItem)}
                       className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer bg-white/5"
                     >
-                      {/* Image */}
                       <img
-                        src={image.src}
-                        alt={image.alt}
+                        src={src || placeholder}
+                        alt={item.title || `${item.subCategory} image`}
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                        onError={(e) => {
+                          e.currentTarget.src = placeholder;
+                        }}
                       />
-
-                      {/* Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                      {/* Content */}
                       <div className="absolute inset-0 p-5 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
                         <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase mb-1">
-                          {image.category}
+                          {item.mainCategory} → {item.subCategory}
                         </span>
-                        <h3 className="text-white font-semibold text-lg line-clamp-2">
-                          {image.title}
-                        </h3>
-                        {image.date && (
-                          <p className="text-white/50 text-sm mt-1">
-                            {new Date(image.date).toLocaleDateString("en-US", {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })}
-                          </p>
+                        {item.title && (
+                          <h3 className="text-white font-semibold text-lg line-clamp-2">{item.title}</h3>
                         )}
                       </div>
-
-                      {/* Corner accent */}
-                      <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg
-                          className="w-4 h-4 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                          />
+                      <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                         </svg>
                       </div>
                     </motion.div>
@@ -339,7 +349,7 @@ export default function GalleryPage() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxOpen && selectedGalleryItem && selectedGalleryItem.allImages && (
+        {lightboxOpen && lightboxImages.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -348,39 +358,28 @@ export default function GalleryPage() {
             className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center"
             onClick={closeLightbox}
           >
-            {/* Close button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+              className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center"
             >
               <X className="w-6 h-6 text-white" />
             </button>
-
-            {/* Navigation buttons */}
-            {selectedGalleryItem.allImages.length > 1 && (
+            {lightboxImages.length > 1 && (
               <>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  className="absolute left-4 md:left-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                  className="absolute left-4 md:left-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center"
                 >
                   <ChevronLeft className="w-6 h-6 text-white" />
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  className="absolute right-4 md:right-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                  className="absolute right-4 md:right-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center"
                 >
                   <ChevronRight className="w-6 h-6 text-white" />
                 </button>
               </>
             )}
-
-            {/* Image container */}
             <motion.div
               key={currentImageIndex}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -391,28 +390,16 @@ export default function GalleryPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={selectedGalleryItem.allImages[currentImageIndex]}
-                alt={selectedGalleryItem.alt}
+                src={lightboxImages[currentImageIndex]}
+                alt=""
                 className="max-w-full max-h-[80vh] object-contain rounded-lg"
               />
-
-              {/* Image info */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.4 }}
-                className="absolute -bottom-20 left-0 right-0 text-center"
-              >
-                <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase">
-                  {selectedGalleryItem.category}
-                </span>
-                <h3 className="text-white font-semibold text-xl mt-1">
-                  {selectedGalleryItem.title}
-                </h3>
+              <div className="absolute -bottom-20 left-0 right-0 text-center">
+                <span className="text-[#FD7E14] text-xs font-medium tracking-wider uppercase">{lightboxTitle}</span>
                 <p className="text-white/40 text-sm mt-2">
-                  {currentImageIndex + 1} / {selectedGalleryItem.allImages.length}
+                  {currentImageIndex + 1} / {lightboxImages.length}
                 </p>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         )}

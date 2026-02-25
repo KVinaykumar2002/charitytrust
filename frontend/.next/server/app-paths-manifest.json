@@ -1,11 +1,13 @@
 {
   "/about/page": "app/about/page.js",
-  "/admin/awards/[id]/page": "app/admin/awards/[id]/page.js",
-  "/admin/awards/page": "app/admin/awards/page.js",
+  "/admin/events/[id]/page": "app/admin/events/[id]/page.js",
   "/admin/events/page": "app/admin/events/page.js",
-  "/admin/programs/page": "app/admin/programs/page.js",
+  "/admin/projects/[id]/page": "app/admin/projects/[id]/page.js",
   "/admin/projects/page": "app/admin/projects/page.js",
   "/events/page": "app/events/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/gallery/page": "app/gallery/page.js"
+  "/gallery/page": "app/gallery/page.js",
+  "/page": "app/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/projects/page": "app/projects/page.js"
 }

@@ -122,13 +122,14 @@ const ProjectsShowcase = () => {
       // Map projects data to include image handling
       const mappedProjects = projectsData.map((p: any) => ({
         id: p._id || p.id,
+        _id: p._id || p.id,
         category: p.category || "Floods services",
         title: p.title || "",
         description: p.description || "",
         imageUrl: p.imageBase64 || p.image || p.imageUrl || "",
         imageBase64: p.imageBase64 || p.image || p.imageUrl || "",
         image: p.imageBase64 || p.image || p.imageUrl || "",
-        href: "#", // You can add a link field to the Project model if needed
+        href: `/projects/${p._id || p.id}`,
       }));
       
       setProjects(mappedProjects);

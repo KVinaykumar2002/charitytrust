@@ -17,6 +17,7 @@ import BloodDonation from '../models/BloodDonation.js';
 import Faq from '../models/Faq.js';
 import Service from '../models/Service.js';
 import Award from '../models/Award.js';
+import Gallery from '../models/Gallery.js';
 
 const router = express.Router();
 
@@ -138,6 +139,76 @@ router.get('/projects', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching projects',
+      error: error.message
+    });
+  }
+});
+
+// Get single project (public) - for project detail page with all images
+router.get('/projects/:id', async (req, res) => {
+  try {
+    const project = await Project.findOne({
+      _id: req.params.id,
+      status: { $ne: 'on_hold' }
+    })
+      .select('-__v')
+      .lean();
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: 'Project not found'
+      });
+    }
+    const data = { ...project, images: Array.isArray(project.images) ? project.images : [] };
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching project',
+      error: error.message
+    });
+  }
+});
+
+// ==================== PUBLIC GALLERY (main category → sub category → multiple images) ====================
+
+router.get('/gallery', async (req, res) => {
+  try {
+    const items = await Gallery.find({ active: true })
+      .sort({ mainCategory: 1, order: 1, subCategory: 1, createdAt: 1 })
+      .select('mainCategory subCategory title images order _id')
+      .lean();
+    const data = items.map((item) => ({
+      ...item,
+      images: Array.isArray(item.images) ? item.images : []
+    }));
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching gallery',
+      error: error.message
+    });
+  }
+});
+
+// ==================== PUBLIC GALLERY (main → sub → multiple images) ====================
+
+router.get('/gallery', async (req, res) => {
+  try {
+    const items = await Gallery.find({ active: true })
+      .sort({ mainCategory: 1, order: 1, subCategory: 1, createdAt: 1 })
+      .select('mainCategory subCategory title images order _id')
+      .lean();
+    const data = items.map((item) => ({
+      ...item,
+      images: Array.isArray(item.images) ? item.images : []
+    }));
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching gallery',
       error: error.message
     });
   }

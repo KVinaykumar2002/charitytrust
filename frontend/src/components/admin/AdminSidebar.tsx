@@ -20,6 +20,7 @@ import {
   UsersRound,
   HelpCircle,
   Trophy,
+  Images,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -31,6 +32,7 @@ const menuItems = [
   { href: "/admin/hero-images", label: "Hero Images", icon: ImageIcon },
   { href: "/admin/timeline", label: "Our Journey", icon: History },
   { href: "/admin/awards", label: "Awards & Recognitions", icon: Trophy },
+  { href: "/admin/gallery", label: "Gallery", icon: Images },
   { href: "/admin/programs", label: "Programs", icon: FolderKanban },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/events", label: "Events", icon: Calendar },

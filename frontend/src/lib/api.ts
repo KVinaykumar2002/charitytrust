@@ -773,6 +773,69 @@ export async function updateAward(token: string, id: string, data: { name?: stri
   return response.json();
 }
 
+// Admin: gallery (main → sub → multiple images)
+export async function getAdminGallery(token: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/gallery`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to fetch gallery');
+  }
+  return response.json();
+}
+
+export async function getAdminGalleryItem(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/gallery/${id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to fetch gallery item');
+  }
+  return response.json();
+}
+
+export async function createGalleryItem(token: string, data: { mainCategory: string; subCategory: string; title?: string; images?: string[]; order?: number; active?: boolean }) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/gallery`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to create gallery item');
+  }
+  return response.json();
+}
+
+export async function updateGalleryItem(token: string, id: string, data: { mainCategory?: string; subCategory?: string; title?: string; images?: string[]; order?: number; active?: boolean }) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/gallery/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to update gallery item');
+  }
+  return response.json();
+}
+
+export async function deleteGalleryItem(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/admin/content/gallery/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to delete gallery item');
+  }
+  return response.json();
+}
+
 // Get all active programs (public - no auth required)
 export async function getPublicPrograms() {
   try {
@@ -838,6 +901,50 @@ export async function getPublicProjects() {
       throw new Error('Cannot connect to backend server. Please ensure the backend is running on https://charitytrust-eykm.onrender.com');
     }
     throw new Error(error.message || 'Failed to fetch projects');
+  }
+}
+
+// Get single project by id (public - for detail page with all images)
+export async function getPublicProject(id: string) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/projects/${id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+      keepalive: true,
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.message || `Failed to fetch project: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running.');
+    }
+    throw new Error(error.message || 'Failed to fetch project');
+  }
+}
+
+// Get gallery (main → sub → multiple images) - public
+export async function getPublicGallery() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/public/gallery`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+      keepalive: true,
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.message || `Failed to fetch gallery: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error: any) {
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running.');
+    }
+    throw new Error(error.message || 'Failed to fetch gallery');
   }
 }
 
